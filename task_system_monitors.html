@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head class="at-element-marker">
+  <title>系统监控器</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="系统监控器" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-cn/test/task_system_monitors.html" />
+	<meta property="og:description" content="创建监控器，以便针对性能或清单阈值以及指标或日志条件发出警报。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-cn/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="创建监控器，以便针对性能或清单阈值以及指标或日志条件发出警报。">
+  <meta name="keywords" content=" monitors, alerts, log, metric"><meta name="robots" content="noindex" /><!-- Icons -->
+  <link rel="icon" href="/zh-cn/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-cn/test/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-cn/test/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-cn/test/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-cn/test/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-cn/test/css/tabbed-blocks.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-cn/test/js/na-search.js'></script><script src='/zh-cn/test/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-cn/test/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-cn/test/js/na-utility.js'></script>
+  <script src='/zh-cn/test/js/clouddocs.js'></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    var head = document.getElementsByTagName('head')[0];
+    var adobe = document.createElement("script");
+    adobe.type = "text/javascript";
+    adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+    head.appendChild(adobe);
+  }
+  </script>
+  <script src='/zh-cn/test/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-cn/test/js/toc.js'></script>
+  <script src='/zh-cn/test/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-81697994-3"></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-81697994-3');
+  }
+  </script>
+  <script src='/zh-cn/test/js/version-dropdown.js'></script>
+  <script src='/zh-cn/test/js/FileSaver.min.js'></script>
+  <script src='/zh-cn/test/js/jszip-utils.min.js'></script>
+  <script src='/zh-cn/test/js/jszip.min.js'></script>
+  <script src='/zh-cn/test/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  <div class="page-nav-toolbar">
+    <div id="version-dropdown"></div>
+    <div class="page-nav-contribute"  >
+      <a target="_blank" href="https://github.com/NetAppDocs/test/issues/new?body=Page%3A%20[系统监控器](https://docs.netapp.com/zh-cn/test/task_system_monitors.html)" class="page-nav-contribute-link" role="button"><img src="/zh-cn/test/images/discuss-sm.svg" class="github-icon" />请求文档变更</a>
+      <a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/task_system_monitors.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-cn/test/images/edit-sm.svg" class="github-icon" />在 GitHub 上编辑</a>
+      <a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-cn/test/images/article-sm.svg" class="github-icon" />提供者指南</a>
+    </div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此页面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">产品和解决方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支持和培训</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">云中心</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社区</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">日志</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客户案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">联系人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">联系人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-cn/test/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-cn/test/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-cn/test/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-cn/test/search.html"
+          data-type="widget" 
+          data-placeholder="搜索文档" 
+          data-no-results-found="未找到与 {query} 匹配的结果。" 
+          data-did-you-mean="搜索 {suggestion}。" 
+          data-no-results-found-did-you-mean="未找到与 {query} 匹配的结果。您是否要搜索 {suggestion}?" 
+          data-results-found="找到 {hitCount} 个结果"  
+          data-sk-es-pf-indexes=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">简体中文</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/test/task_system_monitors.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/test/task_system_monitors.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/test/task_system_monitors.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ko-kr/test/task_system_monitors.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/index.html">
+        Cloud Insights 文档
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_whats_new.html">
+        新增功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cloud_insights_onboarding_1.html">
+        注册 Cloud Insights
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 安全性</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/security_overview.html">
+        安全实践
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/security_information_and_region.html">
+        我们的存储内容以及存储位置
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 入门</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_feature_tutorials.html">
+        功能教程
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 正在收集数据</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_getting_started_with_cloud_insights.html">
+        概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_acquisition_unit_requirements.html">
+        采集单元要求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_configure_acquisition_unit.html">
+        配置采集单元
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_agent.html">
+        配置代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_configure_data_collectors.html">
+        配置数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_determining_data_collector_acq_status.html">
+        确定 Data Collector 采集状态
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_configured_data_collectors.html">
+        管理已配置的数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_research_failed_collector.html">
+        研究数据收集器错误
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_import_from_dashboard_gallery.html">
+        导入建议的信息板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_user_roles.html">
+        用户帐户和角色
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_other_cloud_products.html">
+        正在切换到其他 Cloud Central 产品
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/data_collector_list.html">
+        数据收集器列表
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_subscribing_to_cloud_insights.html">
+        订阅 Cloud Insights
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 自动设备解析</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_device_resolution_overview.html">
+        设备解析概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_rules.html">
+        设备解析规则
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_fibre_channel.html">
+        光纤通道设备解析
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_ip.html">
+        IP 设备解析
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_preferences.html">
+        设置设备解析首选项
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_device_resolution_regex_examples.html">
+        正则表达式示例
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 创建信息板</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboards_overview.html">
+        信息板概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboard_features.html">
+        信息板的功能
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 示例信息板</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dashboard_example_VM_performance.html">
+        虚拟机性能
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboard_best_practices.html">
+        信息板最佳实践
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Kubernetes 资源管理器</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/kubernetes_landing_page.html">
+        Kubernetes 概述页面
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/kubernetes_cluster_detail.html">
+        Kubernetes 集群页面
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用查询</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_querying_assets.html">
+        正在查询资产
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_query.html">
+        创建查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_queries.html">
+        查看可用查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_export_query_results.html">
+        将查询结果导出到 .CSV
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_modify_delete_query.html">
+        修改或删除查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_query_assign_multiple_applicationss.html">
+        为对象分配多个应用程序 / 标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_query_copy_table_values.html">
+        将表值复制到剪贴板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_log_explorer.html">
+        正在查询日志
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用标注</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_defining_annotations.html">
+        定义标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_annotation.html">
+        使用标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_annotation_rules.html">
+        使用标注规则
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_annotation_import.html">
+        使用 API 导入标注
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用应用程序</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_about_applications.html">
+        应用程序概念
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_application.html">
+        配置应用程序
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 监控和警报</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_monitor.html">
+        创建监控器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_and_manage_alerts.html">
+        查看和管理警报
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_notifications_email.html">
+        配置通知收件人
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/zh-cn/test/task_system_monitors.html">
+        系统定义的监控器
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/API_Overview.html">
+        使用 API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_webhook.html">
+        网络挂机通知
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 监控环境</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_audit.html">
+        审核事件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_ttl_and_downsampling.html">
+        TTL 和下抽样
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 资产页面信息</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_page_overview.html">
+        资产页面概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_in_context_filters.html">
+        对象的上下文内筛选
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_summary_section.html">
+        摘要拓扑部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_expert_view_section.html">
+        专家视图部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_user_data_section.html">
+        用户数据部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_alerts_section.html">
+        相关警报部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_searching_assets.html">
+        搜索资产的提示和提示
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 报告</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_overview.html">
+        报告概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_user_roles.html">
+        报告用户角色
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_predefined_reports.html">
+        使用预定义报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_storage_manager_dashboard.html">
+        Storage Manager 信息板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_create_example.html">
+        创建示例报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_managing_reports.html">
+        管理报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_creating_custom_reports.html">
+        自定义报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_creating_custom_reports.html#reporting-data-models">
+        数据模型
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_querying_database.html">
+        报告数据库 API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_data_retention.html">
+        数据保留
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_schema_diagrams.html">
+        架构图
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_schemas.html">
+        模式表
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Cloud Secure</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_intro.html">
+        关于 Cloud Secure
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 入门</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_getting_started.html">
+        Cloud Secure 入门
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_agent_requirements.html">
+        Cloud Secure 代理要求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_add_agent.html">
+        配置 Cloud Secure 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_delete_agent.html">
+        删除 Cloud Secure 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_user_dir_connect.html">
+        配置 AD 目录收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_user_dir_connect_ldap.html">
+        配置 LDAP 目录收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_cs_amazon_fsx.html">
+        配置适用于 NetApp ONTAP 收集器的 Amazon FSX
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_add_collector_svm.html">
+        配置 ONTAP SVM 数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_cs_incloud.html">
+        配置 Cloud ONTAP 数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_user_management.html">
+        Cloud Secure 用户管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_event_rate_checker.html">
+        事件速率检查器
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_alert_data.html">
+        警报
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 取证</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_activity_history.html">
+        活动取证—所有活动
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_entity_detail.html">
+        活动取证—实体
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_user_overview.html">
+        用户
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_automated_response_policies.html">
+        自动响应策略
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_restrict_user_access.html">
+        限制用户访问
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_attack_simulator.html">
+        模拟勒索软件攻击
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_notifications_email.html">
+        通知
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_api.html">
+        Cloud Secure API
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_activeiq.html">
+        Active IQ
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 故障排除</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_general_problems.html">
+        常规故障排除
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_linux_acquisition_unit_problems.html">
+        排除 Linux 采集单元问题
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_windows_acquisition_unit_problems.html">
+        对 Windows 采集单元问题进行故障排除
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_research_failed_collector.html">
+        调查数据收集器错误
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 参考支持</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_requesting_support.html">
+        请求支持
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_data_collector_support_matrix.html">
+        数据收集器支持列表
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 《数据收集器参考—基础架构》</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_data_collector_reference.html">
+        供应商参考概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_amazon_ec2.html">
+        AWS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_azure.html">
+        Azure 酒店
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Broadcom</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_brocade_bna.html">
+        Brocade Network Advisor
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_brocade_fc_switch.html">
+        光纤通道交换机
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_cisco_fc_switch.html">
+        Cisco
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Dell</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_dell_xc_series.html">
+        xC 系列
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Dell EMC</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_datadomain.html">
+        数据域
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_ecs.html">
+        ECS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_isilon.html">
+        PowerScale
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_powerstore.html">
+        PowerStore
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_recoverpoint.html">
+        RecoverPoint
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_scaleio.html">
+        ScaleIO
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_unity.html">
+        Unity （ VNXe ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vmax_powermax.html">
+        VMAX/PowerMax
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_block.html">
+        VNX 块（ Clariion ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_file.html">
+        VNX 文件（ Celerra ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_unified.html">
+        VNX 统一
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vplex.html">
+        VPLEX
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_xio.html">
+        XtremIO
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_fujitsu_eternus.html">
+        Fujitsu
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_google_cloud.html">
+        Google
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> HP 企业</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hp_3par.html">
+        HP Alletra 9000 和 Primera
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hpe_commandview.html">
+        HP Command View AE
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hpe_nimble.html">
+        HPE Alletra 6000
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Hitachi Data Systems</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_commandsuite.html">
+        HDS 命令套件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_nas.html">
+        HDS HNAS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_ops_center.html">
+        HDS 运营中心
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_infinidat_infinibox.html">
+        无限
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_huawei_oceanstor.html">
+        华为
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> IBM</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_cleversafe.html">
+        Cleverssafe
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_cs.html">
+        CS 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_ds.html">
+        系统存储 DS8000 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_powervm.html">
+        PowerVM
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_svc.html">
+        SAN 卷控制器（ SVC ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_xiv.html">
+        XIV/A9000
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_lenovo.html">
+        联想
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Microsoft</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_anf.html">
+        Azure NetApp Files
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_hyperv.html">
+        Hyper-V
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> NetApp</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_astra_data_store.html">
+        Astra 数据存储
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_connection.html">
+        适用于 ONTAP 9.9+ 的云连接
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_volumes_ontap.html">
+        Cloud Volumes ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_volumes.html">
+        适用于 AWS 的 Cloud Volumes Services
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cdot.html">
+        ONTAP 数据管理软件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_7mode.html">
+        Data ONTAP 7- 模式
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_eseries.html">
+        E 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_hci.html">
+        NetApp HCI 管理服务器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_solidfire.html">
+        SolidFire
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_storagegrid.html">
+        StorageGRID
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_nutanix.html">
+        Nutanix
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_openstack.html">
+        OpenStack
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_oracle_zfs.html">
+        Oracle
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_pure_flasharray.html">
+        纯净
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_redhat_virtualization.html">
+        Red Hat
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_vmware.html">
+        VMware
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 《数据收集器参考—服务》</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_node.html">
+        主机 / 节点
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_activemq.html">
+        ActiveMQ
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_apache.html">
+        Apache
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_consul.html">
+        Consu
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_couchbase.html">
+        Couchbase
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_couchdb.html">
+        CouchDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_docker.html">
+        Docker
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_elasticsearch.html">
+        Elasticsearch
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_flink.html">
+        Flink
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_hadoop.html">
+        Hadoop
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_haproxy.html">
+        HA 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_jvm.html">
+        Java
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kafka.html">
+        Kafka
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kapacitor.html">
+        Kapacitor
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kibana.html">
+        Kibana
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_agent.html#kubernetes">
+        Kubernetes
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_memcached.html">
+        已缓存内存
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_mongodb.html">
+        MongoDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_mysql.html">
+        MySQL
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_netstat.html">
+        netstat
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_nginx.html">
+        nginx
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_openzfs.html">
+        OpenZFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_postgresql.html">
+        PostgreSQL
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_puppetagent.html">
+        Puppet
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_redis.html">
+        Redis
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_rethinkdb.html">
+        RethinkDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_zookeeper.html">
+        Zookeeper
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_object_icons.html">
+        对象图标参考
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_legal_notices.html">
+        法律声明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-cn/test/">Cloud&nbsp;Insights</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-cn/test/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 简体中文版经机器翻译而成，仅供参考。如与英语版出现任何冲突，应以英语版为准。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">系统监控器</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-03-12 06:25:15 +0000">03/12/2022</time>
+    
+  
+
+<span>提供者
+</span>
+
+
+</p>
+
+<div id="toc" class="toc">
+<div id="toctitle">目录</div>
+<ul class="sectlevel1">
+<li><a href="#监控组">监控组</a>
+<ul class="sectlevel2">
+<li><a href="#自定义监控组">自定义监控组</a></li>
+</ul>
+</li>
+<li><a href="#监控器说明">监控器说明</a>
+<ul class="sectlevel2">
+<li><a href="#指标监控器">指标监控器</a></li>
+<li><a href="#日志监控器未解决时间问题">日志监控器（未解决时间问题）</a></li>
+<li><a href="#日志监控器已按时间解析">日志监控器已按时间解析</a></li>
+<li><a href="#反勒索软件日志监控器">反勒索软件日志监控器</a></li>
+<li><a href="#astra-数据存储-ads-监控器">Astra 数据存储（ ADS ）监控器</a></li>
+</ul>
+</li>
+<li><a href="#更多信息">更多信息</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Cloud Insights 包括许多系统定义的指标和日志监控器。监控器界面将进行多项更改，以适应这些系统监控器。本节将介绍这些内容。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+默认情况下，系统监控器处于 <em>Paused_state 。在恢复监控之前，您必须确保已在数据收集器中启用 _Advanced 计数器数据收集 _ 和 _Enable ONTAP EMS log collection</em> 。可以在 ONTAP 数据收集器中的 <em>Advanced Configuration</em> 下找到这些选项：<span class="image"><img src="./media/Enable_Log_Monitor_Collection.png" alt="为 ONTAP 启用高级计数器和 EMS 日志收集"></span>
+</td>
+</tr>
+</table>
+</div>
+<!-- toc disabled -->
+</div>
+</div>
+<div class="sect1">
+<h2 id="监控组">监控组</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>通过分组，您可以查看和管理相关监控器。例如，您可以为环境中的存储配置一个专用监控组，也可以为特定收件人列表配置相关监控器。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Monitors_GroupList.png" alt="监控分组"></span></p>
+</div>
+<div class="paragraph">
+<p>组名称旁边会显示组中包含的监控器数量。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+自定义监控器可以暂停，恢复，删除或移动到其他组。系统定义的监控器可以暂停和恢复，但不能删除或移动。
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="自定义监控组">自定义监控组</h3>
+<div class="paragraph">
+<p>要创建新的自定义监控组，请单击 * "+" 创建新监控组 * 按钮。输入组的名称，然后单击 * 创建组 * 。此时将创建一个具有此名称的空组。</p>
+</div>
+<div class="paragraph">
+<p>要向组中添加监控器，请转到 <em>all monitors</em> 组（建议）并执行以下操作之一：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>要添加单个显示器，请单击该显示器右侧的菜单，然后选择 <em>Add to Group</em> 。选择要将监控器添加到的组。</p>
+</li>
+<li>
+<p>单击监控器名称以打开监控器的编辑视图，然后在 <em>Associate to a monitor group</em> 部分中选择一个组。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Monitors_AssociateToGroup.png" alt="与组关联"></span></p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>通过单击某个组并从菜单中选择 <em>Remove from Group</em> 来删除监控器。您不能从 <em>all monitors</em> 或 <em>Custom Monitors</em> 组中删除监控器。要从这些组中删除监控器，必须删除该监控器本身。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+从组中删除监控器不会从 Cloud Insights 中删除该监控器。要完全删除某个监控器，请选择该监控器，然后单击 <em>Delete</em> 。此操作还会将其从所属组中删除，并且任何用户都无法再使用它。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>您也可以按相同方式将显示器移动到其他组，选择 <em>move to Group</em> 。</p>
+</div>
+<div class="paragraph">
+<p>要一次性暂停或恢复组中的所有监视器，请选择该组的菜单，然后单击 <em>Pause</em> 或 <em>Resume</em> 。</p>
+</div>
+<div class="paragraph">
+<p>使用同一菜单重命名或删除组。删除组不会从 Cloud Insights 中删除这些监控器；它们在 _all monitors_中 仍然可用。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Monitors_PauseGroup.png" alt="暂停组"></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="监控器说明">监控器说明</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>系统定义的监控器由预定义的指标和条件以及默认说明和更正操作组成，这些内容无法修改。您可以修改系统定义的监控器的通知收件人列表。要查看指标，条件，问题描述和更正操作，或者修改收件人列表，请打开系统定义的监控组，然后单击列表中的监控器名称。</p>
+</div>
+<div class="paragraph">
+<p>无法修改或删除系统定义的监控组。</p>
+</div>
+<div class="paragraph">
+<p>以下系统定义的监控器可在所记录的组中使用。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>* ONTAP Infrastructure* 可监控 ONTAP 集群中与基础架构相关的问题。</p>
+</li>
+<li>
+<p>* ONTAP 工作负载示例 * 包括与工作负载相关的问题的监控器。</p>
+</li>
+<li>
+<p>两个组中的监控器默认为 _Paused_state 。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>以下是 Cloud Insights 当前附带的系统监控器：</p>
+</div>
+<div class="sect2">
+<h3 id="指标监控器">指标监控器</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">监控器名称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">severity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">更正操作</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">光纤通道端口利用率高</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">光纤通道协议端口用于在客户主机系统和 ONTAP LUN 之间接收和传输 SAN 流量。如果端口利用率较高，则会成为瓶颈，并最终影响光纤通道协议工作负载中敏感数据的性能。警告警报表示应采取计划内操作来平衡网络流量。严重警报表示服务即将中断，应采取紧急措施平衡网络流量，以确保服务连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.将工作负载移至利用率较低的另一个 FCP 端口 2 。仅通过 ONTAP 中的 QoS 策略或主机端配置将某些 LUN 的流量限制为基本工作，以降低 FCP 端口的利用率… 如果违反警告阈值，请尽快采取以下措施： 1.请考虑配置更多 FCP 端口来处理数据流量，以便在更多端口 2 之间分配端口利用率。将工作负载移至利用率较低的另一个 FCP 端口 3 。仅通过 ONTAP 中的 QoS 策略或主机端配置将某些 LUN 的流量限制为基本工作，以降低 FCP 端口的利用率</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LUN 高延迟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LUN 是指通常由性能敏感型应用程序（如数据库）驱动的 IO 流量的对象。高 LUN 延迟意味着应用程序本身可能会受到影响，无法完成其任务。警告警报表示应采取计划内操作将 LUN 移动到相应的节点或聚合。严重警报表示服务即将中断，应采取紧急措施以确保服务连续性。以下是基于介质类型的预期延迟 - SSD 最长 1-2 毫秒； SAS 最长 8-10 毫秒； SATA HDD 17 至 20 毫秒</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.如果 LUN 或其卷具有关联的 QoS 策略，请评估其阈值限制并验证它们是否导致 LUN 工作负载受到限制… 如果违反警告阈值，请尽快采取以下措施： 1.如果聚合的利用率也较高，请将 LUN 移动到另一个聚合 2 。如果此节点的利用率也较高，请将此卷移动到另一个节点或减少节点 3 的总工作负载。如果 LUN 或其卷具有关联的 QoS 策略，请评估其阈值限制并验证它们是否导致 LUN 工作负载受到限制</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">网络端口利用率高</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">网络端口用于在客户主机系统和 ONTAP 卷之间接收和传输 NFS ， CIFS 和 iSCSI 协议流量。如果端口利用率较高，则会成为瓶颈，并最终影响 NFS ， CIFS 和 iSCSI 工作负载的性能。警告警报表示应采取计划内操作来平衡网络流量。严重警报表示服务即将中断，应采取紧急措施平衡网络流量，以确保服务连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.仅通过 ONTAP 中的 QoS 策略或主机端分析将某些卷的流量限制为基本工作，以降低网络端口的利用率 2.配置一个或多个卷以使用另一个利用率较低的网络端口… 如果违反警告阈值，请尽快采取以下措施： 1.请考虑配置更多网络端口来处理数据流量，以便在更多端口 2 之间分配端口利用率。配置一个或多个卷以使用另一个利用率较低的网络端口</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NVMe 命名空间延迟高</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NVMe 命名空间是指通常由性能敏感型应用程序（如数据库）驱动的 IO 流量提供服务的对象。NVMe 命名空间延迟较高意味着应用程序本身可能会受到影响，无法完成其任务。警告警报表示应采取计划内操作将 LUN 移动到相应的节点或聚合。严重警报表示服务即将中断，应采取紧急措施以确保服务连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.如果为 NVMe 命名空间或其卷分配了 QoS 策略，请评估其限制阈值，以防其导致 NVMe 命名空间工作负载受到限制… 如果违反警告阈值，请尽快采取以下措施： 1.如果聚合的利用率也较高，请将 LUN 移动到另一个聚合 2 。如果此节点的利用率也较高，请将此卷移动到另一个节点或减少节点 3 的总工作负载。如果 NVMe 命名空间或其卷已分配 QoS 策略，请评估其限制阈值，以防其导致 NVMe 命名空间工作负载受到限制</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtree 容量硬限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtree 是一种逻辑上定义的文件系统，可以作为卷中根目录的一个特殊子目录存在。每个 qtree 都有一个以 KB 为单位的空间配额，可用于存储数据，以控制卷中用户数据的增长，并且不超过其总容量。qtree 保持软存储容量配额，以便能够在达到 qtree 中的总容量配额限制并无法再存储数据之前主动向用户发出警报。监控 qtree 中存储的数据量可确保用户接收到无中断的数据服务。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.请考虑增加树空间配额以适应增长 2 。请考虑指示用户删除树中不再需要的不需要的数据以释放空间</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtree 容量已满</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtree 是一种逻辑上定义的文件系统，可以作为卷中根目录的一个特殊子目录存在。每个 qtree 都有一个默认空间配额或一个配额策略定义的配额，用于在卷容量范围内限制树中存储的数据量。警告警报表示应采取计划内操作来增加空间。严重警报表示服务即将中断，应采取紧急措施释放空间以确保服务连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.请考虑增加 qtree 的空间以适应增长 2 。请考虑删除不再需要的数据以释放空间… 如果违反警告阈值，请尽快采取以下措施： 1.请考虑增加 qtree 的空间以适应增长 2 。请考虑删除不再需要的数据以释放空间</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtree 容量软限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtree 是一种逻辑上定义的文件系统，可以作为卷中根目录的一个特殊子目录存在。每个 qtree 都有一个以 KB 为单位的空间配额，可用于存储数据，以控制卷中用户数据的增长，并且不超过其总容量。qtree 保持软存储容量配额，以便能够在达到 qtree 中的总容量配额限制并无法再存储数据之前主动向用户发出警报。监控 qtree 中存储的数据量可确保用户接收到无中断的数据服务。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反警告阈值，请尽快采取以下措施： 1.请考虑增加树空间配额以适应增长 2 。请考虑指示用户删除树中不再需要的不需要的数据以释放空间</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtree 文件硬限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtree 是一种逻辑上定义的文件系统，可以作为卷中根目录的一个特殊子目录存在。每个 qtree 都有一个可包含的文件数量配额，以便在卷中保持可管理的文件系统大小。qtree 会保留硬文件编号配额，超过此配额，树中的新文件将被拒绝。监控 qtree 中的文件数量可确保用户获得无中断的数据服务。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.请考虑增加 qtree 2 的文件数量配额。从 qtree 文件系统中删除不再使用的文件。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtree 文件软限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qtree 是一种逻辑上定义的文件系统，可以作为卷中根目录的一个特殊子目录存在。每个 qtree 都有一个可包含的文件数量配额，以便在卷中保持可管理的文件系统大小。qtree 会保留软文件编号配额，以便能够在达到 qtree 中的文件限制并无法存储任何其他文件之前主动向用户发出警报。监控 qtree 中的文件数量可确保用户获得无中断的数据服务。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反警告阈值，请尽快采取以下措施： 1.请考虑增加 qtree 2 的文件数量配额。从 qtree 文件系统中删除不再使用的文件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot 预留空间已满</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">存储应用程序和客户数据需要卷的存储容量。其中一部分空间称为 Snapshot 预留空间，用于存储快照，以便在本地保护数据。ONTAP 卷中存储的新数据和更新数据越多，快照容量就越多，未来的新数据或更新数据可用的快照存储容量也就越少。如果卷中的快照数据容量达到总快照预留空间，可能会导致客户无法存储新的快照数据，并降低卷中数据的保护级别。监控卷已用快照容量可确保数据服务的连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.请考虑将快照配置为在快照预留已满时使用卷中的数据空间 2 。请考虑删除一些可能不再需要的旧快照以释放空间… 如果违反警告阈值，请尽快采取以下措施： 1.请考虑增加卷中的快照预留空间以适应增长 2 。请考虑将快照配置为在快照预留空间已满时使用卷中的数据空间</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">存储容量限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当存储池（聚合）填满时， I/O 操作会减慢并最终停止，从而导致存储中断意外事件。警告警报表示应尽快采取计划内的操作来还原最小可用空间。严重警报表示服务即将中断，应采取紧急措施释放空间以确保服务连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.删除非关键卷上的快照 2.删除非必要工作负载且可从非存储副本还原的卷或 LUN… 如果违反警告阈值，请尽快采取以下措施： 1.将一个或多个卷移动到其他存储位置 2.添加更多存储容量 3.更改存储效率设置或将非活动数据分层到云存储</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">存储性能限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当存储系统达到性能限制时，操作会减慢，延迟会增加，工作负载和应用程序可能会开始出现故障。ONTAP 会评估因工作负载而导致的存储池利用率，并估计已消耗的性能百分比。警告警报表示应采取计划内操作，将存储池负载减少到，因为可能没有足够的存储池性能来处理工作负载峰值。严重警报表示性能下降即将发生，应采取紧急措施来减少存储池负载，以确保服务连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.暂停计划的任务，例如 Snapshot 或 SnapMirror 复制 2.空闲的非基本工作负载… 如果违反警告阈值，请尽快采取以下措施： 1.将一个或多个工作负载移动到其他存储位置 2.添加更多存储节点（ AFF ）或磁盘架（ FAS ）并重新分配工作负载 3.更改工作负载特征（块大小，应用程序缓存等）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用户配额容量硬限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP 可识别有权访问卷中的卷，文件或目录的 Unix 或 Windows 系统的用户。因此， ONTAP 允许客户为其 Linux 或 Windows 系统的用户或用户组配置存储容量。用户或组策略配额用于限制用户可用于其自己数据的空间量。此配额的硬限制允许在达到总容量配额之前，当卷中已用容量正确时向用户发出通知。监控用户配额或组配额中存储的数据量可确保用户获得不间断的数据服务。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.请考虑增加用户或组配额的空间，以适应增长 2 。请考虑指示用户或组删除不再需要的数据以释放空间。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用户配额容量软限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP 可识别有权访问卷中的卷，文件或目录的 Unix 或 Windows 系统的用户。因此， ONTAP 允许客户为其 Linux 或 Windows 系统的用户或用户组配置存储容量。用户或组策略配额用于限制用户可用于其自己数据的空间量。此配额的软限制允许在卷中已用容量达到总容量配额时主动通知用户。监控用户配额或组配额中存储的数据量可确保用户获得不间断的数据服务。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反警告阈值，请尽快采取以下措施： 1.请考虑增加用户或组配额的空间，以适应增长 2 。请考虑删除不再需要的数据以释放空间。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷容量已满</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">存储应用程序和客户数据需要卷的存储容量。ONTAP 卷中存储的数据越多，未来数据的存储可用性就越低。如果卷中的数据存储容量达到总存储容量，则可能会导致客户由于缺少存储容量而无法存储数据。监控卷已用存储容量可确保数据服务的连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.请考虑增加卷的空间以适应增长 2 。请考虑删除不再需要的数据以释放空间… 如果违反警告阈值，请尽快采取以下措施： 1.请考虑增加卷的空间以适应此增长</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷高延迟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷是指通常由性能敏感型应用程序（包括 DevOps 应用程序，主目录和数据库）驱动的 IO 流量提供服务的对象。高卷延迟意味着应用程序本身可能会受到影响，无法完成其任务。监控卷延迟对于保持应用程序一致的性能至关重要。以下是基于介质类型的预期延迟 - SSD 最长 1-2 毫秒； SAS 最长 8-10 毫秒； SATA HDD 17 至 20 毫秒</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.如果为卷分配了 QoS 策略，请评估其限制阈值，以防其导致卷工作负载受到限制… 如果违反警告阈值，请尽快采取以下措施： 1.如果聚合的利用率也较高，请将卷移动到另一个聚合。2. 如果为卷分配了 QoS 策略，请评估其限制阈值，以防这些阈值导致卷工作负载受到限制。3. 如果节点的利用率也较高，请将卷移动到另一个节点或减少节点的总工作负载</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷索引节点限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">存储文件的卷使用索引节点（索引节点）来存储文件元数据。当卷用尽其索引节点分配时，无法再向其添加文件。警告警报表示应采取计划内操作来增加可用索引节点的数量。严重警报表示文件限制即将耗尽，应采取紧急措施释放索引节点以确保服务连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施以最大限度地减少服务中断： 1.请考虑增加卷的索引节点值。如果索引节点值已达到最大值，请考虑将卷拆分成两个或更多卷，因为文件系统已超出最大大小 2 。考虑使用 FlexGroup ，因为它有助于容纳大型文件系统… 如果违反警告阈值，请尽快采取以下措施： 1.请考虑增加卷的索引节点值。如果索引节点值已达到最大值，请考虑将卷拆分成两个或更多卷，因为文件系统已超出最大大小 2 。请考虑使用 FlexGroup ，因为它有助于容纳大型文件系统</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">监控器名称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI 严重性</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">监控问题描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">更正操作</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">节点高延迟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告 / 严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">节点延迟已达到可能影响节点上应用程序性能的级别。较低的节点延迟可确保应用程序的性能稳定一致。根据介质类型，预期延迟为： SSD 最长 1-2 毫秒； SAS 最长 8-10 毫秒； SATA HDD 17 至 20 毫秒。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则应立即采取措施以最大限度地减少服务中断： 1.暂停已计划的任务，快照或 SnapMirror 复制 2.通过 QoS 限制降低低优先级工作负载的需求 3.停用非基本工作负载考虑在违反警告阈值时立即采取措施： 1.将一个或多个工作负载移动到其他存储位置 2.通过 QoS 限制降低低优先级工作负载的需求 3.添加更多存储节点（ AFF ）或磁盘架（ FAS ）并重新分配工作负载 4.更改工作负载特征（块大小，应用程序缓存等）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">节点性能限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告 / 严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">节点性能利用率已达到可能影响此节点所支持的 IOS 和应用程序性能的水平。低节点性能利用率可确保应用程序的性能稳定一致。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，应立即采取措施，最大限度地减少服务中断： 1.暂停已计划的任务，快照或 SnapMirror 复制 2.通过 QoS 限制降低低优先级工作负载的需求 3.如果违反警告阈值，则停用非基本工作负载应考虑以下操作： 1.将一个或多个工作负载移动到其他存储位置 2.通过 QoS 限制降低低优先级工作负载的需求 3.添加更多存储节点（ AFF ）或磁盘架（ FAS ）并重新分配工作负载 4.更改工作负载特征（块大小，应用程序缓存等）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Storage VM 高延迟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告 / 严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Storage VM （ SVM ）延迟已达到可能影响 Storage VM 上应用程序性能的级别。较低的 Storage VM 延迟可确保应用程序的性能稳定一致。根据介质类型，预期延迟为： SSD 最长 1-2 毫秒； SAS 最长 8-10 毫秒； SATA HDD 17 至 20 毫秒。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则立即评估分配了 QoS 策略的 Storage VM 卷的阈值限制，以验证这些卷是否正在导致卷工作负载受到限制。如果违反警告阈值，请考虑立即执行以下操作： 1.如果聚合的利用率也较高，请将 Storage VM 的某些卷移动到另一个聚合。2. 对于分配了 QoS 策略的 Storage VM 中的卷，如果阈值限制导致卷工作负载受到限制，请评估这些阈值限制 3.如果节点的利用率较高，请将 Storage VM 的某些卷移动到另一个节点或减少节点的总工作负载</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用户配额文件硬限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷中创建的文件数已达到严重限制，无法创建其他文件。监控存储的文件数量可确保用户获得无中断的数据服务。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则需要立即采取措施，以最大限度地减少服务中断。…请考虑采取以下措施： 1.增加特定用户的文件数量配额 2.删除不需要的文件以减少特定用户对文件配额的压力</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用户配额文件软限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷中创建的文件数已达到配额的阈值限制，并且接近严重限制。如果配额达到严重限制，则无法创建其他文件。监控用户存储的文件数量可确保用户获得无中断的数据服务。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反警告阈值，请考虑立即采取措施： 1.增加特定用户配额 2 的文件数量配额。删除不需要的文件以减少特定用户对文件配额的压力</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷缓存未命中率</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告 / 严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷缓存未命中率是指从磁盘返回而不是从缓存返回的客户端应用程序读取请求的百分比。这意味着卷已达到设置的阈值。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则应立即采取措施以最大限度地减少服务中断： 1.将某些工作负载移出卷的节点以减少 IO 负载 2 。如果尚未位于卷的节点上，请通过购买和添加 Flash Cache 3 来增加 WAFL 缓存。通过 QoS 限制降低同一节点上较低优先级工作负载的需求如果违反警告阈值，请考虑立即采取措施： 1.将某些工作负载移出卷的节点以减少 IO 负载 2 。如果尚未位于卷的节点上，请通过购买和添加 Flash Cache 3 来增加 WAFL 缓存。通过 QoS 限制 4 降低同一节点上较低优先级工作负载的需求。更改工作负载特征（块大小，应用程序缓存等）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷 qtree 配额过量提交</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告 / 严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷 qtree 配额过量使用指定 qtree 配额将卷视为过量使用时的百分比。已达到为卷设置的 qtree 配额阈值。监控卷 qtree 配额过量提交可确保用户接收到无中断的数据服务。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值，则应立即采取措施以最大限度地减少服务中断： 1.增加卷 2 的空间。违反警告阈值时删除不需要的数据，然后考虑增加卷的空间。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="日志监控器未解决时间问题">日志监控器（未解决时间问题）</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">监控器名称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">severity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">更正操作</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS 凭据未初始化</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">信息</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果模块在初始化之前尝试从云凭据线程访问 Amazon Web Services （ AWS ）身份和访问管理（ IAM ）基于角色的凭据，则会发生此事件。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">" 等待云凭据线程以及系统完成初始化。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无法访问云层</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">存储节点无法连接到 Cloud Tier 对象存储 API 。某些数据将无法访问。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果您使用内部产品，请执行以下更正操作： …使用 network interface show 命令验证集群间 LIF 是否联机且正常运行。…通过对目标节点集群间 LIF 使用 "ping" 命令检查与对象存储服务器的网络连接。…确保以下事项：…对象存储的配置未更改。…登录和连接信息为 仍然有效。…如果问题描述仍然存在，请联系 NetApp 技术支持。如果使用 Cloud Volumes ONTAP ，请执行以下更正操作： …确保对象存储的配置未更改。… 确保登录和连接信息仍然有效。…如果问题描述仍然存在，请联系 NetApp 技术支持。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">磁盘已停止服务</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">信息</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">" 如果磁盘因标记为故障，正在清理或已进入维护中心而从服务中删除，则会发生此事件。 "</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FlexGroup 成分卷完整</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">" FlexGroup 卷中的成分卷已满，这可能发生原因会导致服务中断。您仍然可以在 FlexGroup 卷上创建或扩展文件。但是，不能修改成分卷上存储的任何文件。因此，在尝试对 FlexGroup 卷执行写入操作时，可能会出现随机的空间不足错误。 "</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">建议您使用 volume modify -files +X 命令向 FlexGroup 卷添加容量。…或者，也可以从 FlexGroup 卷中删除文件。但是，很难确定哪些文件已登录到成分卷上。 "</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FlexGroup 成分卷已接近全满</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">" FlexGroup 卷中的成分卷空间几乎用尽，这可能会导致发生原因服务中断。可以创建和扩展文件。但是，如果成分卷用尽空间，您可能无法附加到成分卷上的文件或对其进行修改。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">建议您使用 volume modify -files +X 命令向 FlexGroup 卷添加容量。…或者，也可以从 FlexGroup 卷中删除文件。但是，很难确定哪些文件已登录到成分卷上。 "</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FlexGroup 成分卷接近索引节点数</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">" FlexGroup 卷中的成分卷几乎没有索引节点，这可能会导致发生原因服务中断。成分卷收到的创建请求小于平均值。这可能会影响 FlexGroup 卷的整体性能，因为请求会路由到索引节点数更多的成分卷。 "</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">建议您使用 volume modify -files +X 命令向 FlexGroup 卷添加容量。…或者，也可以从 FlexGroup 卷中删除文件。但是，很难确定哪些文件已登录到成分卷上。 "</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FlexGroup 成分卷已用尽索引节点</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">" FlexGroup 卷的成分卷已用尽索引节点，这可能会导致发生原因服务中断。您不能在此成分卷上创建新文件。这可能会导致整个 FlexGroup 卷中的内容分布不平衡。 "</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">建议您使用 volume modify -files +X 命令向 FlexGroup 卷添加容量。…或者，也可以从 FlexGroup 卷中删除文件。但是，很难确定哪些文件已登录到成分卷上。 "</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LUN 脱机</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">信息</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">手动使 LUN 脱机时会发生此事件。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将 LUN 恢复联机。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">主单元风扇出现故障</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">一个或多个主单元风扇出现故障。系统仍可正常运行。…但是，如果此情况持续时间过长，则过热可能会触发自动关闭。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">" 重新拔插故障风扇。如果此错误仍然存在，请更换它们。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">主单元风扇处于警告状态</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">信息</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果一个或多个主设备风扇处于警告状态，则会发生此事件。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">更换指示的风扇以避免过热。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NVRAM 电池电量低</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NVRAM 电池容量严重不足。如果电池电量耗尽，可能会丢失数据。…如果配置了 AutoSupport 或 "call home" 消息，则系统会生成此消息并将其传输到 NetApp 技术支持和已配置的目标。成功传送 AutoSupport 消息可显著提高问题的确定和解决能力。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…使用 system node environment sensors show 命令查看电池的当前状态，容量和充电状态。…如果最近更换了电池或系统长时间不运行， 监控电池以验证其是否正在正常充电。…如果电池运行时间继续降低到临界水平以下，并且存储系统自动关闭，请联系 NetApp 技术支持。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">未配置服务处理器</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">" 此事件每周发生一次，提醒您配置服务处理器（ SP ）。SP 是一种物理设备，集成在您的系统中，用于提供远程访问和远程管理功能。您应将 SP 配置为使用其全部功能。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…使用 system service-processor network modify 命令配置 SP 。…可选， 使用 system service-processor network show 命令获取 SP 的 MAC 地址。…使用 system service-processor network show 命令验证 SP 网络配置。…使用 system service-processor network show AutoSupport 命令验证 SP 是否可以发送 AutoSupport 电子邮件。注意：在问题描述此命令之前，应在 ONTAP 中配置 AutoSupport 电子邮件主机和收件人。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">服务处理器脱机</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP 不再从服务处理器（ SP ）接收检测信号，即使已执行所有 SP 恢复操作也是如此。如果没有 SP ， ONTAP 将无法监控硬件的运行状况。…系统将关闭，以防止硬件损坏和数据丢失。设置崩溃警报，以便在 SP 脱机时立即收到通知。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">通过执行以下操作重新启动系统：…将控制器从机箱中拉出。…将控制器推回。…重新打开控制器。…如果问题仍然存在，请更换控制器模块。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">磁盘架风扇出现故障</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">' 磁盘架中指示的散热风扇或风扇模块出现故障。磁盘架中的磁盘可能无法获得足够的散热气流，从而可能导致磁盘故障。 "</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…验证风扇模块是否已完全就位并牢固。注：风扇集成在某些磁盘架的电源模块中。…如果问题描述仍然存在，请更换风扇模块。…如果问题描述仍然存在，请联系 NetApp 技术支持以获得帮助。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">由于主单元风扇故障，系统无法运行</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">" 一个或多个主单元风扇发生故障，导致系统运行中断。这可能会导致数据丢失。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">更换发生故障的风扇。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">未分配的磁盘</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">信息</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">系统具有未分配的磁盘 - 正在浪费容量，并且您的系统可能会应用某些配置错误或部分配置更改。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…使用 disk show -n 命令确定哪些磁盘已取消分配。…使用 disk assign 命令将这些磁盘分配给系统。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="日志监控器已按时间解析">日志监控器已按时间解析</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">监控器名称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">severity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">更正操作</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">防病毒服务器繁忙</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">防病毒服务器太忙，无法接受任何新的扫描请求。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果此消息频繁出现，请确保有足够的防病毒服务器来处理 SVM 生成的病毒扫描负载。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IAM 角色的 AWS 凭据已过期</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无法访问云卷 ONTAP 。基于身份和访问管理（ IAM ）角色的凭据已过期。这些凭据是使用 IAM 角色从 Amazon Web Services （ AWS ）元数据服务器获取的，用于对发送到 Amazon Simple Storage Service （ Amazon S3 ）的 API 请求进行签名。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下操作：…登录到 AWS EC2 管理控制台。…导航到 " 实例 " 页面。…查找 Cloud Volumes ONTAP 部署的实例并检查其运行状况。…验证与此实例关联的 AWS IAM 角色是否有效，以及是否已为该实例授予适当的权限。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">未找到 IAM 角色的 AWS 凭据</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">云凭据线程无法从 AWS 元数据服务器获取 Amazon Web Services （ AWS ）身份和访问管理（ IAM ）基于角色的凭据。凭据用于对发送到 Amazon Simple Storage Service （ Amazon S3 ）的 API 请求进行签名。无法访问云卷 ONTAP 。…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下操作：…登录到 AWS EC2 管理控制台。…导航到 " 实例 " 页面。…查找 Cloud Volumes ONTAP 部署的实例并检查其运行状况。…验证与此实例关联的 AWS IAM 角色是否有效，以及是否已为该实例授予适当的权限。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IAM 角色的 AWS 凭据无效</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">基于身份和访问管理（ IAM ）角色的凭据无效。这些凭据是使用 IAM 角色从 Amazon Web Services （ AWS ）元数据服务器获取的，用于对发送到 Amazon Simple Storage Service （ Amazon S3 ）的 API 请求进行签名。无法访问云卷 ONTAP 。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下操作：…登录到 AWS EC2 管理控制台。…导航到 " 实例 " 页面。…查找 Cloud Volumes ONTAP 部署的实例并检查其运行状况。…验证与此实例关联的 AWS IAM 角色是否有效，以及是否已为该实例授予适当的权限。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">未找到 AWS IAM 角色</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">身份和访问管理（ IAM ）角色线程无法在 AWS 元数据服务器上找到 Amazon Web Services （ AWS ） IAM 角色。要获取用于向 Amazon Simple Storage Service （ Amazon S3 ）签署 API 请求的基于角色的凭据，需要使用 IAM 角色。无法访问云卷 ONTAP 。…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下操作：…登录到 AWS EC2 管理控制台。…导航到 " 实例 " 页面。…查找 Cloud Volumes ONTAP 部署的实例并检查其运行状况。…验证与此实例关联的 AWS IAM 角色是否有效。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS IAM 角色无效</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS 元数据服务器上的 Amazon Web Services （ AWS ）身份和访问管理（ IAM ）角色无效。无法访问云卷 ONTAP 。…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下操作：…登录到 AWS EC2 管理控制台。…导航到 " 实例 " 页面。…查找 Cloud Volumes ONTAP 部署的实例并检查其运行状况。…验证与此实例关联的 AWS IAM 角色是否有效，以及是否已为该实例授予适当的权限。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS 元数据服务器连接失败</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">身份和访问管理（ IAM ）角色线程无法与 Amazon Web Services （ AWS ）元数据服务器建立通信链路。应建立通信以获取必要的 AWS IAM 基于角色的凭据，用于向 Amazon Simple Storage Service （ Amazon S3 ）签署 API 请求。无法访问云卷 ONTAP 。…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下操作：…登录到 AWS EC2 管理控制台。…导航到 " 实例 " 页面。…查找 Cloud Volumes ONTAP 部署的实例并检查其运行状况。…</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已接近 FabricPool 空间使用量限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已获得容量许可的提供程序中对象存储在集群范围内的 FabricPool 总空间使用量已接近许可限制。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…使用 "storage aggregate object-store show-space" 命令检查每个 FabricPool 存储层使用的许可容量百分比。…使用 "volume snapshot delete" 命令从分层策略为 "snapshot" 或 "backup" 的卷中删除 Snapshot 副本以清除空间。…安装新许可证 以增加许可容量。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已达到 FabricPool 空间使用量限制</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已获得容量许可的提供程序中对象存储在集群范围内的 FabricPool 总空间使用量已达到许可证限制。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…使用 "storage aggregate object-store show-space" 命令检查每个 FabricPool 存储层使用的许可容量百分比。…使用 "volume snapshot delete" 命令从分层策略为 "snapshot" 或 "backup" 的卷中删除 Snapshot 副本以清除空间。…安装新许可证 以增加许可容量。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">聚合交还失败</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在存储故障转移（ SFO ）交还过程中迁移聚合期间，如果目标节点无法访问对象存储，则会发生此事件。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…使用 network interface show 命令验证集群间 LIF 是否联机且正常运行。…通过对目标节点集群间 LIF 使用 "ping" 命令检查与对象存储服务器的网络连接。…使用 "aggregate object-store config show" 命令验证对象存储的配置是否未更改，以及登录和连接信息是否仍然准确。…或者， 您可以通过为 giveback 命令的 "require-partner-waiting " 参数指定 false 来覆盖此错误。…请联系 NetApp 技术支持以获取详细信息或帮助。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HA 互连已关闭</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">高可用性（ HA ）互连已关闭。故障转移不可用时存在服务中断的风险。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">更正操作取决于平台支持的 HA 互连链路的数量和类型，以及互连关闭的原因。…如果链路已关闭：…确认 HA 对中的两个控制器均正常运行。…对于外部连接的链路，请确保互连缆线已正确连接，并且两个控制器上的小型可插拔模块（ SFP ）（如果适用）均已正确就位。…对于内部连接的链路，请禁用并重新启用链路。 使用 "IC link off" 和 "IC link on" 命令逐个执行。…如果禁用了链路，请使用 "ic link on" 命令启用这些链路。…如果未连接对等方，请使用 "IC link off" 和 "IC link on" 命令逐个禁用并重新启用链路。…如果问题描述仍然存在，请联系 NetApp 技术支持。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已超过每个用户的最大会话数</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">您已超过每个用户在 TCP 连接上允许的最大会话数。在释放某些会话之前，建立会话的任何请求都将被拒绝。…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作： …检查客户端上运行的所有应用程序，并终止任何运行不正常的应用程序。…重新启动客户端。…检查问题描述是由新的还是现有的应用程序引起的：…如果此应用程序是新的，请使用 "cifs option modify -max-opson-same-file-per-tree" 命令为客户端设置更高的阈值。在某些情况下，客户端会按预期运行，但需要更高的阈值。您应具有高级权限来为客户端设置更高的阈值。…如果问题描述是由现有应用程序引起的，则客户端可能存在问题描述。有关详细信息或帮助，请联系 NetApp 技术支持。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已超过每个文件的最大打开时间</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">您已超过通过 TCP 连接打开文件的最大次数。任何打开此文件的请求都将被拒绝，直到您关闭该文件的某些打开实例为止。这通常表示应用程序行为异常。…</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…检查使用此 TCP 连接在客户端上运行的应用程序。客户端可能因其上运行的应用程序而运行不正确。…重新启动客户端。…检查问题描述是由新应用程序还是现有应用程序引起的：…如果此应用程序是新应用程序，请使用 "cifs option modify -max-ops-same-file-per-tree" 命令为客户端设置更高的阈值。在某些情况下，客户端会按预期运行，但需要更高的阈值。您应具有高级权限来为客户端设置更高的阈值。…如果问题描述是由现有应用程序引起的，则客户端可能存在问题描述。有关详细信息或帮助，请联系 NetApp 技术支持。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBIOS 名称冲突</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBIOS 名称服务已从远程计算机收到对名称注册请求的否定响应。这通常是由 NetBIOS 名称或别名冲突引起的。因此，客户端可能无法访问数据或连接到集群中提供数据的正确节点。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下任一更正操作：…如果 NetBIOS 名称或别名发生冲突， 执行以下操作之一：…使用 "vserver cifs delete -aliases alias -vserver vserver" 命令删除重复的 NetBIOS 别名。…使用 "vserver cifs create -aliases alias -vserver vserver" 命令删除重复的名称并使用新名称添加别名来重命名 NetBIOS 别名。…如果未配置别名，并且 NetBIOS 名称存在冲突，请使用 "vserver cifs delete -vserver vserver" 和 "vserver cifs create -cifs-server netbiosname" 命令重命名 CIFS 服务器。注意：删除 CIFS 服务器可能会使数据无法访问。…删除 NetBIOS 名称或重命名远程计算机上的 NetBIOS 。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFSv4 存储池已用尽</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NFSv4 存储池已用尽。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果 NFS 服务器在此事件发生后响应时间超过 10 分钟，请联系 NetApp 技术支持。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">没有已注册的扫描引擎</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">防病毒连接器通知 ONTAP ，它没有注册的扫描引擎。如果启用了 "scan-mandatory " 选项，则发生原因数据可能不可用。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…确保安装在防病毒服务器上的扫描引擎软件与 ONTAP 兼容。…确保扫描引擎软件正在运行并配置为通过本地环回连接到防病毒连接器。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无 Vscan 连接</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ONTAP 与服务病毒扫描请求没有 Vscan 连接。如果启用了 "scan-mandatory " 选项，则发生原因数据可能不可用。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">确保扫描程序池已正确配置，防病毒服务器处于活动状态并连接到 ONTAP 。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">节点根卷空间不足</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">系统已检测到根卷空间极低，这是一种危险的现象。此节点未完全正常运行。数据 LIF 可能已在集群中进行故障转移，因此，节点上的 NFS 和 CIFS 访问受到限制。管理功能仅限于节点在本地恢复过程中清除根卷上的空间。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…通过删除旧 Snapshot 副本，从 /mroot 目录删除不再需要的文件或扩展根卷容量来清除根卷上的空间。…重新启动控制器。…请联系 NetApp 技术支持以获取详细信息或帮助。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">管理共享不存在</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vscan 问题描述：客户端已尝试连接到不存在的 ontap_admin$ 共享。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">确保已为所述 SVM ID 启用 Vscan 。在 SVM 上启用 Vscan 会自动为 SVM 创建 ontap_admin$ 共享。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NVMe 命名空间不足</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">由于空间不足导致写入失败， NVMe 命名空间已脱机。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">向卷添加空间，然后使用 "vserver nvme namespace modify" 命令使 NVMe 命名空间联机。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NVMe-oF 宽限期处于活动状态</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果使用基于网络结构的 NVMe （ NVMe-oF ）协议且许可证宽限期处于活动状态，则每天都会发生此事件。在许可证宽限期到期后， NVMe-oF 功能需要许可证。许可证宽限期结束后， NVMe-oF 功能将被禁用。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">请联系您的销售代表以获取 NVMe-oF 许可证并将其添加到集群中，或者从集群中删除 NVMe-oF 配置的所有实例。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NVMe-oF 宽限期已过期</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">基于网络结构的 NVMe （ NVMe-oF ）许可证宽限期已结束， NVMe-oF 功能已禁用。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">请联系您的销售代表以获取 NVMe-oF 许可证并将其添加到集群中。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NVMe-oF 宽限期开始</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在升级到 ONTAP 9.5 软件期间检测到基于网络结构的 NVMe （ NVMe-oF ）配置。在许可证宽限期到期后， NVMe-oF 功能需要许可证。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">请联系您的销售代表以获取 NVMe-oF 许可证并将其添加到集群中。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无法解析对象存储主机</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无法将对象存储服务器主机名解析为 IP 地址。如果未解析为 IP 地址，对象存储客户端将无法与对象存储服务器进行通信。因此，数据可能无法访问。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">检查 DNS 配置以验证是否已使用 IP 地址正确配置主机名。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">对象存储集群间 LIF 已关闭</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">对象存储客户端找不到可与对象存储服务器通信的可正常运行的 LIF 。在集群间 LIF 正常运行之前，节点不允许对象存储客户端流量。因此，数据可能无法访问。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…使用 "network interface show -role intercluster" 命令检查集群间 LIF 状态。…验证集群间 LIF 是否已正确配置且可正常运行。…如果未配置集群间 LIF ，请使用 "network interface create -role intercluster" 命令添加此 LIF 。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">对象存储签名不匹配</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">发送到对象存储服务器的请求签名与客户端计算的签名不匹配。因此，数据可能无法访问。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">验证是否已正确配置机密访问密钥。如果配置正确，请联系 NetApp 技术支持以获得帮助。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">添加项超时</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">READDIR 文件操作已超过允许在 WAFL 中运行的超时时间。这可能是因为目录非常大或非常稀疏。建议采取更正操作。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…使用以下 "DIAG" privilege nodeshell 命令行界面命令查找 READDIR 文件操作已过期的最近目录的特定信息： WAFL readdir notice show.…检查目录是否显示为稀疏：…如果某个目录显示为稀疏，建议将该目录的内容复制到新目录以删除该目录文件的稀疏。…如果某个目录未指示为稀疏目录且该目录很大，建议您通过减少该目录中的文件条目数量来减小该目录文件的大小。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">重新定位聚合失败</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在重新定位聚合期间，当目标节点无法访问对象存储时，会发生此事件。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…使用 network interface show 命令验证集群间 LIF 是否联机且正常运行。…通过对目标节点集群间 LIF 使用 "ping" 命令检查与对象存储服务器的网络连接。…使用 aggregate object-store config show 命令验证对象存储的配置是否未更改，以及登录和连接信息是否仍然准确。…或者，您也可以使用 relocation 命令的 override-destination-checks 参数来覆盖此错误。…请联系 NetApp 技术支持以获取更多信息或帮助。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷影复制失败</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷影复制服务（ Volume Shadow Copy Service ， VSS ）（ Microsoft 服务器备份和还原服务操作）失败。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">使用事件消息中提供的信息检查以下内容：…是否已启用卷影复制配置？…是否已安装相应的许可证？…在哪些共享上执行卷影复制操作？…共享名称是否正确？…共享路径是否存在？…卷影副本集及其卷影副本的状态是什么？</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">存储交换机电源出现故障</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">集群交换机中缺少电源。减少冗余，并降低因电源故障而发生中断的风险。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…确保已打开为集群交换机供电的电源。…确保电源线已连接到电源。…如果问题描述仍然存在，请联系 NetApp 技术支持。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIFS 身份验证太多</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">许多身份验证协商同时进行。此客户端发出 256 个未完成的新会话请求。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">调查客户端创建 256 个或更多新连接请求的原因。您可能需要联系客户端或应用程序的供应商来确定发生错误的原因。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">未经授权的用户访问管理共享</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">客户端已尝试连接到具有特权的 ontap_admin$ 共享，即使其登录用户不是允许的用户也是如此。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">执行以下更正操作：…确保已在一个活动 Vscan 扫描程序池中配置所述的用户名和 IP 地址。…使用 "vserver vscan scanner pool show-active" 命令检查当前处于活动状态的扫描程序池配置。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">检测到病毒</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vscan 服务器已向存储系统报告错误。这通常表示已发现病毒。但是， Vscan 服务器上的其他错误可能会发生原因此事件。…客户端对文件的访问被拒绝。Vscan 服务器可能会根据其设置和配置清理文件，隔离或删除文件。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">检查 "syslog" 事件中报告的 Vscan 服务器的日志，查看它是否能够成功清理，隔离或删除受感染的文件。如果无法执行此操作，系统管理员可能需要手动删除此文件。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="反勒索软件日志监控器">反勒索软件日志监控器</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">监控器名称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">severity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">更正操作</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已禁用 Storage VM 反勒索软件监控</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已禁用 Storage VM 的反勒索软件监控。启用反勒索软件以保护 Storage VM 。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已启用 Storage VM 反勒索软件监控（学习模式）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">信息</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在学习模式下为 Storage VM 启用了反勒索软件监控。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已启用卷反勒索软件监控</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">信息</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已为卷启用反勒索软件监控。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已禁用卷反勒索软件监控</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已禁用卷的反勒索软件监控。启用反勒索软件以保护卷。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已启用卷反勒索软件监控（学习模式）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">信息</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷的反勒索软件监控在学习模式下启用。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已暂停卷反勒索软件监控（学习模式）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷的反勒索软件监控将在学习模式下暂停。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">已暂停卷反勒索软件监控</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷的反勒索软件监控已暂停。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷反勒索软件监控正在禁用</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">正在禁用卷的反勒索软件监控。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">无</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">检测到勒索软件活动</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">严重</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">为了保护数据免受检测到的勒索软件的影响，我们创建了一个 Snapshot 副本，可用于还原原始数据。您的系统会生成 AutoSupport 或 " 回电 " 消息并将其传输到 NetApp 技术支持和任何已配置的目标。AutoSupport 消息可改进问题的确定和解决。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">请参见 " 最终文档名称 " ，对勒索软件活动采取补救措施。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="astra-数据存储-ads-监控器">Astra 数据存储（ ADS ）监控器</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">监控器名称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI 严重性</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">监控问题描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">更正操作</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">集群容量已满</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告 @ &gt; 85% 严重 @ &gt; 95%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADS 集群的存储容量用于存储应用程序和客户数据。集群中存储的数据越多，未来数据的存储可用性就越低。…集群中的存储容量达到集群总容量时，集群将无法存储更多数据。监控集群物理容量可确保数据服务的连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值：…1 ，则需要立即采取措施以最大限度地减少服务中断。请考虑增加分配给集群的空间，以适应增长…2 。考虑删除不再需要的数据以释放空间…如果违反警告阈值，计划立即采取以下操作：…1 。请考虑增加分配给集群的空间，以适应此增长。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷容量已满</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">警告 @ &lt; 15% 严重 @ &lt; 5%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">卷的存储容量用于存储应用程序和客户数据。集群卷上存储的数据越多，未来数据的存储可用性就越低。…当卷中使用的数据存储容量达到总存储容量时， 由于缺少可用存储容量，卷将无法存储更多数据。…监控卷已用存储容量可确保数据服务的连续性。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果违反严重阈值：…1 ，则需要立即采取措施以最大限度地减少服务中断。请考虑增加卷的空间，以适应增长…2 。考虑删除不再需要的数据以释放空间…如果违反警告阈值，计划立即采取以下操作：…1 。请考虑增加卷的空间以适应此增长。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="更多信息">更多信息</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="task_view_and_manage_alerts.html">"查看和忽略警报"</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+            <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+
+</ul>
+</div>
+<div class="n-footer__social-links">
+<ul class="n-footer__social-link-list">
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com" target="_blank" title="blog" alt="blog">
+<span class="n-footer__social-link-text">blog</span>
+<svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+  <title>blog@</title>
+  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#blog"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/" target="_blank" title="community" alt="community">
+<span class="n-footer__social-link-text">community</span>
+<svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+<title>community@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#comments"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp" target="_blank" title="twitter" alt="twitter">
+<span class="n-footer__social-link-text">twitter</span>
+<svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+<title>twitter@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#twitter"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp" target="_blank" title="facebook" alt="facebook">
+<span class="n-footer__social-link-text">facebook</span>
+<svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+<title>facebook@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#facebook"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-linkedin" href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+<span class="n-footer__social-link-text">linkedin</span>
+<svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+<title>linkedin@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#linkedin"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-youtube" href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+<span class="n-footer__social-link-text">youtube</span>
+<svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+<title>youtube@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#youtube"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-slideshare" href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+<span class="n-footer__social-link-text">slideshare</span>
+<svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+<title>slideshare@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#slideshare"></use>
+</svg>
+
+</a>
+</li>
+</ul>
+</div>
+
+</div>
+<div class="n-footer__bottom-right">
+  <p class="n-footer__fine-print">想就我们的网站提供反馈?<a target="_self" href="javascript:netapp_mailto()" class="n-footer__copyright">请告诉我们</a>
+  <a href="https://docs.netapp.com/zh-cn/announcements/" class="n-footer__copyright">通知</a>
+  </p>
+</div>
+</div>
+</div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-cn/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-cn/test/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-cn/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-cn/test/js/www-ntap.js'></script>
+    <script src='/zh-cn/test/js/tabbed-blocks.js'></script>
+  </body></html>

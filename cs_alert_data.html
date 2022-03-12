@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head class="at-element-marker">
+  <title>警报</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="警报" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-cn/test/cs_alert_data.html" />
+	<meta property="og:description" content="如果用户活动异常或可能受到攻击， Cloud Secure 会创建警报。" 警报 " 页面列出了这些活动，便于快速轻松地进行调查。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-cn/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="如果用户活动异常或可能受到攻击， Cloud Secure 会创建警报。" 警报 " 页面列出了这些活动，便于快速轻松地进行调查。">
+  <meta name="keywords" content=" alert, attack, ransomware, activity, security, abnormal"><meta name="robots" content="noindex" /><!-- Icons -->
+  <link rel="icon" href="/zh-cn/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-cn/test/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-cn/test/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-cn/test/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-cn/test/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-cn/test/css/tabbed-blocks.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-cn/test/js/na-search.js'></script><script src='/zh-cn/test/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-cn/test/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-cn/test/js/na-utility.js'></script>
+  <script src='/zh-cn/test/js/clouddocs.js'></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    var head = document.getElementsByTagName('head')[0];
+    var adobe = document.createElement("script");
+    adobe.type = "text/javascript";
+    adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+    head.appendChild(adobe);
+  }
+  </script>
+  <script src='/zh-cn/test/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-cn/test/js/toc.js'></script>
+  <script src='/zh-cn/test/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-81697994-3"></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-81697994-3');
+  }
+  </script>
+  <script src='/zh-cn/test/js/version-dropdown.js'></script>
+  <script src='/zh-cn/test/js/FileSaver.min.js'></script>
+  <script src='/zh-cn/test/js/jszip-utils.min.js'></script>
+  <script src='/zh-cn/test/js/jszip.min.js'></script>
+  <script src='/zh-cn/test/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  <div class="page-nav-toolbar">
+    <div id="version-dropdown"></div>
+    <div class="page-nav-contribute"  >
+      <a target="_blank" href="https://github.com/NetAppDocs/test/issues/new?body=Page%3A%20[警报](https://docs.netapp.com/zh-cn/test/cs_alert_data.html)" class="page-nav-contribute-link" role="button"><img src="/zh-cn/test/images/discuss-sm.svg" class="github-icon" />请求文档变更</a>
+      <a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/cs_alert_data.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-cn/test/images/edit-sm.svg" class="github-icon" />在 GitHub 上编辑</a>
+      <a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-cn/test/images/article-sm.svg" class="github-icon" />提供者指南</a>
+    </div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此页面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">产品和解决方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支持和培训</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">云中心</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社区</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">日志</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客户案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">联系人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">联系人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-cn/test/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-cn/test/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-cn/test/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-cn/test/search.html"
+          data-type="widget" 
+          data-placeholder="搜索文档" 
+          data-no-results-found="未找到与 {query} 匹配的结果。" 
+          data-did-you-mean="搜索 {suggestion}。" 
+          data-no-results-found-did-you-mean="未找到与 {query} 匹配的结果。您是否要搜索 {suggestion}?" 
+          data-results-found="找到 {hitCount} 个结果"  
+          data-sk-es-pf-indexes=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">简体中文</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/test/cs_alert_data.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/test/cs_alert_data.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/test/cs_alert_data.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ko-kr/test/cs_alert_data.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/index.html">
+        Cloud Insights 文档
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_whats_new.html">
+        新增功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cloud_insights_onboarding_1.html">
+        注册 Cloud Insights
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 安全性</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/security_overview.html">
+        安全实践
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/security_information_and_region.html">
+        我们的存储内容以及存储位置
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 入门</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_feature_tutorials.html">
+        功能教程
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 正在收集数据</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_getting_started_with_cloud_insights.html">
+        概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_acquisition_unit_requirements.html">
+        采集单元要求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_configure_acquisition_unit.html">
+        配置采集单元
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_agent.html">
+        配置代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_configure_data_collectors.html">
+        配置数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_determining_data_collector_acq_status.html">
+        确定 Data Collector 采集状态
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_configured_data_collectors.html">
+        管理已配置的数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_research_failed_collector.html">
+        研究数据收集器错误
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_import_from_dashboard_gallery.html">
+        导入建议的信息板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_user_roles.html">
+        用户帐户和角色
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_other_cloud_products.html">
+        正在切换到其他 Cloud Central 产品
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/data_collector_list.html">
+        数据收集器列表
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_subscribing_to_cloud_insights.html">
+        订阅 Cloud Insights
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 自动设备解析</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_device_resolution_overview.html">
+        设备解析概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_rules.html">
+        设备解析规则
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_fibre_channel.html">
+        光纤通道设备解析
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_ip.html">
+        IP 设备解析
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_preferences.html">
+        设置设备解析首选项
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_device_resolution_regex_examples.html">
+        正则表达式示例
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 创建信息板</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboards_overview.html">
+        信息板概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboard_features.html">
+        信息板的功能
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 示例信息板</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dashboard_example_VM_performance.html">
+        虚拟机性能
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboard_best_practices.html">
+        信息板最佳实践
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Kubernetes 资源管理器</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/kubernetes_landing_page.html">
+        Kubernetes 概述页面
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/kubernetes_cluster_detail.html">
+        Kubernetes 集群页面
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用查询</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_querying_assets.html">
+        正在查询资产
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_query.html">
+        创建查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_queries.html">
+        查看可用查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_export_query_results.html">
+        将查询结果导出到 .CSV
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_modify_delete_query.html">
+        修改或删除查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_query_assign_multiple_applicationss.html">
+        为对象分配多个应用程序 / 标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_query_copy_table_values.html">
+        将表值复制到剪贴板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_log_explorer.html">
+        正在查询日志
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用标注</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_defining_annotations.html">
+        定义标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_annotation.html">
+        使用标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_annotation_rules.html">
+        使用标注规则
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_annotation_import.html">
+        使用 API 导入标注
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用应用程序</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_about_applications.html">
+        应用程序概念
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_application.html">
+        配置应用程序
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 监控和警报</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_monitor.html">
+        创建监控器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_and_manage_alerts.html">
+        查看和管理警报
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_notifications_email.html">
+        配置通知收件人
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_system_monitors.html">
+        系统定义的监控器
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/API_Overview.html">
+        使用 API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_webhook.html">
+        网络挂机通知
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 监控环境</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_audit.html">
+        审核事件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_ttl_and_downsampling.html">
+        TTL 和下抽样
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 资产页面信息</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_page_overview.html">
+        资产页面概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_in_context_filters.html">
+        对象的上下文内筛选
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_summary_section.html">
+        摘要拓扑部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_expert_view_section.html">
+        专家视图部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_user_data_section.html">
+        用户数据部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_alerts_section.html">
+        相关警报部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_searching_assets.html">
+        搜索资产的提示和提示
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 报告</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_overview.html">
+        报告概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_user_roles.html">
+        报告用户角色
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_predefined_reports.html">
+        使用预定义报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_storage_manager_dashboard.html">
+        Storage Manager 信息板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_create_example.html">
+        创建示例报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_managing_reports.html">
+        管理报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_creating_custom_reports.html">
+        自定义报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_creating_custom_reports.html#reporting-data-models">
+        数据模型
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_querying_database.html">
+        报告数据库 API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_data_retention.html">
+        数据保留
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_schema_diagrams.html">
+        架构图
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_schemas.html">
+        模式表
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Cloud Secure</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_intro.html">
+        关于 Cloud Secure
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 入门</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_getting_started.html">
+        Cloud Secure 入门
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_agent_requirements.html">
+        Cloud Secure 代理要求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_add_agent.html">
+        配置 Cloud Secure 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_delete_agent.html">
+        删除 Cloud Secure 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_user_dir_connect.html">
+        配置 AD 目录收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_user_dir_connect_ldap.html">
+        配置 LDAP 目录收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_cs_amazon_fsx.html">
+        配置适用于 NetApp ONTAP 收集器的 Amazon FSX
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_add_collector_svm.html">
+        配置 ONTAP SVM 数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_cs_incloud.html">
+        配置 Cloud ONTAP 数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_user_management.html">
+        Cloud Secure 用户管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_event_rate_checker.html">
+        事件速率检查器
+      </a></li></ul></li><li class="  active "><a class="na-navbar-padding" href="/zh-cn/test/cs_alert_data.html">
+        警报
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 取证</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_activity_history.html">
+        活动取证—所有活动
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_entity_detail.html">
+        活动取证—实体
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_user_overview.html">
+        用户
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_automated_response_policies.html">
+        自动响应策略
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_restrict_user_access.html">
+        限制用户访问
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_attack_simulator.html">
+        模拟勒索软件攻击
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_notifications_email.html">
+        通知
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_api.html">
+        Cloud Secure API
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_activeiq.html">
+        Active IQ
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 故障排除</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_general_problems.html">
+        常规故障排除
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_linux_acquisition_unit_problems.html">
+        排除 Linux 采集单元问题
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_windows_acquisition_unit_problems.html">
+        对 Windows 采集单元问题进行故障排除
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_research_failed_collector.html">
+        调查数据收集器错误
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 参考支持</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_requesting_support.html">
+        请求支持
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_data_collector_support_matrix.html">
+        数据收集器支持列表
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 《数据收集器参考—基础架构》</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_data_collector_reference.html">
+        供应商参考概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_amazon_ec2.html">
+        AWS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_azure.html">
+        Azure 酒店
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Broadcom</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_brocade_bna.html">
+        Brocade Network Advisor
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_brocade_fc_switch.html">
+        光纤通道交换机
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_cisco_fc_switch.html">
+        Cisco
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Dell</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_dell_xc_series.html">
+        xC 系列
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Dell EMC</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_datadomain.html">
+        数据域
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_ecs.html">
+        ECS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_isilon.html">
+        PowerScale
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_powerstore.html">
+        PowerStore
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_recoverpoint.html">
+        RecoverPoint
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_scaleio.html">
+        ScaleIO
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_unity.html">
+        Unity （ VNXe ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vmax_powermax.html">
+        VMAX/PowerMax
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_block.html">
+        VNX 块（ Clariion ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_file.html">
+        VNX 文件（ Celerra ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_unified.html">
+        VNX 统一
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vplex.html">
+        VPLEX
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_xio.html">
+        XtremIO
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_fujitsu_eternus.html">
+        Fujitsu
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_google_cloud.html">
+        Google
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> HP 企业</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hp_3par.html">
+        HP Alletra 9000 和 Primera
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hpe_commandview.html">
+        HP Command View AE
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hpe_nimble.html">
+        HPE Alletra 6000
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Hitachi Data Systems</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_commandsuite.html">
+        HDS 命令套件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_nas.html">
+        HDS HNAS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_ops_center.html">
+        HDS 运营中心
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_infinidat_infinibox.html">
+        无限
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_huawei_oceanstor.html">
+        华为
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> IBM</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_cleversafe.html">
+        Cleverssafe
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_cs.html">
+        CS 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_ds.html">
+        系统存储 DS8000 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_powervm.html">
+        PowerVM
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_svc.html">
+        SAN 卷控制器（ SVC ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_xiv.html">
+        XIV/A9000
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_lenovo.html">
+        联想
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Microsoft</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_anf.html">
+        Azure NetApp Files
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_hyperv.html">
+        Hyper-V
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> NetApp</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_astra_data_store.html">
+        Astra 数据存储
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_connection.html">
+        适用于 ONTAP 9.9+ 的云连接
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_volumes_ontap.html">
+        Cloud Volumes ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_volumes.html">
+        适用于 AWS 的 Cloud Volumes Services
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cdot.html">
+        ONTAP 数据管理软件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_7mode.html">
+        Data ONTAP 7- 模式
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_eseries.html">
+        E 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_hci.html">
+        NetApp HCI 管理服务器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_solidfire.html">
+        SolidFire
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_storagegrid.html">
+        StorageGRID
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_nutanix.html">
+        Nutanix
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_openstack.html">
+        OpenStack
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_oracle_zfs.html">
+        Oracle
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_pure_flasharray.html">
+        纯净
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_redhat_virtualization.html">
+        Red Hat
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_vmware.html">
+        VMware
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 《数据收集器参考—服务》</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_node.html">
+        主机 / 节点
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_activemq.html">
+        ActiveMQ
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_apache.html">
+        Apache
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_consul.html">
+        Consu
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_couchbase.html">
+        Couchbase
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_couchdb.html">
+        CouchDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_docker.html">
+        Docker
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_elasticsearch.html">
+        Elasticsearch
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_flink.html">
+        Flink
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_hadoop.html">
+        Hadoop
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_haproxy.html">
+        HA 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_jvm.html">
+        Java
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kafka.html">
+        Kafka
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kapacitor.html">
+        Kapacitor
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kibana.html">
+        Kibana
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_agent.html#kubernetes">
+        Kubernetes
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_memcached.html">
+        已缓存内存
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_mongodb.html">
+        MongoDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_mysql.html">
+        MySQL
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_netstat.html">
+        netstat
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_nginx.html">
+        nginx
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_openzfs.html">
+        OpenZFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_postgresql.html">
+        PostgreSQL
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_puppetagent.html">
+        Puppet
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_redis.html">
+        Redis
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_rethinkdb.html">
+        RethinkDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_zookeeper.html">
+        Zookeeper
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_object_icons.html">
+        对象图标参考
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_legal_notices.html">
+        法律声明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-cn/test/">Cloud&nbsp;Insights</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-cn/test/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 简体中文版经机器翻译而成，仅供参考。如与英语版出现任何冲突，应以英语版为准。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">警报</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-03-12 06:25:15 +0000">03/12/2022</time>
+    
+  
+
+<span>提供者
+</span>
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Cloud Secure 警报页面显示最近攻击和 / 或警告的时间线，并可用于查看每个问题描述的详细信息。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="CloudSecureAlertsListPage.png" alt="警报列表"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="警报">警报</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>警报列表显示一个图形，其中显示了选定时间范围内引发的潜在攻击和 / 或警告总数，然后列出了该时间范围内发生的攻击和 / 或警告。您可以通过调整图中的开始时间和结束时间滑块来更改时间范围。</p>
+</div>
+<div class="paragraph">
+<p>对于每个警报，将显示以下内容：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>潜在攻击： *</p>
+</li>
+<li>
+<p>潜在攻击类型（例如勒索软件或破坏）</p>
+</li>
+<li>
+<p>检测到潜在攻击的日期和时间</p>
+</li>
+<li>
+<p>警报的 <em>Status</em> ：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>新增（这是新警报的默认设置）</p>
+</li>
+<li>
+<p>正在进行中</p>
+</li>
+<li>
+<p>已解决</p>
+</li>
+<li>
+<p>已取消</p>
+<div class="paragraph">
+<p>管理员可以更改警报状态并添加注释以协助调查。</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="CloudSecureChangeAlertStatus.png" alt="更改警报状态"></span></p>
+</div>
+</li>
+<li>
+<p>其行为触发警报的 <em>User</em></p>
+</li>
+<li>
+<p>攻击的 <em>Event</em> （例如，大量文件已加密）</p>
+</li>
+<li>
+<p>已执行操作 _ （例如，已创建快照）</p>
+</li>
+<li>
+<p>警告： *</p>
+</li>
+<li>
+<p>触发警告的 _Abnormal behavior _</p>
+</li>
+<li>
+<p>检测到行为的日期和时间</p>
+</li>
+<li>
+<p>警报的 <em>Status</em> ：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>新增（这是新警报的默认设置）</p>
+</li>
+<li>
+<p>正在进行中</p>
+</li>
+<li>
+<p>已解决</p>
+</li>
+<li>
+<p>已取消</p>
+<div class="paragraph">
+<p>管理员可以更改警报状态并添加注释以协助调查。</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>其行为触发警报的 <em>User</em></p>
+</li>
+<li>
+<p><em>Change</em> 的问题描述（例如，文件访问异常增加）</p>
+</li>
+<li>
+<p>已采取操作 _</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="筛选器选项">筛选器选项</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>您可以按以下方式筛选警报：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>警报的 <em>Status</em></p>
+</li>
+<li>
+<p><em>Note</em> 中的特定文本</p>
+</li>
+<li>
+<p>_ 攻击 / 警告 _ 的类型</p>
+</li>
+<li>
+<p>操作触发警报 / 警告的 <em>User</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="警报详细信息页面">警报详细信息页面</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>您可以单击警报列表页面上的警报链接以打开警报的详细信息页面。警报详细信息可能因攻击或警报类型而异。例如，勒索软件攻击详细信息页面可能会显示以下信息：</p>
+</div>
+<div class="sect2">
+<h3 id="摘要部分">摘要部分：</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>攻击类型（勒索软件，破坏）和警报 ID （由 Cloud Secure 分配）</p>
+</li>
+<li>
+<p>检测到攻击的日期和时间</p>
+</li>
+<li>
+<p>已执行操作（例如，已创建自动快照。Snapshot 时间显示在摘要部分的正下方）</p>
+</li>
+<li>
+<p>状态（新增，正在进行等）</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="攻击结果部分">攻击结果部分：</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>受影响卷和文件的数量</p>
+</li>
+<li>
+<p>随附的检测摘要</p>
+</li>
+<li>
+<p>显示攻击期间文件活动的图形</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="相关用户部分">相关用户部分：</h3>
+<div class="paragraph">
+<p>此部分显示有关参与潜在攻击的用户的详细信息，包括用户的 "Top Activity" 图形。</p>
+</div>
+<div class="paragraph">
+<p>警报页面（此示例显示了潜在的勒索软件攻击）：<span class="image"><img src="RansomwareAlertExample.png" alt="勒索软件警报示例"></span></p>
+</div>
+<div class="paragraph">
+<p>详细信息页面（此示例显示了潜在的勒索软件攻击）：<span class="image"><img src="RansomwareDetailPageExample.png" alt="勒索软件详细信息页面示例"></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="执行-snapshot-操作">执行 Snapshot 操作</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cloud Secure 可在检测到恶意活动时自动创建快照以保护您的数据，并确保安全地备份您的数据。</p>
+</div>
+<div class="paragraph">
+<p>您可以定义 <a href="cs_automated_response_policies.html">"自动响应策略"</a> 在检测到勒索软件攻击或其他异常用户活动时创建快照。您也可以从警报页面手动创建快照。</p>
+</div>
+<div class="paragraph">
+<p>自动创建快照：<span class="image"><img src="AlertActionsAutomaticExample.png" alt="警报操作屏幕， 1000"></span></p>
+</div>
+<div class="paragraph">
+<p>手动快照：<span class="image"><img src="AlertActionsExample.png" alt="警报操作屏幕， 1000"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="警报通知">警报通知</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>警报的电子邮件通知会发送到警报的每个操作的警报收件人列表。要配置警报收件人，请单击 * 管理员 &gt; 通知 * 并为每个收件人输入一个电子邮件地址。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="保留策略">保留策略</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>警报和警告保留 13 个月。超过 13 个月的警报和警告将被删除。如果删除了 Cloud Secure 环境，则与该环境关联的所有数据也将被删除。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="故障排除">故障排除</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">问题：</th>
+<th class="tableblock halign-left valign-top">请尝试以下操作：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">对于 Cloud Secure （ CS ）创建的快照， CS 快照是否有清除 / 归档期限？</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否没有为 CS 快照设置清除 / 归档期限。用户需要为 CS 快照定义清除策略。请参见 <a href="https://library.netapp.com/ecmdocs/ECMP1196819/html/GUID-27D0E37F-5AF1-4AF9-BDEB-9A4B7AF3B4A9.html">"ONTAP 文档"</a> 有关如何设置策略的信息。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">有时， ONTAP 每天每小时创建一次快照。Cloud Secure （ CS ）快照是否会影响它？CS 快照是否会采用每小时快照位置？默认每小时快照是否会停止？</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Secure 快照不会影响每小时快照。CS 快照不会占用每小时快照空间，应像以前一样继续使用。默认的每小时快照不会停止。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果在 ONTAP 中达到最大快照数，会发生什么情况？</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果达到最大 Snapshot 计数，则后续 Snapshot 生成将失败， Cloud Secure 将显示一条错误消息，指出 Snapshot 已满。用户需要定义 Snapshot 策略以删除最早的快照，否则不会创建快照。在 ONTAP 9.3 及更早版本中，一个卷最多可包含 255 个 Snapshot 副本。在 ONTAP 9.4 及更高版本中，一个卷最多可以包含 1023 个 Snapshot 副本。有关的信息，请参见 ONTAP 文档 <a href="https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-cmpr-960%2Fvolume<em>snapshot</em>autodelete__modify.html">"正在设置 Snapshot 删除策略"</a>。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud Secure 根本无法创建快照。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">确保用于创建快照的角色具有链接：已分配 <a href="https://docs.netapp.com/us-en/cloudinsights/task_add_collector_svm.html#a-note-about-permissions">proper 权限 </a> 。确保为 <em>csrole</em> 创建了用于创建快照的正确访问权限： security login role create -vserver &lt;vservername&gt; -role csrole -cmddirname "volume snapshot" -access all</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">对于 SVM 上较早的警报，快照失败，这些警报已从 Cloud Secure 中删除并随后重新添加。对于在重新添加 SVM 后出现的新警报，将创建快照。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这种情况极少。如果您遇到这种情况，请登录到 ONTAP 并为较早的警报手动创建快照。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在 <em>Alert Details</em> 页面中，在 <em>Take Snapshot</em> 按钮下方会显示消息 "Last Attempt Failed" 错误。将鼠标悬停在错误上会显示 "invoke API command has timed out for the data collector with id" 。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果通过 SVM 管理 IP 将数据收集器添加到 Cloud Secure 中，并且 ONTAP 中 SVM 的 LIF 处于 _disabled" 状态，则可能会发生这种情况。在 ONTAP 中启用特定 LIF 并从 Cloud Secure 触发 _Take Snapshot Manually _ 。然后， Snapshot 操作将成功。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+            <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+
+</ul>
+</div>
+<div class="n-footer__social-links">
+<ul class="n-footer__social-link-list">
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com" target="_blank" title="blog" alt="blog">
+<span class="n-footer__social-link-text">blog</span>
+<svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+  <title>blog@</title>
+  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#blog"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/" target="_blank" title="community" alt="community">
+<span class="n-footer__social-link-text">community</span>
+<svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+<title>community@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#comments"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp" target="_blank" title="twitter" alt="twitter">
+<span class="n-footer__social-link-text">twitter</span>
+<svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+<title>twitter@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#twitter"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp" target="_blank" title="facebook" alt="facebook">
+<span class="n-footer__social-link-text">facebook</span>
+<svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+<title>facebook@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#facebook"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-linkedin" href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+<span class="n-footer__social-link-text">linkedin</span>
+<svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+<title>linkedin@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#linkedin"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-youtube" href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+<span class="n-footer__social-link-text">youtube</span>
+<svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+<title>youtube@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#youtube"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-slideshare" href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+<span class="n-footer__social-link-text">slideshare</span>
+<svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+<title>slideshare@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#slideshare"></use>
+</svg>
+
+</a>
+</li>
+</ul>
+</div>
+
+</div>
+<div class="n-footer__bottom-right">
+  <p class="n-footer__fine-print">想就我们的网站提供反馈?<a target="_self" href="javascript:netapp_mailto()" class="n-footer__copyright">请告诉我们</a>
+  <a href="https://docs.netapp.com/zh-cn/announcements/" class="n-footer__copyright">通知</a>
+  </p>
+</div>
+</div>
+</div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-cn/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-cn/test/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-cn/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-cn/test/js/www-ntap.js'></script>
+    <script src='/zh-cn/test/js/tabbed-blocks.js'></script>
+  </body></html>

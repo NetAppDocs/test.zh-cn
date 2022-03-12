@@ -1,0 +1,2594 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head class="at-element-marker">
+  <title>配置代理以收集数据</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="配置代理以收集数据" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-cn/test/task_config_telegraf_agent.html" />
+	<meta property="og:description" content="Cloud Insights 支持 Telegraf 作为其代理收集集成数据，并且可以在 Windows ， Linux ， macOS 和 Kubernetes 上进行配置。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-cn/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Cloud Insights 支持 Telegraf 作为其代理收集集成数据，并且可以在 Windows ， Linux ， macOS 和 Kubernetes 上进行配置。">
+  <meta name="keywords" content=" telegraf, installation, install, agent, telegraf agent"><meta name="robots" content="noindex" /><!-- Icons -->
+  <link rel="icon" href="/zh-cn/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-cn/test/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-cn/test/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-cn/test/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-cn/test/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-cn/test/css/tabbed-blocks.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-cn/test/js/na-search.js'></script><script src='/zh-cn/test/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-cn/test/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-cn/test/js/na-utility.js'></script>
+  <script src='/zh-cn/test/js/clouddocs.js'></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    var head = document.getElementsByTagName('head')[0];
+    var adobe = document.createElement("script");
+    adobe.type = "text/javascript";
+    adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+    head.appendChild(adobe);
+  }
+  </script>
+  <script src='/zh-cn/test/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-cn/test/js/toc.js'></script>
+  <script src='/zh-cn/test/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-81697994-3"></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-81697994-3');
+  }
+  </script>
+  <script src='/zh-cn/test/js/version-dropdown.js'></script>
+  <script src='/zh-cn/test/js/FileSaver.min.js'></script>
+  <script src='/zh-cn/test/js/jszip-utils.min.js'></script>
+  <script src='/zh-cn/test/js/jszip.min.js'></script>
+  <script src='/zh-cn/test/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  <div class="page-nav-toolbar">
+    <div id="version-dropdown"></div>
+    <div class="page-nav-contribute"  >
+      <a target="_blank" href="https://github.com/NetAppDocs/test/issues/new?body=Page%3A%20[配置代理以收集数据](https://docs.netapp.com/zh-cn/test/task_config_telegraf_agent.html)" class="page-nav-contribute-link" role="button"><img src="/zh-cn/test/images/discuss-sm.svg" class="github-icon" />请求文档变更</a>
+      <a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/task_config_telegraf_agent.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-cn/test/images/edit-sm.svg" class="github-icon" />在 GitHub 上编辑</a>
+      <a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-cn/test/images/article-sm.svg" class="github-icon" />提供者指南</a>
+    </div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此页面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">产品和解决方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支持和培训</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">云中心</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社区</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">日志</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客户案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">联系人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">联系人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-cn/test/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-cn/test/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-cn/test/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-cn/test/search.html"
+          data-type="widget" 
+          data-placeholder="搜索文档" 
+          data-no-results-found="未找到与 {query} 匹配的结果。" 
+          data-did-you-mean="搜索 {suggestion}。" 
+          data-no-results-found-did-you-mean="未找到与 {query} 匹配的结果。您是否要搜索 {suggestion}?" 
+          data-results-found="找到 {hitCount} 个结果"  
+          data-sk-es-pf-indexes=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">简体中文</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/test/task_config_telegraf_agent.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/test/task_config_telegraf_agent.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/test/task_config_telegraf_agent.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ko-kr/test/task_config_telegraf_agent.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/index.html">
+        Cloud Insights 文档
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_whats_new.html">
+        新增功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cloud_insights_onboarding_1.html">
+        注册 Cloud Insights
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 安全性</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/security_overview.html">
+        安全实践
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/security_information_and_region.html">
+        我们的存储内容以及存储位置
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 入门</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_feature_tutorials.html">
+        功能教程
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 正在收集数据</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_getting_started_with_cloud_insights.html">
+        概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_acquisition_unit_requirements.html">
+        采集单元要求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_configure_acquisition_unit.html">
+        配置采集单元
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_agent.html">
+        配置代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_configure_data_collectors.html">
+        配置数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_determining_data_collector_acq_status.html">
+        确定 Data Collector 采集状态
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_configured_data_collectors.html">
+        管理已配置的数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_research_failed_collector.html">
+        研究数据收集器错误
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_import_from_dashboard_gallery.html">
+        导入建议的信息板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_user_roles.html">
+        用户帐户和角色
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_other_cloud_products.html">
+        正在切换到其他 Cloud Central 产品
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/data_collector_list.html">
+        数据收集器列表
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_subscribing_to_cloud_insights.html">
+        订阅 Cloud Insights
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 自动设备解析</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_device_resolution_overview.html">
+        设备解析概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_rules.html">
+        设备解析规则
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_fibre_channel.html">
+        光纤通道设备解析
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_ip.html">
+        IP 设备解析
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_preferences.html">
+        设置设备解析首选项
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_device_resolution_regex_examples.html">
+        正则表达式示例
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 创建信息板</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboards_overview.html">
+        信息板概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboard_features.html">
+        信息板的功能
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 示例信息板</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dashboard_example_VM_performance.html">
+        虚拟机性能
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboard_best_practices.html">
+        信息板最佳实践
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Kubernetes 资源管理器</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/kubernetes_landing_page.html">
+        Kubernetes 概述页面
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/kubernetes_cluster_detail.html">
+        Kubernetes 集群页面
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用查询</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_querying_assets.html">
+        正在查询资产
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_query.html">
+        创建查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_queries.html">
+        查看可用查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_export_query_results.html">
+        将查询结果导出到 .CSV
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_modify_delete_query.html">
+        修改或删除查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_query_assign_multiple_applicationss.html">
+        为对象分配多个应用程序 / 标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_query_copy_table_values.html">
+        将表值复制到剪贴板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_log_explorer.html">
+        正在查询日志
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用标注</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_defining_annotations.html">
+        定义标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_annotation.html">
+        使用标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_annotation_rules.html">
+        使用标注规则
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_annotation_import.html">
+        使用 API 导入标注
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用应用程序</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_about_applications.html">
+        应用程序概念
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_application.html">
+        配置应用程序
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 监控和警报</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_monitor.html">
+        创建监控器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_and_manage_alerts.html">
+        查看和管理警报
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_notifications_email.html">
+        配置通知收件人
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_system_monitors.html">
+        系统定义的监控器
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/API_Overview.html">
+        使用 API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_webhook.html">
+        网络挂机通知
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 监控环境</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_audit.html">
+        审核事件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_ttl_and_downsampling.html">
+        TTL 和下抽样
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 资产页面信息</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_page_overview.html">
+        资产页面概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_in_context_filters.html">
+        对象的上下文内筛选
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_summary_section.html">
+        摘要拓扑部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_expert_view_section.html">
+        专家视图部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_user_data_section.html">
+        用户数据部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_alerts_section.html">
+        相关警报部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_searching_assets.html">
+        搜索资产的提示和提示
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 报告</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_overview.html">
+        报告概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_user_roles.html">
+        报告用户角色
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_predefined_reports.html">
+        使用预定义报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_storage_manager_dashboard.html">
+        Storage Manager 信息板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_create_example.html">
+        创建示例报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_managing_reports.html">
+        管理报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_creating_custom_reports.html">
+        自定义报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_creating_custom_reports.html#reporting-data-models">
+        数据模型
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_querying_database.html">
+        报告数据库 API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_data_retention.html">
+        数据保留
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_schema_diagrams.html">
+        架构图
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_schemas.html">
+        模式表
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Cloud Secure</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_intro.html">
+        关于 Cloud Secure
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 入门</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_getting_started.html">
+        Cloud Secure 入门
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_agent_requirements.html">
+        Cloud Secure 代理要求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_add_agent.html">
+        配置 Cloud Secure 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_delete_agent.html">
+        删除 Cloud Secure 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_user_dir_connect.html">
+        配置 AD 目录收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_user_dir_connect_ldap.html">
+        配置 LDAP 目录收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_cs_amazon_fsx.html">
+        配置适用于 NetApp ONTAP 收集器的 Amazon FSX
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_add_collector_svm.html">
+        配置 ONTAP SVM 数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_cs_incloud.html">
+        配置 Cloud ONTAP 数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_user_management.html">
+        Cloud Secure 用户管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_event_rate_checker.html">
+        事件速率检查器
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_alert_data.html">
+        警报
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 取证</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_activity_history.html">
+        活动取证—所有活动
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_entity_detail.html">
+        活动取证—实体
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_user_overview.html">
+        用户
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_automated_response_policies.html">
+        自动响应策略
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_restrict_user_access.html">
+        限制用户访问
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_attack_simulator.html">
+        模拟勒索软件攻击
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_notifications_email.html">
+        通知
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_api.html">
+        Cloud Secure API
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_activeiq.html">
+        Active IQ
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 故障排除</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_general_problems.html">
+        常规故障排除
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_linux_acquisition_unit_problems.html">
+        排除 Linux 采集单元问题
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_windows_acquisition_unit_problems.html">
+        对 Windows 采集单元问题进行故障排除
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_research_failed_collector.html">
+        调查数据收集器错误
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 参考支持</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_requesting_support.html">
+        请求支持
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_data_collector_support_matrix.html">
+        数据收集器支持列表
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 《数据收集器参考—基础架构》</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_data_collector_reference.html">
+        供应商参考概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_amazon_ec2.html">
+        AWS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_azure.html">
+        Azure 酒店
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Broadcom</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_brocade_bna.html">
+        Brocade Network Advisor
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_brocade_fc_switch.html">
+        光纤通道交换机
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_cisco_fc_switch.html">
+        Cisco
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Dell</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_dell_xc_series.html">
+        xC 系列
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Dell EMC</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_datadomain.html">
+        数据域
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_ecs.html">
+        ECS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_isilon.html">
+        PowerScale
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_powerstore.html">
+        PowerStore
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_recoverpoint.html">
+        RecoverPoint
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_scaleio.html">
+        ScaleIO
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_unity.html">
+        Unity （ VNXe ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vmax_powermax.html">
+        VMAX/PowerMax
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_block.html">
+        VNX 块（ Clariion ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_file.html">
+        VNX 文件（ Celerra ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_unified.html">
+        VNX 统一
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vplex.html">
+        VPLEX
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_xio.html">
+        XtremIO
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_fujitsu_eternus.html">
+        Fujitsu
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_google_cloud.html">
+        Google
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> HP 企业</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hp_3par.html">
+        HP Alletra 9000 和 Primera
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hpe_commandview.html">
+        HP Command View AE
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hpe_nimble.html">
+        HPE Alletra 6000
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Hitachi Data Systems</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_commandsuite.html">
+        HDS 命令套件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_nas.html">
+        HDS HNAS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_ops_center.html">
+        HDS 运营中心
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_infinidat_infinibox.html">
+        无限
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_huawei_oceanstor.html">
+        华为
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> IBM</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_cleversafe.html">
+        Cleverssafe
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_cs.html">
+        CS 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_ds.html">
+        系统存储 DS8000 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_powervm.html">
+        PowerVM
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_svc.html">
+        SAN 卷控制器（ SVC ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_xiv.html">
+        XIV/A9000
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_lenovo.html">
+        联想
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Microsoft</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_anf.html">
+        Azure NetApp Files
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_hyperv.html">
+        Hyper-V
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> NetApp</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_astra_data_store.html">
+        Astra 数据存储
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_connection.html">
+        适用于 ONTAP 9.9+ 的云连接
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_volumes_ontap.html">
+        Cloud Volumes ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_volumes.html">
+        适用于 AWS 的 Cloud Volumes Services
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cdot.html">
+        ONTAP 数据管理软件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_7mode.html">
+        Data ONTAP 7- 模式
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_eseries.html">
+        E 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_hci.html">
+        NetApp HCI 管理服务器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_solidfire.html">
+        SolidFire
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_storagegrid.html">
+        StorageGRID
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_nutanix.html">
+        Nutanix
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_openstack.html">
+        OpenStack
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_oracle_zfs.html">
+        Oracle
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_pure_flasharray.html">
+        纯净
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_redhat_virtualization.html">
+        Red Hat
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_vmware.html">
+        VMware
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 《数据收集器参考—服务》</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_node.html">
+        主机 / 节点
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_activemq.html">
+        ActiveMQ
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_apache.html">
+        Apache
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_consul.html">
+        Consu
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_couchbase.html">
+        Couchbase
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_couchdb.html">
+        CouchDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_docker.html">
+        Docker
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_elasticsearch.html">
+        Elasticsearch
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_flink.html">
+        Flink
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_hadoop.html">
+        Hadoop
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_haproxy.html">
+        HA 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_jvm.html">
+        Java
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kafka.html">
+        Kafka
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kapacitor.html">
+        Kapacitor
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kibana.html">
+        Kibana
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_agent.html#kubernetes">
+        Kubernetes
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_memcached.html">
+        已缓存内存
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_mongodb.html">
+        MongoDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_mysql.html">
+        MySQL
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_netstat.html">
+        netstat
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_nginx.html">
+        nginx
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_openzfs.html">
+        OpenZFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_postgresql.html">
+        PostgreSQL
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_puppetagent.html">
+        Puppet
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_redis.html">
+        Redis
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_rethinkdb.html">
+        RethinkDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_zookeeper.html">
+        Zookeeper
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_object_icons.html">
+        对象图标参考
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_legal_notices.html">
+        法律声明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-cn/test/">Cloud&nbsp;Insights</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-cn/test/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 简体中文版经机器翻译而成，仅供参考。如与英语版出现任何冲突，应以英语版为准。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">配置代理以收集数据</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-03-12 06:25:15 +0000">03/12/2022</time>
+    
+  
+
+<span>提供者
+</span>
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Cloud Insights 使用 <a href="https://docs.influxdata.com/telegraf/v1.19/">"Telegraf"</a> 作为收集集成数据的代理。Telegraf 是一种插件驱动的服务器代理，可用于收集和报告指标，事件和日志。输入插件用于通过直接访问系统 /OS ，调用第三方 API 或侦听已配置的流（例如 Kafka ， statsD 等）。输出插件用于将收集的指标，事件和日志从代理发送到 Cloud Insights 。</p>
+</div>
+<div class="paragraph">
+<p>Cloud Insights 的当前 Telegraf 版本为 * 。 1.19.3 * 。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+为了准确地进行审核和报告数据，强烈建议使用 * 网络时间协议（ NTP ） * 或 * 简单网络时间协议（ SNTP ） * 同步 Agent 计算机上的时间。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+如果要在安装代理之前验证安装文件，请参见以下章节 <a href="#Verifying Checksums">[Verifying Checksums]</a>。
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="安装代理">安装代理</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>如果您要安装服务数据收集器，但尚未配置代理，则系统会提示您先为相应的操作系统安装代理。本主题介绍如何在以下操作系统上安装 Telegraf 代理：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#windows">Windows</a></p>
+</li>
+<li>
+<p><a href="#RHEL and CentOS">[RHEL and CentOS]</a></p>
+</li>
+<li>
+<p><a href="#Ubuntu and Debian">[Ubuntu and Debian]</a></p>
+</li>
+<li>
+<p><a href="#macos">macOS</a></p>
+</li>
+<li>
+<p><a href="#kubernetes">Kubernetes</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>要安装代理，无论您使用的是哪个平台，都必须先执行以下操作：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>登录到要用于代理的主机。</p>
+</li>
+<li>
+<p>登录到 Cloud Insights 站点并转到 * 管理员 &gt; 数据收集器 * 。</p>
+</li>
+<li>
+<p>单击 * + Data Collector* 并选择要安装的数据收集器。</p>
+</li>
+<li>
+<p>为您的主机选择合适的平台（ Windows ， Linux ， macOS 等）</p>
+</li>
+<li>
+<p>对每个平台执行其余步骤。</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+在主机上安装代理后，无需在该主机上重新安装代理。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/tip.svg" alt="提示">
+</td>
+<td class="content">
+在服务器 /VM 上安装代理后， Cloud Insights 除了从您配置的任何数据收集器收集数据之外，还会从该系统收集指标。这些指标将作为收集 <a href="task_config_telegraf_node.html">"" 节点 " 指标"</a>。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+如果您使用的是代理，请在安装 Telegraf 代理之前阅读适用于您的平台的代理说明。
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="windows">Windows</h3>
+<div class="paragraph">
+<p><span class="image"><img src="AgentInstallWindows.png" alt="Windows 代理安装"></span></p>
+</div>
+<div class="ulist">
+<div class="title">前提条件：</div>
+<ul>
+<li>
+<p>必须安装 PowerShell</p>
+</li>
+<li>
+<p>如果您使用的是代理，请按照 * 为 Windows 配置代理支持 " 一节中的说明进行操作。</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">在 Windows 上安装代理的步骤：</div>
+<ol class="arabic">
+<li>
+<p>选择代理访问密钥。</p>
+</li>
+<li>
+<p>从代理安装对话框复制命令块。您可以单击剪贴板图标将命令快速复制到剪贴板。</p>
+</li>
+<li>
+<p>打开 PowerShell 窗口</p>
+</li>
+<li>
+<p>将命令粘贴到 PowerShell 窗口中，然后按 Enter 键。</p>
+</li>
+<li>
+<p>此命令将下载相应的代理安装程序并进行安装，然后设置默认配置。完成后，它将重新启动代理服务。此命令具有唯一的密钥，有效期为 24 小时。</p>
+</li>
+<li>
+<p>单击 * 完成 * 或 * 继续 *</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>安装代理后，您可以使用以下命令启动 / 停止此服务：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Start-Service telegraf
+Stop-Service telegraf</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="为-windows-配置代理支持">为 Windows 配置代理支持</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+以下步骤概述了设置 <em>http_proxy/https_proxy_environment 变量所需的操作。对于某些代理环境，用户可能还需要设置 _no_proxy environment</em> 变量。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>对于驻留在代理后面的系统，请执行以下操作以设置 <em>https_proxy</em> 和 / 或 <em>http_proxy</em> 环境变量 * 先前 * 以安装 Telegraf 代理：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[System.Environment]::SetEnvironmentVariable(“https_proxy”, “&lt;proxy_server&gt;:&lt;proxy_port&gt;”, [System.EnvironmentVariableTarget]::Machine)</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="卸载代理">卸载代理</h4>
+<div class="paragraph">
+<p>要在 Windows 上卸载代理，请在 PowerShell 窗口中执行以下操作：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>停止并删除 Telegraf 服务：</p>
+<div class="literalblock">
+<div class="content">
+<pre>Stop-Service telegraf
+sc.exe delete telegraf</pre>
+</div>
+</div>
+</li>
+<li>
+<p>从存储中删除证书：</p>
+<div class="literalblock">
+<div class="content">
+<pre>cd Cert:\CurrentUser\Root
+rm E5FB7B68C08B1CA902708584C274F8EFC7BE8ABC</pre>
+</div>
+</div>
+</li>
+<li>
+<p>删除 <em>C ： \Program Files\Ceraf</em> 文件夹以删除二进制文件，日志和配置文件</p>
+</li>
+<li>
+<p>从注册表中删除 <em>system\CurrentControlSet\Services\EventLog\Application\Ceaf</em> 密钥</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="升级代理">升级代理</h4>
+<div class="paragraph">
+<p>要升级电报代理，请执行以下操作：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>停止并删除此电报服务：</p>
+<div class="literalblock">
+<div class="content">
+<pre>Stop-Service telegraf
+sc.exe delete telegraf</pre>
+</div>
+</div>
+</li>
+<li>
+<p>从注册表中删除 <em>system\CurrentControlSet\Services\EventLog\Application\Ceaf</em> 密钥</p>
+</li>
+<li>
+<p>删除 _C ： \Program Files\celaf\celeaf.conf</p>
+</li>
+<li>
+<p>删除 _C ： \Program Files\caraf\caraf.exe</p>
+</li>
+<li>
+<p><a href="#windows">"安装新代理"</a>。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rhel-和-centos">RHEL 和 CentOS</h3>
+<div class="paragraph">
+<p><span class="image"><img src="Agent_Requirements_Rhel.png" alt="RHEL/CentOS 代理安装"></span></p>
+</div>
+<div class="ulist">
+<div class="title">前提条件：</div>
+<ul>
+<li>
+<p>必须提供以下命令： curl ， sudo ， ping ， sha256sum ， openssl ， 和 dmidecode</p>
+</li>
+<li>
+<p>如果您使用的是代理，请按照 * 为 RHEL/CentOS* 配置代理支持 " 一节中的说明进行操作。</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">在 RHEL/CentOS 上安装代理的步骤：</div>
+<ol class="arabic">
+<li>
+<p>选择代理访问密钥。</p>
+</li>
+<li>
+<p>从代理安装对话框复制命令块。您可以单击剪贴板图标将命令快速复制到剪贴板。</p>
+</li>
+<li>
+<p>打开 Bash 窗口</p>
+</li>
+<li>
+<p>将命令粘贴到 Bash 窗口中，然后按 Enter 键。</p>
+</li>
+<li>
+<p>此命令将下载相应的代理安装程序并进行安装，然后设置默认配置。完成后，它将重新启动代理服务。此命令具有唯一的密钥，有效期为 24 小时。</p>
+</li>
+<li>
+<p>单击 * 完成 * 或 * 继续 *</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>安装代理后，您可以使用以下命令启动 / 停止此服务：</p>
+</div>
+<div class="paragraph">
+<p>如果您的操作系统使用的是 systemd （ CentOS 7+ 和 RHEL 7+ ）：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo systemctl start telegraf
+sudo systemctl stop telegraf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>如果您的操作系统未使用 systemd （ CentOS 7+ 和 RHEL 7+ ）：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo service telegraf start
+sudo service telegraf stop</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="为-rhelcentos-配置代理支持">为 RHEL/CentOS 配置代理支持</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+以下步骤概述了设置 <em>http_proxy/https_proxy_environment 变量所需的操作。对于某些代理环境，用户可能还需要设置 _no_proxy environment</em> 变量。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>对于驻留在代理后面的系统，请执行以下步骤 * 先前 * 以安装 Telegraf 代理：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>为当前用户设置 <em>https_proxy</em> 和 / 或 <em>http_proxy</em> 环境变量：</p>
+<div class="literalblock">
+<div class="content">
+<pre> export https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;
+. 创建 _/etc/default/tengraf_ ，并插入 _https_proxy_and/or _http_proxy_ 变量的定义：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="卸载代理-2">卸载代理</h4>
+<div class="paragraph">
+<p>要在 Rhel/CentOS 上卸载代理，请在 Bash 终端中执行以下操作：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>停止 Telegraf 服务：</p>
+<div class="literalblock">
+<div class="content">
+<pre>systemctl stop telegraf (If your operating system is using systemd (CentOS 7+ and RHEL 7+)
+/etc/init.d/telegraf stop (for systems without systemd support)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>删除 Telegraf 代理：</p>
+<div class="literalblock">
+<div class="content">
+<pre> yum remove telegraf
+. 删除可能遗留的任何配置或日志文件：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>rm -rf /etc/telegraf*
+rm -rf /var/log/telegraf*</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="升级代理-2">升级代理</h4>
+<div class="paragraph">
+<p>要升级电报代理，请执行以下操作：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>停止电报服务：</p>
+<div class="literalblock">
+<div class="content">
+<pre>systemctl stop telegraf (If your operating system is using systemd (CentOS 7+ and RHEL 7+)
+/etc/init.d/telegraf stop (for systems without systemd support)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>删除先前的电报代理：</p>
+<div class="literalblock">
+<div class="content">
+<pre> yum remove telegraf
+. link:#rhel-and-centos["安装新代理"]。</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ubuntu-和-debian">Ubuntu 和 Debian</h3>
+<div class="paragraph">
+<p><span class="image"><img src="Agent_Requirements_Ubuntu.png" alt="Ubuntu 或 Debian 代理安装"></span></p>
+</div>
+<div class="ulist">
+<div class="title">前提条件：</div>
+<ul>
+<li>
+<p>必须提供以下命令： curl ， sudo ， ping ， sha256sum ， openssl ， 和 dmidecode</p>
+</li>
+<li>
+<p>如果您使用的是代理，请按照 * 为 Ubuntu 或 Debian 配置代理支持 * 一节中的说明进行操作。</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">在 Debian 或 Ubuntu 上安装代理的步骤：</div>
+<ol class="arabic">
+<li>
+<p>选择代理访问密钥。</p>
+</li>
+<li>
+<p>从代理安装对话框复制命令块。您可以单击剪贴板图标将命令快速复制到剪贴板。</p>
+</li>
+<li>
+<p>打开 Bash 窗口</p>
+</li>
+<li>
+<p>将命令粘贴到 Bash 窗口中，然后按 Enter 键。</p>
+</li>
+<li>
+<p>此命令将下载相应的代理安装程序并进行安装，然后设置默认配置。完成后，它将重新启动代理服务。此命令具有唯一的密钥，有效期为 24 小时。</p>
+</li>
+<li>
+<p>单击 * 完成 * 或 * 继续 *</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>安装代理后，您可以使用以下命令启动 / 停止此服务：</p>
+</div>
+<div class="paragraph">
+<p>如果您的操作系统使用的是 systemd ：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo systemctl start telegraf
+sudo systemctl stop telegraf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>如果您的操作系统未使用 systemd ：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo service telegraf start
+sudo service telegraf stop</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="为-ubuntu-或-debian-配置代理支持">为 Ubuntu 或 Debian 配置代理支持</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+以下步骤概述了设置 <em>http_proxy/https_proxy_environment 变量所需的操作。对于某些代理环境，用户可能还需要设置 _no_proxy environment</em> 变量。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>对于驻留在代理后面的系统，请执行以下步骤 * 先前 * 以安装 Telegraf 代理：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>为当前用户设置 <em>https_proxy</em> 和 / 或 <em>http_proxy</em> 环境变量：</p>
+<div class="literalblock">
+<div class="content">
+<pre> export https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;
+. 创建 /etc/default/celaff ，并插入 _https_proxy_and/or _http_proxy_ 变量的定义：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="卸载代理-3">卸载代理</h4>
+<div class="paragraph">
+<p>要在 Ubuntu 或 Debian 上卸载代理，请在 Bash 终端中运行以下命令：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>停止 Telegraf 服务：</p>
+<div class="literalblock">
+<div class="content">
+<pre>systemctl stop telegraf (If your operating system is using systemd)
+/etc/init.d/telegraf stop (for systems without systemd support)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>删除 Telegraf 代理：</p>
+<div class="literalblock">
+<div class="content">
+<pre> dpkg -r telegraf
+. 删除可能遗留的任何配置或日志文件：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>rm -rf /etc/telegraf*
+rm -rf /var/log/telegraf*</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="升级代理-3">升级代理</h4>
+<div class="paragraph">
+<p>要升级电报代理，请执行以下操作：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>停止电报服务：</p>
+<div class="literalblock">
+<div class="content">
+<pre>systemctl stop telegraf (If your operating system is using systemd)
+/etc/init.d/telegraf stop (for systems without systemd support)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>删除先前的电报代理：</p>
+<div class="literalblock">
+<div class="content">
+<pre> dpkg -r telegraf
+. link:#ubuntu-and-debian["安装新代理"]。</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="macos">macOS</h3>
+<div class="paragraph">
+<p><span class="image"><img src="Agent_Requirements_Macos.png" alt="安装 macOS 代理"></span></p>
+</div>
+<div class="ulist">
+<div class="title">前提条件：</div>
+<ul>
+<li>
+<p>必须提供以下命令： curl ， sudo ， openssl 和 shasum</p>
+</li>
+<li>
+<p>如果您使用的是代理，请按照 * 为 macOS* 配置代理支持 " 一节中的说明进行操作。</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">在 macOS 上安装代理的步骤：</div>
+<ol class="arabic">
+<li>
+<p>选择代理访问密钥。</p>
+</li>
+<li>
+<p>从代理安装对话框复制命令块。您可以单击剪贴板图标将命令快速复制到剪贴板。</p>
+</li>
+<li>
+<p>打开 Bash 窗口</p>
+</li>
+<li>
+<p>将命令粘贴到 Bash 窗口中，然后按 Enter 键。</p>
+</li>
+<li>
+<p>此命令将下载相应的代理安装程序并进行安装，然后设置默认配置。完成后，它将重新启动代理服务。此命令具有唯一的密钥，有效期为 24 小时。</p>
+</li>
+<li>
+<p>如果您之前使用 Homebrew 安装了 Telegraf 代理，则系统将提示您将其卸载。卸载先前安装的 Telegraf 代理后，重新运行上述步骤 5 中的命令。</p>
+</li>
+<li>
+<p>单击 * 完成 * 或 * 继续 *</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>安装代理后，您可以使用以下命令启动 / 停止此服务：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo launchctl start telegraf
+sudo launchctl stop telegraf</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="为-macos-配置代理支持">为 macOS 配置代理支持</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+以下步骤概述了设置 <em>http_proxy/https_proxy_environment 变量所需的操作。对于某些代理环境，用户可能还需要设置 _no_proxy environment</em> 变量。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>对于驻留在代理后面的系统，请执行以下操作，为当前用户 * 先前 * 设置 <em>https_proxy</em> 和 / 或 <em>http_proxy</em> 环境变量，以安装 Telegraf 代理：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> export https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;
+* 安装 Telegraf 代理之后，在 _/Applications/Telegraf.app/Contents/telegraf.plist_: 中添加并设置适当的 _https_proxy_and/or _http_proxy_ 变量</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>…
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+   &lt;key&gt;EnvironmentVariables&lt;/key&gt;
+   &lt;dict&gt;
+          &lt;key&gt;https_proxy&lt;/key&gt;
+          &lt;string&gt;&lt;proxy_server&gt;:&lt;proxy_port&gt;&lt;/string&gt;
+   &lt;/dict&gt;
+   &lt;key&gt;Program&lt;/key&gt;
+   &lt;string&gt;/Applications/telegraf.app/Contents/MacOS/telegraf&lt;/string&gt;
+   &lt;key&gt;Label&lt;/key&gt;
+   &lt;string&gt;telegraf&lt;/string&gt;
+   &lt;key&gt;ProgramArguments&lt;/key&gt;
+   &lt;array&gt;
+     &lt;string&gt;/Applications/telegraf.app/Contents/MacOS/telegraf&lt;/string&gt;
+     &lt;string&gt;--config&lt;/string&gt;
+     &lt;string&gt;/usr/local/etc/telegraf.conf&lt;/string&gt;
+     &lt;string&gt;--config-directory&lt;/string&gt;
+     &lt;string&gt;/usr/local/etc/telegraf.d&lt;/string&gt;
+   &lt;/array&gt;
+   &lt;key&gt;RunAtLoad&lt;/key&gt;
+   &lt;true/&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+…</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>然后，加载上述更改后重新启动 Telegraf ：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo launchctl stop telegraf
+sudo launchctl unload -w /Library/LaunchDaemons/telegraf.plist
+sudo launchctl load -w /Library/LaunchDaemons/telegraf.plist
+sudo launchctl start telegraf</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="卸载代理-4">卸载代理</h4>
+<div class="paragraph">
+<p>要在 macOS 上卸载代理，请在 Bash 终端中运行以下命令：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>停止 Telegraf 服务：</p>
+<div class="literalblock">
+<div class="content">
+<pre> sudo launchctl stop telegraf
+. 卸载此电报代理：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>cp /Applications/telegraf.app/scripts/uninstall /tmp
+sudo /tmp/uninstall</pre>
+</div>
+</div>
+</li>
+<li>
+<p>删除可能遗留的任何配置或日志文件：</p>
+<div class="literalblock">
+<div class="content">
+<pre>rm -rf /usr/local/etc/telegraf*
+rm -rf /usr/local/var/log/telegraf.*</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="升级代理-4">升级代理</h4>
+<div class="paragraph">
+<p>要升级电报代理，请执行以下操作：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>停止电报服务：</p>
+<div class="literalblock">
+<div class="content">
+<pre> sudo launchctl stop telegraf
+. 卸载先前的电报代理：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>cp /Applications/telegraf.app/scripts/uninstall /tmp
+sudo /tmp/uninstall</pre>
+</div>
+</div>
+</li>
+<li>
+<p><a href="#macos">"安装新代理"</a>。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kubernetes">Kubernetes</h3>
+<div class="paragraph">
+<p>Kubernetes 提供了两种数据收集方式：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>NetApp Kubernetes 监控操作员配置。这是为 Kubernetes 建议的安装方法。</p>
+</li>
+<li>
+<p>基于脚本的传统代理安装</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>安装说明因您选择的不同而异。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="Kubernetes_Operator_Tile_Choices.png" alt="Kubernetes 安装选项"></span></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+NetApp Kubernetes 监控操作员安装被视为 <em>Preview</em> 功能，因此可能会发生更改。
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">前提条件：</div>
+<ul>
+<li>
+<p>必须提供以下命令： curl ， sudo ， openssl ， sha256sum 和 kubectl</p>
+<div class="paragraph">
+<p>为获得最佳结果，请将这些命令添加到路径中。</p>
+</div>
+</li>
+<li>
+<p>必须安装 Kube-state-metrics 。有关详细信息，请参见下文。Kube-state-metrics 会随基于操作员的安装自动安装。</p>
+</li>
+<li>
+<p>如果您使用的是代理，请按照 * 为 Kubernetes 配置代理支持 * 一节中的说明进行操作。</p>
+</li>
+<li>
+<p>如果您运行的 Kubernetes 变体需要安全上下文约束，请按照 * 配置代理以从 Kubernetes 收集数据 * 一节中的说明进行操作。基于操作员的安装可为您安装此软件。</p>
+</li>
+<li>
+<p>您必须具有创建 Kubernetes 集群角色和角色绑定的权限。</p>
+</li>
+<li>
+<p>NetApp Kubernetes 监控操作员安装已通过测试，预计可与 AWS EKS 1.18 ， OpenShift 3.11 和 Rancher 2.6 配合使用。</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="监控仅安装在-linux-节点上">监控仅安装在 Linux 节点上</h4>
+<div class="paragraph">
+<p>Cloud Insights 通过指定 Kubernetes 节点选择器来在这些平台上查找以下 Kubernetes 标签，支持监控运行 Linux 的 Kubernetes 节点：</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">平台</th>
+<th class="tableblock halign-left valign-top">Label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes v1.17 及更高版本</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes 。 io/OS = Linux</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rancher + catt.io 作为流程编排 /Kubernetes 平台</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">catt.io/OS = Linux</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="安装-netapp-kubernetes-监控操作员">安装 NetApp Kubernetes 监控操作员</h4>
+<div class="paragraph">
+<p><span class="image"><img src="Kubernetes_Operator_Agent_Instructions.png" alt="基于操作员的安装"></span></p>
+</div>
+<div class="olist arabic">
+<div class="title">在 Kubernetes 上安装 NetApp Kubernetes 监控操作员代理的步骤：</div>
+<ol class="arabic">
+<li>
+<p>输入集群名称和命名空间。</p>
+</li>
+<li>
+<p>输入这些内容后，您可以复制 Agent 安装程序代码片段</p>
+</li>
+<li>
+<p>单击按钮将此片段复制到剪贴板。</p>
+</li>
+<li>
+<p>将此代码片段粘贴到 <em>bash</em> 窗口中并执行。</p>
+</li>
+<li>
+<p>安装将自动进行。完成后，单击 <em>complete Setup</em> 按钮。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="为-netapp-kubernetes-监控操作员配置代理支持">为 NetApp Kubernetes 监控操作员配置代理支持</h4>
+<div class="paragraph">
+<p>要为监控操作员配置代理，请执行以下步骤。</p>
+</div>
+<div class="paragraph">
+<p>首先，打开 <em>agent-monitoring-netapp</em> 文件进行编辑：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> kubectl -n netapp-monitoring edit agent agent-monitoring-netapp
+在此文件的 _spec： _ 部分中，添加以下代码块：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>spec:
+  proxy:
+    isAuProxyEnabled: &lt;true or false&gt;
+    isTelegrafProxyEnabled: &lt;true or false&gt;
+    isFluentbitProxyEnabled: &lt;true or false&gt;
+    password: &lt;password for proxy, optional&gt;
+    port: &lt;port for proxy&gt;
+    server: &lt;server for proxy&gt;
+    username: &lt;username for proxy, optional&gt;
+    noProxy: &lt;comma separated list of IPs or resolvable hostnames that should bypass a proxy&gt;</pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="使用自定义-私有-docker-存储库">使用自定义 / 私有 Docker 存储库</h5>
+<div class="paragraph">
+<p>如果使用自定义 Docker 存储库，请执行以下操作：</p>
+</div>
+<div class="paragraph">
+<p>获取 Docker 密钥：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> kubectl -n netapp-monitoring get secret docker -o yaml
+复制 / 粘贴上述命令输出中的值 _.dockerconfigjson ： _ 。</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>对 Docker 密钥进行解码：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> echo &lt;paste from _.dockerconfigjson:_  output above&gt; | base64 -d
+此命令的输出将采用以下 json 格式：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>{ "auths":
+  {"docker.&lt;cluster&gt;.cloudinsights.netapp.com" :
+    {"username":"&lt;tenant id&gt;",
+     "password":"&lt;password which is the CI API key&gt;",
+     "auth"    :"&lt;encoded username:password basic auth key. This is internal to docker&gt;"}
+  }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>登录到 Docker 存储库：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>docker login docker.&lt;cluster&gt;.cloudinsights.netapp.com (from step #2) -u &lt;username from step #2&gt;
+password: &lt;password from docker secret step above&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>从 Cloud Insights 中提取操作员 Docker 映像：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> docker pull docker.&lt;cluster&gt;.cloudinsights.netapp.com/netapp-monitoring:&lt;version&gt;
+使用以下命令查找 &lt;version&gt; 字段：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> kubectl -n netapp-monitoring get deployment monitoring-operator | grep "image:"
+根据您的企业策略，将操作员 Docker 映像推送到您的私有 / 本地 / 企业 Docker 存储库。</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>将所有开源依赖项下载到您的私有 Docker 注册表中。需要下载以下开源映像：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>docker.io/telegraf:1.19.3
+gcr.io/kubebuilder/kube-rbac-proxy:v0.5.0
+k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.1.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>如果启用了 flual-bit ，请同时下载：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>docker.io/fluent-bit:1.7.8
+docker.io/kubernetes-event-exporter:0.10</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>编辑代理 CR 以反映新的 Docker repo 位置，禁用自动升级（如果已启用）。</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl -n netapp-monitoring edit agent agent-monitoring-netapp
+enableAutoUpgrade: false</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>docker-repo: &lt;docker repo of the enterprise/corp docker repo&gt;
+dockerRepoSecret: &lt;optional: name of the docker secret of enterprise/corp docker repo, this secret should be already created on the k8s cluster in the same namespace&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>在 <em>spec_</em> 部分中，进行以下更改：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>spec:
+  telegraf:
+    - name: ksm
+      substitutions:
+        - key: k8s.gcr.io
+          value: &lt;same as "docker-repo" field above&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="基于脚本的安装">基于脚本的安装</h4>
+<div class="paragraph">
+<p><span class="image"><img src="Kubernetes_Install_Agent_screen.png" alt="基于脚本的安装"></span></p>
+</div>
+<div class="olist arabic">
+<div class="title">在 Kubernetes 上安装基于脚本的代理的步骤：</div>
+<ol class="arabic">
+<li>
+<p>选择代理访问密钥。</p>
+</li>
+<li>
+<p>单击安装对话框中的 * 复制代理安装程序 Snippet* 按钮。如果要查看命令块，您可以选择单击 <em>+reveal Agent Installer Snippet</em> 按钮。</p>
+</li>
+<li>
+<p>将命令粘贴到 <em>bash</em> 窗口中。</p>
+</li>
+<li>
+<p>或者，您也可以在 install 命令中覆盖命名空间或提供集群名称，方法是修改命令块，在最终的 <em>./$installerName</em> 之前添加以下一项或两项</p>
+<div class="ulist">
+<ul>
+<li>
+<p>cluster_name=&lt; 集群名称 &gt;</p>
+</li>
+<li>
+<p>namespace=&lt; 命名空间 &gt;</p>
+<div class="paragraph">
+<p>命令块中已安装此命令：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>installerName=cloudinsights-kubernetes.sh ... &amp;&amp; CLUSTER_NAME=&lt;cluster_name&gt; NAMESPACE=&lt;new_namespace&gt; sudo -E -H ./$installerName --download --install</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/tip.svg" alt="提示">
+</td>
+<td class="content">
+<em>cluster_name</em> 是 Cloud Insights 收集指标的 Kubernetes 集群的名称，而 _namespace_是 要将 Telegraf 代理部署到的命名空间。如果指定的命名空间尚不存在，则会创建该命名空间。
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>准备好后，执行命令块。</p>
+</li>
+<li>
+<p>此命令将下载相应的代理安装程序并进行安装，然后设置默认配置。如果尚未明确设置 <em>namespaces</em> ，系统将提示您输入此名称。完成后，此脚本将重新启动代理服务。此命令具有唯一的密钥，有效期为 24 小时。</p>
+</li>
+<li>
+<p>完成后，单击 * 完成设置 * 。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="为-kubernetes-配置代理支持基于脚本">为 Kubernetes 配置代理支持—基于脚本</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+以下步骤概述了设置 <em>http_proxy/https_proxy_environment 变量所需的操作。对于某些代理环境，用户可能还需要设置 _no_proxy environment</em> 变量。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>对于驻留在代理后面的系统，请执行以下操作，为当前用户 * 先前 * 设置 <em>https_proxy</em> 和 / 或 <em>http_proxy</em> 环境变量，以安装 Telegraf 代理：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> export https_proxy=&lt;proxy_server&gt;:&lt;proxy_port&gt;
+* 安装 Telegraf 代理之后，将适当的 _https_proxy_ 和 / 或 _http_proxy_ 环境变量添加并设置为 _telecraf-DS_ emonset 和 _telecraf-RS_ replicaset 。</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl edit ds telegraf-ds</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>…
+       env:
+       - name: https_proxy
+         value: &lt;proxy_server&gt;:&lt;proxy_port&gt;
+       - name: HOSTIP
+         valueFrom:
+           fieldRef:
+             apiVersion: v1
+             fieldPath: status.hostIP
+…</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl edit rs telegraf-rs</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>…
+       env:
+       - name: https_proxy
+         value: &lt;proxy_server&gt;:&lt;proxy_port&gt;
+       - name: HOSTIP
+         valueFrom:
+           fieldRef:
+             apiVersion: v1
+             fieldPath: status.hostIP
+…</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>然后，重新启动 Telegraf ：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl delete pod telegraf-ds-*
+kubectl delete pod telegraf-rs-*</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="demonset-replicaset-以及停止-启动代理">DemonSet ， ReplicaSet 以及停止 / 启动代理</h4>
+<div class="paragraph">
+<p>将在 Kubernetes 集群上创建 DemonSet 和 ReplicaSet ，以运行所需的 Telegraf 代理 / Pod 。默认情况下，这些 Telegraf 代理 / Pod 将同时计划在主节点和非主节点上。</p>
+</div>
+<div class="paragraph">
+<p>为了便于停止和重新启动代理，请使用以下命令生成 Telegraf DemonSet YAML 和 ReplicaSet YAML 。请注意，这些命令使用的是默认命名空间 "CI-monitoring" 。如果您已设置自己的命名空间，请在以下命令和所有后续命令和文件中替换此命名空间：</p>
+</div>
+<div class="paragraph">
+<p>如果您已设置自己的命名空间，请在以下命令和所有后续命令和文件中替换此命名空间：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl --namespace ci-monitoring get ds telegraf-ds -o yaml &gt; /tmp/telegraf-ds.yaml
+kubectl --namespace ci-monitoring get rs telegraf-rs -o yaml &gt; /tmp/telegraf-rs.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>然后，您可以使用以下命令停止和启动 Telegraf 服务：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl --namespace ci-monitoring delete ds telegraf-ds
+kubectl --namespace ci-monitoring delete rs telegraf-rs</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl --namespace ci-monitoring apply -f /tmp/telegraf-ds.yaml
+kubectl --namespace ci-monitoring apply -f /tmp/telegraf-rs.yaml</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="配置代理以从-kubernetes-收集数据">配置代理以从 Kubernetes 收集数据</h4>
+<div class="paragraph">
+<p>注意：基于脚本的安装的默认命名空间为 _cI-monitoring-.对于基于操作员的安装，默认命名空间为 _netapp-monitoring-.在涉及命名空间的命令中，请务必为您的安装指定正确的命名空间。</p>
+</div>
+<div class="paragraph">
+<p>运行代理的 Pod 需要能够访问以下内容：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>HostPath</p>
+</li>
+<li>
+<p>配置映射</p>
+</li>
+<li>
+<p>机密</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>这些 Kubernetes 对象会在 Cloud Insights UI 中提供的 Kubernetes 代理安装命令中自动创建。Kubernetes 的某些变体（例如 OpenShift ）实施了更高的安全级别，可能会阻止对这些组件的访问。<em>SecurityContextConstrent</em> 不是在 Cloud Insights UI 中提供的 Kubernetes 代理安装命令中创建的，必须手动创建。创建后，重新启动 Telegraf Pod 。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    apiVersion: v1
+    kind: SecurityContextConstraints
+    metadata:
+      name: telegraf-hostaccess
+      creationTimestamp:
+      annotations:
+        kubernetes.io/description: telegraf-hostaccess allows hostpath volume mounts for restricted SAs.
+      labels:
+        app: ci-telegraf
+    priority: 10
+    allowPrivilegedContainer: true
+    defaultAddCapabilities: []
+    requiredDropCapabilities: []
+    allowedCapabilities: []
+    allowedFlexVolumes: []
+    allowHostDirVolumePlugin: true
+    volumes:
+    - hostPath
+    - configMap
+    - secret
+    allowHostNetwork: false
+    allowHostPorts: false
+    allowHostPID: false
+    allowHostIPC: false
+    seLinuxContext:
+      type: MustRunAs
+    runAsUser:
+      type: RunAsAny
+    supplementalGroups:
+      type: RunAsAny
+    fsGroup:
+      type: RunAsAny
+    readOnlyRootFilesystem: false
+    users:
+    - system:serviceaccount:ci-monitoring:monitoring-operator
+    groups: []</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="安装-kube-state-metrics-服务器">安装 Kube-state-metrics 服务器</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+基于操作员的安装可处理 Kube-state-metrics 的安装。如果要执行基于操作员的安装，请跳过此部分。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+强烈建议使用 Kube-state-metrics 2.0 或更高版本，以利用完整的功能集，包括将 Kubernetes 永久性卷（永久性卷）链接到后端存储设备的功能。另请注意，对于 Kube-state-metrics 2.0 及更高版本，默认情况下不会导出 Kubernetes 对象标签。要配置 Kube-state-metrics 以导出 Kubernetes 对象标签，必须指定指标标签 "allow" 列表。请参见中的 <em>-metric-labks-allowlist</em> 选项 <a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/cli-arguments.md">"Kube-state-metrics 文档"</a>。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>按照以下步骤安装 Kube-state-metrics 服务器（如果正在执行基于脚本的安装，则需要此服务器）：</p>
+</div>
+<div class="olist arabic">
+<div class="title">步骤</div>
+<ol class="arabic">
+<li>
+<p>创建一个临时文件夹（例如， //tmp/Kube-state-yamal-files/_ ），然后从复制 .yaml 文件 <a href="https://github.com/kubernetes/kube-state-metrics/tree/master/examples/standard" class="bare">https://github.com/kubernetes/kube-state-metrics/tree/master/examples/standard</a> 到该文件夹。</p>
+</li>
+<li>
+<p>运行以下命令以应用安装 Kube-state-metrics 所需的 .yaml 文件：</p>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl apply -f /tmp/kube-state-yaml-files/</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="kube-state-metrics-计数器">Kube-state-metrics 计数器</h4>
+<div class="paragraph">
+<p>使用以下链接访问 Kubbe 状态指标计数器的信息：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/configmap-metrics.md">"ConfigMap 指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/daemonset-metrics.md">"DemonSet 指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/deployment-metrics.md">"部署指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/ingress-metrics.md">"传入指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/namespace-metrics.md">"命名空间指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/node-metrics.md">"节点指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/persistentvolume-metrics.md">"永久性卷指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/persistentvolumeclaim-metrics.md">"持久性卷声明指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/pod-metrics.md">"POD 指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/replicaset-metrics.md">"ReplicaSet 指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/secret-metrics.md">"机密指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/service-metrics.md">"服务指标"</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kubernetes/kube-state-metrics/blob/master/docs/statefulset-metrics.md">"StatusSet 指标"</a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="卸载代理-5">卸载代理</h4>
+<div class="paragraph">
+<p>请注意，这些命令使用的是默认命名空间 "CI-monitoring" 。如果您已设置自己的命名空间，请在这些命令和所有后续命令和文件中替换该命名空间。</p>
+</div>
+<div class="paragraph">
+<p>要卸载 Kubernetes 上基于脚本的代理，请执行以下操作：</p>
+</div>
+<div class="paragraph">
+<p>如果监控命名空间仅用于 Telegraf ：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> kubectl --namespace ci-monitoring delete ds,rs,cm,sa,clusterrole,clusterrolebinding -l app=ci-telegraf
+ kubectl delete ns ci-monitoring
+如果除了 Telegraf 之外，监控命名空间还用于其他目的：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> kubectl --namespace ci-monitoring delete ds,rs,cm,sa,clusterrole,clusterrolebinding -l app=ci-telegraf
+对于基于操作员的安装，请运行以下命令：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl delete ns netapp-monitoring
+kubectl delete agent agent-monitoring-netapp
+kubectl delete crd agents.monitoring.netapp.com
+kubectl delete role agent-leader-election-role
+kubectl delete clusterrole agent-manager-role agent-proxy-role agent-metrics-reader
+kubectl delete clusterrolebinding agent-manager-rolebinding agent-proxy-rolebinding agent-cluster-admin-rolebinding</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>如果先前为基于脚本的 Telegraf 安装手动创建了安全上下文限制：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl delete scc telegraf-hostaccess</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="升级代理-5">升级代理</h4>
+<div class="paragraph">
+<p>请注意，这些命令使用的是默认命名空间 "CI-monitoring" 。如果您已设置自己的命名空间，请在这些命令和所有后续命令和文件中替换该命名空间。</p>
+</div>
+<div class="paragraph">
+<p>要升级电报代理，请执行以下操作：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>备份现有配置：</p>
+<div class="literalblock">
+<div class="content">
+<pre>kubectl --namespace ci-monitoring get cm -o yaml &gt; /tmp/telegraf-configs.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>卸载代理（有关说明，请参见上文）</p>
+</li>
+<li>
+<p><a href="#kubernetes">"安装新代理"</a>。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="验证校验和">验证校验和</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cloud Insights 代理安装程序会执行完整性检查，但某些用户可能希望在安装或应用下载的项目之前执行自己的验证。要执行仅下载操作（与默认的下载和安装操作相反），这些用户可以编辑从 UI 获取的代理安装命令并删除尾随的 "install" 选项。</p>
+</div>
+<div class="paragraph">
+<p>请按照以下步骤操作：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>按照说明复制 Agent 安装程序代码片段。</p>
+</li>
+<li>
+<p>请将代码片段粘贴到文本编辑器中，而不是将其粘贴到命令窗口中。</p>
+</li>
+<li>
+<p>从命令中删除尾随的 "-install" （ Linux/Mac ）或 "-install" （ Windows ）。</p>
+</li>
+<li>
+<p>从文本编辑器复制整个命令。</p>
+</li>
+<li>
+<p>现在，将其粘贴到命令窗口（在工作目录中）并运行。</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>非 Windows （这些示例适用于 Kubernetes ；实际脚本名称可能有所不同）：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Download and install （下载并安装）（默认）：</p>
+<div class="literalblock">
+<div class="content">
+<pre> installerName=cloudinsights-kubernetes.sh … &amp;&amp; sudo -E -H ./$installerName --download –-install
+* 仅下载：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>installerName=cloudinsights-kubernetes.sh … &amp;&amp; sudo -E -H ./$installerName --download</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Windows</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Download and install （下载并安装）（默认）：</p>
+<div class="literalblock">
+<div class="content">
+<pre> !$($installerName=".\cloudinsights-windows.ps1") … -and $(&amp;$installerName -download -install)
+* 仅下载：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>!$($installerName=".\cloudinsights-windows.ps1") … -and $(&amp;$installerName -download)</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>仅下载命令会将所有所需的项目从 Cloud Insights 下载到工作目录。这些项目包括但不限于：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>安装脚本</p>
+</li>
+<li>
+<p>环境文件</p>
+</li>
+<li>
+<p>YAML 文件</p>
+</li>
+<li>
+<p>签名校验和文件（ SHA256.signed ）</p>
+</li>
+<li>
+<p>用于签名验证的 PEM 文件（ netapp_cert.pem ）</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>安装脚本，环境文件和 YAML 文件可以通过目视检查进行验证。</p>
+</div>
+<div class="paragraph">
+<p>可以通过确认 PEM 文件的指纹为以下内容来验证 PEM 文件：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> E5:FB:7B:68:C0:8B:1C:A9:02:70:85:84:C2:74:F8:EF:C7:BE:8A:BC
+更具体地说，</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>非 Windows ：</p>
+<div class="literalblock">
+<div class="content">
+<pre> openssl x509 -fingerprint -sha1 -noout -inform pem -in netapp_cert.pem
+* Windows</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Import-Certificate -Filepath .\netapp_cert.pem -CertStoreLocation Cert:\CurrentUser\Root</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>可以使用 PEM 文件验证签名校验和文件：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>非 Windows ：</p>
+<div class="literalblock">
+<div class="content">
+<pre> openssl smime -verify -in sha256.signed -CAfile netapp_cert.pem -purpose any
+* Windows （通过上述 Import-Certificate 安装证书后）：</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Get-AuthenticodeSignature -FilePath .\sha256.ps1 $result = Get-AuthenticodeSignature -FilePath .\sha256.ps1 $signer = $result.SignerCertificate Add-Type -Assembly System.Security [Security.Cryptography.x509Certificates.X509Certificate2UI]::DisplayCertificate($signer)</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>在对所有项目进行满意的验证后，可以通过运行以下命令启动代理安装：</p>
+</div>
+<div class="paragraph">
+<p>非 Windows ：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> sudo -E -H ./&lt;installation_script_name&gt; --install
+Windows</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>.\cloudinsights-windows.ps1 -install</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="代理安装故障排除">代理安装故障排除</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>在设置代理时遇到问题时要尝试的一些操作：</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">问题：</th>
+<th class="tableblock halign-left valign-top">请尝试以下操作：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">我已使用 Cloud Insights 安装代理</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果您已在主机 /VM 上安装了代理，则无需重新安装该代理。在这种情况下，只需在 Agent 安装屏幕中选择适当的平台和密钥，然后单击 * 继续 * 或 * 完成 * 。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">我已安装代理，但未使用 Cloud Insights 安装程序安装代理</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">删除先前的代理并运行 Cloud Insights 代理安装，以确保正确的默认配置文件设置。完成后，单击 * 继续 * 或 * 完成 * 。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">我未看到 Kubernetes 永久性卷与相应后端存储设备之间的超链接 / 连接。我的 Kubernetes 永久性卷使用存储服务器的主机名进行配置。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">按照以下步骤卸载现有的 Telegraf 代理，然后重新安装最新的 Telegraf 代理。您必须使用 Telegraf 2.0 或更高版本。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">我在日志中看到类似以下内容的消息： E0901 15 ： 21 ： 39.962145 1 个 trirror.go ： 178] K8s.io/Kube-state-metrics/internal/store/builer.go ： 352 ：无法列出 * 。 MutatingWebhookConfiguration ：服务器找不到请求的资源 E091.IO/Kube-state-metrics ：内部 /8.171.Go ：无法找到服务器</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果您运行的是 Kube-state-metrics 版本 2.0.0 或更高版本以及 Kubernetes 版本 1.17 或更低版本，则可能会出现这些消息。要获取 Kubernetes 版本： <em>kubectl version</em> 以获取 Kube-state-metrics 版本： <em>kubectl get deploy/Kube-state-metrics -o jsonpath="" ｛ ..image ｝ '</em> 要防止发生这些消息，用户可以修改其 Kube-state-metrics 部署以禁用以下租约： <em>mutatingwebconfigurations _webhook</em> ，具体可以使用以下参数： resources=certificatesigningrequests ， configmaps ， cronjobs ， demonsets ，部署，端点，水平 podautoscalers ， ingeses ，作业，限制范围，命名空间，网络策略，节点，复制卷，持久性卷， poddis中断 预算， Pod ，证书集，资源控制器，资源等，网络，存储器，卷，存储器，卷，存储器，存储器，存储器，卷，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，卷，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，卷，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，卷，存储器，存储器，存储器，存储器，存储器，存储器， 验证 webhookconfigurations ， volumeattachments</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">我在 Kubernetes 上安装或升级了 Telegraf ，但 Telegraf Pod 未启动。Telegraf ReplicaSet 或 DemonSet 报告了类似以下内容的故障：创建时出错： Pod "telaf-RS- " is foreged" ：无法针对任何安全上下文限制进行验证： [spec.volumes_2 ：无效值： "hostPath" ：不允许使用 hostPath 卷 ]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果还不存在安全上下文限制，请创建此限制（请参见上文 " 配置代理以从 Kubernetes 收集数据 " 一节）。确保为安全上下文限制指定的命名空间和服务帐户与 Telegraf ReplicaSet 和 DemonSet 的命名空间和服务帐户匹配。kubectl describe scc talaf-hostaccess</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">grep serviceaccount kubectl -n ci-monitoring -describe RS talaf-RS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">grep -i "Namespace" kubectl -n ci-monitoring describe RS tengraaf-RS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">grep -i "service account" ： kubectl -n ci-monitoring -describe DS ci-ds-ds-ds-ds"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">我看到来自 Telegraf 的错误消息如下所示，但 Telegraf 确实启动并运行： Oct 11 14 ： 23 ： 41 IP-172-31-39-47 systemd1* ：启动了插件驱动的服务器代理，以便向 InfluxDB 报告指标。Oct 11 14 ： 23 ： 41 IP-172-31-39-47 cailaf[1827] ： time="2021-10-11T14 ： 23 ： 41Z" level=error msg="failed to create cache directory" 。/etc/celaf/.cache/snowvelc ，错误： mkdir /etc/tengraf/.ca ChE ：权限被拒绝。ignored\n" func="gosnowchelf.（ * defaultLogger ） .Errorf" fil="log.go ： 120" Oct 11 14 ： 23 ： 41 IP-172-31 ： 39-47 celaf[1827] ： time="2021-10-11T14 ： 23 ： 41Z" level=error msg="failed to open.已忽略。打开 /etc/celaf/.cache/snowlife/OCSP_response_cache.json ： no such file or directory\n" func="gosnowchlafe.（ * defaultLogger ） .Errorf" fil="log.go ： 120" Oct 11 14 ： 23 ： 41 IP-172-31-39-47 craaf[1827] ： I-41Z-2021 ：启动 Telegraf 1.19.3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这是一个已知的问题描述。请参见 <a href="https://github.com/influxdata/telegraf/issues/9407">"此 GitHub 文章"</a> 有关详细信息：只要 Telegraf 启动并运行，用户就可以忽略这些错误消息。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在 Kubernetes 上，我的 Telegraf Pod 报告以下错误： " 处理 mountstats 信息时出错：无法打开 mountstats 文件： /hostfs/proc/1/mountstats ，错误： open /hostfs/proc/1/mountstats ：权限被拒绝 "</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>可以从找到追加信息 <a href="concept_requesting_support.html">"支持"</a> 页面或中的 <a href="https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf">"数据收集器支持列表"</a>。</p>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+            <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+
+</ul>
+</div>
+<div class="n-footer__social-links">
+<ul class="n-footer__social-link-list">
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com" target="_blank" title="blog" alt="blog">
+<span class="n-footer__social-link-text">blog</span>
+<svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+  <title>blog@</title>
+  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#blog"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/" target="_blank" title="community" alt="community">
+<span class="n-footer__social-link-text">community</span>
+<svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+<title>community@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#comments"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp" target="_blank" title="twitter" alt="twitter">
+<span class="n-footer__social-link-text">twitter</span>
+<svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+<title>twitter@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#twitter"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp" target="_blank" title="facebook" alt="facebook">
+<span class="n-footer__social-link-text">facebook</span>
+<svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+<title>facebook@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#facebook"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-linkedin" href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+<span class="n-footer__social-link-text">linkedin</span>
+<svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+<title>linkedin@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#linkedin"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-youtube" href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+<span class="n-footer__social-link-text">youtube</span>
+<svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+<title>youtube@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#youtube"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-slideshare" href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+<span class="n-footer__social-link-text">slideshare</span>
+<svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+<title>slideshare@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#slideshare"></use>
+</svg>
+
+</a>
+</li>
+</ul>
+</div>
+
+</div>
+<div class="n-footer__bottom-right">
+  <p class="n-footer__fine-print">想就我们的网站提供反馈?<a target="_self" href="javascript:netapp_mailto()" class="n-footer__copyright">请告诉我们</a>
+  <a href="https://docs.netapp.com/zh-cn/announcements/" class="n-footer__copyright">通知</a>
+  </p>
+</div>
+</div>
+</div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-cn/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-cn/test/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-cn/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-cn/test/js/www-ntap.js'></script>
+    <script src='/zh-cn/test/js/tabbed-blocks.js'></script>
+  </body></html>

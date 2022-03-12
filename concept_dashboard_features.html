@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head class="at-element-marker">
+  <title>信息板功能</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="信息板功能" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-cn/test/concept_dashboard_features.html" />
+	<meta property="og:description" content="信息板功能和概念。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-cn/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="信息板功能和概念。">
+  <meta name="keywords" content=" dashboard, widget, custom, concepts, queries, variables, rollup, roll up, grouping, aggregate, aggregation, filter, axis, group by, expressions, timeseries, exact match, theme, visibility"><meta name="robots" content="noindex" /><!-- Icons -->
+  <link rel="icon" href="/zh-cn/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-cn/test/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-cn/test/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-cn/test/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-cn/test/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-cn/test/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-cn/test/css/tabbed-blocks.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-cn/test/js/na-search.js'></script><script src='/zh-cn/test/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-cn/test/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-cn/test/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-cn/test/js/na-utility.js'></script>
+  <script src='/zh-cn/test/js/clouddocs.js'></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    var head = document.getElementsByTagName('head')[0];
+    var adobe = document.createElement("script");
+    adobe.type = "text/javascript";
+    adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+    head.appendChild(adobe);
+  }
+  </script>
+  <script src='/zh-cn/test/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-cn/test/js/toc.js'></script>
+  <script src='/zh-cn/test/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-81697994-3"></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-81697994-3');
+  }
+  </script>
+  <script src='/zh-cn/test/js/version-dropdown.js'></script>
+  <script src='/zh-cn/test/js/FileSaver.min.js'></script>
+  <script src='/zh-cn/test/js/jszip-utils.min.js'></script>
+  <script src='/zh-cn/test/js/jszip.min.js'></script>
+  <script src='/zh-cn/test/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  <div class="page-nav-toolbar">
+    <div id="version-dropdown"></div>
+    <div class="page-nav-contribute"  >
+      <a target="_blank" href="https://github.com/NetAppDocs/test/issues/new?body=Page%3A%20[信息板功能](https://docs.netapp.com/zh-cn/test/concept_dashboard_features.html)" class="page-nav-contribute-link" role="button"><img src="/zh-cn/test/images/discuss-sm.svg" class="github-icon" />请求文档变更</a>
+      <a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/concept_dashboard_features.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-cn/test/images/edit-sm.svg" class="github-icon" />在 GitHub 上编辑</a>
+      <a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-cn/test/images/article-sm.svg" class="github-icon" />提供者指南</a>
+    </div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此页面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">产品和解决方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支持和培训</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">云中心</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社区</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">日志</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客户案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">联系人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">联系人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-cn/test/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-cn/test/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-cn/test/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-cn/test/search.html"
+          data-type="widget" 
+          data-placeholder="搜索文档" 
+          data-no-results-found="未找到与 {query} 匹配的结果。" 
+          data-did-you-mean="搜索 {suggestion}。" 
+          data-no-results-found-did-you-mean="未找到与 {query} 匹配的结果。您是否要搜索 {suggestion}?" 
+          data-results-found="找到 {hitCount} 个结果"  
+          data-sk-es-pf-indexes=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">简体中文</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/test/concept_dashboard_features.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/test/concept_dashboard_features.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/test/concept_dashboard_features.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ko-kr/test/concept_dashboard_features.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/index.html">
+        Cloud Insights 文档
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_whats_new.html">
+        新增功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cloud_insights_onboarding_1.html">
+        注册 Cloud Insights
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 安全性</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/security_overview.html">
+        安全实践
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/security_information_and_region.html">
+        我们的存储内容以及存储位置
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 入门</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_feature_tutorials.html">
+        功能教程
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 正在收集数据</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_getting_started_with_cloud_insights.html">
+        概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_acquisition_unit_requirements.html">
+        采集单元要求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_configure_acquisition_unit.html">
+        配置采集单元
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_agent.html">
+        配置代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_configure_data_collectors.html">
+        配置数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_determining_data_collector_acq_status.html">
+        确定 Data Collector 采集状态
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_configured_data_collectors.html">
+        管理已配置的数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_research_failed_collector.html">
+        研究数据收集器错误
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_import_from_dashboard_gallery.html">
+        导入建议的信息板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_user_roles.html">
+        用户帐户和角色
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_other_cloud_products.html">
+        正在切换到其他 Cloud Central 产品
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/data_collector_list.html">
+        数据收集器列表
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_subscribing_to_cloud_insights.html">
+        订阅 Cloud Insights
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 自动设备解析</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_device_resolution_overview.html">
+        设备解析概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_rules.html">
+        设备解析规则
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_fibre_channel.html">
+        光纤通道设备解析
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_ip.html">
+        IP 设备解析
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_device_resolution_preferences.html">
+        设置设备解析首选项
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_device_resolution_regex_examples.html">
+        正则表达式示例
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 创建信息板</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboards_overview.html">
+        信息板概述
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboard_features.html">
+        信息板的功能
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 示例信息板</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dashboard_example_VM_performance.html">
+        虚拟机性能
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_dashboard_best_practices.html">
+        信息板最佳实践
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Kubernetes 资源管理器</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/kubernetes_landing_page.html">
+        Kubernetes 概述页面
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/kubernetes_cluster_detail.html">
+        Kubernetes 集群页面
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用查询</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_querying_assets.html">
+        正在查询资产
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_query.html">
+        创建查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_queries.html">
+        查看可用查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_export_query_results.html">
+        将查询结果导出到 .CSV
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_modify_delete_query.html">
+        修改或删除查询
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_query_assign_multiple_applicationss.html">
+        为对象分配多个应用程序 / 标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_query_copy_table_values.html">
+        将表值复制到剪贴板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_log_explorer.html">
+        正在查询日志
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用标注</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_defining_annotations.html">
+        定义标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_annotation.html">
+        使用标注
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_annotation_rules.html">
+        使用标注规则
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_annotation_import.html">
+        使用 API 导入标注
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用应用程序</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_about_applications.html">
+        应用程序概念
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_application.html">
+        配置应用程序
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 监控和警报</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_monitor.html">
+        创建监控器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_view_and_manage_alerts.html">
+        查看和管理警报
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_notifications_email.html">
+        配置通知收件人
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_system_monitors.html">
+        系统定义的监控器
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/API_Overview.html">
+        使用 API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_create_webhook.html">
+        网络挂机通知
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 监控环境</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_audit.html">
+        审核事件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_ttl_and_downsampling.html">
+        TTL 和下抽样
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 资产页面信息</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_page_overview.html">
+        资产页面概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_in_context_filters.html">
+        对象的上下文内筛选
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_summary_section.html">
+        摘要拓扑部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_expert_view_section.html">
+        专家视图部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_user_data_section.html">
+        用户数据部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_asset_alerts_section.html">
+        相关警报部分
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_searching_assets.html">
+        搜索资产的提示和提示
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 报告</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_overview.html">
+        报告概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_user_roles.html">
+        报告用户角色
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_predefined_reports.html">
+        使用预定义报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_storage_manager_dashboard.html">
+        Storage Manager 信息板
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_create_example.html">
+        创建示例报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_managing_reports.html">
+        管理报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_creating_custom_reports.html">
+        自定义报告
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_creating_custom_reports.html#reporting-data-models">
+        数据模型
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_querying_database.html">
+        报告数据库 API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_data_retention.html">
+        数据保留
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reporting_schema_diagrams.html">
+        架构图
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_schemas.html">
+        模式表
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Cloud Secure</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_intro.html">
+        关于 Cloud Secure
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 入门</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_getting_started.html">
+        Cloud Secure 入门
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_agent_requirements.html">
+        Cloud Secure 代理要求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_add_agent.html">
+        配置 Cloud Secure 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_delete_agent.html">
+        删除 Cloud Secure 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_user_dir_connect.html">
+        配置 AD 目录收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_user_dir_connect_ldap.html">
+        配置 LDAP 目录收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_cs_amazon_fsx.html">
+        配置适用于 NetApp ONTAP 收集器的 Amazon FSX
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_add_collector_svm.html">
+        配置 ONTAP SVM 数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_cs_incloud.html">
+        配置 Cloud ONTAP 数据收集器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_cs_user_management.html">
+        Cloud Secure 用户管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_event_rate_checker.html">
+        事件速率检查器
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_alert_data.html">
+        警报
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 取证</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_activity_history.html">
+        活动取证—所有活动
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_entity_detail.html">
+        活动取证—实体
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/forensic_user_overview.html">
+        用户
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_automated_response_policies.html">
+        自动响应策略
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_restrict_user_access.html">
+        限制用户访问
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_attack_simulator.html">
+        模拟勒索软件攻击
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/cs_notifications_email.html">
+        通知
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_cs_api.html">
+        Cloud Secure API
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_activeiq.html">
+        Active IQ
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 故障排除</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_general_problems.html">
+        常规故障排除
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_linux_acquisition_unit_problems.html">
+        排除 Linux 采集单元问题
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_troubleshooting_windows_acquisition_unit_problems.html">
+        对 Windows 采集单元问题进行故障排除
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_research_failed_collector.html">
+        调查数据收集器错误
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 参考支持</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_requesting_support.html">
+        请求支持
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_data_collector_support_matrix.html">
+        数据收集器支持列表
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 《数据收集器参考—基础架构》</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/concept_data_collector_reference.html">
+        供应商参考概述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_amazon_ec2.html">
+        AWS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_azure.html">
+        Azure 酒店
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Broadcom</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_brocade_bna.html">
+        Brocade Network Advisor
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_brocade_fc_switch.html">
+        光纤通道交换机
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_cisco_fc_switch.html">
+        Cisco
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Dell</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_dell_xc_series.html">
+        xC 系列
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Dell EMC</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_datadomain.html">
+        数据域
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_ecs.html">
+        ECS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_isilon.html">
+        PowerScale
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_powerstore.html">
+        PowerStore
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_recoverpoint.html">
+        RecoverPoint
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_scaleio.html">
+        ScaleIO
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_unity.html">
+        Unity （ VNXe ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vmax_powermax.html">
+        VMAX/PowerMax
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_block.html">
+        VNX 块（ Clariion ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_file.html">
+        VNX 文件（ Celerra ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vnx_unified.html">
+        VNX 统一
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_vplex.html">
+        VPLEX
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_emc_xio.html">
+        XtremIO
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_fujitsu_eternus.html">
+        Fujitsu
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_google_cloud.html">
+        Google
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> HP 企业</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hp_3par.html">
+        HP Alletra 9000 和 Primera
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hpe_commandview.html">
+        HP Command View AE
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hpe_nimble.html">
+        HPE Alletra 6000
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Hitachi Data Systems</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_commandsuite.html">
+        HDS 命令套件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_nas.html">
+        HDS HNAS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_hds_ops_center.html">
+        HDS 运营中心
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_infinidat_infinibox.html">
+        无限
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_huawei_oceanstor.html">
+        华为
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> IBM</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_cleversafe.html">
+        Cleverssafe
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_cs.html">
+        CS 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_ds.html">
+        系统存储 DS8000 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_powervm.html">
+        PowerVM
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_svc.html">
+        SAN 卷控制器（ SVC ）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ibm_xiv.html">
+        XIV/A9000
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_lenovo.html">
+        联想
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Microsoft</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_anf.html">
+        Azure NetApp Files
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_ms_hyperv.html">
+        Hyper-V
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> NetApp</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_astra_data_store.html">
+        Astra 数据存储
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_connection.html">
+        适用于 ONTAP 9.9+ 的云连接
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_volumes_ontap.html">
+        Cloud Volumes ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cloud_volumes.html">
+        适用于 AWS 的 Cloud Volumes Services
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_cdot.html">
+        ONTAP 数据管理软件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_7mode.html">
+        Data ONTAP 7- 模式
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_eseries.html">
+        E 系列
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_hci.html">
+        NetApp HCI 管理服务器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_solidfire.html">
+        SolidFire
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_na_storagegrid.html">
+        StorageGRID
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_nutanix.html">
+        Nutanix
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_openstack.html">
+        OpenStack
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_oracle_zfs.html">
+        Oracle
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_pure_flasharray.html">
+        纯净
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_redhat_virtualization.html">
+        Red Hat
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_dc_vmware.html">
+        VMware
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 《数据收集器参考—服务》</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_node.html">
+        主机 / 节点
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_activemq.html">
+        ActiveMQ
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_apache.html">
+        Apache
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_consul.html">
+        Consu
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_couchbase.html">
+        Couchbase
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_couchdb.html">
+        CouchDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_docker.html">
+        Docker
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_elasticsearch.html">
+        Elasticsearch
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_flink.html">
+        Flink
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_hadoop.html">
+        Hadoop
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_haproxy.html">
+        HA 代理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_jvm.html">
+        Java
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kafka.html">
+        Kafka
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kapacitor.html">
+        Kapacitor
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_kibana.html">
+        Kibana
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_agent.html#kubernetes">
+        Kubernetes
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_memcached.html">
+        已缓存内存
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_mongodb.html">
+        MongoDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_mysql.html">
+        MySQL
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_netstat.html">
+        netstat
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_nginx.html">
+        nginx
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_openzfs.html">
+        OpenZFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_postgresql.html">
+        PostgreSQL
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_puppetagent.html">
+        Puppet
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_redis.html">
+        Redis
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_rethinkdb.html">
+        RethinkDB
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/task_config_telegraf_zookeeper.html">
+        Zookeeper
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_object_icons.html">
+        对象图标参考
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-cn/test/reference_legal_notices.html">
+        法律声明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-cn/test/">Cloud&nbsp;Insights</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-cn/test/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 简体中文版经机器翻译而成，仅供参考。如与英语版出现任何冲突，应以英语版为准。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">信息板功能</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-03-12 06:25:15 +0000">03/12/2022</time>
+    
+  
+
+<span>提供者
+</span>
+
+
+</p>
+
+<div id="toc" class="toc">
+<div id="toctitle">目录</div>
+<ul class="sectlevel1">
+<li><a href="#小工具命名">小工具命名</a></li>
+<li><a href="#小工具放置和大小">小工具放置和大小</a></li>
+<li><a href="#复制小工具">复制小工具</a></li>
+<li><a href="#显示小工具图例">显示小工具图例</a></li>
+<li><a href="#转变指标">转变指标</a></li>
+<li><a href="#信息板小工具查询和筛选器">信息板小工具查询和筛选器</a></li>
+<li><a href="#分组和聚合">分组和聚合</a></li>
+<li><a href="#显示顶部-底部结果">显示顶部 / 底部结果</a></li>
+<li><a href="#在表小工具中分组">在表小工具中分组</a></li>
+<li><a href="#信息板时间范围选择器">信息板时间范围选择器</a></li>
+<li><a href="#覆盖各个小工具中的信息板时间">覆盖各个小工具中的信息板时间</a></li>
+<li><a href="#主轴和二级轴">主轴和二级轴</a></li>
+<li><a href="#小工具中的表达式">小工具中的表达式</a></li>
+<li><a href="#变量">变量</a></li>
+<li><a href="#正在格式化-gauge-小工具">正在格式化 Gauge 小工具</a></li>
+<li><a href="#正在格式化单值小工具">正在格式化单值小工具</a></li>
+<li><a href="#选择用于显示数据的单位">选择用于显示数据的单位</a></li>
+<li><a href="#tv-模式和自动刷新">TV 模式和自动刷新</a></li>
+<li><a href="#信息板组">信息板组</a></li>
+<li><a href="#固定您喜爱的信息板">固定您喜爱的信息板</a></li>
+<li><a href="#暗主题">暗主题</a></li>
+<li><a href="#折线图插值">折线图插值</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>通过信息板和小工具，可以非常灵活地显示数据。以下是一些概念，可帮助您从自定义信息板中获得最大收益。</p>
+</div>
+<!-- toc disabled -->
+</div>
+</div>
+<div class="sect1">
+<h2 id="小工具命名">小工具命名</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>小工具会根据为第一个小工具查询选择的对象，指标或属性自动命名。如果您还为小工具选择了分组，则 " 分组依据 " 属性将包含在自动命名（聚合方法和指标）中。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/WidgetNameExample.png" alt="小工具命名示例"></span></p>
+</div>
+<div class="paragraph">
+<p>选择新对象或分组属性将更新自动名称。</p>
+</div>
+<div class="paragraph">
+<p>如果您不想使用自动小工具名称，只需键入一个新名称即可。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="小工具放置和大小">小工具放置和大小</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>所有信息板小工具都可以根据您对每个特定信息板的需求进行定位和调整大小。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="复制小工具">复制小工具</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>在信息板编辑模式下，单击小工具上的菜单并选择 * 重复 * 。此时将启动小工具编辑器，并预先填充原始小工具的配置，并在小工具名称中添加一个 " 副本 " 后缀。您可以轻松进行任何必要的更改并保存新小工具。小工具将放置在信息板底部，您可以根据需要进行定位。完成所有更改后，请记得保存信息板。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/DuplicateWidget.png" alt="复制小工具"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="显示小工具图例">显示小工具图例</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>信息板上的大多数小工具可以显示图例，也可以不显示图例。可以通过以下任一方法在信息板上打开或关闭小工具中的图例：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>显示信息板时，单击小工具上的 * 选项 * 按钮，然后在菜单中选择 * 显示图例 * 。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>随着小工具中显示的数据发生变化，该小工具的图例将动态更新。</p>
+</div>
+<div class="paragraph">
+<p>显示图例时，如果图例指示的资产登录页面可以导航到，则该图例将显示为指向该资产页面的链接。如果图例显示 " 全部 " ，则单击此链接将显示与小工具中的第一个查询对应的查询页面。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="转变指标">转变指标</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cloud Insights 在小工具中为某些指标提供了不同的 * 转换 * 选项（具体而言，称为 " 自定义 " 或集成指标的指标，例如来自 Kubernetes ， ONTAP 高级数据， Telegraf 插件等），允许您以多种方式显示数据。向小工具添加可转换指标时，系统会显示一个下拉列表，其中提供了以下转换选项：</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">无</dt>
+<dd>
+<p>数据显示为 " 是 " ，不会进行任何操作。</p>
+</dd>
+<dt class="hdlist1">速率</dt>
+<dd>
+<p>当前值除以自上次观察以来的时间范围。</p>
+</dd>
+<dt class="hdlist1">累积</dt>
+<dd>
+<p>先前值与当前值之和的累积值。</p>
+</dd>
+<dt class="hdlist1">增量</dt>
+<dd>
+<p>上一个观察值与当前值之间的差值。</p>
+</dd>
+<dt class="hdlist1">增量速率</dt>
+<dd>
+<p>增量值除以自上次观察以来的时间范围。</p>
+</dd>
+<dt class="hdlist1">累积速率</dt>
+<dd>
+<p>累积值除以自上次观察以来的时间范围。</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>请注意，转换指标不会更改底层数据本身，而只是更改数据的显示方式。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="信息板小工具查询和筛选器">信息板小工具查询和筛选器</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="查询">查询</h3>
+<div class="paragraph">
+<p>信息板小工具中的查询是一个用于管理数据显示的强大工具。下面是有关小工具查询的一些注意事项。</p>
+</div>
+<div class="paragraph">
+<p>某些小工具最多可以包含五个查询。每个查询都将在小工具中绘制自己的一组折线或图形。在一个查询上设置汇总，分组，前 / 后结果等不会影响小工具的任何其他查询。</p>
+</div>
+<div class="paragraph">
+<p>您可以单击眼睛图标以临时隐藏查询。隐藏或显示查询时，小工具显示会自动更新。这样，您就可以在构建小工具时检查所显示的数据中的各个查询。</p>
+</div>
+<div class="paragraph">
+<p>以下小工具类型可以包含多个查询：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>分区图</p>
+</li>
+<li>
+<p>堆积分区图</p>
+</li>
+<li>
+<p>折线图</p>
+</li>
+<li>
+<p>样条曲线图</p>
+</li>
+<li>
+<p>单值小工具</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>其余小工具类型只能有一个查询：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>表</p>
+</li>
+<li>
+<p>条形图</p>
+</li>
+<li>
+<p>框图</p>
+</li>
+<li>
+<p>散点图</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="在信息板小工具查询中筛选">在信息板小工具查询中筛选</h3>
+<div class="paragraph">
+<p>下面介绍了一些可以从筛选器中获得最大收益的操作。</p>
+</div>
+<div class="sect3">
+<h4 id="精确匹配筛选">精确匹配筛选</h4>
+<div class="paragraph">
+<p>如果将筛选器字符串用双引号括起来， Insight 会将第一个和最后一个报价之间的所有内容视为完全匹配。引号中的任何特殊字符或运算符将被视为文字。例如，筛选 "*" 将返回文字星号结果；在这种情况下，星号不会视为通配符。如果用双引号括起来，则操作符 AND ， OR 和 NOT 也会被视为文字字符串。</p>
+</div>
+<div class="paragraph">
+<p>您可以使用完全匹配筛选器来查找特定资源，例如主机名。如果您只想查找主机名 "arking" ，而不想查找 "arking01" ， "arking-boston" 等内容，只需用双引号将名称 "marketing" 括起来即可。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="通配符和表达式">通配符和表达式</h4>
+<div class="paragraph">
+<p>在查询或信息板小工具中筛选文本或列表值时，在开始键入时，系统会显示一个选项，用于根据当前文本创建 * 通配符筛选器 * 。选择此选项将返回与通配符表达式匹配的所有结果。您也可以使用 NOT 或 OR 创建 * 表达式 * ，也可以选择 " 无 " 选项来筛选字段中的空值。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Type-Ahead-Example-ingest.png" alt="通配符筛选器"></span></p>
+</div>
+<div class="paragraph">
+<p>基于通配符或表达式（例如 NOT ， OR ， "None" 等）在筛选器字段中显示为深蓝色。您直接从列表中选择的项目将以淡蓝色显示。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Type-Ahead-Example-Wildcard-DirectSelect.png" alt="通配符筛选器结果"></span></p>
+</div>
+<div class="paragraph">
+<p>请注意，通配符和表达式筛选适用于文本或列表，但不适用于数值，日期或布尔值。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="具有预键入建议的高级文本筛选">具有预键入建议的高级文本筛选</h4>
+<div class="paragraph">
+<p>为某个字段选择一个或多个值时，该查询的其他筛选器将显示与该筛选器相关的值。例如，在为特定对象 <em>Name</em> 设置筛选器时，用于筛选 <em>Model</em> 的字段将仅显示与该对象名称相关的值。</p>
+</div>
+<div class="paragraph">
+<p>请注意，只有文本筛选器才会显示上下文预键入建议。日期，枚举（列表）等不会显示预键入建议。也就是说，您可以对枚举（即列表）字段设置筛选器，并在上下文中筛选其他文本字段。例如，如果在数据中心等 Enum 字段中选择一个值，则其他筛选器将仅显示该数据中心中的型号 / 名称，而不会显示相反。</p>
+</div>
+<div class="paragraph">
+<p>选定时间范围还将为筛选器中显示的数据提供上下文。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="选择筛选单元">选择筛选单元</h4>
+<div class="paragraph">
+<p>在筛选字段中键入值时，您可以选择要在图表上显示值的单位。例如，您可以按原始容量进行筛选并选择以 deafResult GiB 显示，或者选择其他格式，例如 TiB 。如果您的信息板上有许多图表以 TiB 显示值，并且您希望所有图表显示一致的值，则此功能非常有用。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Filter_Unit_Format.png" alt="选择筛选器中的单位"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="其他筛选改进">其他筛选改进</h4>
+<div class="paragraph">
+<p>以下内容可用于进一步细化筛选器。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>星号可用于搜索所有内容。例如：</p>
+<div class="listingblock">
+<div class="content">
+<pre>vol*rhel</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>显示以 "vol" 开头，以 "rhel" 结尾的所有资源。</p>
+</div>
+</li>
+<li>
+<p>问号用于搜索特定数量的字符。例如：</p>
+<div class="listingblock">
+<div class="content">
+<pre>BOS-PRD??-S12</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>显示 <em>BOS-PRD12-S12</em> ， <em>BOS-PRD13-S12</em> 等。</p>
+</div>
+</li>
+<li>
+<p>或运算符可用于指定多个实体。例如：</p>
+<div class="listingblock">
+<div class="content">
+<pre>FAS2240 OR CX600 OR FAS3270</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>查找多个存储型号。</p>
+</div>
+</li>
+<li>
+<p>使用 NOT 运算符可以从搜索结果中排除文本。例如：</p>
+<div class="listingblock">
+<div class="content">
+<pre>NOT EMC*</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>查找不以 "EMC" 开头的所有内容。您可以使用</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NOT *</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>以显示不包含任何值的字段。</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="确定查询和筛选器返回的对象">确定查询和筛选器返回的对象</h3>
+<div class="paragraph">
+<p>查询和筛选器返回的对象与下图所示的对象类似。分配有 " 标记 " 的对象是标注，而不带标记的对象是性能计数器或对象属性。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/ObjectsReturnedByFilters.png" alt="筛选器返回的对象"></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="分组和聚合">分组和聚合</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="分组向上滚动">分组（向上滚动）</h3>
+<div class="paragraph">
+<p>从采集期间收集的底层数据点对小工具中显示的数据进行分组（有时称为汇总）。例如，如果您有一个折线图小工具显示一段时间内的存储 IOPS ，则您可能希望为每个数据中心显示一条单独的行，以便进行快速比较。您可以选择通过以下几种方式之一对这些数据进行分组：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>* 平均 * ：将每行显示为基础数据的 _average 。</p>
+</li>
+<li>
+<p>* 最大值 * ：将每行显示为基础数据的 <em>max</em> 。</p>
+</li>
+<li>
+<p>* 最小 * ：将每行显示为基础数据的最小值。</p>
+</li>
+<li>
+<p>* 求和 * ：将每行显示为基础数据的 <em>sum</em> 。</p>
+</li>
+<li>
+<p>* 计数 * ：显示在指定时间范围内报告数据的对象的 <em>count</em> 。您可以根据信息板时间范围（或小工具时间范围，如果设置为覆盖信息板时间）或您选择的 <em>Custom 时间窗口 _ 来选择 _Entire Time window</em> 。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>要设置分组方法，请执行以下操作。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>在小工具的查询中，选择资产类型和指标（例如 <em>Storage</em> ）以及指标（例如 <em>Performance IOPS Total</em> ）。</p>
+</li>
+<li>
+<p>对于 * 组 * ，选择一种汇总方法（例如 <em>Avg</em> ），然后选择用于汇总数据的属性或指标（例如 <em>Data Center</em> ）。</p>
+<div class="paragraph">
+<p>此小工具会自动更新并显示每个数据中心的数据。</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>您也可以选择将底层数据的 <em>all</em> 分组到图表或表中。在这种情况下，小工具中的每个查询都将显示一行，其中将显示所有底层资产的所选指标或指标的平均值，最小值，最大值，总和或计数。</p>
+</div>
+<div class="paragraph">
+<p>单击数据按 " 全部 " 分组的任何小工具的图例将打开一个查询页面，其中显示了此小工具中使用的第一个查询的结果。</p>
+</div>
+<div class="paragraph">
+<p>如果为查询设置了筛选器，则会根据筛选的数据对数据进行分组。</p>
+</div>
+<div class="paragraph">
+<p>请注意，如果您选择按任何字段（例如 <em>Model</em> ）对小工具进行分组，则仍需要按该字段进行筛选，以便在图表或表中正确显示该字段的数据。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="正在聚合数据">正在聚合数据</h3>
+<div class="paragraph">
+<p>您可以通过将数据点聚合为分钟，小时或天分段，然后再按属性（如果已选择）汇总这些数据，进一步对齐时间序列图表（折线图，区域图等）。您可以选择根据数据点的 <em>Avg ， Max ， Min 或 Sum</em> 或按选定间隔内收集的 <em>last</em> 数据点进行聚合。要选择聚合方法，请单击小工具查询部分中的 * 更多选项 * 。</p>
+</div>
+<div class="paragraph">
+<p>如果间隔较小且时间范围较长，则可能会导致 " 聚合间隔导致数据点太多 " 警告。如果间隔较小，则可能会看到此情况，并将信息板时间范围增加到 7 天。在这种情况下， Insight 将临时增加聚合间隔，直到您选择较短的时间范围为止。</p>
+</div>
+<div class="paragraph">
+<p>您还可以在条形图小工具和单值小工具中聚合数据。</p>
+</div>
+<div class="paragraph">
+<p>默认情况下，大多数资产计数器聚合到 <em>Avg</em> 。默认情况下，某些计数器聚合到 <em>Max ， min</em> 或 <em>Sum</em> 。例如，默认情况下，端口错误聚合到 <em>Sum</em> ，其中存储 IOPS 聚合到 <em>Avg</em> 。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="显示顶部-底部结果">显示顶部 / 底部结果</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>在图表小工具中，您可以显示已汇总数据的 * 前 * 或 * 后 * 结果，并从提供的下拉列表中选择显示的结果数。在表小工具中，您可以按任意列进行排序。</p>
+</div>
+<div class="sect2">
+<h3 id="顶部-底部图表小工具">顶部 / 底部图表小工具</h3>
+<div class="paragraph">
+<p>在图表小工具中，如果选择按特定属性汇总数据，则可以选择查看前 N 个或后 N 个结果。请注意，如果选择按 <em>all</em> 属性汇总，则不能选择前几个或后几个结果。</p>
+</div>
+<div class="paragraph">
+<p>您可以选择要显示的结果，方法是在查询的 * 显示 * 字段中选择 * 顶部 * 或 * 底部 * ，然后从提供的列表中选择一个值。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="表小工具显示条目">表小工具显示条目</h3>
+<div class="paragraph">
+<p>在表小工具中，您可以选择表结果中显示的结果数。您无法选择前一个或后一个结果，因为该表允许您根据需要按任意列进行升序或降序排序。</p>
+</div>
+<div class="paragraph">
+<p>您可以从查询的 * 显示条目 * 字段中选择一个值，以选择要在信息板上的表中显示的结果数。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="在表小工具中分组">在表小工具中分组</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>表小工具中的数据可以按任何可用属性进行分组，以便您查看数据概览，并深入了解数据以了解更多详细信息。此表中的指标会进行汇总，以便在每个折叠行中轻松查看。</p>
+</div>
+<div class="paragraph">
+<p>通过表小工具，您可以根据设置的属性对数据进行分组。例如，您可能希望表显示按存储所在的数据中心分组的总存储 IOPS 。或者，您可能希望显示一个根据托管虚拟机的虚拟机管理程序进行分组的虚拟机表。从列表中，您可以展开每个组以查看该组中的资产。</p>
+</div>
+<div class="paragraph">
+<p>分组仅在表小工具类型中可用。</p>
+</div>
+<div class="sect2">
+<h3 id="分组示例介绍了汇总">分组示例（介绍了汇总）</h3>
+<div class="paragraph">
+<p>通过表小工具，您可以对数据进行分组，以便于显示。</p>
+</div>
+<div class="paragraph">
+<p>在此示例中，我们将创建一个表小工具，其中显示按数据中心分组的所有 VM 。</p>
+</div>
+<div class="olist arabic">
+<div class="title">步骤</div>
+<ol class="arabic">
+<li>
+<p>创建或打开信息板，然后添加 * 表 * 小工具。</p>
+</li>
+<li>
+<p>选择 <em>Virtual Machine</em> 作为此小工具的资产类型。</p>
+</li>
+<li>
+<p>单击列选择器，然后选择 <em>Hypervisor name</em> 和 <em>IOPS - Total</em> 。</p>
+<div class="paragraph">
+<p>此时，这些列将显示在此表中。</p>
+</div>
+</li>
+<li>
+<p>我们将忽略不具有 IOPS 的任何虚拟机，并且仅包括总 IOPS 大于 1 的虚拟机。单击 * 筛选依据 * * * * 。 [+]* 按钮，然后选择 <em>IOPS - 总计。单击 _any</em> ，然后在 * 自 * 字段中键入 * 1 * 。将 * 至 * 字段留空。按 Enter 键，然后单击关闭筛选字段以应用筛选器。</p>
+<div class="paragraph">
+<p>此时，此表将显示总 IOPS 大于或等于 1 的所有虚拟机。请注意，表中没有分组。此时将显示所有 VM 。</p>
+</div>
+</li>
+<li>
+<p>单击 * 分组依据 +]* 按钮。</p>
+<div class="paragraph">
+<p>您可以按显示的任何属性或标注进行分组。选择 <em>all</em> 可显示一个组中的所有虚拟机。</p>
+</div>
+<div class="paragraph">
+<p>性能指标的任何列标题都会显示一个 " 三个点 " 菜单，其中包含一个 * 汇总 * 选项。默认汇总方法为 <em>Avg</em> 。这意味着，为组显示的数字是为组内每个虚拟机报告的所有总 IOPS 的平均值。您可以选择按 <em>Avg ， Sum ， Min</em> 或 <em>Max</em> 向上滚动此列。您显示的任何包含性能指标的列均可单独汇总。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/TableRollUp.png" alt="汇总"></span></p>
+</div>
+</li>
+<li>
+<p>单击 <em>all</em> 并选择 <em>Hypervisor name</em> 。</p>
+<div class="paragraph">
+<p>此时，虚拟机列表将按虚拟机管理程序进行分组。您可以展开每个虚拟机管理程序以查看其托管的虚拟机。</p>
+</div>
+</li>
+<li>
+<p>单击 * 保存 * 将此表保存到信息板。您可以根据需要调整小工具的大小或移动小工具。</p>
+</li>
+<li>
+<p>单击 * 保存 * 以保存信息板。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="性能数据汇总">性能数据汇总</h3>
+<div class="paragraph">
+<p>如果在表小工具中包含性能数据列（例如 <em>IOPS - 总计 _ ），则在选择对数据进行分组时，您可以为该列选择一种汇总方法。默认汇总方法是，在组行中显示基础数据的平均值（ _avg</em> ）。您还可以选择显示数据的总和，最小值或最大值。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="信息板时间范围选择器">信息板时间范围选择器</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>您可以选择信息板数据的时间范围。只有与选定时间范围相关的数据才会显示在信息板上的小工具中。您可以从以下时间范围中进行选择：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>过去 15 分钟</p>
+</li>
+<li>
+<p>过去 30 分钟</p>
+</li>
+<li>
+<p>过去 60 分钟</p>
+</li>
+<li>
+<p>过去 2 小时</p>
+</li>
+<li>
+<p>过去 3 小时（这是默认值）</p>
+</li>
+<li>
+<p>过去 6 小时</p>
+</li>
+<li>
+<p>过去 12 小时</p>
+</li>
+<li>
+<p>过去 24 小时</p>
+</li>
+<li>
+<p>过去 2 天</p>
+</li>
+<li>
+<p>过去 3 天</p>
+</li>
+<li>
+<p>过去 7 天</p>
+</li>
+<li>
+<p>过去 30 天</p>
+</li>
+<li>
+<p>自定义时间范围</p>
+<div class="paragraph">
+<p>自定义时间范围允许您最多选择 31 个连续日期。您还可以为此范围设置开始时间和一天中的结束时间。默认开始时间为选定第一天的中午 12 ： 00 ，默认结束时间为选定最后一天的晚上 11 ： 59 。单击 * 应用 * 将对信息板应用自定义时间范围。</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="覆盖各个小工具中的信息板时间">覆盖各个小工具中的信息板时间</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>您可以覆盖各个小工具中的主信息板时间范围设置。这些小工具将根据其设置的时间范围而不是信息板时间范围显示数据。</p>
+</div>
+<div class="paragraph">
+<p>要覆盖信息板时间并强制小工具使用其自己的时间范围，请在小工具的编辑模式下将 * 覆盖信息板时间 * 设置为 * 开 * （选中此框），然后为此小工具选择一个时间范围。将小工具 * 保存到信息板。</p>
+</div>
+<div class="paragraph">
+<p>小工具将根据为其设置的时间范围显示其数据，而不管您在信息板上选择的时间范围如何。</p>
+</div>
+<div class="paragraph">
+<p>您为一个小工具设置的时间范围不会影响信息板上的任何其他小工具。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="主轴和二级轴">主轴和二级轴</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>不同的指标会对其在图表中报告的数据使用不同的度量单位。例如，在查看 IOPS 时，度量单位是每秒 I/O 操作数（ IO/s ），而延迟则纯粹是时间（毫秒，微秒，秒等）的度量单位。在一个折线图上为 Y 轴使用一组 A 值绘制这两个指标时，延迟数字（通常为几毫秒）会以 IOPS （通常以千为单位）为同一比例绘制，而延迟线在该比例下会丢失。</p>
+</div>
+<div class="paragraph">
+<p>但是，可以通过在主（左侧） Y 轴上设置一个度量单位，在二级（右侧） Y 轴上设置另一个度量单位，在一个有意义的图形上绘制这两组数据。每个指标都按自己的比例绘制。</p>
+</div>
+<div class="paragraph">
+<p>此示例说明了图表小工具中的主轴和二级轴的概念。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>创建或打开信息板。向信息板添加折线图，样条曲线图，分区图或堆积分区图小工具。</p>
+</li>
+<li>
+<p>选择资产类型（例如 <em>Storage</em> ），然后选择 <em>IOPS - Total</em> 作为第一个指标。设置所需的任何筛选器，并根据需要选择一种汇总方法。</p>
+<div class="paragraph">
+<p>IOPS 线显示在图表上，其比例显示在左侧。</p>
+</div>
+</li>
+<li>
+<p>单击 * （ + 查询） * 向图表中添加第二行。对于此行，请选择 <em>Latency - Total</em> 作为指标。</p>
+<div class="paragraph">
+<p>请注意，该线显示在图表底部的平面上。这是因为它与 IOPS 线是以相同的比例绘制的。</p>
+</div>
+</li>
+<li>
+<p>在延迟查询中，选择 * Y 轴：二级 * 。</p>
+<div class="paragraph">
+<p>此时，延迟线将按自己的比例绘制，并显示在图表的右侧。</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./media/SecondaryAxisExplained.png" alt="二级轴示例">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="小工具中的表达式">小工具中的表达式</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>在信息板中，任何时间序列小工具（线，样条曲线，区域，堆积区），单值， 或 Gauge Widget 可用于根据您选择的指标构建表达式，并在一个图形中显示这些表达式的结果。以下示例使用表达式解决特定问题。在第一个示例中，我们希望将环境中所有存储资产的读取 IOPS 显示为总 IOPS 的百分比。第二个示例显示了环境中发生的 " 系统 " 或 " 开销 " IOPS ，即不直接从读取或写入数据中获取的 IOPS 。</p>
+</div>
+<div class="paragraph">
+<p>您可以在表达式中使用变量（例如： <em>$VAR1 * 100</em> ）</p>
+</div>
+<div class="sect2">
+<h3 id="表达式示例读取-iops-百分比">表达式示例：读取 IOPS 百分比</h3>
+<div class="paragraph">
+<p>在此示例中，我们希望将读取 IOPS 显示为总 IOPS 的百分比。您可以将其视为以下公式：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> Read Percentage = (Read IOPS / Total IOPS) x 100
+这些数据可以显示在信息板上的折线图中。要执行此操作，请执行以下步骤：</pre>
+</div>
+</div>
+<div class="olist arabic">
+<div class="title">步骤</div>
+<ol class="arabic">
+<li>
+<p>创建新信息板，或者在编辑模式下打开现有信息板。</p>
+</li>
+<li>
+<p>向信息板添加小工具。选择 * 分区图 * 。</p>
+<div class="paragraph">
+<p>此时，此小工具将以编辑模式打开。默认情况下，系统会显示一个查询，其中显示 <em>Storage</em> 资产的 _IOPS - 总计 _ 。如果需要，请选择其他资产类型。</p>
+</div>
+</li>
+<li>
+<p>单击右侧的 * 转换为表达式 * 链接。</p>
+<div class="paragraph">
+<p>当前查询将转换为表达式模式。请注意，在表达式模式下无法更改资产类型。在表达式模式下，此链接将更改为 * 还原到查询 * 。如果您希望随时切换回查询模式，请单击此按钮。请注意，在不同模式之间切换会将字段重置为其默认值。</p>
+</div>
+<div class="paragraph">
+<p>目前，请保持表达式模式。</p>
+</div>
+</li>
+<li>
+<p>现在， * IOPS - 总计 * 指标位于字母变量字段 "* A*" 中。在 "* b*" 变量字段中，单击 * 选择 * ，然后选择 * IOPS - Read* 。</p>
+<div class="paragraph">
+<p>通过单击变量字段后面的 + 按钮，您最多可以为表达式添加五个字母变量。对于读取百分比示例，我们只需要总 IOPS （ "* A*" ）和读取 IOPS （ "* b*" ）。</p>
+</div>
+</li>
+<li>
+<p>在 * 表达式 * 字段中，您可以使用与每个变量对应的字母来构建表达式。我们知道读取百分比 = （读取 IOPS/ 总 IOPS ） x 100 ，因此我们将此表达式写入为：</p>
+<div class="literalblock">
+<div class="content">
+<pre> (b / a) * 100
+. * 标签 * 字段用于标识表达式。将此标签更改为 " 读取百分比 " 或对您同样有意义的内容。
+. 将 * 单元 * 字段更改为 "%" 或 "percent" 。</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>此图表显示选定存储设备的 IOPS 读取百分比随时间的变化。如果需要，您可以设置筛选器或选择其他汇总方法。请注意，如果选择 Sum 作为汇总方法，则所有百分比值将相加，这可能会高于 100% 。</p>
+</div>
+</li>
+<li>
+<p>单击 * 保存 * 将图表保存到信息板。</p>
+<div class="paragraph">
+<p>您还可以在折线图， Spline 图表或堆栈区域图表小工具中使用表达式。</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="表达式示例-system-io">表达式示例： "system" I/O</h3>
+<div class="paragraph">
+<p>示例 2 ：从数据源收集的指标包括读取，写入和总 IOPS 。但是，数据源报告的 IOPS 总数有时包括 " 系统 "IOPS ，而这些 IOPS 不是数据读取或写入的直接部分。此系统 I/O 也可视为 " 开销 " I/O ，这对于系统正常运行是必需的，但与数据操作没有直接关系。</p>
+</div>
+<div class="paragraph">
+<p>要显示这些系统 I/O ，您可以从采集报告的总 IOPS 中减去读取和写入 IOPS 。公式可能如下所示：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> System IOPS = Total IOPS - (Read IOPS + Write IOPS)
+然后，这些数据可以显示在信息板上的折线图中。要执行此操作，请执行以下步骤：</pre>
+</div>
+</div>
+<div class="olist arabic">
+<div class="title">步骤</div>
+<ol class="arabic">
+<li>
+<p>创建新信息板，或者在编辑模式下打开现有信息板。</p>
+</li>
+<li>
+<p>向信息板添加小工具。选择 * 折线图 * 。</p>
+<div class="paragraph">
+<p>此时，此小工具将以编辑模式打开。默认情况下，系统会显示一个查询，其中显示 <em>Storage</em> 资产的 _IOPS - 总计 _ 。如果需要，请选择其他资产类型。</p>
+</div>
+</li>
+<li>
+<p>在 * 汇总 * 字段中，选择 <em>Sum</em> by <em>all</em> 。</p>
+<div class="paragraph">
+<p>此图表将显示一条线，其中显示了总 IOPS 的总和。</p>
+</div>
+</li>
+<li>
+<p>单击 _ 复制此查询 _ 图标 <span class="image"><img src="./media/DuplicateQueryIcon.png" alt="Duplicat 查询"></span> 创建查询的副本。</p>
+<div class="paragraph">
+<p>在原始查询下方添加一个查询副本。</p>
+</div>
+</li>
+<li>
+<p>在第二个查询中，单击 * 转换为表达式 * 按钮。</p>
+<div class="paragraph">
+<p>当前查询将转换为表达式模式。如果您希望随时切换回查询模式，请单击 * 还原至查询 * 。请注意，在不同模式之间切换会将字段重置为其默认值。</p>
+</div>
+<div class="paragraph">
+<p>目前，请保持表达式模式。</p>
+</div>
+</li>
+<li>
+<p>现在， <em>IOPS - Total</em> 指标位于字母变量字段 "* A*" 中。单击 <em>IOPS - Total</em> 并将其更改为 <em>IOPS - Read</em> 。</p>
+</li>
+<li>
+<p>在 "* b*" 变量字段中，单击 * 选择 * 并选择 <em>IOPS - Write</em> 。</p>
+</li>
+<li>
+<p>在 * 表达式 * 字段中，您可以使用与每个变量对应的字母来构建表达式。我们将表达式简单地写为：</p>
+<div class="literalblock">
+<div class="content">
+<pre>a + b</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>在显示部分中，为此表达式选择 * 分区图 * 。</p>
+</div>
+</li>
+<li>
+<p>* 标签 * 字段用于标识表达式。将此标签更改为 " 系统 IOPS" 或对您同样有意义的内容。</p>
+<div class="paragraph">
+<p>此图表以折线图的形式显示总 IOPS ，下面是一个分区图，其中显示了读取和写入 IOPS 的组合。两者之间的差距显示了与数据读取或写入操作没有直接关系的 IOPS 。这些是您的 " 系统 "IOPS 。</p>
+</div>
+</li>
+<li>
+<p>单击 * 保存 * 将图表保存到信息板。</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>要在表达式中使用变量，只需键入变量名称即可，例如 <em>$var1 * 100</em> 。表达式只能使用数字变量。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="变量">变量</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>通过变量，您可以一次性更改信息板上部分或所有小工具中显示的数据。通过将一个或多个小工具设置为使用通用变量，在一个位置所做的更改将每个小工具中显示的数据设置为发生原因以自动更新。</p>
+</div>
+<div class="paragraph">
+<p>信息板变量有多种类型，可以在不同的字段中使用，并且必须遵循命名规则。此处将介绍这些概念。</p>
+</div>
+<div class="sect3">
+<h4 id="变量类型">变量类型</h4>
+<div class="paragraph">
+<p>变量可以是以下类型之一：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>* 属性 * ：使用对象的属性或指标进行筛选</p>
+</li>
+<li>
+<p>* 标注 * ：使用预定义的 <a href="task_defining_annotations.html">"标注"</a> 筛选小工具数据。</p>
+</li>
+<li>
+<p>* 文本 * ：字母数字字符串。</p>
+</li>
+<li>
+<p>* 数字 * ：数字值。单独使用，或者作为 " 发件人 " 或 " 收件人 " 值，具体取决于小工具字段。</p>
+</li>
+<li>
+<p>* 布尔值 * ：用于值为 True/False ， Yes/No 等的字段。对于布尔变量，选项包括 " 是 " ， " 否 " ， " 无 " ， " 任何 " 。</p>
+</li>
+<li>
+<p>* 日期 * ：日期值。根据小工具的配置，使用作为 " 从 " 或 " 到 " 值。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Drop_Down_Showing_Annotations.png" alt="变量类型"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="属性变量">属性变量</h4>
+<div class="paragraph">
+<p>通过选择属性类型变量，您可以筛选包含指定属性值或值的小工具数据。以下示例显示了一个折线小工具，其中显示了代理节点的可用内存趋势。我们为代理节点 IP 创建了一个变量，当前设置为显示所有 IP ：</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Node_Example_Before_Variable_Applied.png" alt="可变筛选器之前的代理节点"></span></p>
+</div>
+<div class="paragraph">
+<p>但是，如果您暂时只想查看环境中各个子网上的节点，则可以将变量设置或更改为特定的代理节点 IP 。此处，我们仅查看 "123" 子网上的节点：</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Node_Example_After_Variable_Applied.png" alt="变量筛选器后的代理节点"></span></p>
+</div>
+<div class="paragraph">
+<p>此外，您还可以通过在变量字段中指定 <em>* 。 vendor</em> 来设置一个变量以筛选具有特定属性的 <em>all</em> 对象，而不考虑对象类型，例如属性为 "vendor" 的对象。您无需键入 "* 。 " ；如果选择通配符选项， Cloud Insights 将提供此选项。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Attribute_Vendor_Example.png" alt="供应商的属性变量"></span></p>
+</div>
+<div class="paragraph">
+<p>下拉可变值的选项列表时，结果将进行筛选，以便根据信息板上的对象仅显示可用供应商。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Attribute_Vendor_Filtered_List.png" alt="仅显示可用供应商的属性变量"></span></p>
+</div>
+<div class="paragraph">
+<p>如果在信息板上编辑与属性筛选器相关的小工具（即，小工具的对象包含任何 <em>* 。 vendor attribute</em> ），则会显示属性筛选器已自动应用。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Attribute_inWidgetQuery.png" alt="自动应用属性变量"></span></p>
+</div>
+<div class="paragraph">
+<p>应用变量与更改所选属性数据一样简单。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="标注变量">标注变量</h4>
+<div class="paragraph">
+<p>通过选择 Annotation 变量，您可以筛选与该标注关联的对象，例如属于同一数据中心的对象。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Annotation_Filtering.png" alt="使用变量筛选标注"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="文本数字日期或布尔变量">文本，数字，日期或布尔变量</h4>
+<div class="paragraph">
+<p>您可以通过选择 <em>text</em> ， <em>number</em> ， <em>boooleal</em> 或 <em>Date</em> 的变量类型来创建与特定属性不关联的通用变量。创建变量后，您可以在小工具筛选字段中选择它。在小工具中设置筛选器时，除了可以为筛选器选择的特定值之外，为信息板创建的任何变量都会显示在列表中，这些变量分组在下拉列表的 " 变量 " 部分下，名称以 "$" 开头。通过在此筛选器中选择一个变量，您可以搜索在信息板本身的变量字段中输入的值。在筛选器中使用该变量的任何小工具都将动态更新。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_in_a_Widget_Filter.png" alt="在小工具中选择变量"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="变量筛选器范围">变量筛选器范围</h4>
+<div class="paragraph">
+<p>在向信息板添加标注或属性变量时，该变量可以应用于信息板上的 <em>all</em> 小工具，这意味着信息板上的所有小工具都将显示根据您在该变量中设置的值进行筛选的结果。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Variables_Automatic_Filter_Button.png" alt="自动筛选器"></span></p>
+</div>
+<div class="paragraph">
+<p>请注意，只能按此方式自动筛选属性和标注变量。不能自动筛选非标注或 -Attribute-variables 。必须将每个小工具配置为使用这些类型的变量。</p>
+</div>
+<div class="paragraph">
+<p>要禁用自动筛选，以便变量仅对您专门设置的小工具进行适用场景，请单击 " 自动筛选 " 滑块将其禁用。</p>
+</div>
+<div class="paragraph">
+<p>要在单个小工具中设置变量，请在编辑模式下打开此小工具，然后在 _Filter by" 字段中选择特定标注或属性。使用 Annotation 变量，您可以选择一个或多个特定值，也可以选择变量名称（由前导 "$" 指示），以便在信息板级别键入变量。相同的适用场景属性变量。只有您为其设置了变量的小工具才会显示经过筛选的结果。</p>
+</div>
+<div class="paragraph">
+<p>要在表达式中使用变量，只需在表达式中键入变量名称即可，例如： <em>$var1 * 100</em> 。表达式只能使用数字变量。不能在表达式中使用数值标注或属性变量。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="变量命名">变量命名</h4>
+<div class="paragraph">
+<p>变量名称：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>必须仅包含字母 a-z ，数字 0-9 ，句点（ . ），下划线（ _ ）和空格（）。</p>
+</li>
+<li>
+<p>不能超过 20 个字符。</p>
+</li>
+<li>
+<p>区分大小写： $CityName 和 $CityName 是不同的变量。</p>
+</li>
+<li>
+<p>不能与现有变量名称相同。</p>
+</li>
+<li>
+<p>不能为空。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="正在格式化-gauge-小工具">正在格式化 Gauge 小工具</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>通过 Solid 和 Bullet Gauge 小工具，您可以为 <em>Warning</em> 和 / 或 <em>critical</em> 级别设置阈值，从而清晰地表示您指定的数据。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Gauge%20Widget%20Formatting.png" alt="Gauge Widget 的格式设置"></span></p>
+</div>
+<div class="paragraph">
+<p>要为这些小工具设置格式，请执行以下步骤：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>选择要突出显示大于（ &gt; ）或小于（ &lt; ）阈值的值。在此示例中，我们将突出显示大于（ &gt; ）阈值级别的值。</p>
+</li>
+<li>
+<p>为 " 警告 " 阈值选择一个值。当小工具显示大于此级别的值时，它将以橙色显示仪表。</p>
+</li>
+<li>
+<p>为 " 严重 " 阈值选择一个值。如果值大于此级别，则会通过发生原因将仪表显示为红色。</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>您也可以选择量表的最小值和最大值。低于最小值的值不会显示此仪表。如果值高于最大值，则会显示一个全满量表。如果不选择最小值或最大值，小工具将根据小工具的值选择最佳最小值和最大值。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Gauge-Solid.png" alt="实心 / 传统量表，宽度 = 3774"></span><br>
+<span class="image"><img src="./media/Gauge-Bullet.png" alt="项目符号量表，宽度 = 3774"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="正在格式化单值小工具">正在格式化单值小工具</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>在单值小工具中，除了设置警告（橙色）和严重（红色）阈值之外，您还可以选择以绿色或白色背景显示 " 范围内 " 值（低于警告级别的值）。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/Single-Value%20Widgets.png" alt="包含和不包含格式的单值小工具"></span></p>
+</div>
+<div class="paragraph">
+<p>单击单值小工具或量表小工具中的链接将显示与此小工具中的第一个查询对应的查询页面。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="选择用于显示数据的单位">选择用于显示数据的单位</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>信息板上的大多数小工具都允许您指定显示值的单位，例如 <em>migums</em> ， <em>migents</em> ， _percentage _ ， _mms （ ms ） _ ， 等。在许多情况下， Cloud Insights 知道所采集数据的最佳格式。如果不知道最佳格式，您可以设置所需的格式。</p>
+</div>
+<div class="paragraph">
+<p>在下面的折线图示例中，为小工具选择的数据已知为 <em>bytes</em> （基本 IEC 数据单元：请参见下表），因此基本单元会自动选择为 "byte （ B ） " 。但是，数据值足够大，可以显示为吉字节（ GiB ），因此默认情况下， Cloud Insights 会将这些值自动格式化为吉字节（ GiB ）。图中的 Y 轴显示 "GiB" 作为显示单位，所有值均以该单位显示。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/used_memory_in_bytes.png" alt="以千兆字节为单位显示的基本单位字节，宽 = 640"></span></p>
+</div>
+<div class="paragraph">
+<p>如果要以其他单位显示图形，可以选择其他格式来显示值。由于本示例中的基本单位是 <em>byte</em> ，因此您可以从支持的 " 基于字节 " 格式中进行选择：位（ b ），字节（ B ），千字节（ KiB ），兆字节（ MiB ），千字节（ GiB ）。Y 轴标签和值会根据您选择的格式进行更改。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/used_memory_in_bytes_gb.png" alt="选择显示单位， width=640"></span></p>
+</div>
+<div class="paragraph">
+<p>如果基本单位未知，您可以从中分配一个单位 <a href="#available-units">"可用单元"</a>或键入您自己的。分配基础单元后，您可以选择以适当的受支持格式之一显示数据。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/bits_per_second.png" alt="选择您自己的基本单位， width=320"></span></p>
+</div>
+<div class="paragraph">
+<p>要清除设置并重新开始，请单击 * 重置默认值 * 。</p>
+</div>
+<div class="sect2">
+<h3 id="关于自动格式化的一句话">关于自动格式化的一句话</h3>
+<div class="paragraph">
+<p>大多数指标都是由数据收集器以最小单位报告的，例如，以 1 ， 234 ， 567 ， 890 字节等整数形式报告。默认情况下， Cloud Insights 会自动为可读性最高的显示设置值格式。例如， 1 ， 234 ， 567 ， 890 字节的数据值将自动格式化为 1.23 <em>Gibibytes</em> 。您可以选择以其他格式显示，例如 <em>mebibybes</em> 。此时将相应地显示此值。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+Cloud Insights 使用美国英语数字命名标准。美国的 " 十亿 " 相当于 " 千亿 " 。
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="包含多个查询的小工具">包含多个查询的小工具</h3>
+<div class="paragraph">
+<p>如果您有一个时间序列小工具（即，折线，样条，区域，堆积区），其中包含两个查询，这两个查询都绘制了主 Y 轴，则基准单位不会显示在 Y 轴的顶部。但是，如果小工具在主 Y 轴上有一个查询，在二级 Y 轴上有一个查询，则会显示每个小工具的基本单位。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/UnitsOnPrimaryAnd%20SecondaryYAxis.png" alt="两个 Y 轴上的单位"></span></p>
+</div>
+<div class="paragraph">
+<p>如果小工具包含三个或更多查询，则基准单位不会显示在 Y 轴上。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="可用单元">可用单元</h3>
+<div class="paragraph">
+<p>下表按类别显示了所有可用的单位。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* 类别 *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* 单元 *</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Currency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">以美元计</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数据（ IEC ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">位字节千字节兆字节兆字节太字节对等字节外字节</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数据速率（ IEC ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">位 / 秒字节 / 秒千字节 / 秒兆字节 / 秒太字节 / 秒对等字节 / 秒</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数据（度量值）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">千字节兆字节千兆字节太字节兆字节外字节</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数据速率（度量值）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">千字节 / 秒兆字节 / 秒千兆字节 / 秒兆字节 / 秒兆字节 / 秒兆字节 / 秒</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IEC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kibi mebi gibi tebi pebi exbi</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">小数</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这一数字达到了数千亿亿亿亿亿亿亿亿亿亿</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">百分比</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">百分比</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">时间</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">纳秒微秒毫秒秒秒秒秒秒秒分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">温度</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">温度为 ° C</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Frequency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hertz 千兆赫千兆赫千兆赫</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CPU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">纳米矿石微核微核核心千兆矿石巨型矿石，千兆矿石，百万石，百万石，百万石，百万石，百万石，百万石，百万石，百万石，百万石，百万石，百万石，百万</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">吞吐量</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I/O 操作数 / 秒操作数 / 秒请求数 / 秒读取数 / 秒写入数 / 秒操作数 / 分钟读取数 / 分钟写入数 / 分钟</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tv-模式和自动刷新">TV 模式和自动刷新</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>信息板和资产登录页面上的小工具中的数据会根据选定信息板时间范围（或小工具时间范围，如果设置为覆盖信息板时间）确定的刷新间隔自动刷新。刷新间隔取决于小工具是时间序列（折线图，样条曲线图，面积图，堆积面积图）还是非时间序列（所有其他图表）。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">信息板时间范围</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">时间序列刷新间隔</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">非时间序列刷新间隔</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 15 分钟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 秒</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 30 分钟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 秒</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 60 分钟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 秒</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 2 小时</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30 秒</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 3 小时</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30 秒</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 6 小时</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 分钟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 12 小时</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 分钟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 24 小时</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 分钟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 2 天</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 分钟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 3 天</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 分钟</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 分钟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 7 天</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 小时</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 小时</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过去 30 天</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 小时</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 小时</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>每个小工具都会在小工具的右上角显示其自动刷新间隔。</p>
+</div>
+<div class="paragraph">
+<p>自定义信息板时间范围不支持自动刷新。</p>
+</div>
+<div class="paragraph">
+<p>与 * 电视模式 * 结合使用时，自动刷新功能可在信息板或资产页面上近乎实时地显示数据。TV 模式提供了一个清晰的显示；导航菜单将被隐藏，从而为数据显示提供更多屏幕空间，编辑按钮也是一样。TV 模式会忽略典型的 Cloud Insights 超时，使显示保持活动状态，直到通过授权安全协议手动或自动注销为止。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+由于 NetApp Cloud Central 自身的用户登录超时为 7 天，因此 Cloud Insights 也必须注销该事件。您只需重新登录，您的信息板就会继续显示。
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>要激活 TV 模式，请单击 <span class="image"><img src="./media/ActivateTVMode.png" alt="TV 模式"></span> 按钮。</p>
+</li>
+<li>
+<p>要禁用 TV 模式，请单击屏幕左上角的 * 退出 * 按钮。 <span class="image"><img src="./media/ExitTVMode.png" alt="退出按钮"></span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>您可以单击右上角的暂停按钮暂时暂停自动刷新。暂停后，信息板时间范围字段将显示暂停数据的活动时间范围。在暂停自动刷新期间，仍在采集和更新您的数据。单击恢复按钮继续自动刷新数据。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/AutoRefreshPaused.png" alt="自动刷新已暂停"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="信息板组">信息板组</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>通过分组，您可以查看和管理相关信息板。例如，您可以为环境中的存储配置一个专用信息板组。信息板组在 * 信息板 &gt; 显示所有信息板 * 页面上进行管理。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/DashboardGroupNoPin.png" alt="信息板分组"></span></p>
+</div>
+<div class="paragraph">
+<p>默认情况下会显示两个组：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>所有信息板 * 列出了所有已创建的信息板，而不管其所有者如何。</p>
+</li>
+<li>
+<p>* 我的信息板 * 仅列出当前用户创建的信息板。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>每个组中包含的信息板数量显示在组名称旁边。</p>
+</div>
+<div class="paragraph">
+<p>要创建新组，请单击 "+" 创建新信息板组 * 按钮。输入组的名称，然后单击 * 创建组 * 。此时将创建一个具有此名称的空组。</p>
+</div>
+<div class="paragraph">
+<p>要向组中添加信息板，请单击 <em>All Dashboards</em> 组以显示您环境中的所有信息板，如果您只想查看自己拥有的信息板，请单击 <em>My Dashboards</em> ，然后执行以下操作之一：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>要添加单个信息板，请单击信息板右侧的菜单，然后选择 <em>Add to Group</em> 。</p>
+</li>
+<li>
+<p>要将多个信息板添加到一个组中，请通过单击每个信息板旁边的复选框来选择这些信息板，然后单击 * 批量操作 * 按钮并选择 <em>Add to Group</em> 。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>通过选择 <em>Remove from Group</em> ，以相同的方式从当前组中删除信息板。您不能从 <em>All Dashboards</em> 或 <em>My Dashboards</em> 组中删除信息板。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+从组中删除信息板不会从 Cloud Insights 中删除信息板。要完全删除信息板，请选择信息板并单击 <em>Delete</em> 。此操作会将其从其所属的任何组中删除，并且任何用户都无法再使用它。
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="固定您喜爱的信息板">固定您喜爱的信息板</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>您可以通过将收藏的信息板固定到信息板列表顶部来进一步管理信息板。要固定信息板，只需单击将鼠标悬停在任意列表中的信息板上时显示的拇指锁定按钮即可。</p>
+</div>
+<div class="paragraph">
+<p>信息板固定 / 取消固定是单个用户首选项，与信息板所属的组无关。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/DashboardPin.png" alt="固定信息板"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="暗主题">暗主题</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>您可以选择使用浅色主题（默认设置）来显示 Cloud Insights ，该主题使用浅色背景和暗文本显示大多数屏幕，或者使用暗背景和浅文本显示大多数屏幕。</p>
+</div>
+<div class="paragraph">
+<p>要在浅色和暗色主题之间切换，请单击屏幕右上角的用户名按钮并选择所需主题。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/DarkThemeSwitch.png" alt="在浅色和暗色主题之间切换"></span></p>
+</div>
+<div class="paragraph">
+<p>暗主题信息板视图：<span class="image"><img src="./media/DarkThemeDashboardExample.png" alt="暗主题信息板示例"></span></p>
+</div>
+<div class="paragraph">
+<p>轻型主题信息板视图：<span class="image"><img src="./media/LightThemeDashboardExample.png" alt="轻型主题信息板示例"></span></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="注">
+</td>
+<td class="content">
+某些屏幕区域（例如某些小工具图表）仍会显示浅色背景，即使在以暗主题查看时也是如此。
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="折线图插值">折线图插值</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>不同的数据收集器通常会按不同的时间间隔轮询数据。例如，数据收集器 A 可能每 15 分钟轮询一次，而数据收集器 B 则每 5 分钟轮询一次。当折线图小工具（也包括样条曲线图，分区图和堆积分区图）将多个数据收集器中的数据聚合为一行时（例如，当小工具按 " 全部 " 分组时）， 并且每五分钟刷新一次该行，收集器 B 中的数据可能会准确显示，而收集器 A 中的数据可能会出现空隙，从而影响聚合，直到收集器 A 再次轮询为止。</p>
+</div>
+<div class="paragraph">
+<p>为了缓解这种情况， Cloud Insights 会在聚合时对数据进行内插，并使用周围的数据点对数据进行 " 最佳推测 " ，直到数据收集器再次轮询为止。您始终可以通过调整小工具的分组来单独查看每个数据收集器的对象数据。</p>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+            <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+
+</ul>
+</div>
+<div class="n-footer__social-links">
+<ul class="n-footer__social-link-list">
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com" target="_blank" title="blog" alt="blog">
+<span class="n-footer__social-link-text">blog</span>
+<svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+  <title>blog@</title>
+  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#blog"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/" target="_blank" title="community" alt="community">
+<span class="n-footer__social-link-text">community</span>
+<svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+<title>community@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#comments"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp" target="_blank" title="twitter" alt="twitter">
+<span class="n-footer__social-link-text">twitter</span>
+<svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+<title>twitter@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#twitter"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp" target="_blank" title="facebook" alt="facebook">
+<span class="n-footer__social-link-text">facebook</span>
+<svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+<title>facebook@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#facebook"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-linkedin" href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+<span class="n-footer__social-link-text">linkedin</span>
+<svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+<title>linkedin@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#linkedin"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-youtube" href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+<span class="n-footer__social-link-text">youtube</span>
+<svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+<title>youtube@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#youtube"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-slideshare" href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+<span class="n-footer__social-link-text">slideshare</span>
+<svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+<title>slideshare@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-cn/test/common/svg/sprite.svg#slideshare"></use>
+</svg>
+
+</a>
+</li>
+</ul>
+</div>
+
+</div>
+<div class="n-footer__bottom-right">
+  <p class="n-footer__fine-print">想就我们的网站提供反馈?<a target="_self" href="javascript:netapp_mailto()" class="n-footer__copyright">请告诉我们</a>
+  <a href="https://docs.netapp.com/zh-cn/announcements/" class="n-footer__copyright">通知</a>
+  </p>
+</div>
+</div>
+</div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-cn/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-cn/test/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-cn/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-cn/test/js/www-ntap.js'></script>
+    <script src='/zh-cn/test/js/tabbed-blocks.js'></script>
+  </body></html>
