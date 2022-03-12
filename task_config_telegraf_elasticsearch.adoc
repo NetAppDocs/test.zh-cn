@@ -1,0 +1,50 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_elasticsearch.html 
+keywords: telegraf, installation, install, ElasticSearch 
+summary: Elasticsearch 数据收集器配置 
+---
+= Elasticsearch Data Collector
+
+
+[role="lead"]
+Cloud Insights 使用此数据收集器从 Elasticsearch 收集指标。
+
+. 在 * 管理 > 数据收集器 * 中，单击 * + 数据收集器 * 。在 * 服务 * 下，选择 Elasticsearch 。
++
+选择安装了 Telegraf 代理的操作系统或平台。
+
+. 如果您尚未安装要收集的代理，或者您希望为其他操作系统或平台安装代理，请单击 _Show Instructions_展开 link:task_config_telegraf_agent.html["代理安装"] 说明。
+. 选择要用于此数据收集器的代理访问密钥。您可以通过单击 * + 代理访问密钥 * 按钮来添加新的代理访问密钥。最佳实践：仅当您要按操作系统 / 平台对数据收集器进行分组时，才使用其他代理访问密钥。
+. 按照配置步骤配置数据收集器。这些说明因用于收集数据的操作系统或平台的类型而异。
+
+
+image:ElasticsearchDCConfigLinux.png["Elasticsearch 配置"]
+
+
+
+== 设置
+
+有关信息，请参见 link:https://www.elastic.co/guide/index.html["Elasticsearch 文档"]。
+
+
+
+== 对象和计数器
+
+将收集以下对象及其计数器：
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| 对象： | 标识符： | 属性： | 数据点： 
+
+
+| Elasticsearch 集群 | 命名空间集群 | 节点 IP 节点名称集群状态 | 主节点计数节点总数节点计数文件系统可用数据（字节）文件系统可用数据（字节）文件系统总数据（字节） JVM 线程操作系统已分配的处理器操作系统可用处理器操作系统无内存（字节）操作系统无内存总数（字节）操作系统已用内存（字节）操作系统已用内存已用进程 CPU 指示完成大小（字节） 索引计数索引文档计数索引文档计数索引文档已删除索引字段数据逐出索引字段数据内存大小（字节）索引查询缓存计数索引缓存大小索引字段计数索引字段文档值内存（字节）标记索引主索引索引指示字段索引主索引平均大小索引主索引字段最小索引 Shards Index Replication Avg Index Shards Index Replication Max Index Shards Index Replication Min Index Shards Avg Index Shards Shards Max Index Shards 主索引 Shards 复制索引 Shards 索引 Shards 索引存储总索引大小（字节） 
+
+
+| Elasticsearch 节点 | 命名空间集群 ES 节点 ID ES 节点 IP ES 节点 | 分区 ID | 机器学习支持的机器学习内存机器学习最大打开作业 X-Pack 安装的断路器计算估计大小（字节）断路器计算开销断路器计算跳闸器计算跳闸器字段数据估计大小（字节）断路器字段数据限制大小（字节）断路器字段数据开销断路器字段数据触发器 正在运行的估计大小（字节）中断器正在运行的限制大小（字节）中断器正在运行的开销中断器正在运行的跳闸跳闸器父级估计大小（字节）中断器父级限制大小（字节）中断器开销中断器父级跳闸器请求估计大小（字节）中断器请求限制大小（字节）跳闸器请求开销中断器请求可用的父级数据文件系统 （字节）文件系统可用数据（字节）文件系统数据总计（字节）文件系统 IO 统计信息设备操作文件系统 IO 统计信息设备读取（ KB ）文件系统 IO 统计信息设备读取操作文件系统 IO 统计信息设备擦写操作文件系统 IO 统计信息总操作文件系统 IO 统计信息总读取（ KB ）文件系统 IO Stats Read Ops filesystem IO Stats Total Write （ KB ）文件系统 IO Stats Write Ops filesystem Least Usage estimate available （ bytes ）文件系统最小使用量估计总量（字节）文件系统最小使用量估计可用磁盘文件系统最大使用量估计可用量（字节）文件系统最大使用量估计总使用量（字节）文件系统文件系统最常用磁盘文件系统文件系统 总可用空间（字节）文件系统总可用空间（字节）文件系统总空间（字节）指示完成大小（字节）指示文档计数指示文档已删除的指示字段数据逐出指示字段数据内存大小（字节）指示刷新定期指示刷新总指标刷新总时间指示获取当前指标获取存在时间指示 索引总数获取索引总数索引删除索引总数索引索引索引索引索引总数索引索引 Noop 更新索引总索引索引索引控制时间 HTTP 当前打开的 HTTP 打开的总 JVM 缓冲区池直接计数 JVM 类当前已加载计数 JVM GC 收集器旧收集计数 JVM 内存堆已提交（字节）操作系统 CPU 负载平均 15m 操作系统 CPU 无内存（字节）操作系统无交换（字节）进程 CPU 进程 CPU 总进程最大文件描述符进程内存总虚拟（字节）线程池分析活动线程池分析已完成线程池分析最大线程池分析队列线程池分析拒绝的线程池分析 线程线程池提取碎片已启动活动线程池提取碎片已启动已完成线程池提取碎片已启动最大线程池提取碎片已启动队列线程池提取碎片已启动已拒绝线程池提取碎片已启动 Shread 线程池提取碎片存储活动线程池提取碎片存储已完成传输 Rx （每秒）传输 Rx 字节（每秒）传输服务器开放传输 TX （每秒）传输 TX 字节（每秒） 
+|===
+
+
+== 故障排除
+
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面。

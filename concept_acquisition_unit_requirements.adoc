@@ -1,0 +1,64 @@
+---
+sidebar: sidebar 
+permalink: concept_acquisition_unit_requirements.html 
+summary: 用作采集单元的服务器或 VM 必须满足最低要求 
+keywords: AU, acquisition unit, RAU, requirements, sizing 
+---
+= 采集单元要求
+
+
+[role="lead"]
+您必须安装采集单元（ AU ），才能从基础架构数据收集器（存储， VM ，端口， EC2 等）中获取信息。在安装采集单元之前，您应确保环境满足操作系统， CPU ，内存和磁盘空间要求。
+
+
+
+=== 要求
+
+|===
+
+
+| 组件 | Linux 要求 | Windows 要求 
+
+
+| 操作系统 | 运行以下任一许可版本的计算机： * CentOS （ 64 位）： 7.2 到 7.9 ， 8.1 到 8.4 * Debian （ 64 位）： 9 和 10 * Oracle Enterprise Linux （ 64 位）： 7.5 到 7.9 ， 8.1 到 8.4 * Red Hat Enterprise Linux （ 64 位）： 7.2 到 7.9 ， 8.1 到 8.4 * Ubuntu 服务器： 18.04 和 20.04 LTS 此计算机不应运行任何其他应用程序级别的软件。建议使用专用服务器。 | 运行以下许可版本之一的计算机： * Microsoft Windows 10 64 位 * Microsoft Windows Server 2012 * Microsoft Windows Server 2012 R2 * Microsoft Windows Server 2016 * Microsoft Windows Server 2019 此计算机不应运行任何其他应用程序级别的软件。建议使用专用服务器。 
+
+
+| CPU | 2 个 CPU 核 | 相同 
+
+
+| 内存 | 8 GB RAM | 相同 
+
+
+| 可用磁盘空间 | 50 GB 对于 Linux ，应按以下方式分配磁盘空间： /opt/netapp 10 GB /var/log/netapp 40 GB | 50 GB 
+
+
+| 网络 | 100 Mbps/1 Gbps 以太网连接，静态 IP 地址，所有 FC 设备的 IP 连接以及 Cloud Insights 实例所需的端口（ 80 或 443 ）。 | 相同 
+
+
+| 权限 | 对采集单元服务器具有 sudo 权限。必须使用 exec 功能挂载 /tmp 。 | 对采集单元服务器具有管理员权限 
+
+
+| 病毒扫描 |  | 在安装期间，您必须完全禁用所有病毒扫描程序。安装后，采集单元软件使用的路径必须从病毒扫描中排除。 
+|===
+
+
+=== 其他建议
+
+* 为了准确地进行审核和报告数据，强烈建议使用 * 网络时间协议（ NTP ） * 或 * 简单网络时间协议（ SNTP ） * 同步采集单元计算机上的时间。
+
+
+
+
+=== 关于规模估算
+
+您可以先使用一个仅包含 8 GB 内存和 50 GB 磁盘空间的 Cloud Insights 采集单元，但是，对于较大的环境，您应该问自己以下问题：
+
+您是否希望：
+
+* 在此采集单元上发现 2500 多个虚拟机或 10 个大型（大于 2 节点） ONTAP 集群， Symmetrix 或 HDS/HPE VSP/XP 阵列？
+* 在此采集单元上总共部署 75 个或更多数据收集器？
+
+
+对于上述每个 " 是 " 问题解答，建议向 AU 添加 8 GB 内存和 50 GB 磁盘空间。因此，例如，如果您对这两者都回答 " 是 " ，则应部署一个具有 150 GB 或以上磁盘空间的 24 GB 内存系统。在 Linux 上，要添加到日志位置的磁盘空间。
+
+有关其他规模估算问题，请联系 NetApp 支持部门。

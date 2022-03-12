@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: task_dc_emc_powerstore.html 
+keywords: data collector, PowerStore, EMC, DELL 
+summary: 配置 Dell EMC PowerStore 数据收集器。 
+---
+= Dell EMC PowerStore 数据收集器
+
+
+[role="lead"]
+EMC PowerStore 数据收集器从 EMC PowerStore 存储收集清单信息。在配置方面，数据收集器需要存储处理器的 IP 地址以及只读用户名和密码。
+
+EMC PowerStore 数据收集器收集 PowerStore 在其他存储阵列之间协调的卷到卷复制关系。Cloud Insights 会显示每个 PowerStore 集群的存储阵列，并收集该集群上节点和存储端口的清单数据。不会收集任何存储池或卷数据。
+
+
+
+== 术语
+
+Cloud Insights 从此数据收集器获取以下清单信息。对于 Cloud Insights 收购的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| host | host 
+
+
+| host_volume_mapping | host_volume_mapping 
+
+
+| 硬件（驱动器位于 "ext_details" 对象下）： drives | Disk 
+
+
+| 设备 | StoragePool 
+
+
+| 集群 | 存储阵列 
+
+
+| Node | StorageNode 
+
+
+| FC_port | Port 
+
+
+| volume | Volume 
+
+
+| 内部卷 | file_system 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+== 要求
+
+要配置此数据收集器，需要以下信息：
+
+* 存储处理器的 IP 地址或完全限定域名
+* 只读用户名和密码
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| PowerStore 网关 | PowerStore 存储的 IP 地址或完全限定域名 
+
+
+| 用户名 | PowerStore 的用户名 
+
+
+| Password | PowerStore 使用的密码 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| HTTPS 端口 | 默认值为 443 
+
+
+| 清单轮询间隔（分钟） | 两次清单轮询的间隔。默认值为 60 分钟。 
+|===
+Cloud Insight 的 PowerStore 性能收集利用了 PowerStore 的 5 分钟粒度源数据。因此， Cloud Insights 每五分钟轮询一次该数据，这是不可配置的。
+
+
+
+== 故障排除
+
+可从中找到此数据收集器上的追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

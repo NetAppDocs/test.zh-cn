@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: concept_notifications_email.html 
+summary: 为通知添加电子邮件地址。 
+keywords: email, notifications, signature, recipient, list, subscription 
+---
+= 配置电子邮件通知
+
+
+[role="lead"]
+您可以为订阅相关通知配置电子邮件列表，并为违反性能策略阈值的通知配置全局收件人电子邮件列表。
+
+要配置通知电子邮件收件人设置，请转到 * 管理员 > 通知 * 页面。
+
+
+
+== 订阅通知收件人
+
+[role="thumb"]
+image:SubscriptionNotificationSection.png["订阅电子邮件通知"]
+
+要为订阅相关事件通知的收件人配置收件人，请转到 " 订阅通知收件人 " 部分。您可以选择将订阅相关事件的电子邮件通知发送给以下任一或所有收件人：
+
+* 所有帐户所有者
+* 所有管理员
+* 指定的其他电子邮件地址
+
+
+以下示例说明了可能发送的通知类型以及可以执行的用户操作。
+
+|===
+
+
+| * 通知： * | * 用户操作： * 
+
+
+| 试用版或订阅已更新 | 在上查看订阅详细信息 link:concept_subscribing_to_cloud_insights.html["订阅。"] 页面。 
+
+
+| 订阅将在 90 天后过期订阅将在 30 天后过期 | 如果启用了 " 自动续订 " ，则无需执行任何操作联系 link:https://www.netapp.com/us/forms/sales-inquiry/cloud-insights-sales-inquiries.aspx["NetApp 销售"] 以续订订阅 
+
+
+| 试用将在 2 天后结束 | 从续订试用版 link:concept_subscribing_to_cloud_insights.html["订阅。"] 页面。您可以续订一次试用。联系方式 link:https://www.netapp.com/us/forms/sales-inquiry/cloud-insights-sales-inquiries.aspx["NetApp 销售"] 以购买订阅 
+
+
+| 试用或订阅已过期帐户将在 48 小时内停止收集数据帐户将在 48 小时后删除 | 联系方式 link:https://www.netapp.com/us/forms/sales-inquiry/cloud-insights-sales-inquiries.aspx["NetApp 销售"] 以购买订阅 
+|===
+
+
+== 警报的全局收件人列表
+
+警报的电子邮件通知将发送到警报的每个操作的警报收件人列表。您可以选择向全局收件人列表发送警报通知。
+
+要配置全局警报收件人，请单击 * 管理员 > 通知 * ，然后在 * 全局监控通知收件人 * 部分中选择所需的收件人。
+
+[role="thumb"]
+创建或修改监控器时，您始终可以覆盖单个监控器的全局收件人列表。
+
+
+
+== 性能策略通知的全局收件人列表
+
+[role="thumb"]
+image:PerformancePolicyNotificationSection.png["性能策略电子邮件通知"]
+
+要将收件人添加到全局性能策略通知电子邮件列表中，请转到 " 全局性能策略收件人 " 部分并输入以逗号分隔的电子邮件地址。作为性能策略阈值违规警报发送的电子邮件将发送给列表中的所有收件人。
+
+如果您出错，可以单击 [x" 从列表中删除收件人。
+
+您还可以添加一个可选签名块，该签名块将附加到发送的电子邮件通知中。
+
+
+NOTE: 配置特定策略时，您可以覆盖该策略的全局列表。

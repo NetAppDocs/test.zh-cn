@@ -1,0 +1,92 @@
+---
+sidebar: sidebar 
+permalink: security_information_and_region.html 
+summary: Cloud Insights 会在整个发布生命周期遵循安全最佳实践。 
+keywords: security, risk, protection 
+---
+= 信息和区域
+
+
+[role="lead"]
+NetApp 非常重视客户信息的安全性。下面介绍了 Cloud Insights 如何以及将您的信息存储在何处。
+
+
+
+== Cloud Insights 存储哪些信息？
+
+Cloud Insights 存储以下信息：
+
+* 性能数据
++
+性能数据是指提供有关受监控设备 / 源性能的信息的时间序列数据。例如，这包括存储系统提供的 IOS 数量， FibreChannel 端口的吞吐量， Web 服务器提供的页面数量，数据库的响应时间等。
+
+* 清单数据
++
+清单数据由描述受监控设备 / 源及其配置方式的元数据组成。例如，这包括安装的硬件和软件版本，存储系统中的磁盘和 LUN ，虚拟机的 CPU 核心， RAM 和磁盘，数据库的表空间， SAN 交换机上的端口数量和类型，目录 / 文件名称（如果启用了 Cloud Secure ）等
+
+* 配置数据
++
+此表汇总了客户提供的用于管理客户清单和操作的配置数据，例如受监控设备的主机名或 IP 地址，轮询间隔，超时值等
+
+* 机密
++
+机密信息由 Cloud Insights 采集单元用于访问客户设备和服务的凭据组成。这些凭据使用 AES-256 进行加密，私钥仅存储在采集单元上，不会离开客户环境。由于这种设计，即使有特权的 Cloud Insights SRE 也无法以纯文本形式访问客户机密。
+
+* 功能数据
++
+这是由于 NetApp 提供云数据服务而生成的数据，该服务在云数据服务的开发，部署，操作，维护和安全方面向 NetApp 提供信息。功能数据不包含客户信息或个人信息。
+
+* 用户访问数据
++
+允许 NetApp Cloud Central 与区域 Cloud Insights 站点进行通信的身份验证和访问信息，包括与用户授权相关的数据。
+
+* Cloud Secure 用户目录数据
++
+如果启用了 Cloud Secure 功能且客户选择启用用户目录收集器，则系统将存储用户显示名称，公司电子邮件地址以及从 Active Directory 收集的其他信息。
+
+
+
+
+NOTE: 用户目录数据是指由 Cloud Secure 用户目录数据收集器收集的用户目录信息，而不是有关 Cloud Insights 或 Cloud Secure 用户自身的数据。
+
+* 不从基础架构和服务资源收集任何明确的个人数据 * 。收集的信息仅包含性能指标，配置信息和基础架构元数据，与许多供应商的电话住宅非常相似，包括 NetApp 自动支持和 ActiveIQ 。但是，根据客户的命名约定，共享，卷， VM ， qtree 的数据， 应用程序等可能包含个人身份信息。
+
+如果启用了 Cloud Secure ，则系统还会查看 SMB 或其他共享上的文件和目录名称，这些共享可能包含个人身份信息。如果客户启用了 Cloud Secure 用户目录收集器（该收集器从本质上通过 Active Directory 将 Windows SID 映射到用户名），则 Cloud Insights 将收集并存储显示名称，公司电子邮件地址以及所选的任何其他属性。
+
+此外，还会维护对 Cloud Insights 的访问日志，并包含用于登录到服务的用户 IP 和电子邮件地址。
+
+
+
+== 我的信息存储在哪里？
+
+Cloud Insights 会根据创建环境的区域存储信息。
+
+以下信息存储在主机区域：
+
+* 遥测和资产 / 对象信息，包括计数器和性能指标
+* 采集单元信息
+* 功能数据
+* 有关 Cloud Insights 中用户活动的审核信息
+* Cloud Secure Active Directory 信息
+* Cloud Secure 审核信息
+
+
+无论托管 Cloud Insights 环境的地区如何，以下信息都驻留在美国：
+
+* 环境站点（有时称为 " 租户 " ）信息，例如站点 / 帐户所有者。
+* 允许 NetApp Cloud Central 与区域 Cloud Insights 站点进行通信的信息，包括与用户授权相关的任何操作。
+* 与 Cloud Insights 用户和租户之间的关系相关的信息。
+
+
+
+
+== 更多信息
+
+有关 NetApp 隐私和安全的更多信息，请访问以下链接：
+
+* link:https://www.netapp.com/us/company/trust-center/index.aspx["信任中心"]
+* link:https://www.netapp.com/us/company/trust-center/privacy/data-location-cross-border-transfers.aspx["跨境数据传输"]
+* link:https://www.netapp.com/us/company/trust-center/privacy/bcr-binding-corporate-rules.aspx["具有约束力的公司规则"]
+* link:https://www.netapp.com/us/company/trust-center/transparency/third-party-data-requests.aspx["响应第三方数据请求"]
+* link:https://www.netapp.com/us/company/trust-center/privacy/privacy-principles-security-safeguards.aspx["NetApp 隐私原则"]
+

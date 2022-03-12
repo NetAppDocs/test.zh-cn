@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: task_device_resolution_preferences.html 
+keywords: Automatic, AR, AHR, Host, automatic device resolution, FC, Identify 
+summary:  
+---
+= 设置首选项选项卡中的选项
+
+
+[role="lead"]
+通过设备解析首选项选项卡，您可以创建自动解析计划，指定要在标识中包含或排除的存储和磁带供应商，以及设置 DNS 查找选项。
+
+
+
+=== 自动解析计划
+
+自动解析计划可以指定何时运行自动设备解析：
+
+|===
+
+
+| 选项 | Description 
+
+
+| 每 | 使用此选项可以按天，小时或分钟的间隔运行自动设备解析。 
+
+
+| 每天 | 使用此选项可在特定时间每天运行自动设备解析。 
+
+
+| 手动 | 使用此选项只能手动运行自动设备解析。 
+
+
+| 环境发生变化时 | 使用此选项可在环境发生变化时运行自动设备解析。 
+|===
+如果指定 _manually_ ，则会禁用夜间自动设备解析。
+
+
+
+=== DNS 处理选项
+
+您可以通过 DNS 处理选项选择以下功能：
+
+* 启用 DNS 查找结果处理后，您可以添加 DNS 名称列表以附加到已解析的设备。
+* 您可以选择 Auto resolution of IPs ：，以便使用 DNS 查找为访问 NFS 共享的 iSCSI 启动程序和主机启用自动主机解析。如果未指定此参数，则仅执行基于 FC 的解析。
+* 您可以选择在主机名中使用下划线，并在结果中使用 "connected to" 别名，而不是标准端口别名。
+
+
+
+
+=== 包括或排除特定存储和磁带供应商
+
+您可以包括或排除特定的存储和磁带供应商以进行自动解析。例如，如果您知道某个特定主机将成为旧主机并应从新环境中排除，则可能需要排除特定供应商。您还可以重新添加先前已排除但不再希望排除的供应商。
+
+
+NOTE: 磁带的设备解析规则仅适用于 WWN ，如果此 WWN 的供应商在供应商首选项中设置为 _included as Tape only_ 。
+
+另请参见： link:concept_device_resolution_regex_examples.html["正则表达式示例"]

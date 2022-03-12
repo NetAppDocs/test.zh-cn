@@ -1,0 +1,13 @@
+---
+sidebar: sidebar 
+permalink: concept_data_collector_reference.html 
+summary: 供应商专用的数据收集器参考信息。 
+keywords: data collector, vendor, AWS, BROADCOM, Cisco, Dell, EMC, Hitachi, IBM, NetApp, OceanStor, OpenStack, Oracle, Pure Storage, Red Hat, redhat, VMWare 
+---
+= 供应商专用参考
+
+
+[role="lead"]
+本节中的主题提供了特定于供应商的参考信息。在大多数情况下，配置数据收集器非常简单。在某些情况下，您可能需要使用追加信息或命令来正确配置数据收集器。
+
+单击左侧菜单中的 * 供应商 * 以查看其数据收集器的信息。

@@ -1,0 +1,23 @@
+---
+sidebar: sidebar 
+permalink: task_identify_inactive_devices.html 
+keywords: inactive, device, 
+summary: 通过确定非活动设备，您可以选择将其删除或将其分配给活动角色。 
+---
+= 确定非活动设备
+
+
+[role="lead"]
+确定您拥有的资产以及使用这些资产的人员对于 " 合理调整规模 " 和释放未使用的基础架构至关重要。您可以轻松地重新分配或停用未充分利用的资源，并避免不必要的购买。
+
+按照以下步骤确定非活动资产。
+
+.步骤
+. 在 Cloud Insights 菜单中，单击 * 查询 > 新建查询 *
+. 在 `SSearch for` 菜单中，选择要查询的资产类型
+. 单击 * + > Is Active*
+. 单击 * 任何 * 并将其更改为 * 否 *
++
+系统将显示选定设备类型的非活动资产列表。
+
+

@@ -1,0 +1,42 @@
+---
+sidebar: sidebar 
+permalink: concept_about_applications.html 
+keywords: applications, asset, cost 
+summary: 了解公司环境中使用的应用程序有助于您跟踪资产使用情况和成本。 
+---
+= 按应用程序跟踪资产使用情况
+
+
+[role="lead"]
+了解公司环境中使用的应用程序有助于跟踪资产使用情况和成本。
+
+在跟踪与环境中运行的应用程序关联的数据之前，您必须先定义这些应用程序并将其与相应的资产相关联。您可以将应用程序与以下资产相关联：主机，虚拟机，卷，内部卷， qtree ， 共享和虚拟机管理程序。
+
+本主题提供了一个示例，用于跟踪营销团队用于其 Exchange 电子邮件的虚拟机使用情况。
+
+您可能需要创建一个类似于以下内容的表，以确定环境中使用的应用程序，并记下使用每个应用程序的组或业务单位。
+
+[cols="5*"]
+|===
+
+
+| 租户 | 业务部门 | 业务部门 | 项目 | 应用程序 
+
+
+| NetApp | 数据存储 | 法律 | 专利 | Oracle Identity Manager ， Oracle On Demand ， PatentWiz 
+
+
+| NetApp | 数据存储 | 营销 | 销售活动 | Exchange ， Oracle 共享数据库， Blasoff Event Planner 
+|===
+下表显示了该营销团队使用 Exchange 应用程序。我们希望跟踪他们的 Exchange 虚拟机利用率，以便预测何时需要添加更多存储。我们可以将 Exchange 应用程序与营销部门的所有虚拟机相关联：
+
+. 创建一个名为 _Exchange_ 的应用程序
+. 转到 * 查询 > +New Query* 为虚拟机创建新查询（或选择现有 VM 查询，如果适用）。
++
+假设营销团队的 VM 都包含字符串 "* mkT* " 的名称，请创建查询以筛选 VM 名称中的 "mkT" 。
+
+. 选择 VM 。
+. 使用 * 批量操作 > 添加应用程序 * 将 VM 与 _Exchange_ 应用程序关联。
+. 选择所需的应用程序，然后单击 * 保存 * 。
+. 完成后， * 保存 * 查询。
+

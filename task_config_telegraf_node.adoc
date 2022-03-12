@@ -1,0 +1,71 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_node.html 
+keywords: telegraf, installation, install, node, host 
+summary: Flink 数据收集器配置 
+---
+= 节点数据收集
+
+
+[role="lead"]
+Cloud Insights 从安装代理的节点收集指标。
+
+
+
+== 安装
+
+. 从 * 管理 > 数据收集器 * 中，选择操作系统 / 平台。请注意，安装任何集成数据收集器（ Kubernetes ， Docker ， Apache 等）也会配置节点数据收集。
+. 按照说明配置代理。这些说明因用于收集数据的操作系统或平台的类型而异。
+
+
+
+
+== 对象和计数器
+
+以下对象及其计数器将作为节点指标收集：
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| 对象： | 标识符： | 属性： | 数据点： 
+
+
+| 节点文件系统 | 节点 UUID 设备路径类型 | 节点 IP 节点名称节点操作系统模式 | 可用索引节点可用索引节点已用总索引节点已用总已用总容量 
+
+
+| 节点磁盘 | 节点 UUID 磁盘 | 节点 IP 节点名称节点操作系统 | IO 时间进行中的总 IOPS 读取字节（每秒）读取时间总读取时间（每秒）加权 IO 时间总写入字节（每秒）写入时间总写入时间当前磁盘队列长度写入时间读取时间 IO 时间 
+
+
+| 节点 CPU | 节点 UUID CPU | 节点 IP 节点名称节点操作系统 | 系统 CPU 使用情况用户 CPU 使用情况空闲 CPU 使用情况处理器 CPU 使用情况中断 CPU 使用情况 DPC CPU 使用情况 
+
+
+| Node | 节点 UUID | 节点 IP 节点名称节点操作系统 | 内核启动时间内核上下文切换（每秒）内核 Entropy 可用内核中断（每秒）内核进程 forked （每秒） 内存活动内存可用总内存可用内存缓存内存缓存内存提交限制已提交内存已用尽内存可用内存高可用内存大总内存大页面大小内存大页面可用内存大页面总内存低可用内存低总内存映射内存页面表 内存共享内存 Slab 内存交换缓存可用内存交换总内存已用总内存已用总内存已用内存 Vmalloc 区块内存 Vmalloc 总内存 Vmalloc 已用内存已用内存已线内存回写总内存回写温度内存缓存故障内存需求零故障内存页面故障内存页面内存页面内存页面 非分页内存分页内存缓存核心内存备用缓存正常内存备用缓存预留内存过渡故障进程被阻止的进程停止进程转储进程运行进程休眠进程已停止进程总进程线程进程未知进程 Zombie 处理器队列长度空闲交换总已用交换总容量 Swap Used Swap in Swap out System Uptime System NumCPU System NumUsers System 调用 
+
+
+| 节点网络 | 网络接口节点 UUID | 节点名称节点 IP 节点操作系统 | 字节接收字节发送数据包传出丢弃的数据包传出错误数据包接收丢弃的数据包接收错误数据包接收发送的数据包 
+|===
+
+
+== 设置
+
+有关设置和故障排除信息，请参见 link:task_config_telegraf_agent.html["配置代理"] 页面。
+
+
+
+== macOS 内存使用情况
+
+Cloud Insights （通过 Telegraf ）和 macOS 报告的内存使用量不同。Telegraf 和 Mac 活动监控器均使用从 _VM_stat_ 收集的指标，但计算每个指标的总内存使用量不同。
+
+* 远程格拉夫 * 计算 _Memory Used Total_ ，如下所示：
+
+ Memory Used Total = Memory Total - Memory Available Total
+其中 _Memory Available Total_ 是从 _VM_stat_ 中的 " 可用页面 " 和 " 非活动页面 " 之和得出的。
+
+另一方面， * Mac 活动监控器 * 将按如下所示计算已用内存：
+
+ Memory Used = App Memory + Wired Memory + Compressed
+其中：
+
+* _App Memory 是从 _vm_stat_ 中的 " 匿名页面 " 和 " 可清除页面 " 之间的差异派生的，
+* _Wired Memory_is derived from "Pages wired down" in _VM_stat_ ， and
+* _compressed__is 派生自 _vm_stat_ 中的 " 压缩程序占用的页面 " 。
+

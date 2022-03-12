@@ -1,0 +1,11 @@
+---
+sidebar: sidebar 
+permalink: concept_ontap_streaming_telemetry.html 
+summary: 使用 NetApp ONTAP 流遥测功能配置 Cloud Insights 
+keywords: ONTAP, Telemetry, streaming, 
+---
+= NetApp ONTAP 流遥测
+
+
+[role="lead"]
+感谢您关注 Cloud Insights ONTAP 流式遥测。此功能当前处于私有预览状态。请联系 ng-ci-preview@netapp.com 以获取更多信息或访问权限。

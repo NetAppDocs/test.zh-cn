@@ -1,0 +1,266 @@
+---
+sidebar: sidebar 
+permalink: task_dc_na_cdot.html 
+keywords: data collector, ontap, ontap, CDOT 
+summary: ONTAP 数据收集器 
+---
+= NetApp ONTAP 数据管理软件数据收集器
+
+
+[role="lead"]
+此数据收集器使用 ONTAP 帐户中的只读 API 调用从运行 ONTAP 的存储系统采集清单和性能数据。此数据收集器还会在集群应用程序注册表中创建一条记录，以加快支持速度。
+
+
+
+== 术语
+
+Cloud Insights 从 ONTAP 数据收集器采集清单和性能数据。对于所采集的每种资产类型，都会显示该资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| Disk | Disk 
+
+
+| RAID 组 | 磁盘组 
+
+
+| 集群 | 存储 
+
+
+| Node | 存储节点 
+
+
+| 聚合 | 存储池 
+
+
+| LUN | Volume 
+
+
+| Volume | 内部卷 
+|===
+
+
+== ONTAP 数据管理术语
+
+以下术语适用于您在 ONTAP 数据管理存储资产登录页面上可能找到的对象或参考。其中许多术语也适用于其他数据收集器。
+
+
+
+=== 存储
+
+* 型号—此集群中唯一的离散节点型号名称的逗号分隔列表。如果集群中的所有节点的型号类型相同，则只会显示一个型号名称。
+* Vendor —与配置新数据源时看到的 Vendor 名称相同。
+* Serial Number —阵列序列号。在 ONTAP 数据管理等集群架构存储系统上，此序列号可能不如单个 " 存储节点 " 序列号有用。
+* IP —通常是数据源中配置的 IP 或主机名。
+* 微代码版本—固件。
+* 原始容量—系统中所有物理磁盘的基本 2 总和，而不管其角色如何。
+* 延迟—表示主机在读取和写入工作负载方面所遇到的情况。理想情况下， Cloud Insights 会直接获取此值，但这种情况通常不会发生。Cloud Insights 通常会根据各个内部卷的统计信息执行 IOPS 加权计算，而不是采用这种计算方法的阵列。
+* 吞吐量—从内部卷聚合。管理—可能包含设备管理界面的超链接。由 Cloud Insights 数据源在清单报告中以编程方式创建。
+
+
+
+
+=== 存储池
+
+* 存储—此池所在的存储阵列。必填。
+* type —从枚举的可能性列表中获取的描述性值。最常见的是 " 聚合 " 或 "RAID 组 " 。
+* 节点—如果此存储阵列的架构使池属于特定存储节点，则其名称将在此处显示为指向其自身登录页面的超链接。
+* 使用 Flash Pool —是 / 否值—此基于 SATA/SAS 的池是否使用 SSD 进行缓存加速？
+* 冗余— RAID 级别或保护方案。RAID-DP 为双奇偶校验， raid_TP 为三重奇偶校验。
+* 容量—此处的值为逻辑已用容量，可用容量和逻辑总容量以及这些容量中使用的百分比。
+* 过量使用的容量—如果您使用效率技术分配的卷或内部卷总容量大于存储池的逻辑容量，则此处的百分比值将大于 0% 。
+* Snapshot —已用快照容量和总容量，前提是存储池架构将部分容量专用于专为快照划分的区域。MetroCluster 配置中的 ONTAP 很可能会显示这一点，而其他 ONTAP 配置则不会显示这一点。
+* 利用率—一个百分比值，显示为该存储池贡献容量的任何磁盘的最高磁盘繁忙百分比。磁盘利用率不一定与阵列性能密切相关—如果没有主机驱动的工作负载，则由于磁盘重建，重复数据删除活动等，利用率可能会很高。此外，许多阵列的复制实施可能会提高磁盘利用率，而不会显示为内部卷或卷工作负载。
+* IOPS —为该存储池贡献容量的所有磁盘的 IOPS 之和。吞吐量—为该存储池贡献容量的所有磁盘的总吞吐量。
+
+
+
+
+=== 存储节点
+
+* 存储—此节点所属的存储阵列。必填。
+* HA 配对节点—在某个节点将故障转移到一个且只有另一个节点的平台上，通常会显示在此处。
+* 状态—节点的运行状况。仅当阵列运行状况良好，足以供数据源进行资源清点时才可用。
+* model —节点的型号名称。
+* version —设备的版本名称。
+* Serial Number —节点序列号。
+* 内存—如果可用，则为基础 2 内存。
+* 利用率—在 ONTAP 上，这是一个来自专有算法的控制器压力指数。每次性能轮询都会报告一个介于 0 到 100% 之间的数字，该数字在 WAFL 磁盘争用或平均 CPU 利用率中较高。如果您观察到持续值 > 50% ，则表示规模估算不足—可能是控制器 / 节点不够大或旋转磁盘不足，无法承受写入工作负载。
+* IOPS —直接从节点对象上的 ONTAP ZAPI 调用派生。
+* 延迟—直接从节点对象上的 ONTAP ZAPI 调用派生。
+* 吞吐量—直接从节点对象上的 ONTAP ZAPI 调用派生。
+* 处理器— CPU 计数。
+
+
+
+
+== 要求
+
+配置和使用此数据收集器的要求如下：
+
+* 您必须有权访问为只读 API 调用配置的管理员帐户。
+* 帐户详细信息包括用户名和密码。
+* 端口要求： 80 或 443
+* 帐户权限：
++
+** 将 ontapi 应用程序的只读角色名称分配给默认 SVM
+** 您可能需要其他可选写入权限。请参见下面的 " 关于权限的注释 " 。
+
+
+* ONTAP 许可证要求：
++
+** 光纤通道发现所需的 FCP 许可证和映射 / 屏蔽卷
+
+
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| NetApp 管理 IP | NetApp 集群的 IP 地址或完全限定域名 
+
+
+| 用户名 | NetApp 集群的用户名 
+
+
+| Password | NetApp 集群的密码 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 连接类型 | 选择 HTTP （默认端口 80 ）或 HTTPS （默认端口 443 ）。默认值为 HTTPS 
+
+
+| 覆盖通信端口 | 如果不想使用默认端口，请指定其他端口 
+
+
+| 清单轮询间隔（分钟） | 默认值为 60 分钟。 
+
+
+| 用于 HTTPS 的 TLS | 仅在使用 HTTPS 时允许使用 TLS 作为协议 
+
+
+| 自动查找网络组 | 为导出策略规则启用自动网络组查找 
+
+
+| 网络组扩展 | 网络组扩展策略。选择 _files_ 或 _shell_ 。默认值为 _shell_ 。 
+
+
+| HTTP 读取超时秒数 | 默认值为 30 
+
+
+| 强制响应为 UTF-8 | 强制数据收集器代码将命令行界面中的响应解释为 UTF-8 格式 
+
+
+| 性能轮询间隔（秒） | 默认值为 900 秒。 
+
+
+| 高级计数器数据收集 | 启用 ONTAP 集成。选择此选项可在轮询中包含 ONTAP 高级计数器数据。从列表中选择所需的计数器。 
+|===
+
+
+== 有关权限的注释
+
+由于 Cloud Insights 的许多 ONTAP 信息板都依赖于高级 ONTAP 计数器，因此您必须在数据收集器高级配置部分中启用 * 高级计数器数据收集 * 。
+
+您还应确保已启用对 ONTAP API 的写入权限。这通常需要一个集群级别的帐户，并具有必要的权限。
+
+要在集群级别为 Cloud Insights 创建本地帐户，请使用集群管理管理员用户名 / 密码登录到 ONTAP ，然后在 ONTAP 服务器上执行以下命令：
+
+. 使用以下命令创建只读角色。
++
+....
+security login role create -role ci_readonly -cmddirname DEFAULT -access readonly
+security login role create -role ci_readonly -cmddirname security -access readonly
+security login role create -role ci_readonly -access all -cmddirname “cluster application-record create”
+....
+. 使用以下命令创建只读用户。执行 create 命令后，系统将提示您输入此用户的密码。
++
+ security login create -username ci_user -application ontapi -authentication-method password -role ci_readonly
+
+
+如果使用 AD/LDAP 帐户，则命令应为
+
+ security login create -user-or-group-name DOMAIN\aduser/adgroup -application ontapi -authentication-method domain -role ci_readonly
+生成的角色和用户登录将如下所示：
+
+....
+Role Command/ Access
+Vserver Name Directory Query Level
+---------- ------------- --------- ------------------ --------
+cluster1 ci_readonly DEFAULT read only
+cluster1 ci_readonly security readonly
+....
+....
+cluster1::security login> show
+Vserver: cluster1
+Authentication Acct
+UserName    Application   Method      Role Name      Locked
+---------   -------      ----------- -------------- --------
+ci_user     ontapi      password    ci_readonly   no
+....
+
+
+== 故障排除
+
+如果此数据收集器出现问题，请尝试执行以下操作：
+
+
+
+==== 清单
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 接收 401 HTTP 响应或 13003 ZAPI 错误代码， ZAPI 返回 " 权限不足 " 或 " 未授权使用此命令 " | 检查用户名和密码以及用户权限。 
+
+
+| 集群版本小于 8.1 | 集群支持的最低版本为 8.1 。升级到支持的最低版本。 
+
+
+| ZAPI 返回 "cluster role is not cluster_mgmt LIF" | AU 需要与集群管理 IP 进行通信。检查 IP 并根据需要更改为其他 IP 
+
+
+| 错误： " 不支持 7 模式存储器 " | 如果使用此数据收集器发现 7 模式存储器，则可能会发生这种情况。请将 IP 更改为指向 cdot 集群。 
+
+
+| 重试后， ZAPI 命令失败 | AU 与集群通信出现问题。检查网络，端口号和 IP 地址。用户还应尝试从 AU 计算机的命令行运行命令。 
+
+
+| AU 无法通过 HTTP 连接到 ZAPI | 检查 ZAPI 端口是否接受纯文本。如果 AU 尝试向 SSL 套接字发送纯文本，则通信将失败。 
+
+
+| 通信失败，并出现 SSLException | AU 正在尝试向存储器上的纯文本端口发送 SSL 。检查 ZAPI 端口是接受 SSL 还是使用其他端口。 
+
+
+| 其他连接错误： ZAPI 响应的错误代码为 13001 ， " 数据库未打开 " ZAPI 错误代码为 60 ，响应包含 "API 未按时完成 " ZAPI 响应包含 "initialize_session （） ReturnD NULL environment " ZAPI 错误代码为 14007 ，响应包含 "Node is not healthy" | 检查网络，端口号和 IP 地址。用户还应尝试从 AU 计算机的命令行运行命令。 
+|===
+
+
+==== 性能
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| " 无法从 ZAPI 收集性能 " 错误 | 这通常是因为性能统计未运行。在每个节点上尝试以下命令： >_system node systemshell -node * -command "spmctl -h cmd – stop ； spmctl -h cmd – exec 
+|===
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

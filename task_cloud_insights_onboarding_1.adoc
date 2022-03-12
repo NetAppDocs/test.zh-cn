@@ -1,0 +1,72 @@
+---
+sidebar: sidebar 
+permalink: task_cloud_insights_onboarding_1.html 
+summary: 注册 Cloud Insights 并创建环境。 
+---
+= Cloud Insights 入职
+
+
+[role="lead"]
+在开始使用 Cloud Insights 之前，您必须先在 * NetApp Cloud Central * 门户上注册。如果您已登录 NetApp Cloud Central ，则可以通过几个快速步骤免费试用 Cloud Insights 。
+
+
+toc::[]
+
+
+== 创建 NetApp Cloud Central 帐户
+
+要注册以访问 NetApp 的云服务，请访问 https://cloud.netapp.com["* NetApp Cloud Central *"^] 然后单击 * 注册 * 。
+
+* 输入有效的业务电子邮件地址并选择密码。
+* 输入您的公司名称和全名。
+* 接受条款和条件，然后单击 * 注册 * 。
+
+
+然后，您将转到 NetApp 的云产品页面。
+
+选择 Cloud Insights 。
+
+
+
+=== 如果我已经拥有 NetApp Cloud 登录帐户，该怎么办？
+
+如果您已有 NetApp Cloud Central 帐户，只需在上选择 * 登录 * 即可 https://cloud.netapp.com["* NetApp Cloud Central *"^] 门户页面。
+
+输入您的电子邮件地址和密码。然后，您将转到 NetApp 的云产品页面。
+
+选择 Cloud Insights 。
+
+
+
+== 开始 Cloud Insights 免费试用
+
+如果这是您首次登录到 Cloud Insights ，请在 Cloud Insights 产品下单击 * 开始免费试用 * 。然后， Cloud Insights 将创建您公司的环境。
+
+环境创建完成后，您可以使用 Cloud Central 凭据登录并开始免费试用 Cloud Insights 30 天。在此试用期间，您可以了解 Cloud Insights 标准版必须提供的所有功能。
+
+在免费试用期间，您可以 link:concept_subscribing_to_cloud_insights.html["开始订阅"] 可随时访问 Cloud Insights 。订阅后，您可以根据当前订阅使用 Cloud Insights 功能。
+
+
+
+== 登录并继续
+
+创建租户后，您可以随时登录到 NetApp 云门户并单击 * 转到 Cloud Insights * 。您将直接转到 Cloud Insights 环境。
+
+您也可以直接打开浏览器访问 Cloud Insights 环境 URL ，例如：
+
+ https://<environment-name>.c01.cloudinsights.netapp.com/
+每个用户的邀请函电子邮件中也会包含此 URL ，以便于访问和添加书签。如果用户尚未登录到 Cloud Central ，系统将提示他们登录。
+
+
+NOTE: 新用户仍必须注册才能访问 Cloud Central ，然后才能访问其环境 URL 。
+
+首次登录到新环境时，系统将引导您完成设置 link:task_getting_started_with_cloud_insights.html["* 开始收集数据 *"]。
+
+
+
+== 注销
+
+要注销 Cloud Insights ，请单击您的 * 用户名 * 并选择 * 注销 * 。您将返回到 Cloud Central 登录屏幕。
+
+
+NOTE: 注销 Cloud Insights 将使您从 Cloud Central 注销。您还将从使用 Cloud Central 登录的其他 NetApp 云服务中注销。

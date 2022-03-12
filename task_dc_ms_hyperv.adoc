@@ -1,0 +1,103 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ms_hyperv.html 
+keywords: data collector, Microsoft, Hyper-V 
+summary: 配置 Microsoft Hyper-V 数据收集器。 
+---
+= Microsoft Hyper-V 数据收集器
+
+
+[role="lead"]
+Microsoft Hyper-V 数据收集器从虚拟化服务器计算环境中采集清单和性能数据。
+
+
+
+== 术语
+
+Cloud Insights 从 Microsoft Hyper-V （ WMI ）采集以下清单信息。对于 Cloud Insights 收购的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| 虚拟硬盘 | 虚拟磁盘 
+
+
+| 主机 | 主机 
+
+
+| 虚拟机 | 虚拟机 
+
+
+| 集群共享卷（ CSV ），分区卷 | 数据存储 
+
+
+| Internet SCSI 设备，多路径 SCSI LUN | LUN 
+
+
+| 光纤通道端口 | Port 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+== 要求
+
+要配置此数据收集器，需要满足以下条件：
+
+* Hyper-V 需要打开端口 5985 ，以便进行数据收集和远程访问 / 管理。
+* 集群组节点的 IP 地址
+* 虚拟机管理程序上的本地管理员用户和密码
+* 管理级用户帐户
+* Windows Management Instrumentation （ WMI ）命令，这是 Windows 安装的默认命令。
+* 端口要求：对于 Windows 2003 及更早版本，通过 WMI 和动态 TCP 端口分配的端口 135 为 1024-65535 ；对于 Windows 2008 ，分配的端口为 49152-65535 。
+* DNS 解析必须成功，即使数据收集器仅指向 IP 地址也是如此
+* 每个 Hyper-V 虚拟机管理程序都必须为每个主机上的每个 VM 启用 " 资源计量 " 。这样，每个虚拟机管理程序就可以在每个子系统上为 Cloud Insights 提供更多数据。如果未设置此值，则为每个子系统获取的性能指标会更少。有关资源计量的详细信息，请参见 Microsoft 文档：
++
+link:https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh831661(v=ws.11)["Hyper-V 资源计量概述"]
+
++
+link:https://docs.microsoft.com/en-us/powershell/module/hyper-v/enable-vmresourcemetering?view=win10-ps["启用 VMResourceMetering"]
+
+
+
+
+NOTE: Hyper-V 数据收集器需要 Windows 采集单元。
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 物理主机 IP 地址 | 物理主机（虚拟机管理程序）的 IP 地址或完全限定域名 
+
+
+| 用户名 | 虚拟机管理程序的管理员用户名 
+
+
+| Password | 虚拟机管理程序的密码 
+
+
+| NT 域 | 集群中节点使用的 DNS 名称 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 清单轮询间隔（分钟） | 默认值为 20 分钟。 
+|===
+
+
+== 故障排除
+
+可从中找到此数据收集器上的追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

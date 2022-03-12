@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ms_azure.html 
+keywords: data collector, azure, 
+summary: 配置 Azure 计算数据收集器。 
+---
+= 配置 Azure 计算数据收集器
+
+
+[role="lead"]
+Cloud Insights 使用 Azure 计算数据收集器从 Azure 计算实例获取清单和性能数据。
+
+
+
+== 要求
+
+要配置此数据收集器，您需要以下信息。
+
+* 端口要求： 443 HTTPS
+* Azure OAuth 2.0 重定向 URI （ login.microsoftonline.com ）
+* Azure 管理 REST IP （ management.azure.com ）
+* Azure Resource Manager IP （ management.core.windows.net ）
+* Azure 服务主体应用程序（客户端） ID （需要读取器角色）
+* Azure 服务主体身份验证密钥（用户密码）
+* 您需要为 Cloud Insights 发现设置 Azure 帐户。
++
+正确配置帐户并在 Azure 中注册应用程序后，您将拥有在 Cloud Insights 中发现 Azure 实例所需的凭据。以下链接介绍如何设置帐户以进行发现。https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal[]
+
+
+
+
+
+== Configuration
+
+根据下表在数据收集器字段中输入数据：
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| Azure 服务主体应用程序（客户端） ID （需要读取器角色） | 登录到 Azure 的 ID 。需要读取器角色访问。 
+
+
+| Azure 租户 ID | Microsoft 租户 ID 
+
+
+| Azure 服务主体身份验证密钥 | 登录身份验证密钥 
+
+
+| 我了解 Microsoft 为 API 请求向我收费 | 选中此复选框可验证您是否了解 Microsoft 会为 Insight 轮询发出的 API 请求向您收费。 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 清单轮询间隔（分钟） | 默认值为 60 。 
+
+
+| 选择 " 排除 " 或 " 包括 " 以应用于按标记筛选 VM | 指定在收集数据时是包含还是排除虚拟机的按标记。如果选择了 ‘include ' ，则标记密钥字段不能为空。 
+
+
+| 标记要筛选 VM 的密钥和值 | 单击 * + Filter Tag * ，通过筛选与 VM 上的密钥和标记值匹配的密钥和值来选择要包含 / 排除的 VM （以及关联磁盘）。标记密钥为必填项，标记值为可选项。如果标记值为空，则只要虚拟机与标记密钥匹配，就会对其进行筛选。 
+
+
+| 性能轮询间隔（秒） | 默认值为 300 。 
+|===
+
+
+== 故障排除
+
+可从中找到此数据收集器上的追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

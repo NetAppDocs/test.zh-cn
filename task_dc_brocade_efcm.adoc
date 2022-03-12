@@ -1,0 +1,78 @@
+---
+sidebar: sidebar 
+permalink: task_dc_brocade_efcm.html 
+keywords: data collector, Brocade, EFCM, 
+summary: 配置 Brocade 数据收集器。 
+---
+= 配置 Brocade Enterprise Fabric Connectivity Manager 数据收集器
+
+
+[role="lead"]
+Cloud Insights 使用 Brocade Enterprise Fabric Connectivity Manager （ EFCM ）数据收集器发现 Brocade EFCM 交换机的清单。Cloud Insights 支持 EFCM 9.5 ， 9.6 和 9.7 版。
+
+
+
+== 要求
+
+* EFCM 服务器的网络地址或完全限定域名
+* EFCM 版本必须为 9.5 ， 9.6 或 9.7
+* EFCM 服务器的 IP 地址
+* EFCM 服务器的只读用户名和密码
+* 已通过端口 51512 使用只读用户名和密码验证通过 Telnet 从 Cloud Insights 服务器对 Connectrix 交换机的访问
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| EFC 服务器 | EFC 服务器的 IP 地址或完全限定域名 
+
+
+| 用户名 | 交换机的用户名 
+
+
+| Password | 交换机的密码 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 清单轮询间隔（分钟） | 两次清单轮询的间隔。默认值为 15 分钟。 
+
+
+| 网络结构名称 | 要由 EFCM 数据收集器报告的网络结构名称。留空以将网络结构名称报告为 WWN 。 
+
+
+| 通信端口 | 用于与交换机通信的端口 
+
+
+| 启用陷阱 | 选择此选项可在从设备收到 SNMP 陷阱时启用采集。如果选择启用陷阱，则还必须激活 SNMP 。 
+
+
+| 陷阱之间的最短时间（秒） | 陷阱触发的两次采集尝试之间的最短时间。默认值为 15 秒。 
+
+
+| 非活动区域集 | 除了在活动分区集上执行采集之外，要在其中执行采集的非活动分区集的逗号分隔列表 
+
+
+| 要使用的 NIC | 指定在报告 SAN 设备时应在 RAU 上使用哪个网络接口 
+
+
+| 排除设备 | 要包括在轮询中或从轮询中排除的单元名称的逗号分隔列表 
+
+
+| 使用 EFCM 交换机别名作为交换机名称 | 选择以使用 EFCM 交换机别名作为 Cloud Insights 交换机名称。 
+
+
+| 性能轮询间隔（秒） | 性能轮询之间的时间间隔。默认值为 300 秒。 
+|===

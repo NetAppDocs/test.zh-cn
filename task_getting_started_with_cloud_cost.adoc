@@ -1,0 +1,80 @@
+---
+sidebar: sidebar 
+permalink: task_getting_started_with_cloud_cost.html 
+summary: 开始使用云成本。 
+keywords: analysis, cost, analyzer 
+---
+= 开始使用云成本
+
+
+[role="lead"]
+云成本可对过去，现在和估计支出进行详细的成本分析，从而了解您环境中的云使用情况。云成本信息板可清晰地显示您的组织的云支出，并深入了解各个工作负载，帐户和服务。
+
+云成本有助于应对以下主要挑战：
+
+* 跟踪和监控云支出
+* 确定浪费和潜在优化领域
+* 交付可执行的操作项
+
+
+要配置或查看云成本，您必须具有 Cloud Insights _Administrator_ 或 _Account Owner_ 权限。配置完云后，具有这些权限的任何 Cloud Insights 用户都可以访问云成本。
+
+通过将云成本链接到您的 _AWS Organizations_account 来配置云成本。这有时称为 link:https://docs.spot.io/cloud-analyzer/getting-started/connect-your-aws-master-payer-account-existing-customer["_management_"] 帐户。
+
+
+NOTE: 云成本仅适用于美国地区 Cloud Insights 环境，并且只能为一个 AWS 组织帐户配置。云成本必须与您在 Cloud Insights 中可能拥有的任何 AWS 收集器分开配置。
+
+
+
+==== 设置云成本
+
+当您登录到 Cloud Insights 并首次单击 * 云成本 * 菜单项时，系统将显示欢迎屏幕并提示您开始设置云成本。
+
+image:Cloud_Cost_Welcome.png["云成本"]
+
+* 单击 * 将 AWS 凭据添加到启动 * 按钮开始。此时将显示 AWS 连接屏幕。按照此屏幕上的说明将您的 * AWS Organizations Account* 链接到 Cloud Cost 。
++
+image:Cloud_Cost_Setup_1.png["AWS Connect"]
+
+* 配置完帐户后， Cloud Cost 将显示一条 " 欢迎 " 消息。
++
+image:Cloud_Cost_Welcome_Wait.png["欢迎使用 Cloud Cost ！"]
+
++
+
+NOTE: 云成本可能需要长达 24 小时才能完全配置。配置完成后，您将收到电子邮件通知。如果您遇到困难，可以单击 "Chat" 图标或访问以联系 NetApp 支持部门 link:https://spot.io/support["NetApp Spot 支持"]。
+
+* 设置完成后，单击 * 云成本 * 菜单项将显示成本分析信息板，类似于以下示例。
++
+image:Cloud_Cost_Example_Dashboard.png["云成本示例信息板"]
+
+
+
+
+
+=== 有关云成本的更多信息
+
+云成本可将您的 Cloud Insights 环境与的 Cloud Analyzer 功能连接起来 link:https://docs.spot.io/cloud-analyzer/["NetApp 的专有解决方案"]，可为 Cloud Insights 提供与您的云成本数据最相关的视图。通过单击云成本信息板右上角的 _Get Full Analysis_ 链接，您可以在 Spot 中打开完整的 Cloud Analyzer 信息板。全面分析可能会提供更多数据和深入分析，以便进一步了解您的云支出。
+
+
+
+=== 故障排除
+
+遇到问题时要尝试的一些操作：
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 我从 Spot 收到了一封确认设置的电子邮件，但这些链接似乎与 Cloud Insights 无关 | 现场电子邮件中的链接与 Cloud Insights 云成本无关。忽略 Spot 电子邮件中的链接。 
+
+
+| Cloud Cost 向我提供了一个现场登录提示。 | 您的云成本会话可能已过期。导航到 Cloud Insights 主页屏幕，然后返回到云成本以重新启动云成本会话。 
+
+
+| 我收到 " 检测到云成本会话冲突 " 消息。 | 在同一浏览器中不支持在多个帐户中打开的云成本会话。注销 Cloud Insights 并重新登录以查看您帐户的云成本信息。 
+
+
+| 尝试登录时，我看到一个错误： "unauthorized 。凭据无效。 " | 验证您是否使用正确的凭据登录。如果此问题仍然存在，请联系 NetApp Spot 支持部门。 
+|===

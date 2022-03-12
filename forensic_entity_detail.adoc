@@ -1,0 +1,68 @@
+---
+sidebar: sidebar 
+permalink: forensic_entity_detail.html 
+keywords: Forensic, entity, entity overview, entity behavior, detail 
+summary: 取证实体详细信息 
+---
+= 取证实体详细信息
+
+
+目录：宏： hardbress ：：切换： 1 ：页脚：：：图标：字体： linkattrs ：：： imagesdir ： ./media/
+
+使用实体详细信息页面可访问有关实体的详细信息。
+
+
+
+== 检查实体信息
+
+您可以访问
+
+实体配置文件::
++
+--
+* Name
++
+** 单击以访问 "Entity Overview"
+
+
+* Type
+* 社区
+* 路径
+* 上次访问
++
+** 单击 user 以访问 "User Overview"
+
+
+* Size
+
+
+--
+用户和社区::
++
+--
+* 用户访问实体的次数
+* 社区访问实体的次数。
+
+
+--
+实体 Bahavior::
++
+--
+* 近期活动：
++
+** 上次访问日期
+** 上次访问此实体的用户
+** 访问实体的位置
+
+
+* 操作
++
+** 写入操作的数量
+** 读取操作的数量
+** 对元数据的访问次数
+
+
+
+
+--
+

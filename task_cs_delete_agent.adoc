@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: task_cs_delete_agent.html 
+keywords: agent, Cloud Secure, delete agent 
+summary: 删除 Cloud Secure 代理 
+---
+= 删除 Cloud Secure 代理
+
+
+[role="lead"]
+删除 Cloud Secure 代理时，必须先删除与该代理关联的所有数据收集器。
+
+
+
+== 删除代理
+
+
+IMPORTANT: 删除代理将删除与该代理关联的所有数据收集器。如果您计划使用其他代理配置数据收集器，则应在删除此代理之前为 Data Collector 配置创建备份。
+
+.开始之前
+. 确保从 Cloud Secure 门户中删除与代理关联的所有数据收集器。
++
+注意：如果所有关联的收集器都处于 stopped 状态，请忽略此步骤。
+
+
+
+.删除代理的步骤：
+. 通过 SSH 连接到代理 VM 并执行以下命令。出现提示时，输入 "y" 以继续。
++
+....
+sudo /opt/netapp/cloudsecure/agent/install/cloudsecure-agent-uninstall.sh
+Uninstall CloudSecure Agent? [y|N]:
+....
+. 单击 * 管理 > 数据收集器 > 代理 *
++
+系统将显示已配置代理的列表。
+
+. 单击要删除的代理的选项菜单。
+. 单击 * 删除 * 。
++
+系统将显示 * 删除代理 * 页面。
+
+. 单击 * 删除 * 确认删除。
+

@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: task_dc_emc_datadomain.html 
+keywords: data collector, Data Domain, EMC, DELL 
+summary: 配置 Dell EMC Data Domain 数据收集器。 
+---
+= Dell EMC Data Domain 数据收集器
+
+
+[role="lead"]
+此数据收集器从 Dell EMC Data Domain 重复数据删除存储系统收集清单和性能信息。要配置此数据收集器，必须遵循特定的配置说明和使用建议。
+
+
+
+== 术语
+
+Cloud Insights 从数据域数据收集器获取以下清单信息。对于 Cloud Insights 收购的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| Disk | Disk 
+
+
+| 数组 | 存储 
+
+
+| FC 端口 | Port 
+
+
+| 文件系统 | 内部卷 
+
+
+| 配额 | 配额 
+
+
+| NFS 和 CIFS 共享 | 文件共享 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+== 要求
+
+要配置此数据收集器，您需要以下信息：
+
+* Data Domain 设备的 IP 地址
+* Data Domain 存储的只读用户名和密码
+* SSH 端口 22
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| IP 地址 | Data Domain 存储阵列的 IP 地址或完全限定域名 
+
+
+| 用户名 | Data Domain 存储阵列的用户名 
+
+
+| Password | Data Domain 存储阵列的密码 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 清单轮询间隔（分钟） | 两次清单轮询的间隔。默认值为 20. 。 
+
+
+| SSH 端口 | SSH 服务端口 
+|===
+
+
+== 故障排除
+
+可从中找到此数据收集器上的追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

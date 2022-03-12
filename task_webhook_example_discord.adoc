@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: task_webhook_example_discord.html 
+keywords: webhook, notification, Discord, integration 
+summary: 创建一个网络挂钩，以便在性能或清单阈值出现不和时发出警报 
+---
+= 不和的 webhook 示例
+
+
+[role="lead"]
+网络挂机允许用户使用自定义的网络挂机通道向各种应用程序发送警报通知。此页面提供了一个设置 webhooks 以防止不和的示例。
+
+
+NOTE: 此页面引用第三方说明，可能会有所更改。请参见 link:https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks["不和文档"] 以获取最新信息。
+
+
+
+=== 不和设置：
+
+* 在不和的情况下，选择服务器，在文本通道下，选择编辑通道（齿轮图标）
+* 选择 * 集成 > 查看 Webhook* ，然后单击 * 新建 Webhook*
+* 复制 Webhook URL 。您需要将此文件粘贴到 Cloud Insights webhook 配置中。
+
+
+
+
+=== 创建 Cloud Insights Webhook ：
+
+. 在 Cloud Insights 中，导航到 * 管理员 > 通知 * ，然后选择 * Webhook* 选项卡。单击 * + Webhook* 以创建新的 webhook 。
+. 为网络挂钩指定一个有意义的名称，例如 " 不和 " 。
+. 在 _Template Type_ 下拉列表中，选择 * 不和 * 。
+. 将上述 URL 粘贴到 _url_ 字段中。
+
+
+image:Webhooks-Discord_example.png["不和 webhook 模板"]
+
+
+NOTE: 要测试 webhook ，请临时将消息正文中的 URL 值替换为任何有效的 URL （例如 _https://netapp.com_ ），然后单击 _Test Webhook_ 按钮。确保在测试完成后重新设置消息正文。
+
+
+
+=== 通过 Webhook 发送通知
+
+要通过 webhook 通知事件，请在 Cloud Insights 中导航到 * 警报 > 监控 * ，然后单击 * + 监控 * 以创建新的 link:task_create_monitor.html["监控"]。
+
+* 选择一个指标并定义监控器的条件。
+* 在 _set up team notification （ s ）下，选择 * Webhook* 传送方法。
+* 为所需事件（严重，警告，已解决）选择 " 不和 " webhook
++
+image:Webhooks_Discord_Notifications.png["网络挂机通知"]
+
+

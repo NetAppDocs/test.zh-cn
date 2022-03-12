@@ -1,0 +1,130 @@
+---
+sidebar: sidebar 
+permalink: task_dc_hp_3par.html 
+keywords: data collector, 3PAR, HP, HP 3PAR, HPE, 
+summary: 配置 HP Enterprise Alletra 9000/Primera （以前称为 3PAR ）数据收集器。 
+---
+= HP Enterprise Alletra 9000/Primera 存储数据收集器
+
+
+[role="lead"]
+Cloud Insights 使用 HP Enterprise Alletra 9000/HP Enterprise Primera （以前称为 3PAR ）数据收集器来发现清单和性能。
+
+
+
+== 术语
+
+Cloud Insights 从此数据收集器获取以下清单信息。对于 Cloud Insights 收购的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 物理磁盘 | Disk 
+
+
+| 存储系统 | 存储 
+
+
+| 控制器节点 | 存储节点 
+
+
+| 通用配置组 | 存储池 
+
+
+| 虚拟卷 | Volume 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+== 要求
+
+要配置此数据收集器，需要满足以下条件：
+
+* InServ 集群的 IP 地址或 FQDN
+* 对于清单， StoreServ 服务器的只读用户名和密码
+* 为提高性能，请将用户名和密码读写到 StoreServ Server
+* 端口要求： 22 （清单收集）， 5988 或 5989 （性能收集）【注： StoreServ OS 3.x+ 支持性能】
+* 对于性能收集，请通过 SSH 登录到阵列以确认 SMI-S 已启用。
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 存储 IP 地址 | StoreServ 集群的存储 IP 地址或完全限定域名 
+
+
+| 用户名 | StoreServ 服务器的用户名 
+
+
+| Password | StoreServ 服务器使用的密码 
+
+
+| SMI-S 用户名 | SMI-S Provider 主机的用户名 
+
+
+| SMI-S 密码 | SMI-S Provider 主机使用的密码 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 清单轮询间隔（分钟） | 两次清单轮询的间隔。默认值为 40 分钟。 
+
+
+| SMI-S 连接 | 用于连接到 SMI-S 提供程序的协议 
+
+
+| 覆盖 SMI-S 默认端口 | 如果为空，请使用 SMI-S 连接中的默认端口，否则请输入要使用的连接端口 
+
+
+| 性能轮询间隔（秒） | 性能轮询之间的时间间隔。默认值为 300 秒。 
+|===
+
+
+== 故障排除
+
+如果此数据收集器出现问题，请尝试执行以下操作：
+
+
+
+==== 清单
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| "showsys" 命令不返回任何结果。 | 从命令行运行 "showsys" 和 "showversion -a" ，并检查阵列是否支持此版本。 
+|===
+
+
+==== 性能
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 无法连接或登录。提供程序初始化失败。 | 全数字阵列名称可能会导致 SMI-S 服务器出现发生原因问题。尝试更改阵列名称。 
+
+
+| 配置的 SMI-S 用户不具有任何域 | 向已配置的 SMI-S 用户授予适当的域权限 
+
+
+| Cloud Insights 表示无法连接 / 登录到 SMI-S 服务。 | 确认 CI AU 与阵列之间没有防火墙可阻止 CI AU 与 5988 或 5989 建立 TCP 连接。完成此操作后，如果您确认没有防火墙，则应通过 SSH 连接到阵列，然后使用 "showcim" 命令进行确认。确认： * 服务已启用 * HTTPS 已启用 * HTTPS 端口应为 5989 如果已启用，则可以尝试先执行 "stopcim" ，然后再执行 "startcim" 以重新启动 CIM （即 SMI-S 服务）。 
+|===
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

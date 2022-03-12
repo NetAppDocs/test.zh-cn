@@ -1,0 +1,93 @@
+---
+sidebar: sidebar 
+permalink: task_annotation_import.html 
+keywords: annotations, import, api 
+summary: 您可以使用 Cloud Insights API 导入烦恼和应用程序。 
+---
+= 导入标注
+
+
+[role="lead"]
+Cloud Insights 提供了一个 API ，用于从 CSV 文件导入标注或应用程序并将其分配给您指定的对象。
+
+
+NOTE: Cloud Insights API 可在 * Cloud Insights 高级版 * 中使用。
+
+
+
+=== 正在导入
+
+* 管理 > API 访问 * 链接包含 link:API_Overview.html["文档。"] 用于 * 资产 /Import* API 。本文档包含有关 .CSV 文件格式的信息。
+
+image:api_assets_import.png["导入 API"]
+
+
+
+=== .CSV 文件格式
+
+CSV 文件的常规格式如下。文件的第一行定义了导入字段并指定了字段的顺序。之后为每个标注或应用程序添加单独的行。您无需定义每个字段。但是，后续标注行必须遵循与定义行相同的顺序。
+
+ [Object Type] , [Object Name or ID] , Annotation Type [, Annotation Type,  ...] [, Application] [, Tenant] [, Line_Of_Business] [, Business_Unit] [, Project]
+有关 .CSV 文件的示例，请参见 API 文档。
+
+您可以从 API Swagger 本身中的 .CSV 文件导入和分配标注。只需选择要使用的文件并单击 _Execute_ 按钮：
+
+image:api_assets_import_assign.png["导入并分配"]
+
+
+
+=== 导入行为
+
+在导入操作期间，系统会根据要导入的对象和对象类型添加，合并或替换数据。导入时，请记住以下行为。
+
+* 如果目标系统中不存在同名标注或应用程序，则添加此标注或应用程序。
+* 如果标注类型为列表，并且目标系统中存在同名标注，则合并标注。
+* 如果标注类型不是列表，并且目标系统中存在同名标注，则替换标注。
++
+注意：如果目标系统中存在同名但类型不同的标注，则导入将失败。如果对象依赖于失败的标注，则这些对象可能显示不正确或不需要的信息。导入操作完成后，您必须检查所有标注依赖关系。
+
+* 如果标注值为空，则该标注将从对象中删除。继承的标注不受影响。
+* 日期类型标注值必须以 UNIX 时间（以毫秒为单位）传递。
+* 为卷或内部卷添加标注时，对象名称是使用 "->" 分隔符的存储名称和卷名称的组合。例如： _< 存储名称 >\\->< 卷名称 >_
+* 如果对象名称包含逗号，则整个名称必须使用双引号。例如： _"NetApp1 ， NetApp2"->023F_
+* 将标注附加到存储，交换机和端口时， "Application" 列将被忽略。
+* 租户，业务部门，业务单位和 / 或项目构成一个业务实体。与所有业务实体一样，任何值都可以为空。
+
+
+可以为以下对象类型添加标注。
+
+|===
+
+
+| 对象类型 | 名称或密钥 
+
+
+| 主机 | ID\\><id> ， < 名称 > 或 <IP> 
+
+
+| 虚拟机 | ID\\><id> 或 <Name> 
+
+
+| StoragePool | ID\\><id> 或 <Storage Name><Storage Pool Name> 
+
+
+| 内部卷 | ID\\><id> 或 <Storage Name><Internal Volume Name> 
+
+
+| Volume | ID\\><id> 或 <Storage Name><Volume Name> 
+
+
+| 存储 | ID\\><id> ， < 名称 > 或 <IP> 
+
+
+| 交换机 | ID\\><id> ， < 名称 > 或 <IP> 
+
+
+| Port | ID\\><id> 或 <WWN> 
+
+
+| qtree | ID\\><id> 或 <Storage Name><Internal Volume Name><Qtree Name> 
+
+
+| 共享 | ID\\><id> 或 <Storage Name><Internal Volume Name><-><Share Name><Protocol><Protocol><<Qtree Name （在默认 Qtree 情况下为可选） >> 
+|===

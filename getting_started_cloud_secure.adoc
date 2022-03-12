@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: task_getting_started_with_cloud_secure.html 
+summary: Cloud Secure 入门。 
+keywords: invite, roles, data collector, agent 
+---
+= Cloud Secure 入门
+
+
+注册 Cloud Secure 并首次登录到环境后，需要先完成一些配置步骤，然后才能开始收集和分析数据访问信息。
+
+
+
+== 安装代理
+
+代理需要收集数据以供 Cloud Secure 分析。您可以在环境中的服务器或虚拟机上安装 Agent 软件。一个代理可用于多个数据收集器。
+
+* 请参见 link:concept_cs_agent_requirements.html["代理要求"] 和  以安装代理。
+
+
+
+
+== 配置数据收集器
+
+Cloud Secure 从用户目录收集器收集用户信息数据，并从存储系统收集数据。Cloud Secure 使用这些数据分析用户对存储系统中实体的访问权限。
+
+* 要配置 User Directory Connector ，请参见： link:task_config_user_dir_connect.html["用户目录收集器配置"]
+* 要配置 Data Collector ，请参见左侧菜单中每个特定 Data Collector 的文档。
+

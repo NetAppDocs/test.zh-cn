@@ -1,0 +1,45 @@
+---
+sidebar: sidebar 
+permalink: task_dc_na_cloud_volumes.html 
+summary: 为 AWS 数据收集器配置 NetApp Cloud Volumes Services 
+keywords: data collector, NetApp, Cloud, AWS 
+---
+= 适用于 AWS 数据收集器的 NetApp Cloud Volumes Services
+
+
+[role="lead"]
+此数据收集器支持从适用于 AWS 的 NetApp Cloud Volumes Services 配置中收集清单。
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| Cloud Volumes 区域 | 适用于 AWS 的 NetApp Cloud Volumes Services 所在地区 
+
+
+| API 密钥 | Cloud Volumes API 密钥 
+
+
+| 机密密钥 | Cloud Volumes 密钥 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 清单轮询间隔（分钟） | 默认值为 60 分钟 
+|===
+
+
+== 故障排除
+
+可从中找到此数据收集器上的追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

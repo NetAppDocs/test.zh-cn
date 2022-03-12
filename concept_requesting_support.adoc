@@ -1,0 +1,125 @@
+---
+sidebar: sidebar 
+permalink: concept_requesting_support.html 
+summary: 您可以查看知识库文章，与 NetApp 社区联系，查看视频或打开请求支持的服务单。 
+keywords: support, knowledgebase, documentation, community, chat, videos, help, contact 
+---
+= 请求支持
+
+
+
+toc::[]
+您可以通过单击 * 帮助 > 支持 * 来访问 Cloud Insights 中的支持选项。您可以使用的支持选项取决于您是处于试用模式还是订阅模式。
+
+image:SupportPageExample-NA.png["支持页面"]
+
+
+
+== 正在激活支持授权
+
+在试用模式下运行时， Cloud Insights 可提供自助服务和电子邮件支持。订阅服务后，强烈建议您激活支持授权。激活支持授权后，您可以通过在线聊天， Web 服务单系统和电话访问技术支持。注册完成前，默认支持模式为自助服务。请参见 link:#obtaining-support-information["详细信息"] 。
+
+在初始订阅过程中，您的 Cloud Insights 实例将生成一个 20 位数的 NetApp 序列号，此序列号以 "950" 开头。此 NetApp 序列号表示与您的帐户关联的 Cloud Insights 订阅。您必须注册 NetApp 序列号才能激活支持授权。我们提供了两种支持注册选项：
+
+. 使用已有 NetApp 支持站点（ NSS ） SSO 帐户的用户（例如，当前的 NetApp 客户）
+. 新的 NetApp 客户，没有预先存在的 NetApp 支持站点（ NSS ） SSO 帐户
+
+
+
+
+==== 选项 1 ：使用已有 NetApp 支持站点（ NSS ） SSO 帐户的用户的步骤
+
+.步骤
+. 导航到 NetApp 注册网站 https://register.netapp.com[]
+. 选择 " 我已注册为 NetApp 客户 " ，然后选择 _NetApp_ Cloud Insights 作为产品线。选择您的计费提供商（ NetApp 或 AWS ），并参考 Cloud Insights 用户界面中的 " 帮助 ">" 支持 " 菜单，提供您的序列号和 NetApp 订阅名称或 AWS 客户 ID ：
++
+image:SupportPage_SN_Section-NA.png["SN_screen"]
+
+. 填写现有的客户注册表单，然后单击 * 提交 * 。
++
+image:ExistingCustomerRegExample.png["现有客户表单"]
+
+. 如果未发生错误，系统会将用户定向到 " 已成功提交注册 " 页面。与用于注册的 NSS SSO 用户名关联的电子邮件地址将在几分钟内收到一封电子邮件，指出 " 您的产品现在有资格获得支持 " 。
+. 这是 Cloud Insights NetApp 序列号的一次性注册。
+
+
+
+
+==== 选项 2 ：适用于没有已有 NetApp 支持站点（ NSS ） SSO 帐户的新 NetApp 客户的步骤
+
+.步骤
+. 导航到 NetApp 注册网站 https://register.netapp.com[]
+. 选择 " 我不是 NetApp 的注册客户 " ，并以下面的示例形式填写所需信息：
+
+
+image:NewCustomerRegExample.png["新的客户表单"]
+
+. 选择 _Products_ Cloud Insights 作为产品线。选择您的计费提供商（ NetApp 或 AWS ），并参考 Cloud Insights 用户界面中的 " 帮助 ">" 支持 " 菜单，提供您的序列号和 NetApp 订阅名称或 AWS 客户 ID ：
++
+image:SupportPage_SN_Section-NA.png["SN_screen"]
+
+. 如果未发生错误，系统会将用户定向到 " 已成功提交注册 " 页面。与用于注册的 NSS SSO 用户名关联的电子邮件地址将在几小时内收到一封电子邮件，指出 " 您的产品现在有资格获得支持 " 。
+. 作为 NetApp 的新客户，您还需要创建一个 NetApp 支持站点（ NSS ）用户帐户，以便将来进行注册，并访问支持门户以获取技术支持聊天和 Web 服务单。此链接位于 https://mysupport.netapp.com/eservice/public/now.do[]。您可以提供新注册的 Cloud Insights 序列号以加快此过程。
+. 这是 Cloud Insights NetApp 序列号的一次性注册。
+
+
+
+
+== 获取支持信息
+
+NetApp 通过多种方式为 Cloud Insights 提供支持。全天候提供广泛的免费自助支持选项，例如知识库（ KB ）文章或 NetApp 社区。对于订阅了任何 Cloud Insights 版本（基本版，标准版，高级版）的用户，可通过电话或 Web 服务单获得技术支持。Web 服务单以及案例管理需要使用 NetApp 支持站点（ NSS ） SSO 帐户。
+
+
+
+=== 自助服务支持：
+
+这些支持选项在试用模式下提供，并且全天候免费提供：
+
+* *link:https://kb.netapp.com["知识库"]*
++
+单击本节中的链接将转到 NetApp 知识库，您可以在其中搜索文章， link:https://kb.netapp.com/app/browse/a_status/published/channelRecordID/HOW_TO/currentSelectedID/RN_PRODUCT_473/isProductSelected/true/isRecommendationAllowed/true/pageSize/10/productRecordID/RN_PRODUCT_473/sortColumn/publishDate/sortDirection/DESC/truncate/200/type/browse["操作说明"]， 或  与 Cloud Insights 相关的信息。
+
+* *link:https://docs.netapp.com/us-en/cloudinsights/["文档。"]*
++
+单击文档链接可转到此文档中心。
+
+* *link:https://community.netapp.com/t5/Cloud-Data-Services/ct-p/CDS["社区"]*
++
+单击社区链接可转到 NetApp Cloud Insights 社区，您可以在其中与同行和专家建立联系。
+
+
+
+此外，还提供了一个链接 link:mailto:ng-cloudinsights-customerfeedback@netapp.com["* 反馈 *"] 帮助我们改进 Cloud Insights 。
+
+
+
+=== 订阅支持
+
+除了上述自助支持选项之外，如果您订阅了 Cloud Insights 或为受监控的 NetApp 产品或服务付费支持，则可以与 NetApp 支持工程师合作解决您的问题。
+
+
+NOTE: 您必须注册才能 <<Activating support entitlement and accessing support,激活支持>> 适用于 NetApp Cloud 产品。要进行注册，请转到 NetApp 的 link:https://register.netapp.com["云数据服务支持注册"]。
+
+强烈建议您选中此复选框，以便在支持会话期间允许 NetApp 支持工程师访问您的 Cloud Insights 环境。这样，工程师就可以对问题进行故障排除，并帮助您快速解决问题。解决问题描述问题或支持会话结束后，您可以取消选中此复选框。
+
+您可以通过以下任一方法请求支持。要使用以下支持选项，您必须具有有效的 Cloud Insights 订阅：
+
+* link:https://www.netapp.com/us/contact-us/support.aspx["* 电话 *"]
+* link:https://mysupport.netapp.com/portal?_nfpb=true&_st=initialPage=true&_pageLabel=submitcase["* 支持服务单 *"]
+
+
+您也可以通过单击来申请销售支持 link:https://www.netapp.com/us/forms/sales-inquiry/cloud-insights-sales-inquiries.aspx["* 联系销售人员 *"] 链接。
+
+您的 Cloud Insights 序列号可通过 * 帮助 > 支持 * 菜单在服务中看到。如果您在访问服务时遇到问题，并且先前已向 NetApp 注册序列号，则还可以从 NetApp 支持站点查看 Cloud Insights 序列号列表，如下所示：
+
+* 登录到 mysupport.netapp.com
+* 在 "Products">"My Products" 菜单选项卡中，使用产品系列 "SaaS Cloud Insights " 查找所有注册序列号：
+
+
+image:Support_View_SN.png["查看支持序列号"]
+
+
+
+== Cloud Insights 数据收集器支持列表
+
+您可以在中查看或下载有关受支持的数据收集器的信息和详细信息 link:CloudInsightsDataCollectorSupportMatrix.pdf["* Cloud Insights 数据收集器支持表 * ， role="external""]。

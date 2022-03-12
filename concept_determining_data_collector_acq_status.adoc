@@ -1,0 +1,15 @@
+---
+sidebar: sidebar 
+permalink: concept_determining_data_collector_acq_status.html 
+summary: Data Collector 采集状态 
+keywords: collector, acquisition, status 
+---
+= 确定数据收集器采集状态
+
+
+[role="lead"]
+由于数据收集器是 Cloud Insights 的主要信息源，因此您必须确保它们保持运行状态。
+
+数据收集器状态显示在任何资产页面的右上角，显示为消息 "acquired N minutes agy" ，其中 N 表示资产数据收集器的最新采集时间。同时，还会显示采集时间 / 日期。
+
+单击此消息将显示一个表，其中包含数据收集器名称，状态和上次成功采集时间。如果您以管理员身份登录，则单击表中的数据收集器名称链接将转到该数据收集器的详细信息页面。

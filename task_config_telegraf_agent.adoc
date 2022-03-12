@@ -1,0 +1,927 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_agent.html 
+keywords: telegraf, installation, install, agent, telegraf agent 
+summary: Cloud Insights 支持 Telegraf 作为其代理收集集成数据，并且可以在 Windows ， Linux ， macOS 和 Kubernetes 上进行配置。 
+---
+= 配置代理以收集数据
+
+
+[role="lead"]
+Cloud Insights 使用 link:https://docs.influxdata.com/telegraf/v1.19/["Telegraf"] 作为收集集成数据的代理。Telegraf 是一种插件驱动的服务器代理，可用于收集和报告指标，事件和日志。输入插件用于通过直接访问系统 /OS ，调用第三方 API 或侦听已配置的流（例如 Kafka ， statsD 等）。输出插件用于将收集的指标，事件和日志从代理发送到 Cloud Insights 。
+
+Cloud Insights 的当前 Telegraf 版本为 * 。 1.19.3 * 。
+
+
+NOTE: 为了准确地进行审核和报告数据，强烈建议使用 * 网络时间协议（ NTP ） * 或 * 简单网络时间协议（ SNTP ） * 同步 Agent 计算机上的时间。
+
+
+NOTE: 如果要在安装代理之前验证安装文件，请参见以下章节 <<Verifying Checksums>>。
+
+
+
+== 安装代理
+
+如果您要安装服务数据收集器，但尚未配置代理，则系统会提示您先为相应的操作系统安装代理。本主题介绍如何在以下操作系统上安装 Telegraf 代理：
+
+* <<Windows>>
+* <<RHEL and CentOS>>
+* <<Ubuntu and Debian>>
+* <<macOS>>
+* <<Kubernetes>>
+
+
+要安装代理，无论您使用的是哪个平台，都必须先执行以下操作：
+
+. 登录到要用于代理的主机。
+. 登录到 Cloud Insights 站点并转到 * 管理员 > 数据收集器 * 。
+. 单击 * + Data Collector* 并选择要安装的数据收集器。
+
+
+. 为您的主机选择合适的平台（ Windows ， Linux ， macOS 等）
+. 对每个平台执行其余步骤。
+
+
+
+NOTE: 在主机上安装代理后，无需在该主机上重新安装代理。
+
+
+TIP: 在服务器 /VM 上安装代理后， Cloud Insights 除了从您配置的任何数据收集器收集数据之外，还会从该系统收集指标。这些指标将作为收集 link:task_config_telegraf_node.html["" 节点 " 指标"]。
+
+
+NOTE: 如果您使用的是代理，请在安装 Telegraf 代理之前阅读适用于您的平台的代理说明。
+
+
+
+=== Windows
+
+image:AgentInstallWindows.png["Windows 代理安装"]
+
+.前提条件：
+* 必须安装 PowerShell
+* 如果您使用的是代理，请按照 * 为 Windows 配置代理支持 " 一节中的说明进行操作。
+
+
+.在 Windows 上安装代理的步骤：
+. 选择代理访问密钥。
+. 从代理安装对话框复制命令块。您可以单击剪贴板图标将命令快速复制到剪贴板。
+. 打开 PowerShell 窗口
+. 将命令粘贴到 PowerShell 窗口中，然后按 Enter 键。
+. 此命令将下载相应的代理安装程序并进行安装，然后设置默认配置。完成后，它将重新启动代理服务。此命令具有唯一的密钥，有效期为 24 小时。
+. 单击 * 完成 * 或 * 继续 *
+
+
+安装代理后，您可以使用以下命令启动 / 停止此服务：
+
+....
+Start-Service telegraf
+Stop-Service telegraf
+....
+
+
+==== 为 Windows 配置代理支持
+
+
+NOTE: 以下步骤概述了设置 _http_proxy/https_proxy_environment 变量所需的操作。对于某些代理环境，用户可能还需要设置 _no_proxy environment_ 变量。
+
+对于驻留在代理后面的系统，请执行以下操作以设置 _https_proxy_ 和 / 或 _http_proxy_ 环境变量 * 先前 * 以安装 Telegraf 代理：
+
+ [System.Environment]::SetEnvironmentVariable(“https_proxy”, “<proxy_server>:<proxy_port>”, [System.EnvironmentVariableTarget]::Machine)
+
+
+==== 卸载代理
+
+要在 Windows 上卸载代理，请在 PowerShell 窗口中执行以下操作：
+
+. 停止并删除 Telegraf 服务：
++
+....
+Stop-Service telegraf
+sc.exe delete telegraf
+....
+. 从存储中删除证书：
++
+....
+cd Cert:\CurrentUser\Root
+rm E5FB7B68C08B1CA902708584C274F8EFC7BE8ABC
+....
+. 删除 _C ： \Program Files\Ceraf_ 文件夹以删除二进制文件，日志和配置文件
+. 从注册表中删除 _system\CurrentControlSet\Services\EventLog\Application\Ceaf_ 密钥
+
+
+
+
+==== 升级代理
+
+要升级电报代理，请执行以下操作：
+
+. 停止并删除此电报服务：
++
+....
+Stop-Service telegraf
+sc.exe delete telegraf
+....
+. 从注册表中删除 _system\CurrentControlSet\Services\EventLog\Application\Ceaf_ 密钥
+. 删除 _C ： \Program Files\celaf\celeaf.conf
+. 删除 _C ： \Program Files\caraf\caraf.exe
+. link:#windows["安装新代理"]。
+
+
+
+
+=== RHEL 和 CentOS
+
+image:Agent_Requirements_Rhel.png["RHEL/CentOS 代理安装"]
+
+.前提条件：
+* 必须提供以下命令： curl ， sudo ， ping ， sha256sum ， openssl ， 和 dmidecode
+* 如果您使用的是代理，请按照 * 为 RHEL/CentOS* 配置代理支持 " 一节中的说明进行操作。
+
+
+.在 RHEL/CentOS 上安装代理的步骤：
+. 选择代理访问密钥。
+. 从代理安装对话框复制命令块。您可以单击剪贴板图标将命令快速复制到剪贴板。
+. 打开 Bash 窗口
+. 将命令粘贴到 Bash 窗口中，然后按 Enter 键。
+. 此命令将下载相应的代理安装程序并进行安装，然后设置默认配置。完成后，它将重新启动代理服务。此命令具有唯一的密钥，有效期为 24 小时。
+. 单击 * 完成 * 或 * 继续 *
+
+
+安装代理后，您可以使用以下命令启动 / 停止此服务：
+
+如果您的操作系统使用的是 systemd （ CentOS 7+ 和 RHEL 7+ ）：
+
+....
+sudo systemctl start telegraf
+sudo systemctl stop telegraf
+....
+如果您的操作系统未使用 systemd （ CentOS 7+ 和 RHEL 7+ ）：
+
+....
+sudo service telegraf start
+sudo service telegraf stop
+....
+
+
+==== 为 RHEL/CentOS 配置代理支持
+
+
+NOTE: 以下步骤概述了设置 _http_proxy/https_proxy_environment 变量所需的操作。对于某些代理环境，用户可能还需要设置 _no_proxy environment_ 变量。
+
+对于驻留在代理后面的系统，请执行以下步骤 * 先前 * 以安装 Telegraf 代理：
+
+. 为当前用户设置 _https_proxy_ 和 / 或 _http_proxy_ 环境变量：
++
+ export https_proxy=<proxy_server>:<proxy_port>
+. 创建 _/etc/default/tengraf_ ，并插入 _https_proxy_and/or _http_proxy_ 变量的定义：
++
+ https_proxy=<proxy_server>:<proxy_port>
+
+
+
+
+==== 卸载代理
+
+要在 Rhel/CentOS 上卸载代理，请在 Bash 终端中执行以下操作：
+
+. 停止 Telegraf 服务：
++
+....
+systemctl stop telegraf (If your operating system is using systemd (CentOS 7+ and RHEL 7+)
+/etc/init.d/telegraf stop (for systems without systemd support)
+....
+. 删除 Telegraf 代理：
++
+ yum remove telegraf
+. 删除可能遗留的任何配置或日志文件：
++
+....
+rm -rf /etc/telegraf*
+rm -rf /var/log/telegraf*
+....
+
+
+
+
+==== 升级代理
+
+要升级电报代理，请执行以下操作：
+
+. 停止电报服务：
++
+....
+systemctl stop telegraf (If your operating system is using systemd (CentOS 7+ and RHEL 7+)
+/etc/init.d/telegraf stop (for systems without systemd support)
+....
+. 删除先前的电报代理：
++
+ yum remove telegraf
+. link:#rhel-and-centos["安装新代理"]。
+
+
+
+
+=== Ubuntu 和 Debian
+
+image:Agent_Requirements_Ubuntu.png["Ubuntu 或 Debian 代理安装"]
+
+.前提条件：
+* 必须提供以下命令： curl ， sudo ， ping ， sha256sum ， openssl ， 和 dmidecode
+* 如果您使用的是代理，请按照 * 为 Ubuntu 或 Debian 配置代理支持 * 一节中的说明进行操作。
+
+
+.在 Debian 或 Ubuntu 上安装代理的步骤：
+. 选择代理访问密钥。
+. 从代理安装对话框复制命令块。您可以单击剪贴板图标将命令快速复制到剪贴板。
+. 打开 Bash 窗口
+. 将命令粘贴到 Bash 窗口中，然后按 Enter 键。
+. 此命令将下载相应的代理安装程序并进行安装，然后设置默认配置。完成后，它将重新启动代理服务。此命令具有唯一的密钥，有效期为 24 小时。
+. 单击 * 完成 * 或 * 继续 *
+
+
+安装代理后，您可以使用以下命令启动 / 停止此服务：
+
+如果您的操作系统使用的是 systemd ：
+
+....
+sudo systemctl start telegraf
+sudo systemctl stop telegraf
+....
+如果您的操作系统未使用 systemd ：
+
+....
+sudo service telegraf start
+sudo service telegraf stop
+....
+
+
+==== 为 Ubuntu 或 Debian 配置代理支持
+
+
+NOTE: 以下步骤概述了设置 _http_proxy/https_proxy_environment 变量所需的操作。对于某些代理环境，用户可能还需要设置 _no_proxy environment_ 变量。
+
+对于驻留在代理后面的系统，请执行以下步骤 * 先前 * 以安装 Telegraf 代理：
+
+. 为当前用户设置 _https_proxy_ 和 / 或 _http_proxy_ 环境变量：
++
+ export https_proxy=<proxy_server>:<proxy_port>
+. 创建 /etc/default/celaff ，并插入 _https_proxy_and/or _http_proxy_ 变量的定义：
++
+ https_proxy=<proxy_server>:<proxy_port>
+
+
+
+
+==== 卸载代理
+
+要在 Ubuntu 或 Debian 上卸载代理，请在 Bash 终端中运行以下命令：
+
+. 停止 Telegraf 服务：
++
+....
+systemctl stop telegraf (If your operating system is using systemd)
+/etc/init.d/telegraf stop (for systems without systemd support)
+....
+. 删除 Telegraf 代理：
++
+ dpkg -r telegraf
+. 删除可能遗留的任何配置或日志文件：
++
+....
+rm -rf /etc/telegraf*
+rm -rf /var/log/telegraf*
+....
+
+
+
+
+==== 升级代理
+
+要升级电报代理，请执行以下操作：
+
+. 停止电报服务：
++
+....
+systemctl stop telegraf (If your operating system is using systemd)
+/etc/init.d/telegraf stop (for systems without systemd support)
+....
+. 删除先前的电报代理：
++
+ dpkg -r telegraf
+. link:#ubuntu-and-debian["安装新代理"]。
+
+
+
+
+=== macOS
+
+image:Agent_Requirements_Macos.png["安装 macOS 代理"]
+
+.前提条件：
+* 必须提供以下命令： curl ， sudo ， openssl 和 shasum
+* 如果您使用的是代理，请按照 * 为 macOS* 配置代理支持 " 一节中的说明进行操作。
+
+
+.在 macOS 上安装代理的步骤：
+. 选择代理访问密钥。
+. 从代理安装对话框复制命令块。您可以单击剪贴板图标将命令快速复制到剪贴板。
+. 打开 Bash 窗口
+. 将命令粘贴到 Bash 窗口中，然后按 Enter 键。
+. 此命令将下载相应的代理安装程序并进行安装，然后设置默认配置。完成后，它将重新启动代理服务。此命令具有唯一的密钥，有效期为 24 小时。
+. 如果您之前使用 Homebrew 安装了 Telegraf 代理，则系统将提示您将其卸载。卸载先前安装的 Telegraf 代理后，重新运行上述步骤 5 中的命令。
+. 单击 * 完成 * 或 * 继续 *
+
+
+安装代理后，您可以使用以下命令启动 / 停止此服务：
+
+....
+sudo launchctl start telegraf
+sudo launchctl stop telegraf
+....
+
+
+==== 为 macOS 配置代理支持
+
+
+NOTE: 以下步骤概述了设置 _http_proxy/https_proxy_environment 变量所需的操作。对于某些代理环境，用户可能还需要设置 _no_proxy environment_ 变量。
+
+对于驻留在代理后面的系统，请执行以下操作，为当前用户 * 先前 * 设置 _https_proxy_ 和 / 或 _http_proxy_ 环境变量，以安装 Telegraf 代理：
+
+ export https_proxy=<proxy_server>:<proxy_port>
+* 安装 Telegraf 代理之后，在 _/Applications/Telegraf.app/Contents/telegraf.plist_: 中添加并设置适当的 _https_proxy_and/or _http_proxy_ 变量
+
+....
+…
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+   <key>EnvironmentVariables</key>
+   <dict>
+          <key>https_proxy</key>
+          <string><proxy_server>:<proxy_port></string>
+   </dict>
+   <key>Program</key>
+   <string>/Applications/telegraf.app/Contents/MacOS/telegraf</string>
+   <key>Label</key>
+   <string>telegraf</string>
+   <key>ProgramArguments</key>
+   <array>
+     <string>/Applications/telegraf.app/Contents/MacOS/telegraf</string>
+     <string>--config</string>
+     <string>/usr/local/etc/telegraf.conf</string>
+     <string>--config-directory</string>
+     <string>/usr/local/etc/telegraf.d</string>
+   </array>
+   <key>RunAtLoad</key>
+   <true/>
+</dict>
+</plist>
+…
+....
+然后，加载上述更改后重新启动 Telegraf ：
+
+....
+sudo launchctl stop telegraf
+sudo launchctl unload -w /Library/LaunchDaemons/telegraf.plist
+sudo launchctl load -w /Library/LaunchDaemons/telegraf.plist
+sudo launchctl start telegraf
+....
+
+
+==== 卸载代理
+
+要在 macOS 上卸载代理，请在 Bash 终端中运行以下命令：
+
+. 停止 Telegraf 服务：
++
+ sudo launchctl stop telegraf
+. 卸载此电报代理：
++
+....
+cp /Applications/telegraf.app/scripts/uninstall /tmp
+sudo /tmp/uninstall
+....
+. 删除可能遗留的任何配置或日志文件：
++
+....
+rm -rf /usr/local/etc/telegraf*
+rm -rf /usr/local/var/log/telegraf.*
+....
+
+
+
+
+==== 升级代理
+
+要升级电报代理，请执行以下操作：
+
+. 停止电报服务：
++
+ sudo launchctl stop telegraf
+. 卸载先前的电报代理：
++
+....
+cp /Applications/telegraf.app/scripts/uninstall /tmp
+sudo /tmp/uninstall
+....
+. link:#macos["安装新代理"]。
+
+
+
+
+=== Kubernetes
+
+Kubernetes 提供了两种数据收集方式：
+
+* NetApp Kubernetes 监控操作员配置。这是为 Kubernetes 建议的安装方法。
+* 基于脚本的传统代理安装
+
+
+安装说明因您选择的不同而异。
+
+image:Kubernetes_Operator_Tile_Choices.png["Kubernetes 安装选项"]
+
+
+NOTE: NetApp Kubernetes 监控操作员安装被视为 _Preview_ 功能，因此可能会发生更改。
+
+.前提条件：
+* 必须提供以下命令： curl ， sudo ， openssl ， sha256sum 和 kubectl
++
+为获得最佳结果，请将这些命令添加到路径中。
+
+* 必须安装 Kube-state-metrics 。有关详细信息，请参见下文。Kube-state-metrics 会随基于操作员的安装自动安装。
+* 如果您使用的是代理，请按照 * 为 Kubernetes 配置代理支持 * 一节中的说明进行操作。
+* 如果您运行的 Kubernetes 变体需要安全上下文约束，请按照 * 配置代理以从 Kubernetes 收集数据 * 一节中的说明进行操作。基于操作员的安装可为您安装此软件。
+* 您必须具有创建 Kubernetes 集群角色和角色绑定的权限。
+* NetApp Kubernetes 监控操作员安装已通过测试，预计可与 AWS EKS 1.18 ， OpenShift 3.11 和 Rancher 2.6 配合使用。
+
+
+
+
+==== 监控仅安装在 Linux 节点上
+
+Cloud Insights 通过指定 Kubernetes 节点选择器来在这些平台上查找以下 Kubernetes 标签，支持监控运行 Linux 的 Kubernetes 节点：
+
+|===
+| 平台 | Label 
+
+
+| Kubernetes v1.17 及更高版本 | Kubernetes 。 io/OS = Linux 
+
+
+| Rancher + catt.io 作为流程编排 /Kubernetes 平台 | catt.io/OS = Linux 
+|===
+
+
+==== 安装 NetApp Kubernetes 监控操作员
+
+image:Kubernetes_Operator_Agent_Instructions.png["基于操作员的安装"]
+
+.在 Kubernetes 上安装 NetApp Kubernetes 监控操作员代理的步骤：
+. 输入集群名称和命名空间。
+. 输入这些内容后，您可以复制 Agent 安装程序代码片段
+. 单击按钮将此片段复制到剪贴板。
+. 将此代码片段粘贴到 _bash_ 窗口中并执行。
+. 安装将自动进行。完成后，单击 _complete Setup_ 按钮。
+
+
+
+
+==== 为 NetApp Kubernetes 监控操作员配置代理支持
+
+要为监控操作员配置代理，请执行以下步骤。
+
+首先，打开 _agent-monitoring-netapp_ 文件进行编辑：
+
+ kubectl -n netapp-monitoring edit agent agent-monitoring-netapp
+在此文件的 _spec： _ 部分中，添加以下代码块：
+
+....
+spec:
+  proxy:
+    isAuProxyEnabled: <true or false>
+    isTelegrafProxyEnabled: <true or false>
+    isFluentbitProxyEnabled: <true or false>
+    password: <password for proxy, optional>
+    port: <port for proxy>
+    server: <server for proxy>
+    username: <username for proxy, optional>
+    noProxy: <comma separated list of IPs or resolvable hostnames that should bypass a proxy>
+....
+
+
+===== 使用自定义 / 私有 Docker 存储库
+
+如果使用自定义 Docker 存储库，请执行以下操作：
+
+获取 Docker 密钥：
+
+ kubectl -n netapp-monitoring get secret docker -o yaml
+复制 / 粘贴上述命令输出中的值 _.dockerconfigjson ： _ 。
+
+对 Docker 密钥进行解码：
+
+ echo <paste from _.dockerconfigjson:_  output above> | base64 -d
+此命令的输出将采用以下 json 格式：
+
+....
+{ "auths":
+  {"docker.<cluster>.cloudinsights.netapp.com" :
+    {"username":"<tenant id>",
+     "password":"<password which is the CI API key>",
+     "auth"    :"<encoded username:password basic auth key. This is internal to docker>"}
+  }
+}
+....
+登录到 Docker 存储库：
+
+....
+docker login docker.<cluster>.cloudinsights.netapp.com (from step #2) -u <username from step #2>
+password: <password from docker secret step above>
+....
+从 Cloud Insights 中提取操作员 Docker 映像：
+
+ docker pull docker.<cluster>.cloudinsights.netapp.com/netapp-monitoring:<version>
+使用以下命令查找 <version> 字段：
+
+ kubectl -n netapp-monitoring get deployment monitoring-operator | grep "image:"
+根据您的企业策略，将操作员 Docker 映像推送到您的私有 / 本地 / 企业 Docker 存储库。
+
+将所有开源依赖项下载到您的私有 Docker 注册表中。需要下载以下开源映像：
+
+....
+docker.io/telegraf:1.19.3
+gcr.io/kubebuilder/kube-rbac-proxy:v0.5.0
+k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.1.0
+....
+如果启用了 flual-bit ，请同时下载：
+
+....
+docker.io/fluent-bit:1.7.8
+docker.io/kubernetes-event-exporter:0.10
+....
+编辑代理 CR 以反映新的 Docker repo 位置，禁用自动升级（如果已启用）。
+
+ kubectl -n netapp-monitoring edit agent agent-monitoring-netapp
+ enableAutoUpgrade: false
+....
+docker-repo: <docker repo of the enterprise/corp docker repo>
+dockerRepoSecret: <optional: name of the docker secret of enterprise/corp docker repo, this secret should be already created on the k8s cluster in the same namespace>
+....
+在 _spec__ 部分中，进行以下更改：
+
+....
+spec:
+  telegraf:
+    - name: ksm
+      substitutions:
+        - key: k8s.gcr.io
+          value: <same as "docker-repo" field above>
+....
+
+
+==== 基于脚本的安装
+
+image:Kubernetes_Install_Agent_screen.png["基于脚本的安装"]
+
+.在 Kubernetes 上安装基于脚本的代理的步骤：
+. 选择代理访问密钥。
+. 单击安装对话框中的 * 复制代理安装程序 Snippet* 按钮。如果要查看命令块，您可以选择单击 _+reveal Agent Installer Snippet_ 按钮。
+. 将命令粘贴到 _bash_ 窗口中。
+. 或者，您也可以在 install 命令中覆盖命名空间或提供集群名称，方法是修改命令块，在最终的 _./$installerName_ 之前添加以下一项或两项
++
+** cluster_name=< 集群名称 >
+** namespace=< 命名空间 >
++
+命令块中已安装此命令：
+
++
+ installerName=cloudinsights-kubernetes.sh ... && CLUSTER_NAME=<cluster_name> NAMESPACE=<new_namespace> sudo -E -H ./$installerName --download --install
++
+
+TIP: _cluster_name_ 是 Cloud Insights 收集指标的 Kubernetes 集群的名称，而 _namespace_是 要将 Telegraf 代理部署到的命名空间。如果指定的命名空间尚不存在，则会创建该命名空间。
+
+
+
+. 准备好后，执行命令块。
+. 此命令将下载相应的代理安装程序并进行安装，然后设置默认配置。如果尚未明确设置 _namespaces_ ，系统将提示您输入此名称。完成后，此脚本将重新启动代理服务。此命令具有唯一的密钥，有效期为 24 小时。
+. 完成后，单击 * 完成设置 * 。
+
+
+
+
+==== 为 Kubernetes 配置代理支持—基于脚本
+
+
+NOTE: 以下步骤概述了设置 _http_proxy/https_proxy_environment 变量所需的操作。对于某些代理环境，用户可能还需要设置 _no_proxy environment_ 变量。
+
+对于驻留在代理后面的系统，请执行以下操作，为当前用户 * 先前 * 设置 _https_proxy_ 和 / 或 _http_proxy_ 环境变量，以安装 Telegraf 代理：
+
+ export https_proxy=<proxy_server>:<proxy_port>
+* 安装 Telegraf 代理之后，将适当的 _https_proxy_ 和 / 或 _http_proxy_ 环境变量添加并设置为 _telecraf-DS_ emonset 和 _telecraf-RS_ replicaset 。
+
+ kubectl edit ds telegraf-ds
+....
+…
+       env:
+       - name: https_proxy
+         value: <proxy_server>:<proxy_port>
+       - name: HOSTIP
+         valueFrom:
+           fieldRef:
+             apiVersion: v1
+             fieldPath: status.hostIP
+…
+....
+ kubectl edit rs telegraf-rs
+....
+…
+       env:
+       - name: https_proxy
+         value: <proxy_server>:<proxy_port>
+       - name: HOSTIP
+         valueFrom:
+           fieldRef:
+             apiVersion: v1
+             fieldPath: status.hostIP
+…
+....
+然后，重新启动 Telegraf ：
+
+....
+kubectl delete pod telegraf-ds-*
+kubectl delete pod telegraf-rs-*
+....
+
+
+==== DemonSet ， ReplicaSet 以及停止 / 启动代理
+
+将在 Kubernetes 集群上创建 DemonSet 和 ReplicaSet ，以运行所需的 Telegraf 代理 / Pod 。默认情况下，这些 Telegraf 代理 / Pod 将同时计划在主节点和非主节点上。
+
+为了便于停止和重新启动代理，请使用以下命令生成 Telegraf DemonSet YAML 和 ReplicaSet YAML 。请注意，这些命令使用的是默认命名空间 "CI-monitoring" 。如果您已设置自己的命名空间，请在以下命令和所有后续命令和文件中替换此命名空间：
+
+如果您已设置自己的命名空间，请在以下命令和所有后续命令和文件中替换此命名空间：
+
+....
+kubectl --namespace ci-monitoring get ds telegraf-ds -o yaml > /tmp/telegraf-ds.yaml
+kubectl --namespace ci-monitoring get rs telegraf-rs -o yaml > /tmp/telegraf-rs.yaml
+....
+然后，您可以使用以下命令停止和启动 Telegraf 服务：
+
+....
+kubectl --namespace ci-monitoring delete ds telegraf-ds
+kubectl --namespace ci-monitoring delete rs telegraf-rs
+....
+....
+kubectl --namespace ci-monitoring apply -f /tmp/telegraf-ds.yaml
+kubectl --namespace ci-monitoring apply -f /tmp/telegraf-rs.yaml
+....
+
+
+==== 配置代理以从 Kubernetes 收集数据
+
+注意：基于脚本的安装的默认命名空间为 _cI-monitoring-.对于基于操作员的安装，默认命名空间为 _netapp-monitoring-.在涉及命名空间的命令中，请务必为您的安装指定正确的命名空间。
+
+运行代理的 Pod 需要能够访问以下内容：
+
+* HostPath
+* 配置映射
+* 机密
+
+
+这些 Kubernetes 对象会在 Cloud Insights UI 中提供的 Kubernetes 代理安装命令中自动创建。Kubernetes 的某些变体（例如 OpenShift ）实施了更高的安全级别，可能会阻止对这些组件的访问。_SecurityContextConstrent_ 不是在 Cloud Insights UI 中提供的 Kubernetes 代理安装命令中创建的，必须手动创建。创建后，重新启动 Telegraf Pod 。
+
+[listing]
+----
+    apiVersion: v1
+    kind: SecurityContextConstraints
+    metadata:
+      name: telegraf-hostaccess
+      creationTimestamp:
+      annotations:
+        kubernetes.io/description: telegraf-hostaccess allows hostpath volume mounts for restricted SAs.
+      labels:
+        app: ci-telegraf
+    priority: 10
+    allowPrivilegedContainer: true
+    defaultAddCapabilities: []
+    requiredDropCapabilities: []
+    allowedCapabilities: []
+    allowedFlexVolumes: []
+    allowHostDirVolumePlugin: true
+    volumes:
+    - hostPath
+    - configMap
+    - secret
+    allowHostNetwork: false
+    allowHostPorts: false
+    allowHostPID: false
+    allowHostIPC: false
+    seLinuxContext:
+      type: MustRunAs
+    runAsUser:
+      type: RunAsAny
+    supplementalGroups:
+      type: RunAsAny
+    fsGroup:
+      type: RunAsAny
+    readOnlyRootFilesystem: false
+    users:
+    - system:serviceaccount:ci-monitoring:monitoring-operator
+    groups: []
+----
+
+
+==== 安装 Kube-state-metrics 服务器
+
+
+NOTE: 基于操作员的安装可处理 Kube-state-metrics 的安装。如果要执行基于操作员的安装，请跳过此部分。
+
+
+NOTE: 强烈建议使用 Kube-state-metrics 2.0 或更高版本，以利用完整的功能集，包括将 Kubernetes 永久性卷（永久性卷）链接到后端存储设备的功能。另请注意，对于 Kube-state-metrics 2.0 及更高版本，默认情况下不会导出 Kubernetes 对象标签。要配置 Kube-state-metrics 以导出 Kubernetes 对象标签，必须指定指标标签 "allow" 列表。请参见中的 _-metric-labks-allowlist_ 选项 link:https://github.com/kubernetes/kube-state-metrics/blob/master/docs/cli-arguments.md["Kube-state-metrics 文档"]。
+
+按照以下步骤安装 Kube-state-metrics 服务器（如果正在执行基于脚本的安装，则需要此服务器）：
+
+.步骤
+. 创建一个临时文件夹（例如， //tmp/Kube-state-yamal-files/_ ），然后从复制 .yaml 文件 https://github.com/kubernetes/kube-state-metrics/tree/master/examples/standard[] 到该文件夹。
+. 运行以下命令以应用安装 Kube-state-metrics 所需的 .yaml 文件：
++
+ kubectl apply -f /tmp/kube-state-yaml-files/
+
+
+
+
+==== Kube-state-metrics 计数器
+
+使用以下链接访问 Kubbe 状态指标计数器的信息：
+
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/configmap-metrics.md["ConfigMap 指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/daemonset-metrics.md["DemonSet 指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/deployment-metrics.md["部署指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/ingress-metrics.md["传入指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/namespace-metrics.md["命名空间指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/node-metrics.md["节点指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/persistentvolume-metrics.md["永久性卷指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/persistentvolumeclaim-metrics.md["持久性卷声明指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/pod-metrics.md["POD 指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/replicaset-metrics.md["ReplicaSet 指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/secret-metrics.md["机密指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/service-metrics.md["服务指标"]
+. https://github.com/kubernetes/kube-state-metrics/blob/master/docs/statefulset-metrics.md["StatusSet 指标"]
+
+
+
+
+==== 卸载代理
+
+请注意，这些命令使用的是默认命名空间 "CI-monitoring" 。如果您已设置自己的命名空间，请在这些命令和所有后续命令和文件中替换该命名空间。
+
+要卸载 Kubernetes 上基于脚本的代理，请执行以下操作：
+
+如果监控命名空间仅用于 Telegraf ：
+
+ kubectl --namespace ci-monitoring delete ds,rs,cm,sa,clusterrole,clusterrolebinding -l app=ci-telegraf
+ kubectl delete ns ci-monitoring
+如果除了 Telegraf 之外，监控命名空间还用于其他目的：
+
+ kubectl --namespace ci-monitoring delete ds,rs,cm,sa,clusterrole,clusterrolebinding -l app=ci-telegraf
+对于基于操作员的安装，请运行以下命令：
+
+....
+kubectl delete ns netapp-monitoring
+kubectl delete agent agent-monitoring-netapp
+kubectl delete crd agents.monitoring.netapp.com
+kubectl delete role agent-leader-election-role
+kubectl delete clusterrole agent-manager-role agent-proxy-role agent-metrics-reader
+kubectl delete clusterrolebinding agent-manager-rolebinding agent-proxy-rolebinding agent-cluster-admin-rolebinding
+....
+如果先前为基于脚本的 Telegraf 安装手动创建了安全上下文限制：
+
+ kubectl delete scc telegraf-hostaccess
+
+
+==== 升级代理
+
+请注意，这些命令使用的是默认命名空间 "CI-monitoring" 。如果您已设置自己的命名空间，请在这些命令和所有后续命令和文件中替换该命名空间。
+
+要升级电报代理，请执行以下操作：
+
+. 备份现有配置：
++
+ kubectl --namespace ci-monitoring get cm -o yaml > /tmp/telegraf-configs.yaml
+
+
+. 卸载代理（有关说明，请参见上文）
+. link:#kubernetes["安装新代理"]。
+
+
+
+
+== 验证校验和
+
+Cloud Insights 代理安装程序会执行完整性检查，但某些用户可能希望在安装或应用下载的项目之前执行自己的验证。要执行仅下载操作（与默认的下载和安装操作相反），这些用户可以编辑从 UI 获取的代理安装命令并删除尾随的 "install" 选项。
+
+请按照以下步骤操作：
+
+. 按照说明复制 Agent 安装程序代码片段。
+. 请将代码片段粘贴到文本编辑器中，而不是将其粘贴到命令窗口中。
+. 从命令中删除尾随的 "-install" （ Linux/Mac ）或 "-install" （ Windows ）。
+. 从文本编辑器复制整个命令。
+. 现在，将其粘贴到命令窗口（在工作目录中）并运行。
+
+
+非 Windows （这些示例适用于 Kubernetes ；实际脚本名称可能有所不同）：
+
+* Download and install （下载并安装）（默认）：
++
+ installerName=cloudinsights-kubernetes.sh … && sudo -E -H ./$installerName --download –-install
+* 仅下载：
++
+ installerName=cloudinsights-kubernetes.sh … && sudo -E -H ./$installerName --download
+
+
+Windows
+
+* Download and install （下载并安装）（默认）：
++
+ !$($installerName=".\cloudinsights-windows.ps1") … -and $(&$installerName -download -install)
+* 仅下载：
++
+ !$($installerName=".\cloudinsights-windows.ps1") … -and $(&$installerName -download)
+
+
+仅下载命令会将所有所需的项目从 Cloud Insights 下载到工作目录。这些项目包括但不限于：
+
+* 安装脚本
+* 环境文件
+* YAML 文件
+* 签名校验和文件（ SHA256.signed ）
+* 用于签名验证的 PEM 文件（ netapp_cert.pem ）
+
+
+安装脚本，环境文件和 YAML 文件可以通过目视检查进行验证。
+
+可以通过确认 PEM 文件的指纹为以下内容来验证 PEM 文件：
+
+ E5:FB:7B:68:C0:8B:1C:A9:02:70:85:84:C2:74:F8:EF:C7:BE:8A:BC
+更具体地说，
+
+* 非 Windows ：
++
+ openssl x509 -fingerprint -sha1 -noout -inform pem -in netapp_cert.pem
+* Windows
++
+ Import-Certificate -Filepath .\netapp_cert.pem -CertStoreLocation Cert:\CurrentUser\Root
+
+
+可以使用 PEM 文件验证签名校验和文件：
+
+* 非 Windows ：
++
+ openssl smime -verify -in sha256.signed -CAfile netapp_cert.pem -purpose any
+* Windows （通过上述 Import-Certificate 安装证书后）：
++
+ Get-AuthenticodeSignature -FilePath .\sha256.ps1 $result = Get-AuthenticodeSignature -FilePath .\sha256.ps1 $signer = $result.SignerCertificate Add-Type -Assembly System.Security [Security.Cryptography.x509Certificates.X509Certificate2UI]::DisplayCertificate($signer)
+
+
+在对所有项目进行满意的验证后，可以通过运行以下命令启动代理安装：
+
+非 Windows ：
+
+ sudo -E -H ./<installation_script_name> --install
+Windows
+
+ .\cloudinsights-windows.ps1 -install
+
+
+== 代理安装故障排除
+
+在设置代理时遇到问题时要尝试的一些操作：
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 我已使用 Cloud Insights 安装代理 | 如果您已在主机 /VM 上安装了代理，则无需重新安装该代理。在这种情况下，只需在 Agent 安装屏幕中选择适当的平台和密钥，然后单击 * 继续 * 或 * 完成 * 。 
+
+
+| 我已安装代理，但未使用 Cloud Insights 安装程序安装代理 | 删除先前的代理并运行 Cloud Insights 代理安装，以确保正确的默认配置文件设置。完成后，单击 * 继续 * 或 * 完成 * 。 
+
+
+| 我未看到 Kubernetes 永久性卷与相应后端存储设备之间的超链接 / 连接。我的 Kubernetes 永久性卷使用存储服务器的主机名进行配置。 | 按照以下步骤卸载现有的 Telegraf 代理，然后重新安装最新的 Telegraf 代理。您必须使用 Telegraf 2.0 或更高版本。 
+
+
+| 我在日志中看到类似以下内容的消息： E0901 15 ： 21 ： 39.962145 1 个 trirror.go ： 178] K8s.io/Kube-state-metrics/internal/store/builer.go ： 352 ：无法列出 * 。 MutatingWebhookConfiguration ：服务器找不到请求的资源 E091.IO/Kube-state-metrics ：内部 /8.171.Go ：无法找到服务器 | 如果您运行的是 Kube-state-metrics 版本 2.0.0 或更高版本以及 Kubernetes 版本 1.17 或更低版本，则可能会出现这些消息。要获取 Kubernetes 版本： _kubectl version_ 以获取 Kube-state-metrics 版本： _kubectl get deploy/Kube-state-metrics -o jsonpath="" ｛ ..image ｝ '_ 要防止发生这些消息，用户可以修改其 Kube-state-metrics 部署以禁用以下租约： _mutatingwebconfigurations _webhook_ ，具体可以使用以下参数： resources=certificatesigningrequests ， configmaps ， cronjobs ， demonsets ，部署，端点，水平 podautoscalers ， ingeses ，作业，限制范围，命名空间，网络策略，节点，复制卷，持久性卷， poddis中断 预算， Pod ，证书集，资源控制器，资源等，网络，存储器，卷，存储器，卷，存储器，存储器，存储器，卷，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，卷，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，卷，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，存储器，卷，存储器，存储器，存储器，存储器，存储器，存储器， 验证 webhookconfigurations ， volumeattachments 
+
+
+| 我在 Kubernetes 上安装或升级了 Telegraf ，但 Telegraf Pod 未启动。Telegraf ReplicaSet 或 DemonSet 报告了类似以下内容的故障：创建时出错： Pod "telaf-RS- " is foreged" ：无法针对任何安全上下文限制进行验证： [spec.volumes_2 ：无效值： "hostPath" ：不允许使用 hostPath 卷 ] | 如果还不存在安全上下文限制，请创建此限制（请参见上文 " 配置代理以从 Kubernetes 收集数据 " 一节）。确保为安全上下文限制指定的命名空间和服务帐户与 Telegraf ReplicaSet 和 DemonSet 的命名空间和服务帐户匹配。kubectl describe scc talaf-hostaccess |grep serviceaccount kubectl -n ci-monitoring -describe RS talaf-RS | grep -i "Namespace" kubectl -n ci-monitoring describe RS tengraaf-RS | grep -i "service account" ： kubectl -n ci-monitoring -describe DS ci-ds-ds-ds-ds" 
+
+
+| 我看到来自 Telegraf 的错误消息如下所示，但 Telegraf 确实启动并运行： Oct 11 14 ： 23 ： 41 IP-172-31-39-47 systemd1* ：启动了插件驱动的服务器代理，以便向 InfluxDB 报告指标。Oct 11 14 ： 23 ： 41 IP-172-31-39-47 cailaf[1827] ： time="2021-10-11T14 ： 23 ： 41Z" level=error msg="failed to create cache directory" 。/etc/celaf/.cache/snowvelc ，错误： mkdir /etc/tengraf/.ca ChE ：权限被拒绝。ignored\n" func="gosnowchelf.（ * defaultLogger ） .Errorf" fil="log.go ： 120" Oct 11 14 ： 23 ： 41 IP-172-31 ： 39-47 celaf[1827] ： time="2021-10-11T14 ： 23 ： 41Z" level=error msg="failed to open.已忽略。打开 /etc/celaf/.cache/snowlife/OCSP_response_cache.json ： no such file or directory\n" func="gosnowchlafe.（ * defaultLogger ） .Errorf" fil="log.go ： 120" Oct 11 14 ： 23 ： 41 IP-172-31-39-47 craaf[1827] ： I-41Z-2021 ：启动 Telegraf 1.19.3 | 这是一个已知的问题描述。请参见 link:https://github.com/influxdata/telegraf/issues/9407["此 GitHub 文章"] 有关详细信息：只要 Telegraf 启动并运行，用户就可以忽略这些错误消息。 
+
+
+| 在 Kubernetes 上，我的 Telegraf Pod 报告以下错误： " 处理 mountstats 信息时出错：无法打开 mountstats 文件： /hostfs/proc/1/mountstats ，错误： open /hostfs/proc/1/mountstats ：权限被拒绝 " | 如果启用并强制实施 SELinux ，则可能会阻止 Telegraf Pod 访问 Kubernetes 节点上的 /proc/1/mountstats 文件。要放宽此限制，请执行以下操作之一：•对于基于脚本的安装，编辑 crainf DS （`kubectl edit DS crainaf-DS` ），并将 "privileged ： false" 更改为 "privileged ： true" •对于基于操作员的安装，编辑代理（`kubectl edit agent agent-monitoring-netapp` ），然后将 "privileged-mode ： false" 更改为 "privileged-mode ： 
+|===
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

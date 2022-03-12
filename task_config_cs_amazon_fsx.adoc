@@ -1,0 +1,54 @@
+---
+sidebar: sidebar 
+permalink: task_config_cs_amazon_fsx.html 
+keywords: Cloud, Storage, AWS, Fsx 
+summary: Cloud Secure 使用数据收集器从设备收集文件和用户访问数据。 
+---
+= 适用于 NetApp ONTAP 配置的 Amazon FSX
+
+
+[role="lead"]
+此数据收集器从适用于 NetApp ONTAP 的 Amazon FSX 收集文件和用户访问数据。此数据收集器将在整个 Cloud Insights 服务区域内逐渐可用。如果您在 Cloud Insights 环境中未看到此收集器的图标，请联系您的销售人员。
+
+
+
+=== 代理计算机配置
+
+按照以下步骤配置要用作 Cloud Secure 代理的计算机：
+
+. 登录到 AWS 控制台并导航到 EC2-Instances 页面，然后选择 Launch Instance 。
+. 选择具有中所述的相应版本的 RHEL 或 CentOS AMI link:concept_cs_agent_requirements.html["要求"]。
+. 在 Amazon FSX for NetApp ONTAP 实例所在的同一 VPC 和子网中创建代理框。
++
+或者，代理箱应位于连接到适用于 NetApp ONTAP VPC 的 Amazon FSX 的 VPC 中。
+
++
+确保代理与适用于 NetApp ONTAP 的 Amazon FSX 之间存在双向通信。
+
+. 选择 T2.xlarge （ 4 个 vCPU 和 16 GB RAM ）作为已分配的资源。
++
+.. 创建 EC2 实例。
+
+
+. 使用 YUM 软件包管理器安装所需的 Linux 软件包：
++
+.. 安装 wget 并解压缩原生 Linux 软件包。
+
+
+
+
+
+
+=== 安装 Cloud Secure 代理
+
+. 以管理员或帐户所有者身份登录到您的 Cloud Insights 环境。
+. 导航到 Cloud Secure 管理 > 数据收集器，然后单击代理选项卡。
+. 单击 +Agent 并指定 RHEL 作为目标平台。
+. 复制代理安装命令。
+. 将代理安装命令粘贴到您已登录的 RHEL EC2 实例中。
++
+此操作将安装 Cloud Secure 代理，前提是满足此代理的所有前提条件。
+
+
+
+有关详细步骤，请参见 Cloud Secure link:task_cs_add_agent.html["代理安装"] 页面。

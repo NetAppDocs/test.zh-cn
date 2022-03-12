@@ -1,0 +1,81 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ibm_cleversafe.html 
+keywords: data collector, IBM Cleversafe 
+summary: 配置 IBM Cleversafe 数据收集器。 
+---
+= IBM Cleverssafe 数据收集器
+
+
+[role="lead"]
+Cloud Insights 使用此数据收集器来发现 IBM Cleversafe 存储系统的清单和性能数据。
+
+
+
+== 术语
+
+Cloud Insights 从 IBM Cleversafe 数据收集器采集以下清单信息。对于 Cloud Insights 收购的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| 存储池 | 存储池 
+
+
+| 容器 | 内部卷 
+
+
+| 容器 | 文件共享 
+
+
+| NFS 共享 | 共享 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+== 要求
+
+* 集群的外部数据服务 IP 地址
+* 管理员用户名和密码
+* 端口 9440
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 管理器 IP 或主机名 | 管理节点的 IP 地址或主机名 
+
+
+| 用户名 | 具有超级用户或系统管理员角色的用户帐户的用户名 
+
+
+| Password | 具有超级用户或系统管理员角色的用户帐户的密码 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 清单轮询间隔（分钟） | 两次清单轮询的间隔。 
+
+
+| HTTP 连接超时（秒） | HTTP 超时（以秒为单位）。 
+|===
+
+
+== 故障排除
+
+可从中找到此数据收集器上的追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

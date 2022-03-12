@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: faq-config-support.html 
+keywords: FAQ, Frequently asked questions, questions, configuration, 
+summary:  
+---
+= 配置和支持的设备
+
+
+[role="lead"]
+本常见问题解答解答解答了有关 Cloud Insights 配置和支持的设备的常见问题。
+
+
+
+== Cloud Insights 是否对我的环境进行了更改？
+
+否Cloud Insights 是一个只读工具，用于收集有关您的环境的信息。Cloud Insights 不会对您的资产或配置进行任何更改。
+
+
+
+== Cloud Insights 需要对我的设备进行哪些权限级别的访问？
+
+在大多数情况下，如果设备支持只读访问，则只需进行只读访问即可。某些解决方案不允许只读访问，因此需要适当的提升权限。
+
+
+
+== Cloud Insights 收集信息的频率如何？
+
+Cloud Insights 通常每 5 分钟收集一次性能数据，每 ½ 小时发现一次逻辑和物理构造。Cloud Insights 会根据建议的最佳实践和可扩展性设置默认轮询间隔，但允许用户完全控制这些间隔。
+
+
+
+== Cloud Insights 对我的环境有何影响？
+
+Cloud Insights 的无代理，带外和被动 IP 通信有助于最大限度地减少设置，维护以及对数据中心生态系统的影响。Cloud Insights 的性能开发团队采取了一些重要措施，可以最大限度地减少对数据中心性能监控活动本身的任何影响。在正常操作环境中，影响可忽略不计，在高利用率或性能低下的技术平台中，影响可以宽松或收紧。有关详细信息，请参见《 Cloud Insights 安装指南》。
+
+
+
+== 如何列出 Cloud Insights 中的所有主机 /VM ？
+
+Cloud Insights 对小工具和查询列表功能的补充，可用于为数据中心资产提供清单模式列表。虚拟机列表直至磁盘轴，以及之间的大量构造均可用于查询，小工具，信息板和数据仓库报告，并可通过 RESTful API 进行访问。
+
+
+
+== Cloud Insights 是否为相关的非虚拟机管理程序主机（即物理服务器）提供了相同类型的支持？
+
+VMware 等虚拟机管理程序可提供有关 ESXi 主机及其虚拟机（ VM ）的详细信息。对于物理服务器， Cloud Insights 最多可收集主机 HBA 的指标。Cloud Insights 采用独特的方法，通过正在申请专利的技术发现物理服务器。发现存储和 / 或交换机后，物理服务器的主机名包含在网络结构别名信息中。Cloud Insights 会选择这些主机名，并在 DNS 中将其匹配，然后自动将这些主机引入 Cloud Insights 。这种技术可以极大地减少手动输入更新和工具清单维护的需求。
+
+
+
+== Cloud Insights 是否在异构环境中提供相同的设备度量深度（奇偶校验）？
+
+第三方平台和供应商技术的标准化程度，通用性和命名方式各不相同。Cloud Insights 会尝试将容量和性能信息规范化为一个一致的框架。某些容量和性能指标是通过设备的计数器本机提供的，例如 IOPS ，延迟和原始容量。如果未提供计数器， Cloud Insights 可以尝试汇总这些值（例如，通过汇总底层卷的 IOPS 或容量），如果两者均不可用，则 Cloud Insights 将尝试通过各种计算算法派生度量值。Cloud Insights 提供了一种通用 SNMP 集成功能，可将当前 Cloud Insights 未收集的其他指标纳入其中。
+
+
+
+== Cloud Insights 是否支持光纤通道交换机？
+
+可以，除了从存储资产中收集数据之外， Cloud Insights 还会从环境中的 Cisco ， Brocade 和 QLogic 交换机采集清单和性能数据。
+
+== 整个基础架构的拓扑视图是否可用？Cloud Insights 是否显示 " 端到端可见性 " ？
+
+可以， Cloud Insights 可以动态发现和映射逻辑和物理结构，从而提供计算，网络结构，虚拟化器和后端存储的交互式端到端拓扑视图。通过拓扑图标，可以快速启动对受影响资源的导航，并有助于识别共享存储环境中的工作负载和违规。

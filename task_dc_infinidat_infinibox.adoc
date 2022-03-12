@@ -1,0 +1,84 @@
+---
+sidebar: sidebar 
+permalink: task_dc_infinidat_infinibox.html 
+keywords: data collector, infinidat, InfiniBox 
+summary: 配置 Infinidat InfiniBox 数据收集器。 
+---
+= Infinidat InfiniBox 数据收集器
+
+
+[role="lead"]
+Infinidat InfiniBox （ HTTP ）数据收集器用于从 Infinidat InfiniBox 存储系统收集清单信息。
+
+
+
+== 术语
+
+Cloud Insights 从 Infinidat InfiniBox 数据收集器采集以下清单信息。对于 Cloud Insights 收购的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| 存储池 | 存储池 
+
+
+| Node | 控制器 
+
+
+| 文件系统 | 内部卷 
+
+
+| 文件系统 | 文件共享 
+
+
+| 文件系统导出 | 共享 
+|===
+
+
+== 要求
+
+以下是配置此数据收集器的要求。
+
+* InfiniBox 管理节点的 IP 地址或 FQDN
+* 管理员用户 ID 和密码
+* 通过 REST API 的端口 443
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| InfiniBox 主机 | InfiniBox 管理节点的 IP 地址或完全限定域名 
+
+
+| 用户名 | InfiniBox 管理节点的用户名 
+
+
+| Password | InfiniBox 管理节点的密码 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| TCP 端口 | 用于连接到 InfiniBox 服务器的 TCP 端口。默认值为 443. 。 
+
+
+| 清单轮询间隔 | 两次清单轮询的间隔。默认值为 60 分钟。 
+|===
+
+
+== 故障排除
+
+可从中找到此数据收集器上的追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

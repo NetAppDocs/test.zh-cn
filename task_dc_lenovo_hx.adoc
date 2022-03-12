@@ -1,0 +1,82 @@
+---
+sidebar: sidebar 
+permalink: task_dc_lenovo_hx.html 
+keywords: data collector, Lenovo, HX 
+summary: 配置联想 HX 数据收集器。 
+---
+= 联想 HX 数据收集器
+
+
+[role="lead"]
+联想 HX 数据收集器从联想 HX 存储系统采集清单和性能信息。
+
+
+
+== 要求
+
+要配置此数据收集器，需要以下信息：
+
+* 数据收集器的唯一名称
+* 与数据收集器关联的采集单元
+* TCP 端口要求 9440
+
+
+
+
+== 术语
+
+Cloud Insights 从联想 HX 数据收集器采集以下清单和性能信息。对于 Cloud Insights 收购的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| 存储池 | 存储池 
+
+
+| 容器 | 内部卷 
+
+
+| Node | 控制器 
+
+
+| 共享 | 文件共享 
+
+
+| Nutanix 分布式文件系统（ NDF ） | 共享 
+
+
+| 卷组 | 后端 LUN 
+|===
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| Prism 外部 IP 地址 | 用于连接到存储系统的 IP 地址 
+
+
+| 用户名 | 用户 naame 登录到存储系统。默认值为 admin 。 
+
+
+| Password | 联想 HX 存储系统的密码 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| TCP 端口 | 用于连接到联想 HX 的 TCP 端口。默认值为 9440. 。 
+
+
+| 清单轮询间隔 | 两次清单轮询的间隔。默认值为 60 分钟。 
+|===

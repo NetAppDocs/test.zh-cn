@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: task_dc_dell_xc_series.html 
+keywords: data collector, Dell, EMC, xc 
+summary: 配置 Dell EMC XC 系列数据收集器。 
+---
+= Dell EMC XC 系列数据收集器
+
+
+[role="lead"]
+Cloud Insights 使用此数据收集器来发现 Dell EMC XC 系列存储阵列的清单和性能信息。
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| Prism 外部 IP 地址 | xC 服务器的 IP 地址 
+
+
+| 用户名 | xC 服务器的用户名 
+
+
+| Password | 用于 xC 服务器的密码 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| TCP 端口 | 用于与 xC 服务器进行 TCP 通信的端口 
+
+
+| 清单轮询间隔（分钟） | 两次清单轮询的间隔。默认值为 60 分钟。 
+
+
+| 性能轮询间隔（分钟） | 性能轮询之间的时间间隔。默认值为 300 秒。 
+|===
+
+
+== 故障排除
+
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

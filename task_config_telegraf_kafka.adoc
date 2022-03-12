@@ -1,0 +1,87 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_kafka.html 
+keywords: telegraf, installation, install, kafka 
+summary: Kafka 数据收集器配置 
+---
+= Kafka 数据收集器
+
+
+[role="lead"]
+Cloud Insights 使用此数据收集器从 Kafka 收集指标。
+
+
+
+== 安装
+
+. 在 * 管理 > 数据收集器 * 中，单击 * + 数据收集器 * 。在 * 服务 * 下，选择 Kafka 。
++
+选择安装了 Telegraf 代理的操作系统或平台。
+
+. 如果您尚未安装要收集的代理，或者您希望为其他操作系统或平台安装代理，请单击 _Show Instructions_展开 link:task_config_telegraf_agent.html["代理安装"] 说明。
+. 选择要用于此数据收集器的代理访问密钥。您可以通过单击 * + 代理访问密钥 * 按钮来添加新的代理访问密钥。最佳实践：仅当您要按操作系统 / 平台对数据收集器进行分组时，才使用其他代理访问密钥。
+. 按照配置步骤配置数据收集器。这些说明因用于收集数据的操作系统或平台的类型而异。
+
+
+image:KafkaDCConfigWindows.png["Kafka 配置"]
+
+
+
+== 设置
+
+Kafka 插件基于此电报的 JOLokia 插件。例如，需要从所有 Kafka 代理收集信息，因此需要在所有组件上通过 Jallokia 配置和公开 JMX 。
+
+
+
+==== 兼容性
+
+此配置是根据 Kafka 0.11.0.2 版开发的。
+
+
+
+==== 设置
+
+以下所有说明均假定您的 Kafka 安装位置为 "/opt/Kafka" 。您可以根据安装位置调整以下说明。
+
+
+
+==== JOLokia Agent Jar
+
+一个版本的 JOLokia 代理 JAR 文件必须是 link:https://jolokia.org/download.html["已下载"]。测试的版本为 JOLokia 代理 1.6.0 。
+
+以下说明假定下载的 JAR 文件（ jolokia-jvm-1.6.0-agent.jar ）位于 "/opt/Kafka/libs/" 位置下。
+
+
+
+==== Kafka 代理
+
+要配置 Kafka 代理以公开此 JOLokia API ，您可以在调用 "Kafka-run-class.sh" 之前的 <Kafka_home>/bin/Kafka-server-start.sh 中添加以下内容：
+
+[listing]
+----
+export JMX_PORT=9999
+export RMI_HOSTNAME=`hostname -I`
+export KAFKA_JMX_OPTS="-javaagent:/opt/kafka/libs/jolokia-jvm-1.6.0-agent.jar=port=8778,host=0.0.0.0  -Dcom.sun.management.jmxremote.password.file=/opt/kafka/config/jmxremote.password -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=$RMI_HOSTNAME -Dcom.sun.management.jmxremote.rmi.port=$JMX_PORT"
+----
+请注意，上述示例使用 "hostname -i" 设置 "RMI_HOSTNAME" 环境变量。在多个 IP 计算机中，需要对其进行调整，以收集您关心的用于 RMI 连接的 IP 。
+
+您可以为 JMX （上面为 9999 ）和朱洛基亚（ 8778 ）选择其他端口。如果您有一个内部 IP 来锁定 Jallokia ，则可以将 "catch all" 0.0.0.0 替换为您自己的 IP 。请注意，此 IP 需要可从电报插件访问。如果您不想进行身份验证，可以使用选项 -Dcom.sun.management.jmxremote.authenticate=false' 。使用风险自行承担。
+
+
+
+== 对象和计数器
+
+将收集以下对象及其计数器：
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| 对象： | 标识符： | 属性： | 数据点： 
+
+
+| Kafka Broker | 集群命名空间代理 | 节点名称节点 IP | 副本管理器 Fetcher 最大滞后 Zookeeper 客户端连接 Zookeeper 客户端连接（速率为 15 米） Zookeeper 客户端连接（速率为 5 米） Zookeeper 客户端连接（平均速率） Zookeeper 客户端连接（速率为 1 米） 副本管理器分区数线程数守护进程线程数峰值线程数当前线程数已启动总线程数脱机分区生成请求总时间（ 50 百分位）生成请求总时间（ 75 百分位）生成请求总时间（ 95 百分位）生成请求总时间（ 98 百分位）生成请求总时间（ 999 百分位） 生成请求总时间（第 99 百分位值）生成请求总时间生成请求总时间最大生成请求总时间平均生成请求总时间最小生成请求总时间 Stddev Replica Manager ISR 缩减副本管理器 ISR 缩减（ 15m 速率）副本管理器 ISR 缩减（ 5 米速率）副本管理器 ISR 缩减 （平均速率）副本管理器 ISR 缩减（ 1 米速率）请求处理程序平均空闲请求处理程序平均空闲时间（ 15 米速率）请求处理程序平均空闲时间（ 5 米速率）请求处理程序平均空闲时间（平均速率）请求处理程序平均空闲时间（ 1 米速率） 垃圾收集 G1 旧一代垃圾收集 G1 旧一代垃圾收集 G1 年轻一代垃圾收集 G1 年轻一代垃圾收集 G1 年轻一代时间 Zookeeper 只读连接 Zookeeper 只读连接（ 15 米速率） Zookeeper 只读连接（ 5 米速率） Zookeeper 只读连接（平均速率） Zookeeper 只读连接 （ 100 万个比率）网络处理器平均空闲请求提取跟进总时间（ 50 百分位）请求提取跟进总时间（ 75 百分位）请求提取跟进总时间（ 95 百分位）请求提取跟进总时间（ 98 百分位）请求提取跟进总时间（ 999 百分位）请求提取跟进总时间（ 999 百分位）请求提取跟进总时间（ 99 百分位） 请求提取跟踪器总时间请求提取跟踪器总时间最大请求提取跟踪器总时间平均请求提取跟踪器总时间最小请求提取跟踪器总时间跟踪器总时间在生成中等待的 Stddev 请求提取用户网络请求提取使用者（ 5 米速率）网络请求提取使用者（ 15 米速率） 网络请求提取消费者（平均比率）网络请求提取消费者（ 1 米比率）不干净的领导者选举不干净的领导者选举（ 15 米比率）不干净的领导者选举（ 5 米比率）不干净的领导者选举（平均比率）不干净的领导者选举（ 1 米比率） 活动控制器堆内存已提交堆内存堆内存已使用的最大堆内存 Zookeeper 会话到期 Zookeeper 会话到期（ 15m 速率） Zookeeper 会话到期（ 5m 速率） Zookeeper 会话到期（平均速率） Zookeeper 身份验证失败（ 1 m 速率） Zookeeper 身份验证失败（ 15m 速率） Zookeeper 身份验证失败（ 5m 速率） Zookeeper 身份验证失败（平均比率） Zookeeper 身份验证失败（ 1 米比率）领导者选举时间（ 50 百分位）领导者选举时间（ 75 百分位）领导者选举时间（ 95 百分位）领导者选举时间（ 98 百分位）领导者选举时间（ 999 百分位）领导者选举时间（ 99 百分位）领导者选举时间（ 15 分） 主管选举时间（ 5 米比率）领导者选举时间最大领导者选举时间平均领导者选举时间（平均比率）领导者选举时间最小领导者选举时间（ 1 米比率）领导者选举时间（ stddev ）网络请求提取跟踪者网络请求提取跟踪者网络请求提取跟踪者（ 15 米比率）网络请求提取跟踪者（ 5 米比率） 网络请求提取跟踪器（平均速率）网络请求提取跟踪器（ 1 米速率）代理主题消息代理主题消息（ 15 米速率）代理主题消息（ 5 米速率）代理主题消息（平均速率）代理主题消息（ 1 米速率）代理主题字节（ 15 米速率）中的代理主题字节 （ 5 米速率）代理主题字节数（平均速率）代理主题字节数（ 1 米速率） Zookeeper Disconnects Count Zookeeper Disconnects （ 15 米速率） Zookeeper Disconnects （ 5 米速率） Zookeeper Disconnects （平均速率） Zookeeper Disconnects （ 1 米速率） Network Requests Fetch Consumer Total Time （ 50 百分位） Network Requests Fetch Consumer Total Time （ 75 百分位） 网络请求提取使用者总时间（第 95 百分位）网络请求提取使用者总时间（第 98 百分位）网络请求提取使用者总时间（第 999 百分位）网络请求提取使用者总时间（第 99 百分位） 网络请求提取使用者总时间网络请求提取使用者总时间最大网络请求提取使用者总时间平均网络请求提取使用者总时间最小网络请求提取使用者总时间提取使用者总时间在提取代管代理主题字节数代理主题字节数（ 15m 速率） 代理主题字节输出（ 5 米速率）代理主题字节输出（平均速率）代理主题字节输出（ 1 米速率） Zookeeper 身份验证 Zookeeper 身份验证（ 15 米速率） Zookeeper 身份验证（ 5 米速率） Zookeeper 身份验证（平均速率） Zookeeper 身份验证（ 1 米速率）请求生成计数请求生成（ 15 米速率）请求生成 5 米速率）请求生成请求 （平均速率）生成请求（ 1 米速率）副本管理器 ISR 扩展副本管理器 ISR 扩展（ 15 米速率）副本管理器 ISR 扩展（ 5 米速率）副本管理器 ISR 扩展（平均速率）副本管理器 ISR 扩展（ 1 米速率）副本管理器扩展（复制分区下） 
+|===
+
+
+== 故障排除
+
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面。

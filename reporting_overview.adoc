@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: reporting_overview.html 
+summary: 使用 Cloud Insights 对数据进行预定义和自定义报告。 
+keywords: reporting, cognos, data warehouse, dwh 
+---
+= Cloud Insights 报告概述
+
+
+[role="lead"]
+Cloud Insights 报告是一种业务智能工具，可用于查看预定义报告或创建自定义报告。
+
+
+NOTE: Cloud Insights 提供了报告功能 link:concept_subscribing_to_cloud_insights.html["高级版"]。
+
+使用 Cloud Insights 报告，您可以执行以下任务：
+
+* 运行预定义报告
+* 创建自定义报告
+* 自定义报告的格式和交付方法
+* 计划自动运行报告
+* 通过电子邮件发送报告
+* 使用颜色表示数据的阈值
+
+
+Cloud Insights 报告可以为成本分摊，消费分析和预测等领域生成自定义报告，并有助于解决问题解答问题，例如：
+
+* 我拥有哪些清单？
+* 我的清单在哪里？
+* 谁在使用我们的资产？
+* 业务单位所分配存储的成本分摊是多少？
+* 需要获取更多存储容量之前需要多长时间？
+* 业务单位是否遵循正确的存储层？
+* 存储分配在一个月，一个季度或一年中有何变化？
+
+
+
+
+== 访问 Cloud Insights 报告
+
+您可以通过单击菜单中的 * 报告 * 链接来访问 Cloud Insights 报告。
+
+此时将转到报告界面。Cloud Insights 使用 IBM Cognos 分析作为其报告引擎。使用报告凭据登录。
+
+
+
+== 什么是 ETL ？
+
+使用报告时，您将听到术语 " 数据仓库 " 和 "ETL" 。ETL 表示 " 提取，转换和加载 " 。ETL 进程将检索在 Cloud Insights 中收集的数据，并将数据转换为用于报告的格式。" 数据仓库 " 是指可用于报告的已收集数据。
+
+ETL 流程包括以下各个流程：
+
+* * 提取 * ：从 Cloud Insights 获取数据。
+* * 转换 * ：将业务逻辑规则或功能应用于从 Cloud Insights 提取的数据。
+* * 加载 * ：将转换后的数据保存到数据仓库中，以用于报告。
+

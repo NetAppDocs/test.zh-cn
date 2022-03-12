@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: task_cs_add_collector_ontap.html 
+keywords: data collector, ONTAP, SVM 
+summary: 正在添加数据收集器 
+---
+= 配置 NetApp ONTAP 数据收集器
+
+
+[role="lead"]
+Cloud Secure 使用数据收集器从设备收集文件和用户访问数据。这些数据将提供给 Cloud Secure 进行分析。
+
+要配置此数据收集器，您需要以下信息：
+
+* 必须配置代理才能收集数据
+* SVM 管理 IP 地址
+* 用于访问 SVM 的用户名
+* 用于访问 SVM 的密码
+
+
+.配置步骤
+. 以管理员或帐户所有者身份登录到您的 Cloud Secure 环境。
+. 单击 * 管理 > 数据收集器 > + 数据收集器 *
++
+系统将显示可用的数据收集器。
+
+. 单击 NetApp ONTAP 磁贴中的 * + 监控 * 。
++
+系统将显示添加数据收集器： ONTAP SVM 配置页面。
+
+. 输入收集器的唯一名称
+. 选择要收集数据的代理
+. 输入 SVM 管理 IP 地址
+. 输入用于访问 SVM 的用户名
+. 输入用于访问 SVM 的密码
+. 单击 * + 添加收集器 *
+
+
+.完成后
+* 单击 * 管理 > 数据收集器 * 以检查您配置的收集器的状态。
++
+收集器状态显示通常会有一段延迟。
+
+

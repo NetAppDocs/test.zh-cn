@@ -1,0 +1,110 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_haproxy.html 
+keywords: telegraf, installation, install, haproxy 
+summary: HAProxy 数据收集器配置 
+---
+= HAProxy 数据收集器
+
+
+[role="lead"]
+Cloud Insights 使用此数据收集器从 HAProxy 收集指标。
+
+
+
+== 安装
+
+. 在 * 管理 > 数据收集器 * 中，单击 * + 数据收集器 * 。在 * 服务 * 下，选择 HAProxy 。
++
+选择安装了 Telegraf 代理的操作系统或平台。
+
+. 如果您尚未安装要收集的代理，或者您希望为其他操作系统或平台安装代理，请单击 _Show Instructions_展开 link:task_config_telegraf_agent.html["代理安装"] 说明。
+. 选择要用于此数据收集器的代理访问密钥。您可以通过单击 * + 代理访问密钥 * 按钮来添加新的代理访问密钥。最佳实践：仅当您要按操作系统 / 平台对数据收集器进行分组时，才使用其他代理访问密钥。
+. 按照配置步骤配置数据收集器。这些说明因用于收集数据的操作系统或平台的类型而异。
+
+
+image:HAProxyDCConfigLinux.png["HAProxy 配置"]
+
+
+
+== 设置
+
+Telegraf 的 HAProxy 插件依赖于启用 HAProxy 统计信息。这是一种内置在 HAProxy 中的配置，但它不会开箱即用。启用后， HAProxy 将显示一个 HTML 端点，您可以在浏览器上查看此端点或对其进行擦除，以便提取所有 HAProxy 配置的状态。
+
+
+
+==== 兼容性：
+
+配置是根据 HAProxy 1.0.4 版开发的。
+
+
+
+==== 设置：
+
+要启用统计信息，请编辑您的 haproxy 配置文件，并使用您自己的用户 / 密码和 / 或 haproxy URL 在 " 存储 " 部分后面添加以下行：
+
+[listing]
+----
+stats enable
+stats auth myuser:mypassword
+stats uri  /haproxy?stats
+----
+下面是一个简化的配置文件示例，该配置文件已启用统计信息：
+
+[listing]
+----
+global
+  daemon
+  maxconn 256
+
+defaults
+  mode http
+  stats enable
+  stats uri /haproxy?stats
+  stats auth myuser:mypassword
+  timeout connect 5000ms
+  timeout client 50000ms
+  timeout server 50000ms
+
+frontend http-in
+  bind *:80
+  default_backend servers
+
+frontend http-in9080
+  bind *:9080
+  default_backend servers_2
+
+backend servers
+  server server1 10.128.0.55:8080 check ssl verify none
+  server server2 10.128.0.56:8080 check ssl verify none
+
+backend servers_2
+  server server3 10.128.0.57:8080 check ssl verify none
+  server server4 10.128.0.58:8080 check ssl verify none
+----
+有关完整的最新说明，请参见 link:https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#4-stats%20enable["HAProxy 文档"]。
+
+
+
+== 对象和计数器
+
+将收集以下对象及其计数器：
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| 对象： | 标识符： | 属性： | 数据点： 
+
+
+| HAProxy 前端 | 命名空间地址代理 | 节点 IP 节点名称代理 ID 模式进程 ID 会话速率限制服务器 ID 会话限制状态 | 字节（以字节为单位）传出缓存命中缓存查找压缩字节绕过压缩字节输出压缩响应连接速率连接速率最大连接被连接拒绝的请求总数安全问题拒绝的连接规则请求有关安全问题拒绝的响应有关会话规则请求错误响应 1xx 拒绝的请求 响应 2xx 响应 3xx 响应 4xx 响应 5xx 响应其他请求截获的会话速率会话速率最大请求速率最大请求速率最大请求总会话会话最大会话请求重写总数 
+
+
+| HAProxy 服务器 | 命名空间地址代理服务器 | 节点 IP 节点名称检查完成时间检查秋季配置检查运行状况值检查上升配置检查状态代理 ID 上次更改时间上次会话时间模式进程 ID 服务器 ID 状态权重 | Active Server 备份服务器字节（以字节为单位）输出检查下载检查失败客户端中止连接连接平均时间停机总拒绝响应连接错误响应响应错误响应 1xx 响应 2xx 响应 3xx 响应 5xx 响应其他服务器选择的总队列当前队列最大队列平均时间会话数 每秒第二个会话最大连接重用响应时间平均会话会话最大服务器传输中止会话总会话总时间平均请求重新派单请求重写请求 
+
+
+| HAProxy 后端 | 命名空间地址代理 | 节点 IP 节点名称代理 ID 上次更改时间上次会话时间模式进程 ID 服务器 ID 会话限制状态权重 | Active Server 备份服务器字节（以字节为单位）传出缓存命中缓存查找检查下载客户端中止压缩字节绕过压缩字节（以压缩字节为单位）输出压缩响应连接平均时间停机安全问题拒绝的总请求响应安全问题连接错误响应错误响应 1xx 响应 2xx 响应 3xx 响应 4xx 响应 5xx 响应其他服务器选择的总队列当前队列最大队列平均每秒会话时间最大请求总数连接重复使用响应时间平均会话会话最大服务器传输中止会话总数会话总时间平均请求重新发送请求请求请求重试请求 重写 
+|===
+
+
+== 故障排除
+
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面。

@@ -1,0 +1,81 @@
+---
+sidebar: sidebar 
+permalink: task_dc_ibm_ds4000.html 
+keywords: data collector, IBM, DS4000 
+summary: IBM TotalStorage DS4000 数据收集器 
+---
+= IBM TotalStorage DS4000 数据收集器
+
+
+[role="lead"]
+此数据收集器从 IBM DS4000 存储系统采集清单和性能信息。有两种可能的配置（固件 6.x 和固件 7.x+ ），它们的值相同。
+
+
+
+== 术语
+
+Cloud Insightst 从 IBM DS4000 数据收集器采集以下清单信息。对于所采集的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| Disk | Disk 
+
+
+| 卷组 | 磁盘组 
+
+
+| 存储阵列 | 存储 
+
+
+| 控制器 | 存储节点 
+
+
+| 卷组 | 存储池 
+
+
+| Volume | Volume 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+== 要求
+
+* 每个 DS5 或 FAStT 阵列的 IP 地址
+* 通过对阵列上两个控制器的 IP 地址执行 Ping 操作来验证访问权限
+* 端口要求： 2463
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 阵列 SANtricity 控制器 IP 的逗号分隔列表 | 阵列控制器的 IP 地址和 / 或完全限定域名 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 清单轮询间隔（分钟） | 默认值为 30 分钟 
+
+
+| 性能轮询间隔最长为 3600 秒 | 默认值为 300 秒 
+|===
+
+
+== 故障排除
+
+可从中找到此数据收集器上的追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

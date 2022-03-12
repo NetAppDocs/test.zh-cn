@@ -1,0 +1,27 @@
+---
+sidebar: sidebar 
+permalink: task_display_widget_legends.html 
+summary: 在信息板小工具上显示图例。 
+keywords: dashboard, widget, legends 
+---
+= 显示小工具图例
+:toc: macro
+:hardbreaks:
+:toclevels: 2
+:toc: 
+:toclevels: 2
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+信息板上的小工具可以显示图例，也可以不显示图例。
+
+显示信息板时，可以通过单击小工具上的 * 选项 * 按钮并在菜单中选择 * 显示图例 * 来打开或关闭小工具中的图例。
+
+随着小工具中显示的数据发生变化，该小工具的图例将动态更新。
+
+显示图例时，如果图例指示的资产登录页面可以导航到，则该图例将显示为指向该资产页面的链接。

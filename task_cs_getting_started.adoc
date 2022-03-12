@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: task_cs_getting_started.html 
+keywords: collectors, data collectors, configure, introduction, browsers 
+summary: 只需几个简单的步骤，即可开始使用 Cloud Secure 
+---
+= Cloud Secure 入门
+
+
+在开始使用 Cloud Secure 监控用户活动之前，需要完成一些配置任务。
+
+Cloud Secure 系统使用代理从存储系统收集访问数据，并从目录服务服务器收集用户信息。
+
+在开始收集数据之前，您需要配置以下内容：
+
+[cols="2*"]
+|===
+
+
+| 任务 | 相关信息 
+
+
+| 配置代理  a| 
+link:concept_cs_agent_requirements.html["代理要求"]
+
+link:task_cs_add_agent.html["添加代理"]
+
+link:https://netapp.hubs.vidyard.com/watch/Lce7EaGg7NZfvCUw4Jwy5P?["* 视频 * ：代理部署"]
+
+
+
+| 配置用户目录连接器 | link:task_config_user_dir_connect.html["添加 User Directory Connector"]
+
+link:https://netapp.hubs.vidyard.com/watch/NEmbmYrFjCHvPps7QMy8me?["* 视频 * ： Active Directory 连接"] 
+
+
+| 配置数据收集器 | 单击 * 管理 > 数据收集器 * 单击要配置的数据收集器。请参见文档中的《 Data Collector Vendor Reference 》一节。link:https://netapp.hubs.vidyard.com/watch/YSQrcYA7DKXbj1UGeLYnSF?["* 视频 * ： ONTAP SVM 连接"] 
+
+
+| 创建用户帐户 | link:concept_user_roles.html["管理用户帐户"] 
+
+
+| 故障排除 | link:https://netapp.hubs.vidyard.com/watch/Fs8N2w9wBtsFGrhRH9X85U?["* 视频 * ：故障排除"] 
+|===

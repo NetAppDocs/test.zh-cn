@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: task_device_resolution_ip.html 
+keywords: Automatic, AR, AHR, Host, automatic device resolution, FC, Identify 
+summary:  
+---
+= IP 设备解析
+
+
+[role="lead"]
+"IP Identify" 屏幕将显示通过自动设备解析或手动设备解析标识的任何 iSCSI 和 CIFS 或 NFS 共享。此外，还会显示未标识的设备。此屏幕包括设备的 IP 地址，名称，状态， iSCSI 节点和共享名称。此外，还会显示已成功标识的设备的百分比。
+
+image:Device_Resolution_IP.png["IP 设备解析"]
+
+
+
+==== 手动添加 IP 设备
+
+您可以使用 "IP Identify" 屏幕中提供的手动添加功能将 IP 设备手动添加到 Cloud Insights 。
+
+.操作步骤
+. 登录到 Cloud Insights Web UI 。
+. 单击 * 管理 > 设备解析 *
+. 单击 * IP 地址标识 * 选项卡。
+. 单击 * 添加 * 按钮。
++
+此时将显示添加设备对话框
+
+. 输入地址， IP 地址和唯一设备名称。
+
+
+您输入的设备将添加到 "IP Address Identify" 选项卡的设备列表中。
+
+
+
+==== 从 .CSV 文件导入 IP 设备标识
+
+您可以使用 .CSV 文件中的设备标识列表将 IP 设备标识手动导入到设备解析功能中。
+
+. 开始之前
+
+
+您必须具有格式正确的 .CSV 文件，才能将设备标识直接导入到设备解析功能中。IP 设备的 .CSV 文件需要以下信息：
+
+|===
+
+
+| Address | IP | Name 
+|===
+数据字段必须用引号括起来，如以下示例所示。
+
+....
+"Address","IP","Name"
+"ADDRESS6447","IP6447","NAME-6447"
+"ADDRESS3211","IP3211","NAME-3211"
+"ADDRESS593","IP593","NAME-593"
+....
+
+NOTE: 作为最佳实践，建议先将 IP Address Identify 信息导出到 .CSV 文件，在该文件中进行所需的更改，然后再将该文件导回 IP Address Identify 。这样可以确保所需列的存在顺序正确。
+
+
+
+==== 将 IP 设备标识导出到 .CSV 文件
+
+您可以通过 Cloud Insights 设备解析功能将现有 IP 设备标识导出到 .CSV 文件。您可能希望导出设备标识，以便对其进行修改，然后将其导回 Cloud Insights ，在此可以使用它来标识与导出标识最初匹配的设备类似的设备。
+
+。如果设备具有类似的属性，可以在 .CSV 文件中轻松编辑这些属性，然后将其导回系统，则可能会出现此情况。
+
+将 IP 设备标识导出到 .CSV 文件时，该文件将按所示顺序包含以下信息：
+
+|===
+
+
+| Address | IP | Name 
+|===
+.操作步骤
+. 登录到 Cloud Insights Web UI 。
+. 单击 * 管理 > 设备解析 *
+. 选择 * IP 地址标识 * 选项卡。
+. 选择要导出其标识的 IP 设备。
+. 单击 * 导出 * image:ExportButton.png[""] 按钮。
++
+选择是打开 .CSV 文件还是保存文件。
+
+
+
+相关：link:task_device_resolution_fibre_channel.html["光纤通道设备解析"]
+
+

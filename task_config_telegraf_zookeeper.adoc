@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_zookeeper.html 
+keywords: telegraf, installation, install, apache, zookeeper 
+summary: Apache Zookeeper 数据收集器配置 
+---
+= Zookeeper Data Collector
+
+
+[role="lead"]
+Cloud Insights 使用此数据收集器从 Apache Zookeeper 收集指标。
+
+
+
+== 安装
+
+. 在 * 管理 > 数据收集器 * 中，单击 * + 数据收集器 * 。在 * 服务 * 下，选择 Apache Zookeeper 。
++
+选择安装了 Telegraf 代理的操作系统或平台。
+
+. 如果您尚未安装要收集的代理，或者您希望为其他操作系统或平台安装代理，请单击 _Show Instructions_展开 link:task_config_telegraf_agent.html["代理安装"] 说明。
+. 选择要用于此数据收集器的代理访问密钥。您可以通过单击 * + 代理访问密钥 * 按钮来添加新的代理访问密钥。最佳实践：仅当您要按操作系统 / 平台对数据收集器进行分组时，才使用其他代理访问密钥。
+. 按照配置步骤配置数据收集器。这些说明因用于收集数据的操作系统或平台的类型而异。
+
+
+image:ZookeeperDCConfigLinux.png["Zookeeper 配置"]
+
+
+
+== 设置
+
+至少需要允许 Zookeeper 使用四个字母 server 命令 _Mntr_ ， _Srvr_ 和 _stat_ 。您可以使用以下格式启用这些命令： _zoo .cfg_ 文件中的 _4lw.commands.whitelist=mntr ， Srvr ， stat_ 。您的配置可能还需要其他四个字母的命令。请参见 link:https://zookeeper.apache.org/["Zookeeper"] 有关详细信息，请参见相关文档。
+
+
+
+== 对象和计数器
+
+将收集以下对象及其计数器：
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| 对象： | 标识符： | 属性： | 数据点： 
+
+
+| Zookeeper | 命名空间服务器 | 状态节点 IP 节点名称端口 | 近似数据大小平均延迟时间统计最大文件描述符计数最大延迟最小活动连接延迟数打开文件描述符计数未处理的请求监视计数 Znode 计数 
+|===
+
+
+== 故障排除
+
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面。

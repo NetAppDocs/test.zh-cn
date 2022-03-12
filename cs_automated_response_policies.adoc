@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: cs_automated_response_policies.html 
+keywords: alert, snapshot, ransomware, attack 
+summary: 您可以为潜在攻击（例如勒索软件）和 / 或活动警告设置自动响应策略 
+---
+= 自动响应策略
+
+
+[role="lead"]
+响应策略会触发一些操作，例如在发生攻击或用户行为异常时创建快照或限制用户访问。
+
+您可以在特定设备或所有设备上设置策略。要设置响应策略，请选择 * 管理员 > 自动响应策略 * ，然后单击相应的 * + 策略 + 按钮。您可以为攻击或警告创建策略。
+
+image:AutomatedAttackPolicy.png["创建攻击策略"]
+
+您必须使用唯一名称保存策略。
+
+要禁用自动响应操作（例如，创建 Snapshot ），只需取消选中该操作并保存策略即可。
+
+当针对指定设备（或所有设备，如果已选择）触发警报时，自动响应策略将为您的数据创建快照。您可以在上查看快照状态 link:cs_alert_data.html#the-alert-details-page["警报详细信息页面"]。
+
+请参见 link:cs_restrict_user_access.html["限制用户访问"] 第页，了解有关通过 IP 限制用户访问的更多详细信息。
+
+您可以通过在策略的下拉菜单中选择相应选项来修改或暂停自动响应策略。
+
+Cloud Secure 将根据 Snapshot 清除设置每天自动删除一次快照。
+
+image:CloudSecure_SnapshotPurgeSettings.png["Snapshot 清除设置"]

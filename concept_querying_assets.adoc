@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: concept_querying_assets.html 
+summary: 查询概述 
+keywords: query, queries, Application, Datastore, Disk, Fabric, Generic Device, Host, Internal Volume, iSCSI, Network, Portal, Path, Port, Qtree, Quota, Share, Storage, Node, Pool, SVM, Switch, Tape, VMDK, Virtual Machine, VM, Volume, Zone, Member 
+---
+= 查询中使用的资产
+
+
+[role="lead"]
+通过查询，您可以根据用户选择的标准（例如标注）在粒度级别搜索环境中的资产和指标，从而监控网络并对其进行故障排除。
+
+请注意，标注规则会自动为资产分配标注， _require_ 查询。
+
+您可以查询环境中的物理或虚拟清单资产（及其关联指标），或者查询通过集成提供的指标，例如 Kubernetes 或 ONTAP 高级数据。
+
+
+
+=== 清单资产
+
+以下资产类型可用于查询，信息板小工具和自定义资产登录页面。可用于筛选器，表达式和显示的字段和计数器因资产类型而异。并非所有资产都可以在所有小工具类型中使用。
+
+* 应用程序
+* 数据存储库
+* Disk
+* 网络结构
+* 通用设备
+* 主机
+* 内部卷
+* iSCSI 会话
+* iSCSI 网络门户
+* 路径
+* Port
+* qtree
+* 配额
+* 共享
+* 存储
+* 存储节点
+* 存储池
+* Storage Virtual Machine （ SVM ）
+* 交换机
+* 磁带
+* VMDK
+* 虚拟机
+* Volume
+* 分区
+* 区域成员
+
+
+
+
+=== 集成度量指标
+
+除了查询清单资产及其关联的性能指标之外，您还可以查询 * 集成数据 * 指标，例如由 Kubernetes 或 Docker 生成或随 ONTAP 高级指标提供的指标。
+
+image:QueryPageFilter.png["集成查询筛选器示例"]

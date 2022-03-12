@@ -1,0 +1,163 @@
+---
+sidebar: sidebar 
+permalink: task_dc_emc_vmax_powermax.html 
+keywords: data collector, EMC, DELL, vmax, powermax 
+summary: 配置 Dell EMC VMAX 和 PowerMax 系列设备数据收集器。 
+---
+= Dell EMC VMAX 和 PowerMax 系列设备数据收集器
+
+
+[role="lead"]
+Cloud Insights 可通过将 Solutions Enabler SYMCLI 命令与环境中的现有 Solutions Enabler 服务器结合使用来发现 EMC VMAX 和 PowerMax 存储阵列。现有 Solutions Enabler 服务器可通过访问 Gatekeeper 卷连接到 VMAX/PowerMax 存储阵列。
+
+
+
+== 要求
+
+在配置此数据收集器之前，您应确保 Cloud Insights 与现有 Solutions Enabler 服务器上的端口 2707 具有 TCP 连接。Cloud Insights 会发现此服务器 " 本地 " 的所有 Symmetrix 阵列，如该服务器的 "symcfg list" 输出所示。
+
+* 必须在采集单元服务器上安装带有 SMI-S 提供程序应用程序的 EMC Solutions Enabler （ CLI ），并且此版本必须与 Solutions Enabler 服务器上运行的版本匹配或早于此版本。
+* 需要一个正确配置的 ｛ installdir ｝ \EMC\SYMAPI\config\netcnfg 文件。此文件定义 Solutions Enabler 服务器的服务名称以及访问方法（ SECURE / NOSECURE /ANY ）。
+* 如果在存储节点级别需要读 / 写延迟， SMI-S Provider 必须与正在运行的 Unisphere for VMAX 应用程序实例进行通信。
+* 管理解决方案启用程序服务器的 IP 地址
+* Solutions Enabler （ SE ）服务器上的管理员权限
+* SE 软件的只读用户名和密码
+* Solutions Enabler Server 6.5X 要求：
++
+** 安装了适用于 SMIS-S V1.2 的 MI-S Provider 3.3.1
+** 安装后，运行 \Program Files\EMC\SYMCLI\bin>stordaemon start storsrvd
+
+
+* 适用于 VMAX 的 Unisphere 应用程序必须正在运行并收集由 SMI-S Provider 安装管理的 EMC VMAX 和 PowerMax sstorage 阵列的统计信息
+* 访问验证：验证 SMI-S 提供程序是否正在运行： Telnet <se_server> 5988
+
+
+
+
+== 术语
+
+Cloud Insights 从 EMC VMAX/PowerMax 数据源采集以下清单信息。对于所采集的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| Disk | Disk 
+
+
+| 磁盘组 | 磁盘组 
+
+
+| 存储 | 阵列存储 
+
+
+| 总监 | 存储节点 
+
+
+| 设备池，存储资源池（ SRP ） | 存储池 
+
+
+| 设备 TDev | Volume 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+== Configuration
+
+* 注： * 如果未启用 SMI-S 用户身份验证，则会忽略 Cloud Insights 数据收集器中的默认值。
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 服务名称 | 在 _netcnfg_ 文件中指定的服务名称 
+
+
+| CLI 的完整路径 | 包含 Symmetrix 命令行界面的文件夹的完整路径 
+
+
+| SMI-S 主机 IP 地址 | SMI-S 主机的 IP 地址 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 清单轮询间隔（分钟） | 两次清单轮询的间隔。默认值为 40 分钟。 
+
+
+| 选择 " 排除 " 或 " 包括 " 以指定列表 | 指定在收集数据时是包含还是排除以下阵列列表。 
+
+
+| 清单筛选器设备列表 | 要包含或排除的设备 ID 的逗号分隔列表 
+
+
+| 连接缓存 | 选择连接缓存方法： * local 表示 Cloud Insights 采集服务正在 Solutions Enabler 服务器上运行，该服务器可通过光纤通道连接到您要发现的 Symmetrix 阵列，并可访问 Gatekeeper 卷。在某些远程采集单元（ RAU ）配置中可能会出现这种情况。* remote_cached 为默认值，大多数情况下应使用。这将使用 NETCNFG 文件设置通过 IP 连接到 Solutions Enabler 服务器，该服务器必须通过光纤通道连接到您要发现的 Symmetrix 阵列，并有权访问 Gatekeeper 卷。* 如果 remote_cached 选项使 CLI 命令失败，请使用 remote 选项。请注意，这会减慢采集过程的速度（在极端情况下可能会减慢到数小时甚至数天）。NETCNFG 文件设置仍用于通过 IP 连接到 Solutions Enabler 服务器，该服务器通过光纤通道连接到正在发现的 Symmetrix 阵列。* 注： * 此设置不会更改与 "symcfg list" 输出中列为 REMOTE 的阵列相关的 Cloud Insights 行为。Cloud Insights 仅收集此命令显示为 local 的设备上的数据。 
+
+
+| SMI-S 协议 | 用于连接到 SMI-S 提供程序的协议。还会显示使用的默认端口。 
+
+
+| 覆盖 SMIS-Port | 如果为空，请使用连接类型字段中的默认端口，否则输入要使用的连接端口 
+
+
+| SMI-S 用户名 | SMI-S Provider 主机的用户名 
+
+
+| SMI-S 密码 | SMI-S Provider 主机的用户名 
+
+
+| 性能轮询间隔（秒） | 性能轮询之间的时间间隔（默认值为 1000 秒） 
+
+
+| 请选择 " 排除 " 或 " 包括 " 以指定列表 | 指定在收集性能数据时是包含还是排除以下阵列列表 
+
+
+| 性能筛选器设备列表 | 要包含或排除的设备 ID 的逗号分隔列表 
+|===
+
+
+== 故障排除
+
+如果此数据收集器出现问题，请尝试执行以下操作：
+
+
+
+==== 清单
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 错误：请求的功能当前未获得许可 | 安装 SYMAPI 服务器许可证。 
+
+
+| 错误：未找到任何设备 | 确保 Symmetrix 设备已配置为由 Solutions Enabler 服务器管理： - 运行 symcfg list -v 以查看已配置的 Symmetrix 设备列表。 
+
+
+| 错误：在服务文件中未找到请求的网络服务 | 确保已为 Solutions Enabler 定义 Solutions Enabler 服务名称的 netcnfg 文件。此文件通常位于 Solutions Enabler 客户端安装中的 SYMAP1\config\ 下。 
+
+
+| 错误：远程客户端 / 服务器握手失败 | 检查我们正在尝试发现的 Solutions Enabler 主机上的最新 storsrvt.log* 文件。 
+
+
+| 错误：客户端证书中的公用名无效 | 编辑 Solutions Enabler 服务器上的 _hosts_ 文件，以便采集单元的主机名解析为 Solutions Enabler 服务器上 storsrvd.log 中报告的 IP 地址。 
+
+
+| error ：此功能无法获取内存 | 确保系统中有足够的可用内存来执行 Solutions Enabler 
+
+
+| 错误： Solutions Enabler 无法提供所需的所有数据。 | 调查 Solutions Enabler 的运行状况和负载特征 
+
+
+| 错误：•使用 Solutions Enabler 7.x 从 Solutions Enabler 服务器 8.x 收集数据时， "symcfg list -tdev" 命令行界面命令可能会返回不正确的数据•使用 Solutions Enabler 8.1.0 或更早版本从 Solutions Enabler 服务器 8.3 或更高版本收集数据时， "symcfg list -SRP-CLI 命令可能会返回不正确的数据。 | 请确保您使用的是相同的 Solutions Enabler 主要版本 
+|===
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

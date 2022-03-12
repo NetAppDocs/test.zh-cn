@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: forensic_entity_detail.html 
+keywords: Forensic, entity, entity overview, entity behavior, entities 
+summary: 取证实体页面 
+---
+= 取证实体页面
+:hardbreaks:
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+" 取证实体 " 页面提供了有关环境中实体活动的详细信息。
+
+
+
+== 检查实体信息
+
+单击 * 取证 > 活动取证 * ，然后单击 _entities_ 选项卡以访问实体页面。
+
+此页面简要介绍了环境中的实体活动，并重点介绍了以下信息： * 显示每分钟访问的 _unique entities_ 的图形 * 已访问的 _Entity types 的图表 * _ 通用路径 _ 的细分 * 在实体总数中排名前 50 位的实体 _ 的列表
+
+image:CS-Entities-Page.png["实体页面"]
+
+单击列表中的某个实体将打开该实体的概述页面，其中显示了该实体的配置文件，其中包含名称，类型，设备名称，最常访问的位置 IP 和路径等详细信息，以及用户， IP ， 和上次访问实体的时间。
+
+image:CS-entity-detail-page.png["实体概述页面"]

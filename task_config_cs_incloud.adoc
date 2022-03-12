@@ -1,0 +1,54 @@
+---
+sidebar: sidebar 
+permalink: task_config_cs_incloud.html 
+keywords: Cloud, Storage, AWS, Cloud Volumes, Cloud ONTAP, firewall, VPC, Subnet, 
+summary: Cloud Secure 使用数据收集器从设备收集文件和用户访问数据。 
+---
+= 配置 Cloud Volumes ONTAP 数据收集器
+
+
+[role="lead"]
+Cloud Secure 使用数据收集器从设备收集文件和用户访问数据。
+
+
+
+== Cloud Volumes ONTAP 存储配置
+
+要配置单节点 /HA AWS 实例以托管 Cloud Secure 代理，请参见 OnCommand 云管理器文档：https://docs.netapp.com/us-en/occm/index.html[]
+
+配置完成后，按照以下步骤设置 SVM ：https://docs.netapp.com/us-en/cloudinsights/task_add_collector_svm.html[]
+
+
+
+== 代理计算机配置
+
+按照以下步骤配置要用作 Cloud Secure 代理的计算机：
+
+.步骤
+. 登录到 AWS 控制台并导航到 EC2-Instances 页面，然后选择 _Launch Instance_ 。
+. 选择具有此页面中所述的相应版本的 RHEL 或 CentOS AMI ：https://docs.netapp.com/us-en/cloudinsights/concept_cs_agent_requirements.html[]
+. 选择 Cloud ONTAP 实例所在的 VPC 和子网。
+. 选择 _t2.xlarge_ （ 4 个 vCPU 和 16 GB RAM ）作为已分配的资源。
++
+.. 创建 EC2 实例。
+
+
+. 使用 YUM 软件包管理器安装所需的 Linux 软件包：
++
+.. 安装 _wget_ 和 _unzip _ 原生 Linux 软件包。
+
+
+
+
+
+
+== 安装 Cloud Secure 代理
+
+. 以管理员或帐户所有者身份登录到您的 Cloud Insights 环境。
+. 导航到 Cloud Secure * 管理 > 数据收集器 * ，然后单击 * 代理 * 选项卡。
+. 单击 * + 代理 * 并指定 RHEL 作为目标平台。
+. 复制代理安装命令。
+. 将代理安装命令粘贴到您已登录的 RHEL EC2 实例中。此时将安装 Cloud Secure 代理，并提供所有 link:concept_cs_agent_requirements.html["代理前提条件"] 已满足。
+
+
+有关详细步骤，请参见以下链接： https://docs.netapp.com/us-en/cloudinsights/task_cs_add_agent.html#steps-to-install-agent

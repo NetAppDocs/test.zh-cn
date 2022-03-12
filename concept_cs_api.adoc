@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: concept_cs_api.html 
+keywords: api, access, token, swagger 
+summary: Cloud Secure 包含一个功能强大的 API ，可与 CMDB 等其他应用程序集成。 
+---
+= Cloud Secure API
+
+
+[role="lead"]
+NetApp 客户和独立软件供应商（ ISV ）可以通过 Cloud Secure API 将 Cloud Secure 与其他应用程序集成，例如 CMDB 或其他票证系统。
+
+API 访问要求：
+
+* API 访问令牌模型用于授予访问权限。
+* API 令牌管理由具有管理员角色的 Cloud Secure 用户执行。
+
+
+
+
+== API 文档（ Swagger ）
+
+登录到 Cloud Secure 并导航到 * 管理 > API 访问 * 可查看最新的 API 信息。单击 * API Documentation" 链接。API 文档基于 Swagger ，其中提供了 API 的简短问题描述和使用情况信息，您可以在环境中试用这些文档。
+
+
+
+== API 访问令牌
+
+在使用 Cloud Secure API 之前，必须创建一个或多个 * API 访问令牌 * 。访问令牌授予读取权限。您还可以为每个访问令牌设置到期时间。
+
+创建访问令牌：
+
+* 单击 * 管理 > API 访问 *
+* 单击 * + API 访问令牌 *
+* 输入 * 令牌名称 *
+* 指定 * 令牌到期 *
+
+
+
+NOTE: 您的令牌只能在创建过程中复制到剪贴板并进行保存。令牌创建后无法检索，因此强烈建议复制令牌并将其保存在安全位置。系统将提示您单击复制 API 访问令牌按钮，然后才能关闭令牌创建屏幕。
+
+您可以禁用，启用和撤消令牌。可以启用已禁用的令牌。
+
+令牌可从客户的角度授予对 API 的通用访问权限，并可在其自身环境范围内管理对 API 的访问。
+
+在用户成功进行身份验证并授权访问后，应用程序会收到访问令牌，然后在调用目标 API 时将访问令牌作为凭据传递。传递的令牌将通知 API 令牌的持有人已获得访问 API 的授权，并根据授权期间授予的范围执行特定操作。
+
+传递访问令牌的 HTTP 标头为 * 。 X-CloudInsights ApiKey ： *
+
+例如，使用以下命令检索存储资产：
+
+ curl https://<tenant_host_name>/rest/v1/cloudsecure/activities -H 'X-CloudInsights-ApiKey: <API_Access_Token>'
+其中， _<API_Access_Token>_ 是您在创建 API 访问密钥期间保存的令牌。
+
+有关详细信息，请参见 _API Documentation_ 链接中的 * 管理 > API 访问 * 。

@@ -1,0 +1,113 @@
+---
+sidebar: sidebar 
+permalink: concept_cs_agent_requirements.html 
+summary: 用作代理的服务器或 VM 必须满足最低要求 
+keywords: agent, Linux, requirements, docker, browsers, permissions, Network 
+---
+= 代理要求
+
+
+[role="lead"]
+您必须 link:task_cs_add_agent.html["安装代理"] 以便从数据收集器获取信息。在安装 Agent 之前，您应确保环境满足操作系统， CPU ，内存和磁盘空间要求。
+
+[cols="36,60"]
+|===
+| 组件 | Linux 要求 
+
+
+| 操作系统 | 运行以下任一许可版本的计算机： Red Hat Enterprise Linux 7.x ， 8.x 64 位 CentOS 7.x 64 位 CentOS 8 流此计算机不应运行任何其他应用程序级别的软件。建议使用专用服务器。 
+
+
+| 命令 | 要安装，运行脚本和卸载，需要使用 "sudo su – " 命令。 
+
+
+| CPU | 4 个 CPU 核 
+
+
+| 内存 | 16 GB RAM 
+
+
+| 可用磁盘空间 | 应按以下方式分配磁盘空间： /opt/netapp 25-30 GB 
+
+
+| 网络 | 100 Mbps 到 1 Gbps 以太网连接，静态 IP 地址，与所有设备的 IP 连接以及与 Cloud Secure 实例的所需端口（ 80 或 443 ）。 
+|===
+请注意： Cloud Secure 代理可以与 Cloud Insights 采集单元和 / 或代理安装在同一台计算机上。但是，最佳做法是在不同的计算机上安装这些软件。如果这些磁盘安装在同一台计算机上，请按如下所示分配磁盘空间：
+
+|===
+
+
+| 可用磁盘空间 | 对于 Linux ，应按以下方式分配磁盘空间： /opt/netapp 25-30 GB /var/log/netapp 25 GB 
+|===
+
+
+=== 其他建议
+
+* 强烈建议使用 * 网络时间协议（ NTP ） * 或 * 简单网络时间协议（ SNTP ） * 来同步 ONTAP 系统和代理计算机上的时间。
+
+
+
+
+== 云网络访问规则
+
+对于 * 基于美国 * 的 Cloud Secure 环境：
+
+[cols="5*"]
+|===
+| 协议 | Port | 目标 | 方向 | Description 
+
+
+| TCP | 443. | <site_name>.cs01.cloudinsights.netapp.com <site_name>.c01.cloudinsights.netapp.com <site_name>.c02.cloudinsights.netapp.com | 出站 | 访问 Cloud Insights 
+
+
+| TCP | 443. | gateway.c01.cloudinsights.netapp.com agentlogin.cs01.cloudinsights.netapp.com | 出站 | 访问身份验证服务 
+|===
+对于 * 基于欧洲 * 的 Cloud Secure 环境：
+
+[cols="5*"]
+|===
+| 协议 | Port | 目标 | 方向 | Description 
+
+
+| TCP | 443. | <site_name>.cs01-eu-1.cloudinsights.netapp.com <site_name>.c01-eu-1.cloudinsights.netapp.com <site_name>.c02-eu-1.cloudinsights.netapp.com | 出站 | 访问 Cloud Insights 
+
+
+| TCP | 443. | gateway.c01.cloudinsights.netapp.com agentlogin.cs01-eu-1.cloudinsights.netapp.com | 出站 | 访问身份验证服务 
+|===
+对于 * 基于亚太地区 * 的 Cloud Secure 环境：
+
+[cols="5*"]
+|===
+| 协议 | Port | 目标 | 方向 | Description 
+
+
+| TCP | 443. | <site_name>.cs01-ap-1.cloudinsights.netapp.com <site_name>.c01-ap-1.cloudinsights.netapp.com <site_name>.c02-ap-1.cloudinsights.netapp.com | 出站 | 访问 Cloud Insights 
+
+
+| TCP | 443. | gateway.c01.cloudinsights.netapp.com agentlogin.cs01-ap-1.cloudinsights.netapp.com | 出站 | 访问身份验证服务 
+|===
+
+
+== 网络内规则
+
+[cols="5*"]
+|===
+| 协议 | Port | 目标 | 方向 | Description 
+
+
+| TCP | 389 （ LDAP ） 636 （ LDAPS / START-TLS ） | LDAP 服务器 URL | 出站 | 连接到 LDAP 
+
+
+| TCP | 443. | SVM 管理 IP 地址 | 出站 | 与 ONTAP 的 API 通信 
+
+
+| TCP | 35000 - 55000 | SVM 数据 LIF IP 地址 | 入站 / 出站 | 与 ONTAP 通信以处理 Fpolicy 事件 
+
+
+| TCP | 7. | SVM 数据 LIF IP 地址 | 出站 | 在 ONTAP 和 Cloud Secure 之间实现双向。代理对 SVM LIF 执行 Ping 操作。 
+|===
+
+
+==== 相关：
+
+请参见 link:concept_cs_event_rate_checker.html["事件速率检查器"] 有关规模估算的信息的文档。

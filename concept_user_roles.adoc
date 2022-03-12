@@ -1,0 +1,223 @@
+---
+sidebar: sidebar 
+permalink: concept_user_roles.html 
+keywords: roles, guest, user, administrator, SSO, Federate, federation, identity, single sign-on, Account Owner, Reporting, Cloud Secure 
+summary: Cloud Insights 提供了多个具有不同权限级别的用户帐户。 
+---
+= 用户帐户和角色
+
+
+[role="lead"]
+Cloud Insights 最多可提供四个用户帐户角色：帐户所有者，管理员，用户和来宾。为每个帐户分配特定的权限级别，如下表所示。（请注意， _User_ 和 _Guest_ 角色在 Cloud Secure 功能中不可用。）用户可以是其中之一 link:#creating-accounts-by-inviting-users["已邀请"] Cloud Insights 并分配了特定角色，或者可以通过登录  具有默认角色。Cloud Insights 高级版提供了 SSO 授权功能。
+
+
+
+== 权限级别
+
+您可以使用具有管理员权限的帐户来创建或修改用户帐户。每个用户帐户都会从以下权限级别为每个 Cloud Insights 功能分配一个角色。
+
+|===
+| Role | 监控 | Cloud Secure | 报告 
+
+
+| 帐户所有者 3+| 可以修改订阅，查看计费和使用情况信息，并执行监控和优化， Cloud Secure 和报告的所有管理员功能。所有者还可以邀请和管理用户，以及管理 SSO 身份验证和身份联合设置。注册 Cloud Insights 时会创建第一个帐户所有者。强烈建议每个 Cloud Insights 环境至少有两个帐户所有者。  
+
+
+| 管理员 | 可以执行所有监控和优化功能，所有用户功能以及数据收集器， API 密钥和通知管理。管理员还可以邀请其他用户，但只能分配 " 监控 " 和 " 优化 " 角色。 | 可以执行所有 Cloud Secure 功能，包括警报，取证，数据收集器，自动响应策略和 Cloud Secure API 等功能。管理员还可以邀请其他用户，但只能分配 Cloud Secure 角色。 | 可以执行所有用户 / 作者功能以及所有管理任务，例如配置报告以及关闭和重新启动报告任务。管理员还可以邀请其他用户，但只能分配报告角色。 
+
+
+| 用户 | 可以查看和修改信息板，查询，警报，标注，标注规则， 和应用程序，并管理设备解析。 | 可以查看和管理警报以及查看取证。用户角色可以更改警报状态，添加注释，手动创建快照以及管理限制用户访问。 | 可以执行所有来宾 / 使用者功能以及创建和管理报告和信息板。 
+
+
+| 来宾 | 对资产页面，信息板，警报具有只读访问权限，并且可以查看和运行查询。 | 可以查看警报和取证。来宾角色不能更改警报状态，添加备注，手动创建快照或限制用户访问。 | 可以查看，计划和运行报告并设置个人首选项，例如语言和时区的首选项。来宾 / 使用者无法创建报告或执行管理任务。 
+|===
+最佳实践是限制具有管理员权限的用户数量。最大数量的帐户应为用户或来宾帐户。
+
+
+
+=== 按用户角色划分的 Cloud Insights 权限
+
+下表显示了为每个用户角色授予的 Cloud Insights 权限。
+
+|===
+
+
+| 功能 | 管理员 / 帐户所有者 | 用户 | 来宾 
+
+
+| 采集单元：添加 / 修改 / 删除 | Y | 不包括 | 不包括 
+
+
+| 警报 * ：创建 / 修改 / 删除 | Y | Y | 不包括 
+
+
+| 警报 * ：查看 | Y | Y | Y 
+
+
+| 标注规则：创建 / 运行 / 修改 / 删除 | Y | Y | 不包括 
+
+
+| 标注：创建 / 修改 / 分配 / 查看 / 删除 / 删除 | Y | Y | 不包括 
+
+
+| API Access* ：创建 / 重命名 / 禁用 / 撤消 | Y | 不包括 | 不包括 
+
+
+| 应用程序：创建 / 查看 / 修改 / 删除 | Y | Y | 不包括 
+
+
+| 资产页面：修改 | Y | Y | 不包括 
+
+
+| 资产页面：查看 | Y | Y | Y 
+
+
+| Audit ：查看 | Y | 不包括 | 不包括 
+
+
+| 云成本 | Y | 不包括 | 不包括 
+
+
+| Cloud Secure | Y | 不包括 | 不包括 
+
+
+| 信息板：创建 / 修改 / 删除 | Y | Y | 不包括 
+
+
+| 信息板：查看 | Y | Y | Y 
+
+
+| 数据收集器：添加 / 修改 / 轮询 / 删除 | Y | 不包括 | 不包括 
+
+
+| 通知：查看 / 修改 | Y | 不包括 | 不包括 
+
+
+| 查询：创建 / 修改 / 删除 | Y | Y | 不包括 
+
+
+| 查询：查看 / 运行 | Y | Y | Y 
+
+
+| 设备解析 | Y | Y | 不包括 
+
+
+| 报告 * ：查看 / 运行 | Y | Y | Y 
+
+
+| 报告 * ：创建 / 修改 / 删除 / 计划 | Y | Y | 不包括 
+
+
+| 订阅：查看 / 修改 | Y | 不包括 | 不包括 
+
+
+| 用户管理：邀请 / 添加 / 修改 / 停用 | Y | 不包括 | 不包括 
+|===
+* 需要高级版
+
+
+
+== 通过邀请用户创建帐户
+
+可通过 Cloud Central 创建新用户帐户。用户可以对通过电子邮件发送的邀请做出响应，但如果用户没有 Cloud Central 帐户，则需要注册到 Cloud Central 才能接受邀请。
+
+.开始之前
+* 用户名是邀请函的电子邮件地址。
+* 了解要分配的用户角色。
+* 密码由用户在注册过程中定义。
+
+
+.步骤
+. 登录到 Cloud Insights
+. 在菜单中，单击 * 管理员 > 用户管理 *
++
+此时将显示 User Management 屏幕。此屏幕包含系统上所有帐户的列表。
+
+. 单击 * + User*
++
+此时将显示 * 邀请用户 * 屏幕。
+
+. 输入一个或多个邀请电子邮件地址。
++
+* 注意： * 输入多个地址时，这些地址都是使用相同角色创建的。您只能将多个用户设置为同一角色。
+
+
+
+. 为 Cloud Insights 的每个功能选择用户的角色。
++
+
+NOTE: 您可以选择的功能和角色取决于您以特定管理员角色访问的功能。例如，如果您只具有报告管理员角色，则可以将用户分配给报告中的任何角色，但不能为监控和优化或 Cloud Secure 分配角色。
+
++
+image:UserRoleChoices.png["用户角色选择"]
+
+. 单击 * 邀请 *
++
+此时将向用户发送邀请。用户有 14 天的时间接受此邀请。用户接受邀请后，将被带到 NetApp 云门户，并使用邀请函中的电子邮件地址进行注册。如果他们拥有该电子邮件地址的现有帐户，则只需登录即可访问其 Cloud Insights 环境。
+
+
+
+
+
+== 删除用户
+
+具有管理员角色的用户可以通过单击用户的名称并单击对话框中的 _Delete User_ 来删除用户（例如，不再与公司合作的用户）。此用户将从 Cloud Insights 环境中删除。
+
+请注意，即使删除用户，用户创建的任何信息板，查询等也将在 Cloud Insights 环境中保持可用。
+
+
+
+== 单点登录（ SSO ）和身份联合
+
+
+
+=== 在 Cloud Insights 中为 SSO 启用身份联合
+
+使用身份联合：
+
+* 身份验证会使用企业目录中的客户凭据以及多因素身份验证（ Multi-Factor Authentication ， MFA ）等自动化策略委派给客户的身份管理系统。
+* 用户一次登录到所有 NetApp 云服务（单点登录）。
+
+
+用户帐户在 NetApp Cloud Central for All Cloud Services 中进行管理。默认情况下，身份验证使用 Cloud Central 本地用户配置文件完成。下面简要概述了该过程：
+
+image:CloudCentralAuthentication.png["Cloud Central 身份验证"]
+
+但是，某些客户希望使用自己的身份提供程序对 Cloud Insights 及其其他 NetApp 云中心服务的用户进行身份验证。通过身份联合， NetApp Cloud Central 帐户将使用公司目录中的凭据进行身份验证。
+
+以下是该过程的简化示例：
+
+image:IdentityFederationDiagram-2.png["说明了身份联合"]
+
+在上图中，当用户访问 Cloud Insights 时，系统会将该用户定向到客户的身份管理系统进行身份验证。帐户通过身份验证后，用户将定向到 Cloud Insights 租户 URL 。
+
+Cloud Central 使用 Auth0 实施身份联合并与 Active Directory 联合身份验证服务（ Active Directory Federation Services ， ADFS ）和 Microsoft Azure Active Directory （ AD ）等服务集成。有关身份联合设置和配置的详细信息，请参见上的 Cloud Central 文档 link:https://services.cloud.netapp.com/misc/federation-support["身份联合"]。
+
+请务必了解， Cloud Central 中不断变化的身份联合不仅适用于 Cloud Insights ，而且适用于所有 NetApp 云服务。客户应与 NetApp 团队讨论他们拥有的每个 Cloud Central 产品的这一变更，以确保他们所使用的配置可与身份联合配合使用，或者是否需要对任何客户进行调整。客户还需要让内部 SSO 团队参与身份联合的变更。
+
+此外，还必须认识到，一旦启用身份联合，公司身份提供程序的任何更改（例如从 SAML 迁移到 Microsoft AD ）都可能需要在 Cloud Central 中进行故障排除 / 更改 / 关注才能更新用户的配置文件。
+
+
+
+=== 单点登录（ SSO ）用户自动配置
+
+除了邀请用户之外，管理员还可以为公司域中的所有用户启用 * 单点登录（ SSO ）用户自动配置 * 对 Cloud Insights 的访问，而无需单独邀请用户。启用 SSO 后，具有相同域电子邮件地址的任何用户均可使用其公司凭据登录到 Cloud Insights 。
+
+
+NOTE: _SSO 用户自动配置 _ 在 Cloud Insights 高级版中可用，必须先进行配置，然后才能为 Cloud Insights 启用它。SSO 用户自动配置包括 link:https://services.cloud.netapp.com/misc/federation-support["身份联合"] 通过 NetApp Cloud Central ，如上一节所述。联合允许单点登录用户使用安全断言标记语言 2.0 （ SAML ）和 OpenID Connect （ OIDC ）等开放式标准，使用公司目录中的凭据访问您的 NetApp Cloud Central 帐户。
+
+要配置 _SSO 用户自动配置 _ ，请在 * 管理员 > 用户管理 * 页面上单击 * 请求联合 * 按钮。配置后，管理员可以启用 SSO 用户登录。当管理员启用 _SSO 用户自动配置 _ 时，他们会为所有 SSO 用户（如来宾或用户）选择一个默认角色。通过 SSO 登录的用户将具有此默认角色。
+
+image:Roles_federation_Banner.png["使用联合进行用户管理"]
+
+有时，管理员会希望将单个用户提升为默认 SSO 角色之外的用户（例如，使其成为管理员）。他们可以在 * 管理员 > 用户管理 * 页面上单击用户的右侧菜单并选择 _Assign role_ 来完成此操作。以这种方式分配了显式角色的用户仍可访问 Cloud Insights ，即使 _SSO 用户自动配置 _ 随后被禁用也是如此。
+
+如果用户不再需要提升的角色，您可以单击菜单以删除用户 _ 。此用户将从列表中删除。如果启用了 _SSO 用户自动配置 _ ，则用户可以继续使用默认角色通过 SSO 登录到 Cloud Insights 。
+
+您可以通过取消选中 * 显示 SSO 用户 * 复选框来选择隐藏 SSO 用户。
+
+但是，如果满足以下任一条件，请勿启用 _SSO 用户自动配置 _ ：
+
+* 您的组织具有多个 Cloud Insights 租户
+* 您的组织不希望联合域中的任何 / 每个用户对 Cloud Insights 租户具有一定程度的自动访问权限。_at this point in time ， we do not have the ability to use groups to control role access with this op选项 _ 。
+

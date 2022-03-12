@@ -1,0 +1,16 @@
+---
+sidebar: sidebar 
+permalink: cs_notifications_email.html 
+summary: 为 Cloud Secure 警报通知添加电子邮件地址。 
+keywords: email, notifications, alerts, warnings, attacks 
+---
+= 配置警报电子邮件通知
+
+
+[role="lead"]
+警报的电子邮件通知将发送到警报的每个操作的警报收件人列表。
+
+要配置警报收件人，请单击 * 管理员 > 通知 * 并为每个收件人输入一个电子邮件地址。
+
+[role="thumb"]
+image:CS-Alert-Notification-List.png["警报电子邮件通知收件人列表"]

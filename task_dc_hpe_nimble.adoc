@@ -1,0 +1,96 @@
+---
+sidebar: sidebar 
+permalink: task_dc_hpe_nimble.html 
+keywords: data collector, HP Nimble, HP, HPE, Alletra 6000 
+summary: 配置 HP Enterprise Allettra 6000 （以前称为 Nimble ）数据收集器。 
+---
+= HPE Alletra 6000 数据收集器
+
+
+[role="lead"]
+HP Enterprise Alletra 6000 （以前称为 Nimble ）数据收集器支持 Alletra 6000 存储阵列的清单和性能数据。
+
+
+
+== 术语
+
+Cloud Insights 从此收集器获取以下清单信息。对于 Cloud Insights 收购的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| 数组 | 存储 
+
+
+| Disk | Disk 
+
+
+| Volume | Volume 
+
+
+| 池 | 存储池 
+
+
+| 启动程序 | 存储主机别名 
+
+
+| 控制器 | 存储节点 
+
+
+| 光纤通道接口 | 控制器 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+== 要求
+
+要从存储阵列收集清单和配置数据，您必须满足以下条件：
+
+* 阵列必须已安装和配置，并且可通过其完全限定域名（ FQDN ）或阵列管理 IP 地址从客户端访问。
+* 该阵列必须运行 NimbleOS 2.3.x 或更高版本。
+* 您必须为至少具有 " 操作员 " 级别角色的阵列提供有效的用户名和密码。" 来宾 " 角色没有足够的访问权限来了解启动程序配置。
+* 阵列上的端口 5392 必须处于打开状态。
+
+
+要从存储阵列收集性能数据，您必须满足以下条件：
+
+* 阵列必须运行 NimblesOS 4.0.0 或更高版本
+* 阵列必须已配置卷。NimblesOS 唯一的性能 API 适用于卷，任何统计信息 Cloud Insights 报告都是从卷上的统计信息派生的
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 阵列管理 IP 地址 | 完全限定域名（ FQDN ）或阵列管理 IP 地址。 
+
+
+| 用户名 | 阵列的用户名 
+
+
+| Password | 阵列的密码 
+|===
+
+
+== 高级配置
+
+|===
+
+
+| 字段 | Description 
+
+
+| Port | Nimble REST API 使用的端口。默认值为 5392. 。 
+
+
+| 清单轮询间隔（分钟） | 两次清单轮询的间隔。默认值为 60 分钟。 
+|===
+注意：默认性能轮询间隔为 300 秒，无法更改。这是 HPE Alletra 6000 支持的唯一间隔。

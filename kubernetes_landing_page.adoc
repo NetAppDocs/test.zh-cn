@@ -1,0 +1,76 @@
+---
+sidebar: sidebar 
+permalink: kubernetes_landing_page.html 
+keywords: telegraf, installation, install, kubernetes, pods, clusters, filters, filtering, k8s 
+summary: 介绍了 Kubernetes 登录页面 
+---
+= Kubernetes 集群概述
+
+
+[role="lead"]
+Cloud Insights Kubernetes 资源管理器是一款功能强大的工具，可用于显示 Kubernetes 集群的整体运行状况和使用情况，并可用于轻松深入了解调查领域。
+
+单击 * 信息板 > Kubernetes Explorer* 将打开 Kubernetes Cluster 概述页面。此概述页面包含各种概览信息。
+
+
+NOTE: 在此以及后续的 Kubernetes 资源管理器页面的各个部分中以蓝色显示的数字（例如，节点 /Pod 状态，命名空间计数等）是指向相关查询页面的链接，这些页面显示了这些数字背后的详细信息。
+
+image:Kubernetes_Cluster_Overview_Page.png["Kubernetes 概述"]
+
+
+
+=== 集群使用情况概述
+
+image:Kubernetes_Cluster_List.png["集群列表概述"]
+
+集群列表显示环境中每个集群的以下使用情况信息：
+
+* CPU ：使用中的总 CPU 容量百分比
+* Memory ：已用总内存的百分比
+* storage ：使用中的总存储百分比
+
+
+您可以按以下任一因素对集群列表进行排序：
+
+* 节点和 Pod 警报级别（默认）
+* 集群名称
+* 节点数
+* 计算利用率最高
+* 计算利用率最低
+* 存储利用率最高
+* 存储利用率最低
+
+
+单击集群名称将打开 link:kubernetes_cluster_detail.html["* 详细信息页面 *"] 。
+
+
+
+=== 节点和 Pod 状态
+
+image:Kubernetes_Node_Pod_Status.png["节点和 Pod 状态"]
+
+
+
+=== 命名空间
+
+屏幕右侧列出了每个集群中使用的前三个命名空间。单击 * 全部 * 链接可查看集群的所有命名空间。
+
+单击命名空间将打开命名空间详细信息页面。
+
+image:Kubernetes_Namespaces.png["命名空间"]
+
+
+
+=== 细化筛选器
+
+筛选时，在开始键入时，系统会根据当前文本显示一个 * 通配符筛选器 * 。选择此选项将返回与通配符表达式匹配的所有结果。您也可以使用 NOT 或 AND 创建 * 表达式 * ，也可以选择 " 无 " 选项来筛选字段中的空值。
+
+image:Filter_Kubernetes_Explorer.png["在 K8S 资源管理器中使用通配符筛选"]
+
+基于通配符或表达式（例如 NOT ， AND ， "None" 等）在筛选器字段中显示为深蓝色。您直接从列表中选择的项目将以淡蓝色显示。
+
+image:Filter_Kubernetes_Explorer_2.png["显示通配符和选定项的筛选器"]
+
+Kubernetes 筛选器为上下文筛选器，例如，如果您位于特定节点页面上，则 pod_name 筛选器仅会列出与该节点相关的 Pod 。此外，如果您对特定命名空间应用筛选器，则 pod_name 筛选器将仅列出该命名空间中节点 _and_ 上的 Pod 。
+
+请注意，通配符和表达式筛选适用于文本或列表，但不适用于数值，日期或布尔值。

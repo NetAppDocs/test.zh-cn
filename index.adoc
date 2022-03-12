@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: index.html 
+summary: 欢迎使用 Cloud Insights 文档门户。 
+---
+= Cloud Insights 文档
+
+
+[role="lead"]
+NetApp Cloud Insights 是一款云基础架构监控工具，可让您深入了解整个基础架构。借助 Cloud Insights ，您可以监控，排除故障并优化所有资源，包括公有云和私有数据中心。
+
+Cloud Insights 可帮助您：
+
+* * 将平均解决时间缩短多达 90%*
++
+停止日志查找数天，并且无法手动关联基础架构：使用我们的动态拓扑和关联分析立即确定问题区域。
+
+* * 将云基础架构成本平均降低 33% *
++
+通过确定已废弃和未使用的资源以及适合其优化性能和成本层的工作负载规模来消除效率低下问题。
+
+* * 防止多达 80% 的云问题影响最终用户 *
++
+通过使用高级分析和机器学习功能在问题发生严重中断之前确定问题，结束对大量数据的搜索以查找相关内容。
+
+
+
+
+
+== 入门
+
+* 我是新客户： link:task_cloud_insights_onboarding_1.html["入职"]
+* 我已注册：现在该怎么办？link:task_getting_started_with_cloud_insights.html["正在获取数据"]
+
+* 如何充分利用 Cloud Insights ？link:task_defining_annotations.html["准备资产：添加标注"]
+
+
+
+* 我已经试用了 Cloud Insights ，现在我准备好了 link:concept_subscribing_to_cloud_insights.html["* 订阅 *"]。
+

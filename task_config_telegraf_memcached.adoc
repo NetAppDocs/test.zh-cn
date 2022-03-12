@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_memcached.html 
+keywords: telegraf, installation, install, memcached 
+summary: memcached 数据收集器配置 
+---
+= 内存缓存的 Data Collector
+
+
+[role="lead"]
+Cloud Insights 使用此数据收集器从已缓存的收集指标。
+
+
+
+== 安装
+
+. 在 * 管理 > 数据收集器 * 中，单击 * + 数据收集器 * 。在 * 服务 * 下，选择已缓存的。
++
+选择安装了 Telegraf 代理的操作系统或平台。
+
+. 如果您尚未安装要收集的代理，或者您希望为其他操作系统或平台安装代理，请单击 _Show Instructions_展开 link:task_config_telegraf_agent.html["代理安装"] 说明。
+. 选择要用于此数据收集器的代理访问密钥。您可以通过单击 * + 代理访问密钥 * 按钮来添加新的代理访问密钥。最佳实践：仅当您要按操作系统 / 平台对数据收集器进行分组时，才使用其他代理访问密钥。
+. 按照配置步骤配置数据收集器。这些说明因用于收集数据的操作系统或平台的类型而异。
+
+
+image:MemcachedDCConfigWindows.png["memcached 配置"]
+
+
+
+== 设置
+
+有关信息，请参见 link:https://github.com/memcached/memcached/wiki["memcached wiki"]。
+
+
+
+== 对象和计数器
+
+将收集以下对象及其计数器：
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| 对象： | 标识符： | 属性： | 数据点： 
+
+
+| 已缓存内存 | 命名空间服务器 | 节点 IP 节点名称 | 接受连接已处理身份验证请求失败身份验证字节数已用字节数读取（每秒）写入的字节数（每秒） CAS Badval CAS 命中 CAS 未命中刷新 Reqs （每秒）获取 Reqs （每秒）设置 Reqs （每秒）触摸 Reqs （每秒）连接生成率（每秒） 连接结构打开连接当前已存储项数据删除请求命中（每秒）数据删除请求未命中（每秒）删除请求命中（每秒）删除请求未命中（每秒）项目已逐出有效的逐出已过期项目获取命中（每秒）获取未命中（每秒） 已用哈希字节哈希正在扩展哈希功率级别增量请求命中数（每秒）增量请求未命中数（每秒）服务器最大字节侦听已禁用已回收的工作线程数已打开连接总数已存储的项目数触摸未命中服务器正常运行时间 
+|===
+
+
+== 故障排除
+
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面。

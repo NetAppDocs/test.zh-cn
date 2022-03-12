@@ -1,0 +1,254 @@
+---
+sidebar: sidebar 
+permalink: task_dc_hds_commandsuite.html 
+keywords: data collector, Hitachi Vantara Command Suite, Hitachi 
+summary: 配置 HDS Command Suite Device Manager 数据收集器。 
+---
+= Hitachi Vantara Command Suite 数据收集器
+
+
+[role="lead"]
+Hitachi Vantara Command Suite 数据收集器支持 HiCommand Device Manager 服务器。Cloud Insights 使用标准 HiCommand API 与 HiCommand 设备管理器服务器进行通信。
+
+
+
+== 术语
+
+Cloud Insights 从 Hitachi Vantara Command Suite 数据收集器采集以下清单信息。对于 Cloud Insights 收购的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| PDEV | Disk 
+
+
+| 日志池 | 磁盘组 
+
+
+| 存储阵列 | 存储 
+
+
+| 端口控制器 | 存储节点 
+
+
+| 阵列组， HDS 池 | 存储池 
+
+
+| 逻辑单元， LDEV | Volume 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+=== 存储
+
+以下术语适用于您在 HDS 存储资产登录页面上可能找到的对象或引用。其中许多术语也适用于其他数据收集器。
+
+* 名称—通过 GetStorageArray XML API 调用直接来自 HDS HiCommand Device Manager 的 "name" 属性
+* 型号—通过 GetStorageArray XML API 调用直接来自 HDS HiCommand Device Manager 的 "arrayType" 属性
+* 供应商— HDS
+* 系列—通过 GetStorageArray XML API 调用直接来自 HDS HiCommand Device Manager 的 "arrayFamily" 属性
+* IP —这是阵列的管理 IP 地址，而不是阵列上所有 IP 地址的完整列表
+* 原始容量— BASE2 值，表示此系统中所有磁盘的总容量之和，而不管磁盘角色如何。
+
+
+
+
+=== 存储池
+
+以下术语适用于您在 HDS 存储池资产登录页面上可能找到的对象或引用。其中许多术语也适用于其他数据收集器。
+
+* type ：此处的值将为以下值之一：
++
+** 预留—如果此池专用于数据卷，即日志，快照以外的其他用途
+** 精简配置—如果此池为 HDP 池
+** RAID 组—您可能无法看到这些内容，原因如下：
++
+Cloud Insights 采取强有力的立场，避免在任何成本下重复计算容量。在 HDS 上，通常需要使用磁盘构建 RAID 组，在这些 RAID 组上创建池卷，并从这些池卷构建池（通常为 HDP ，但可能具有特殊用途）。如果 Cloud Insights 报告底层 RAID 组和池的情况，则其原始容量之和将远远超过磁盘之和。
+
++
+相反， Cloud Insights 的 HDS Command Suite 数据收集器会根据池卷的容量任意缩减 RAID 组的大小。这可能会导致 Cloud Insights 根本不报告 RAID 组。此外，任何生成的 RAID 组都会以某种方式进行标记，使其在 Cloud Insights WebUI 中不可见，但它们确实会流入 Cloud Insights 数据仓库（ DWH ）。这些决策的目的是避免大多数用户不关心的事情出现 UI 混乱—如果您的 HDS 阵列中的 RAID 组可用空间为 50 MB ，您可能无法使用该可用空间来获得有意义的结果。
+
+
+
+* 节点—不适用，因为 HDS 池不会绑定到任何一个特定节点
+* 冗余—池的 RAID 级别。一个由多种 RAID 类型组成的 HDP 池可能具有多个值
+* 容量 % —池中数据使用量的已用百分比，以及池的已用 GB 和总逻辑 GB 大小
+* 过量使用容量—一个派生值，表示 " 由于逻辑卷之和超过池的逻辑容量之和，此池的逻辑容量由此百分比超额使用 "
+* Snapshot —显示此池上为快照使用预留的容量
+
+
+
+
+=== 存储节点
+
+以下术语适用于您在 HDS 存储节点资产登录页面上可能找到的对象或引用。其中许多术语也适用于其他数据收集器。
+
+* name —整体式阵列上的前端控制器（ FED ）或通道适配器的名称，或者模块化阵列上的控制器的名称。一个给定的 HDS 阵列将具有 2 个或更多存储节点
+* 卷—卷表将显示映射到此存储节点拥有的任何端口的任何卷
+
+
+
+
+== 清单要求
+
+要收集清单数据，您必须满足以下条件：
+
+* HiCommand Device Manager 服务器的 IP 地址
+* HiCommand Device Manager 软件的只读用户名和密码以及对等权限
+* 端口要求： 2001 （ http ）或 2443 （ https ）
+* 使用用户名和密码登录到 HiCommand Device Manager 软件
+* 验证是否可以访问 HiCommand Device Manager http://<HiCommand_Device_Manager_IP>:2001/service/StorageManager[]
+
+
+
+
+== 性能要求
+
+要收集性能数据，必须满足以下要求：
+
+* HDS USP ， USP V 和 VSP 性能
++
+** Performance Monitor 必须获得许可。
+** 必须启用监控交换机。
+** 必须将导出工具（ Export.exe ）复制到 Cloud Insights AU 。
+** 导出工具版本必须与目标阵列的微代码版本匹配。
+
+
+* AMS 性能：
++
+** NetApp 强烈建议在 AMS 阵列上创建一个专用服务帐户，以供 Cloud Insights 用于检索性能数据。存储导航器仅允许用户帐户同时登录到阵列一次。如果让 Cloud Insights 使用与管理脚本或 HiCommand 相同的用户帐户，则可能会导致 Cloud Insights ，管理脚本或 HiCommand 由于一个并发用户帐户登录限制而无法与阵列进行通信
+** Performance Monitor 必须获得许可。
+** 需要在 Cloud Insights AU 上安装存储导航器模块化 2 （ SNM2 ）命令行界面实用程序。
+
+
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| HiCommand 服务器 | HiCommand Device Manager 服务器的 IP 地址或完全限定域名 
+
+
+| 用户名 | HiCommand Device Manager 服务器的用户名。 
+
+
+| Password | HiCommand Device Manager 服务器使用的密码。 
+
+
+| 设备— VSP G1000 （ R800 ）， VSP （ R700 ）， HUS VM （ HM700 ）和 USP 存储 | VSP G1000 （ R800 ）， VSP （ R700 ）， HUS VM （ HM700 ）和 USP 存储的设备列表。每个存储都需要： * 阵列的 IP ：存储的 IP 地址 * 用户名：存储的用户名 * 密码：包含导出实用程序 JAR 文件的存储 * 文件夹的密码 
+
+
+| SNM2Devices — WMS/SMS/AMS 存储 | WMS/SMS/AMS 存储的设备列表。每个存储都需要： * 阵列的 IP ：存储的 IP 地址 * 存储导航器命令行界面路径： SNM2 命令行界面路径 * 帐户身份验证有效：选择可选择有效的帐户身份验证 * 用户名：存储的用户名 * 密码：存储的密码 
+
+
+| 选择性能调整管理器 | 覆盖其他性能选项 
+
+
+| 调整管理器主机 | 调整管理器的 IP 地址或完全限定域名 
+
+
+| 覆盖调整管理器端口 | 如果为空，请使用 " 为性能选择调整管理器 " 字段中的默认端口，否则请输入要使用的端口 
+
+
+| 调整管理器用户名 | 调整管理器的用户名 
+
+
+| 调整管理器密码 | 调整管理器的密码 
+|===
+注意：在 HDS USP ， USP V 和 VSP 中，任何磁盘都可以属于多个阵列组。
+
+
+
+== 高级配置
+
+|===
+
+
+| 字段 | Description 
+
+
+| 连接类型 | HTTPS 或 HTTP 也会显示默认端口 
+
+
+| HiCommand 服务器端口 | HiCommand Device Manager 所使用的端口 
+
+
+| 清单轮询间隔（分钟） | 两次清单轮询的间隔。默认值为 40. 。 
+
+
+| 选择 " 排除 " 或 " 包括 " 以指定列表 | 指定在收集数据时是包含还是排除以下阵列列表。 
+
+
+| 筛选设备列表 | 要包含或排除的设备序列号的逗号分隔列表 
+
+
+| 性能轮询间隔（秒） | 性能轮询之间的时间间隔。默认值为 300. 。 
+
+
+| 导出超时（以秒为单位） | 导出实用程序超时。默认值为 300. 。 
+|===
+
+
+== 故障排除
+
+如果此数据收集器出现问题，请尝试执行以下操作：
+
+
+
+==== 清单
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 错误：用户权限不足 | 请使用具有更多权限的其他用户帐户，或者增加在数据收集器中配置的用户帐户的权限 
+
+
+| 错误：存储列表为空。设备未配置或用户权限不足 | * 使用 DeviceManager 检查设备是否已配置。* 使用具有更多权限的其他用户帐户，或者增加用户帐户的权限 
+
+
+| 错误： HDS 存储阵列几天未刷新 | 调查为何未在 HDS HiCommand 中刷新此阵列。 
+|===
+
+
+==== 性能
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 错误： * 执行导出实用程序时出错 * 执行外部命令时出错 | * 确认 Cloud Insights 采集单元上已安装导出实用程序 * 确认导出实用程序在数据收集器配置中的位置正确 * 确认 USP/R600 阵列的 IP 在数据收集器配置中正确 * 确认用户名 数据收集器配置中的密码正确 * 确认导出实用程序版本与 Cloud Insights 采集单元中的存储阵列微代码版本兼容 * ，打开 CMD 提示符并执行以下操作： —将目录更改为已配置的安装目录—尝试通过执行批处理文件 runWin.bat 与已配置的存储阵列建立连接 
+
+
+| 错误：目标 IP 的导出工具登录失败 | * 确认用户名 / 密码正确 * 主要为此 HDS 数据收集器创建用户 ID * 确认未配置任何其他数据收集器来采集此阵列 
+
+
+| 错误：导出工具记录 " 无法获取监控时间范围 " 。 | * 确认阵列上已启用性能监控。* 尝试调用 Cloud Insights 以外的导出工具，以确认问题不在 Cloud Insights 范围内。 
+
+
+| 错误： * 配置错误：导出实用程序不支持存储阵列 * 配置错误： Storage Navigator 模块化 CLI 不支持存储阵列 | * 仅配置支持的存储阵列。* 使用 " 筛选器设备列表 " 排除不受支持的存储阵列。 
+
+
+| 错误： * 执行外部命令时出错 * 配置错误：清单未报告存储阵列 * 配置错误：导出文件夹不包含 JAR 文件 | * 检查导出实用程序位置。* 检查相关存储阵列是否已在 HiCommand 服务器中配置 * 将性能轮询间隔设置为 60 秒的倍数。 
+
+
+| 错误： * 错误 Storage navigator CLI * 执行自动执行命令时出错 * 执行外部命令时出错 | * 确认 Cloud Insights 采集单元上安装了存储导航器模块化命令行界面 * 确认数据收集器配置中的存储导航器模块化命令行界面位置正确 * 确认 WMS/SMS/SMS 阵列的 IP 在数据收集器配置中正确 * 确认 此存储导航器模块化命令行界面版本与数据收集器中配置的存储阵列的微代码版本兼容 * 在 Cloud Insights 采集单元中，打开 CMD 提示符并执行以下操作： —将目录更改为已配置的安装目录—执行以下命令 "auunitref.exe " ，尝试与已配置的存储阵列建立连接 
+
+
+| 错误：配置错误：清单未报告存储阵列 | 检查是否已在 HiCommand 服务器中配置有问题的存储阵列 
+
+
+| 错误： * 未向 Storage Navigator 模块化 2 命令行界面注册阵列 * 未向 Storage Navigator 模块化 2 命令行界面注册阵列 * 配置错误：未向 StorageNavigator 模块化命令行界面注册存储阵列 | * 打开命令提示符并将目录更改为已配置的路径 * 运行命令 "set=STONAVM_HOME= " 。 * 运行命令 "auunitref" * 确认命令输出包含 IP 阵列的详细信息 * 如果输出不包含阵列详细信息，请向 Storage Navigator CLI 注册该阵列： —打开命令提示符并将目录更改为已配置的路径—运行命令 "set=STONAVM_HOME= " 。 —运行命令 "auunitaddauto -IP $ ｛ ip ｝ " 。将 $ ｛ IP ｝ 替换为实际 IP 
+|===
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

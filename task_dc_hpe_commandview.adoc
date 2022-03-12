@@ -1,0 +1,206 @@
+---
+sidebar: sidebar 
+permalink: task_dc_hpe_commandview.html 
+keywords: data collector, HP Command View, HP, CVAE 
+summary: 配置 HP Enterprise Command View 数据收集器。 
+---
+= HP Enterprise Command View 数据收集器
+
+
+[role="lead"]
+HP Enterprise Command View 高级版数据收集器支持通过 Command View 高级版（ CVAE ）服务器发现 XP 和 P9500 阵列。Cloud Insights 使用标准 Command View API 与 CVAE 进行通信，以收集清单和性能数据。
+
+
+
+== 术语
+
+Cloud Insights 从 HP Enterprise Command View 数据收集器采集以下清单信息。对于 Cloud Insights 收购的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| PDEV | Disk 
+
+
+| 日志池 | 磁盘组 
+
+
+| 存储阵列 | 存储 
+
+
+| 端口控制器 | 存储节点 
+
+
+| 阵列组， DP 池 | 存储池 
+
+
+| 逻辑单元， LDEV | Volume 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+== 清单要求
+
+要收集清单数据，您必须满足以下条件：
+
+* CVAE 服务器的 IP 地址
+* CVAE 软件的只读用户名和密码以及对等权限
+* 端口要求： 2001
+
+
+
+
+== 性能要求
+
+要收集性能数据，必须满足以下要求：
+
+* HDS USP ， USP V 和 VSP 性能
++
+** Performance Monitor 必须获得许可。
+** 必须启用监控交换机。
+** 必须将导出工具（ Export.exe ）复制到 Cloud Insights AU 并将其提取到某个位置。在 CI Linux AUS 上，确保 "cisys" 具有读取和执行权限。
+** 导出工具版本必须与目标阵列的微代码版本匹配。
+
+
+* AMS 性能：
++
+** Performance Monitor 必须获得许可。
+** Cloud Insights AU 上应安装存储导航器模块化 2 （ SNM2 ）命令行界面实用程序。
+
+
+* 网络要求
++
+** 导出工具基于 Java ，可使用 RMI 与阵列进行对话。这些工具可能不适合使用防火墙，因为它们可能会在每次调用时动态协商源和目标 TCP 端口。此外，不同型号阵列的导出工具在整个网络中的行为可能有所不同 - 请咨询 HPE 了解您的型号要求
+
+
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| Command View 服务器 | Command View 服务器的 IP 地址或完全限定域名 
+
+
+| 用户名 | Command View 服务器的用户名。 
+
+
+| Password | Command View 服务器使用的密码。 
+
+
+| 设备— VSP G1000 （ R800 ）， VSP （ R700 ）， HUS VM （ HM700 ）和 USP 存储 | VSP G1000 （ R800 ）， VSP （ R700 ）， HUS VM （ HM700 ）和 USP 存储的设备列表。每个存储都需要： * 阵列的 IP ：存储的 IP 地址 * 用户名：存储的用户名 * 密码：包含导出实用程序 JAR 文件的存储 * 文件夹的密码 
+
+
+| SNM2Devices — WMS/SMS/AMS 存储 | WMS/SMS/AMS 存储的设备列表。每个存储都需要： * 阵列的 IP ：存储的 IP 地址 * 存储导航器命令行界面路径： SNM2 命令行界面路径 * 帐户身份验证有效：选择可选择有效的帐户身份验证 * 用户名：存储的用户名 * 密码：存储的密码 
+
+
+| 选择性能调整管理器 | 覆盖其他性能选项 
+
+
+| 调整管理器主机 | 调整管理器的 IP 地址或完全限定域名 
+
+
+| 调整管理器端口 | 用于调整管理器的端口 
+
+
+| 调整管理器用户名 | 调整管理器的用户名 
+
+
+| 调整管理器密码 | 调整管理器的密码 
+|===
+注意：在 HDS USP ， USP V 和 VSP 中，任何磁盘都可以属于多个阵列组。
+
+
+
+== 高级配置
+
+|===
+
+
+| 字段 | Description 
+
+
+| Command View 服务器端口 | 用于 Command View 服务器的端口 
+
+
+| 已启用 HTTPS | 选择以启用 HTTPS 
+
+
+| 清单轮询间隔（分钟） | 两次清单轮询的间隔。默认值为 40. 。 
+
+
+| 选择 " 排除 " 或 " 包括 " 以指定列表 | 指定在收集数据时是包含还是排除以下阵列列表。 
+
+
+| 排除或包括设备 | 要包含或排除的设备 ID 或阵列名称的逗号分隔列表 
+
+
+| 查询 Host Manager | 选择以查询主机管理器 
+
+
+| 性能轮询间隔（秒） | 性能轮询之间的时间间隔。默认值为 300. 。 
+|===
+
+
+== 故障排除
+
+如果此数据收集器出现问题，请尝试执行以下操作：
+
+
+
+==== 清单
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 错误：用户权限不足 | 请使用具有更多权限的其他用户帐户，或者增加在数据收集器中配置的用户帐户的权限 
+
+
+| 错误：存储列表为空。设备未配置或用户权限不足 | * 使用 DeviceManager 检查设备是否已配置。* 使用具有更多权限的其他用户帐户，或者增加用户帐户的权限 
+
+
+| 错误： HDS 存储阵列几天未刷新 | 调查为何未在 HP CommandView AE 中刷新此阵列。 
+|===
+
+
+==== 性能
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 错误： * 执行导出实用程序时出错 * 执行外部命令时出错 | * 确认 Cloud Insights 采集单元上已安装导出实用程序 * 确认导出实用程序在数据收集器配置中的位置正确 * 确认 USP/R600 阵列的 IP 在数据收集器配置中正确 * 确认用户名 数据收集器配置中的密码正确 * 确认导出实用程序版本与 Cloud Insights 采集单元中的存储阵列微代码版本兼容 * ，打开 CMD 提示符并执行以下操作： —将目录更改为已配置的安装目录—尝试通过执行批处理文件 runWin.bat 与已配置的存储阵列建立连接 
+
+
+| 错误：目标 IP 的导出工具登录失败 | * 确认用户名 / 密码正确 * 主要为此 HDS 数据收集器创建用户 ID * 确认未配置任何其他数据收集器来采集此阵列 
+
+
+| 错误：导出工具记录 " 无法获取监控时间范围 " 。 | * 确认阵列上已启用性能监控。* 尝试调用 Cloud Insights 以外的导出工具，以确认问题不在 Cloud Insights 范围内。 
+
+
+| 错误： * 配置错误：导出实用程序不支持存储阵列 * 配置错误： Storage Navigator 模块化 CLI 不支持存储阵列 | * 仅配置支持的存储阵列。* 使用 " 筛选器设备列表 " 排除不受支持的存储阵列。 
+
+
+| 错误： * 执行外部命令时出错 * 配置错误：清单未报告存储阵列 * 配置错误：导出文件夹不包含 JAR 文件 | * 检查导出实用程序位置。* 检查是否已在 Command View 服务器中配置有问题的存储阵列 * 将性能轮询间隔设置为 60 秒的倍数。 
+
+
+| 错误： * 错误 Storage navigator CLI * 执行自动执行命令时出错 * 执行外部命令时出错 | * 确认 Cloud Insights 采集单元上安装了存储导航器模块化命令行界面 * 确认数据收集器配置中的存储导航器模块化命令行界面位置正确 * 确认 WMS/SMS/SMS 阵列的 IP 在数据收集器配置中正确 * 确认 此存储导航器模块化命令行界面版本与数据收集器中配置的存储阵列的微代码版本兼容 * 在 Cloud Insights 采集单元中，打开 CMD 提示符并执行以下操作： —将目录更改为已配置的安装目录—执行以下命令 "auunitref.exe " ，尝试与已配置的存储阵列建立连接 
+
+
+| 错误：配置错误：清单未报告存储阵列 | 检查是否已在 Command View 服务器中配置有问题的存储阵列 
+
+
+| 错误： * 未向 Storage Navigator 模块化 2 命令行界面注册阵列 * 未向 Storage Navigator 模块化 2 命令行界面注册阵列 * 配置错误：未向 StorageNavigator 模块化命令行界面注册存储阵列 | * 打开命令提示符并将目录更改为已配置的路径 * 运行命令 "set=STONAVM_HOME= " 。 * 运行命令 "auunitref" * 确认命令输出包含 IP 阵列的详细信息 * 如果输出不包含阵列详细信息，请向 Storage Navigator CLI 注册该阵列： —打开命令提示符并将目录更改为已配置的路径—运行命令 "set=STONAVM_HOME= " 。 —运行命令 "auunitaddauto -IP $ ｛ ip ｝ " 。将 $ ｛ IP ｝ 替换为实际 IP 
+|===
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

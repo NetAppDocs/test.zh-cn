@@ -1,0 +1,278 @@
+---
+sidebar: sidebar 
+permalink: reporting_schema_diagrams.html 
+keywords: Schema, DB Schema, premium, dwh, data warehouse 
+summary: 报告架构图 
+---
+= Cloud Insights 报告架构图
+
+
+[role="lead"]
+本文档提供了报告数据库的架构图。您也可以下载包含的文件 link:ci_reporting_database_schema.pdf["模式表"]。
+
+
+NOTE: Cloud Insights 提供了报告功能 link:concept_subscribing_to_cloud_insights.html["高级版"]。
+
+
+
+== 清单数据集市
+
+以下图像介绍了清单数据集市。
+
+
+
+=== 存储
+
+image:storage.png[""]
+
+
+
+=== 存储节点
+
+image:storage_node.png[""]
+
+
+
+=== SAN 网络结构
+
+image:fabric.png[""]
+
+
+
+=== 端口连接
+
+image:connectivity.png[""]
+
+
+
+=== 虚拟机
+
+image:vm.png[""]
+
+
+
+=== NAS
+
+image:nas.png[""]
+
+
+
+=== 路径和违规
+
+image:logical.png[""]
+
+
+
+=== 标注
+
+image:annotations.png[""]
+
+
+
+=== 应用程序
+
+image:apps_annot.png[""]
+
+
+
+=== 存储和存储池容量
+
+image:Storage_and_Storage_Pool_Capacity_Fact.png[""]
+
+
+
+=== 卷容量
+
+image:Volume_Capacity.png[""]
+
+
+
+=== VM 容量
+
+image:VM_Capacity_Fact.png[""]
+
+
+
+=== 内部卷容量
+
+image:Internal_Volume_Capacity_Fact.png[""]
+
+
+
+=== qtree 容量
+
+image:Qtree_Capacity_Fact.png[""]
+
+
+
+=== 存储容量效率
+
+image:efficiency.png[""]
+
+
+
+=== 存储和存储池容量
+
+image:Storage_and_Storage_Pool_Capacity_Fact.png[""]
+
+
+
+=== 文件系统利用率
+
+image:fs_util.png[""]
+
+
+
+=== 端口容量
+
+image:ports.png[""]
+
+
+
+=== 成本分摊
+
+image:Chargeback_Fact.png[""]
+
+
+
+=== 磁盘组容量
+
+image:Disk_Group_Capacity.png[""]
+
+
+
+== 性能数据集市
+
+下图说明了性能数据集市。
+
+
+
+=== 应用程序卷每小时性能
+
+image:application_performance_fact.png[""]
+
+
+
+=== 内部卷每小时性能
+
+image:host_performance_fact.png[""]
+
+
+
+=== 内部卷每小时性能
+
+image:internal_volume_performance_fact.png[""]
+
+
+
+=== 内部卷每日性能
+
+image:internal_volume_daily_performance_fact.png[""]
+
+
+
+=== 卷每小时性能
+
+image:vmdk_hourly_performance_fact.png[""]
+
+
+
+=== 卷每日性能
+
+image:volume_daily_performance_fact.png[""]
+
+
+
+=== qtree 每日性能
+
+image:QtreeDailyPerformanceFact.png[""]
+
+
+
+=== 主机的交换机每小时性能
+
+image:switch_performance_for_host_hourly_fact.png[""]
+
+
+
+=== 端口的交换机每小时性能
+
+image:switch_performance_for_port_hourly_fact.png[""]
+
+
+
+=== 存储的交换机每小时性能
+
+image:switch_performance_for_storage_hourly_fact.png[""]
+
+
+
+=== 磁带的交换机每小时性能
+
+image:switch_performance_for_tape_hourly_fact.png[""]
+
+
+
+=== 虚拟机性能
+
+image:vm_hourly_performance_fact.png[""]
+
+
+
+=== 主机的虚拟机每日性能
+
+image:vm_daily_performance_fact.png[""]
+
+
+
+=== 主机的虚拟机每小时性能
+
+image:vm_hourly_performance_fact.png[""]
+
+
+
+=== 主机的虚拟机每日性能
+
+image:vm_daily_performance_fact.png[""]
+
+
+
+=== 主机的虚拟机每小时性能
+
+image:vm_hourly_performance_fact.png[""]
+
+
+
+=== VMDK 每日性能
+
+image:vmdk_daily_performance_fact.png[""]
+
+
+
+=== VMDK 每小时性能
+
+image:vmdk_hourly_performance_fact.png[""]
+
+
+
+=== 存储节点每小时性能
+
+image:storage_node_hourly_performance_fact.png[""]
+
+
+
+=== 磁盘每日性能
+
+image:disk_daily_performance_fact.png[""]
+
+
+
+=== 磁盘每小时性能
+
+image:disk_hourly_performance_fact.png[""]
+
+
+
+== Kubernetes
+
+image:k8s_schema.jpg["Kubernetes"]

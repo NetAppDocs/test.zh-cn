@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: task_cs_user_management.html 
+keywords: Cloud Secure, User, Login, account 
+summary: Cloud Secure 用户帐户通过 Cloud Insights 用户管理进行管理 
+---
+= 用户管理
+
+
+[role="lead"]
+Cloud Secure 用户帐户通过 Cloud Insights 进行管理。
+
+Cloud Insights 提供了四个用户帐户级别：帐户所有者，管理员，用户和来宾。系统会为每个帐户分配特定的权限级别。具有管理员权限的用户帐户可以创建或修改用户，并为每个用户分配以下 Cloud Secure 角色之一：
+
+|===
+
+
+| Role | Cloud Secure 访问 
+
+
+| 管理员 | 可以执行所有 Cloud Secure 功能，包括警报，取证，数据收集器，自动响应策略和 Cloud Secure API 等功能。管理员还可以邀请其他用户，但只能分配 Cloud Secure 角色。 
+
+
+| 用户 | 可以查看和管理警报以及查看取证。用户角色可以更改警报状态，添加注释，手动创建快照以及限制用户访问。 
+
+
+| 来宾 | 可以查看警报和取证。来宾角色不能更改警报状态，添加备注，手动创建快照或限制用户访问。 
+|===
+.步骤
+. 登录到 Cloud Secure
+. 在菜单中，单击 * 管理员 > 用户管理 *
++
+您将被转发到 Cloud Insights 的用户管理页面。
+
+. 为每个用户选择所需的角色。
+
+
+添加新用户时，只需选择所需角色（通常为用户或来宾）即可。
+
+有关用户帐户和角色的详细信息，请参见 Cloud Insights link:https://docs.netapp.com/us-en/cloudinsights/concept_user_roles.html["用户角色"] 文档。

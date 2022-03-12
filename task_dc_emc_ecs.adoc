@@ -1,0 +1,83 @@
+---
+sidebar: sidebar 
+permalink: task_dc_emc_ecs.html 
+keywords: data collector, ecs, EMC 
+summary: 配置 ECS 数据收集器。 
+---
+= 配置 EMC ECS 数据收集器
+
+
+[role="lead"]
+此数据收集器从 EMC ECS 存储系统采集清单和性能数据。在配置方面，数据收集器需要 ECS 服务器的 IP 地址和管理级别域帐户。
+
+
+
+== 术语
+
+Cloud Insights 从 ECS 数据收集器获取以下清单信息。对于所采集的每种资产类型，均显示了此资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| 集群 | 存储 
+
+
+| 租户 | 存储池 
+
+
+| 存储分段 | 内部卷 
+
+
+| Disk | Disk 
+|===
+注意：这些只是常见的术语映射，可能并不代表此数据收集器的所有情形。
+
+
+
+== 要求
+
+* ECS 管理控制台的 IP 地址
+* ECS 系统的管理级别域帐户
+* 端口 443 （ HTTPS ）。需要与 ECS 系统上的 TCP 端口 443 建立出站连接。
+* 对于性能，使用只读用户名和密码访问 ssh/scp 。
+* 为提高性能，需要端口 22 。
+
+
+
+
+== Configuration
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| ECS 主机 | ECS 系统的 IP 地址或完全限定域名 
+
+
+| ECS 主机端口 | 用于与 ECS 主机通信的端口 
+
+
+| ECS 供应商 ID | ECS 的供应商 ID 
+
+
+| Password | 用于 ECS 的密码 
+|===
+
+
+== 高级配置
+
+[cols="2*"]
+|===
+| 字段 | Description 
+
+
+| 清单轮询间隔（分钟） | 默认值为 360 分钟。 
+|===
+
+
+== 故障排除
+
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

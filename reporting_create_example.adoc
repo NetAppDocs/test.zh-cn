@@ -1,0 +1,47 @@
+---
+sidebar: sidebar 
+permalink: reporting_create_example.html 
+summary: 使用此操作步骤可使用预定义的 Cloud Insights 报告创建报告。 
+keywords: reporting, cognos, data warehouse, dwh, create, report 
+---
+= 创建报告（示例）
+
+
+[role="lead"]
+使用此示例中的步骤生成一个简单的报告，以了解多个数据中心中存储和存储池的物理容量。
+
+.步骤
+. 在工具栏中，单击 *
+. 单击 * 报告 *
+. 单击 * 模板 > 空白 *
+. 单击 * 主题 > 冷蓝色 > 确定 *
++
+此时将显示源和数据选项卡
+
+. 单击 * 源 >+]*
+. 在 * 打开文件 * 对话框中，单击 * 组内容 > 软件包 *
++
+此时将显示可用软件包的列表。
+
+. 单击 * 存储和存储池容量 > 打开 *
+. 单击 *
++
+此时将显示报告的可用样式。
+
+. 单击 * 列表 *
++
+为列表和查询添加适当的名称
+
+. 单击 * 确定 * 。
+. 展开 _physical capacity_
+. 扩展到 _Data Center_ 的最低级别
+. 将 _Data Center_ 拖动到报告平台。
+. 展开 _capacity （ MB ） _
+. 将 _capacity （ MB ） _ 拖动到报告平台。
+. 将 _used capacity （ MB ） _ 拖动到报告平台。
+. 单击以运行报告 image:Reporting-RunButton.png["运行"] 并选择输出类型。
+
+
+此时将创建类似于以下内容的报告：
+
+image:Reporting-Example1.png["报告示例"]

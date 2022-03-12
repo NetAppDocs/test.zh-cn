@@ -1,0 +1,94 @@
+---
+sidebar: sidebar 
+permalink: task_webhook_example_pagerduty.html 
+keywords: webhook, notification, PagerDuty, integration 
+summary: 创建一个网络挂钩，以便针对 PagerDuty 的性能或清单阈值发出警报 
+---
+= PagerDty 的 webhook 示例
+
+
+[role="lead"]
+网络挂机允许用户使用自定义的网络挂机通道向各种应用程序发送警报通知。此页面提供了一个为 PagerDty 设置 webhooks 的示例。
+
+
+NOTE: 此页面引用第三方说明，可能会有所更改。请参见 link:https://support.pagerduty.com/docs/services-and-integrations["PagerDuty 文档"] 以获取最新信息。
+
+
+
+=== PagerDty 设置：
+
+. 在 PagerDty 中，导航到 * 服务 > 服务目录 * ，然后单击 * + 新服务 * button​
+. 在 _Name_ 中输入，然后选择 _Use our API directli_ 。单击 _Add Service_ 。
++
+image:Webhooks_PagerDutyScreen1.png["页面加载屏幕"]
+
+. 单击 _Integrations_ 选项卡以查看 * 集成密钥 * 。在下面创建 Cloud Insights webhook 时，您需要此密钥。
+
+
+. 请转到 * 意外事件 * 或 * 服务 * 以查看警报。
++
+image:Webhooks_PagerDutyScreen2.png["页面加载屏幕"]
+
+
+
+
+
+=== 创建 Cloud Insights Webhook ：
+
+. 在 Cloud Insights 中，导航到 * 管理员 > 通知 * ，然后选择 * Webhook* 选项卡。单击 * + Webhook* 以创建新的 webhook 。
+. 为 webhook 指定一个有意义的名称，例如 "PagerDty Trigger" 。您将使用此网络钩来处理严重级别和警告级别的事件。
+. 在 _Template Type_ 下拉列表中，选择 * 页面类型 * 。
+
+
+. 创建一个名为 _routingKey_ 的自定义参数密钥，并将此值设置为上述的 PagerDty _Integration Key_ 值。
++
+image:Webhooks_Custom_Secret_Routing_Key.png["设置路由密钥"]
+
+
+
+重复上述步骤，为已解决的事件创建 "PagerDty resolve" webhook 。
+
+
+
+=== PagerDty 到 Cloud Insights 字段映射
+
+下表和图显示了 PagerDty 和 Cloud Insights 之间的字段映射：
+
+[cols="<,<"]
+|===
+| PagerDty | Cloud Insights 
+
+
+| 警报密钥 | 警报 ID 
+
+
+| 源 | 触发时间 
+
+
+| 组件 | 指标名称 
+
+
+| 组 | 对象类型 
+
+
+| 类 | 监控器名称 
+|===
+image:Webhooks-PagerDuty_Fields.png["CI 中的 PagerDty 字段"]
+
+
+
+=== 通过 Webhook 发送通知
+
+要通过 webhook 通知事件，请在 Cloud Insights 中导航到 * 警报 > 监控 * ，然后单击 * + 监控 * 以创建新的 link:task_create_monitor.html["监控"]。
+
+* 选择一个指标并定义监控器的条件。
+* 在 _set up team notification （ s ）下，选择 * Webhook* 传送方法。
+* 为严重级别和警告级别的事件选择 "PagerDty Trigger" webhook 。
+* 为已解决的事件选择 "PagerDty resolve" 。
++
+image:Webhooks_Notifications.png["网络挂机通知"]
+
+
+
+
+NOTE: 最佳做法是为触发事件与已解决事件设置单独的通知，因为 PagerDty 处理触发事件的方式与已解决事件不同。

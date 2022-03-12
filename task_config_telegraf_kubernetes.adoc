@@ -1,0 +1,61 @@
+---
+sidebar: sidebar 
+permalink: task_config_telegraf_kubernetes.html 
+keywords: telegraf, installation, install, kubernetes 
+summary: Kubernetes 数据收集器配置 
+---
+= Kubernetes Data Collector
+
+
+[role="lead"]
+Cloud Insights 使用此数据收集器收集 Kubernetes Pod ，节点和容器指标。
+
+
+
+== 安装
+
+有关 Kubernetes 安装说明，请参见 link:task_config_telegraf_agent.html#kubernetes["代理安装"] 页面。
+
+
+NOTE: 有关 * Kube-state-metrics* 的信息已移至 link:task_config_telegraf_agent.html#kubernetes["代理安装"] 页面。
+
+
+
+== 对象和计数器
+
+将收集以下对象及其计数器：
+
+[cols="<.<,<.<,<.<,<.<"]
+|===
+| 对象： | 标识符： | 属性： | 数据点： 
+
+
+| Kubernetes 容器 | 命名空间 Pod 容器集群 | Kubernetes 节点名称节点操作系统节点 UUID 节点 IP | CPU nanoseconds CPU 使用情况 Nanocores 内存主要页面故障内存驻留集大小（ Rss ）内存工作集内存页面故障内存使用情况根文件系统可用根文件系统容量使用的根文件系统文件系统 
+
+
+| Kubernetes 节点 | Kubernetes 节点集群 | 节点名称节点操作系统节点 UUID 节点 IP | CPU 使用量纳米库 CPU 使用量纳秒文件系统可用文件系统总文件系统已用内存可用内存使用量内存主要页面故障内存页面故障内存驻留集大小（ rss ）内存工作集网络接收错误（每秒）网络接收字节（每秒）网络 TX 错误（每秒）网络 TX 字节 （每秒）运行时映像文件系统可用运行时映像文件系统已使用运行时映像文件系统容量 
+
+
+| Kubernetes Pod | 命名空间 Pod 集群 | Kubernetes 节点名称节点 IP 节点操作系统节点 UUID | 网络 TX 字节（每秒）网络 TX 错误（每秒）网络 Rx 字节（每秒）网络 Rx 错误（每秒） 
+
+
+| Kubernetes Pod 卷 | 卷 Pod 集群命名空间 | Kubernetes 节点名称节点 UUID 节点 IP 节点操作系统 | 已用可用容量 
+
+
+| Kubernetes 系统容器 | 系统容器 Kubernetes 节点集群 | 节点名称节点 IP 节点操作系统节点 UUID | CPU 使用情况 Nanocores CPU 使用情况核心 nanoseconds 内存主要页面故障内存页面故障内存驻留集大小（ Rss ）内存使用情况内存工作集根文件系统可用根文件系统容量日志文件系统可用日志文件系统文件系统容量 
+|===
+
+
+== 故障排除
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 我运行的是 Kubernetes 代理安装程序命令，但未看到通过 sudo kubectl -namespace ci-monitoring get pod 运行的 Telegraf 代理 Pod | 检查部署 DemonSet 时是否存在任何错误： sudo kubectl -namespace ci-monitoring describe DS tailaf-DS 如果存在与 SecurityContextConstrains 相关的错误，请执行以下操作： 1.生成 Telegraf DemonSet YAML sudo kubectl -namespace ci-monitoring get DS ceaf-DS -o YAML > /tmp/telaf-ds.yaml 2.停止 Telegraf 服务 sudo kubectl -namespace ci-monitoring delete DS telaf-DS 3 。创建所需的 SecurityContextConstrcont （请参见 " 配置代理以收集数据 " 一节） 4.重新创建 Telegraf DemonSet 
+
+
+| 我已将 Telegraf 配置为获取有关 Kubernetes 集群的信息，但在 Cloud Insights 中看不到任何信息。我在与我配置的 Kubernetes 输入插件相关的 Telegraf 日志文件中看到 " 标题字段值无效 " 错误。 | 确保引用的 bearer_token 文件没有尾随换行符。要进行验证，请运行以下命令并确认其返回 0 ： tail -C1 <brider_token_file> 
+|===
+可以从找到追加信息 link:concept_requesting_support.html["支持"] 页面。

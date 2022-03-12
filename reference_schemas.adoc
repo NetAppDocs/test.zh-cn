@@ -1,0 +1,18 @@
+---
+sidebar: sidebar 
+permalink: reference_schemas.html 
+summary: 用于报告的数据仓库架构图和表 
+keywords: dwh, data warehouse, schema, reporting 
+---
+= 用于报告的 Cloud Insights 架构
+
+
+[role="lead"]
+此处提供了这些架构表和图表，作为 Cloud Insights 报告的参考。
+
+link:https://docs.netapp.com/us-en/cloudinsights/ci_reporting_database_schema.pdf["* 架构表 *"] PDF 格式。单击链接以打开，或者右键单击并选择 _Save as..._ 进行下载。
+
+link:reporting_schema_diagrams.html["* 架构图 *"]
+
+
+NOTE: Cloud Insights 提供了报告功能 link:concept_subscribing_to_cloud_insights.html["高级版"]。

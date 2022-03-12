@@ -1,0 +1,171 @@
+---
+sidebar: sidebar 
+permalink: cs_restrict_user_access.html 
+keywords: alert, snapshot,  attack 
+summary: 借助 Cloud Secure ，您可以在发生可疑破坏时限制用户访问 
+---
+= 限制用户访问
+
+
+[role="lead"]
+检测到攻击后， Cloud Secure 可以通过限制用户对文件系统的访问来停止攻击。可以使用自动响应策略自动限制访问，也可以从警报或用户详细信息页面手动限制访问。
+
+在限制用户访问时，您应定义访问限制类型（块或只读）和时间段。选定时间段结束后，系统将自动还原用户访问权限。
+
+SMB 和 NFS 协议均支持访问限制。
+
+限制通过主机的 IP 地址发生，即用户访问存储的计算机。这些计算机 IP 地址将被阻止访问 Cloud Secure 监控的任何 Storage Virtual Machine （ SVM ）。
+
+例如，假设 Cloud Secure 管理 10 个 SVM ，并为其中 4 个 SVM 配置了自动响应策略。如果攻击源自四个 SVM 中的一个，则用户的访问将在所有 10 个 SVM 中受到限制。仍会在源 SVM 上创建 Snapshot 。
+
+如果有四个 SVM ，其中一个 SVM 配置为 CIFS ，一个为 NFS ，其余两个为 NFS 和 CIFS 配置，则如果攻击源自四个 SVM 中的任何一个，则所有 SVM 都将被阻止。
+
+
+
+=== 用户访问限制的前提条件
+
+要使此功能正常运行，客户必须为 SMB 和 NFS 配置导出策略。如果在数据源收集器中配置了 NFS 和 SMB ，请按照以下步骤进行操作。
+
+对于 NFS ，默认情况下会配置导出策略。默认情况下，在 SVM 中创建 NFS 服务时会创建导出策略。
+
+对于 SMB ，必须配置导出策略。
+
+如果您使用的不是集群 /SVM 凭据，而是 CsUser ，请首先按照以下步骤操作，以允许 Cloud Secure 创建自定义导出策略规则。
+
+对于具有集群凭据的 CSUser ，请从 ONTAP 命令行执行以下操作：
+
+ security login role create -role csrole -cmddirname "vserver export-policy rule" -access all
+对于具有 SVM 凭据的 CSUser ，请从 ONTAP 命令行执行以下操作，并插入正确的 <vservername> ：
+
+ security login role create -vserver <vservername> -role csrole -cmddirname "vserver export-policy rule" -access all
+以下是用于配置默认导出策略的命令。将命令复制到文本编辑器，并将 <vserver> 名称替换为 SVM 的名称。然后，一次复制一行，并在 ONTAP 控制台中执行该操作。请注意，在运行命令之前，必须先切换到高级模式。
+
+
+TIP: 这对于运行 POC 尤其有用。在要测试的计算机中，可以按如下所示配置 SMB 。在 POC 期间，在数据源收集器中，仅启用 SMB/CIFS 协议并禁用 NFS 协议。
+
+ set -privilege advanced
+ cifs options modify -is-exportpolicy-enabled true -vserver <vserver>
+ export-policy rule create -vserver <vserver> -policyname default -protocol cifs -clientmatch 0.0.0.0/0 -rorule any -rwrule any
+
+NOTE: 客户端匹配项可以是特定地址或子网（例如 10.0.3.212 或 192.168.5.0/24 ），主机名或网络组（如 @netgroup ）。如果要将导出策略应用于所有可能的 IP4 地址，请将客户端匹配设置为 0.0.0.0/0 。
+
+要检查 _exportpolicy_ 和 _exportpolicy rule_ 是否已正确配置，请在运行上述命令后运行以下命令。
+
+ cifs options show  -fields is-exportpolicy-enabled -vserver <vserver>
+ export-policy show -vserver <vserver>
+ export-policy rule show -policyname default -vserver <vserver>
+
+
+=== 如何启用此功能？
+
+* 在 Cloud Secure 中，导航到 * 管理员 > 自动响应策略 > 响应策略设置 > 访问限制 * 。
+* 将 " 启用限制用户访问 " 设置为 _enabled" 。
+
+
+
+
+=== 如何设置自动用户访问限制？
+
+* 创建新的攻击策略或编辑现有攻击策略。
+* 选择应监控攻击策略的 SVM 。
+* 单击 " 限制用户 IP 文件访问 " 复选框。选择此选项后，此功能将启用。
+* 在 " 限制用户访问 " 下，选择应应用的限制模式。
+* 在 " 时间段 " 下，选择应用此限制的截止时间。
+* 要测试自动限制，您可以通过模拟攻击 link:concept_cs_attack_simulator.html["模拟脚本"]。
+
+
+
+
+=== 如何了解系统中是否存在受限用户？
+
+* 在警报列表页面中，如果任何用户受到限制，则屏幕顶部将显示一个横幅。
+* 单击此横幅将转到 " 用户 " 页面。这样就可以看到受限用户的列表。
+* 在 " 用户 " 页面中，存在一个名为 "IP 访问 " 的列。在该列中，将显示用户限制的当前状态。
+
+
+
+
+=== 手动限制和管理用户访问
+
+* 您可以转到警报详细信息或用户详细信息屏幕，然后手动限制或取消限制用户访问这些屏幕。
+
+
+
+
+=== 用户限制访问历史记录
+
+在警报详细信息和用户详细信息页面的用户面板中，您可以查看对用户的限制访问限制历史记录的审核：时间，操作（块，只读，还原），持续时间， 由 IP ，手动 / 自动 IP 和受影响的 IP 采取的操作。
+
+
+
+=== 如何禁用此功能？
+
+您可以随时禁用此功能。如果系统中存在受限用户，则必须先还原其访问权限。
+
+* 在 Cloud Secure 中，导航到 * 管理员 > 自动响应策略 > 响应策略设置 > 访问限制 *
+* 取消选择 " 启用限制用户访问 " 以禁用。
+
+
+此功能将在所有页面中隐藏。
+
+
+
+=== 手动还原 IP
+
+如果您的 Cloud Secure 试用版到期或代理 / 收集器已关闭，请按照以下步骤手动从 ONTAP 还原任何 IP 。
+
+. 列出 SVM 上的所有导出策略。
++
+....
+contrail-qa-fas8020::> export-policy rule show -vserver <svm name>
+             Policy          Rule    Access   Client                RO
+Vserver      Name            Index   Protocol Match                 Rule
+------------ --------------- ------  -------- --------------------- ---------
+svm_s_____a default         1       nfs3,    cloudsecure_rule,     never
+                                     nfs4,    10.19.12.216
+                                     cifs
+svm_s_____a default         4       cifs,    0.0.0.0/0             any
+                                     nfs
+svm_s_____a test            1       nfs3,    cloudsecure_rule,     never
+                                     nfs4,    10.19.12.216
+                                     cifs
+svm_s_____a test            3       cifs,    0.0.0.0/0             any
+                                     nfs,
+                                     flexcache
+4 entries were displayed.
+....
+. 通过指定相应的 RuleIndex ，删除 SVM 上所有策略中的所有规则，这些策略将 "cloudsure_rule" 设置为客户端匹配项。CloudSecure 规则通常为 1 。
++
+ contrail-qa-fas8020::*> export-policy rule delete -vserver <svm name> -policyname * -ruleindex 1
+. 确保已删除 cloudsecure 规则（可选的确认步骤）
++
+....
+contrail-qa-fas8020::*> export-policy rule show -vserver <svm name>
+             Policy          Rule    Access   Client                RO
+Vserver      Name            Index   Protocol Match                 Rule
+------------ --------------- ------  -------- --------------------- ---------
+svm_suchitra default         4       cifs,    0.0.0.0/0             any
+                                     nfs
+svm_suchitra test            3       cifs,    0.0.0.0/0             any
+                                     nfs,
+                                     flexcache
+2 entries were displayed.
+....
+
+
+
+
+== 故障排除
+
+|===
+| 问题 | 请尝试此操作 
+
+
+| 尽管存在攻击，但某些用户并未受到限制。 | 1. 确保 SVM 的数据收集器和代理处于 _running 状态。如果停止了数据收集器和代理， Cloud Secure 将无法发送命令。2. 这是因为用户可能已使用以前未使用的新 IP 从计算机访问存储。限制通过用户访问存储的主机的 IP 地址进行。在 UI （ "Alert Details" （警报详细信息） >"Access Limtion History" （此用户的访问限制历史记录） >"Affected IPs" （受影响的 IP ））中检查受限 IP 地址列表。如果用户要从 IP 与受限 IP 不同的主机访问存储，则用户仍可通过非受限 IP 访问存储。如果用户尝试从 IP 受限的主机访问，则无法访问存储。 
+
+
+| 手动单击限制访问会显示 " 此用户的 IP 地址已受限制 " 。 | 要限制的 IP 已被其他用户限制。 
+
+
+| 限制访问失败，并显示警告 " SVM 已禁用 SMB 协议的导出策略使用。启用使用导出策略使用限制用户访问功能 | 确保对 SVM 启用 -is-exportpolicy-enabled 选项为 true ，如前提条件中所述。 
+|===

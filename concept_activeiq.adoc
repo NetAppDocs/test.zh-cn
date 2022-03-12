@@ -1,0 +1,47 @@
+---
+sidebar: sidebar 
+permalink: concept_activeiq.html 
+keywords: Active IQ, risks, svm 
+summary: Cloud Insights 从 NetApp Active IQ 收集风险数据 
+---
+= Active IQ
+
+
+[role="lead"]
+NetApp link:https://www.netapp.com/us/products/data-infrastructure-management/active-iq.aspx["Active IQ"] 为 NetApp 客户的硬件 / 软件系统提供一系列可视化，分析和其他支持相关服务。Active IQ 报告的数据可以增强系统问题的故障排除能力，还可以深入了解与您的设备相关的优化和预测性分析。
+
+Cloud Insights 为 Active IQ 监控和报告的任何 NetApp 集群模式 Data ONTAP 存储系统收集 * 风险 * 。Cloud Insights 会在从这些设备收集数据时自动收集为存储系统报告的风险。您必须将相应的数据收集器添加到 Cloud Insights 中以收集 Active IQ 风险信息。
+
+Cloud Insights 不会显示 Active IQ 未监控和报告的 ONTAP 系统的风险数据。
+
+报告的风险显示在 _storage_ 和 _storage node_ 资产登录页面的 Cloud Insights 中的 "Risks" 表中。此表显示了风险详细信息，风险类别和风险的潜在影响，还提供了一个指向 Active IQ 页面的链接，其中汇总了存储节点的所有风险（需要登录 NetApp 支持帐户）。
+
+image:AIQ_Risks_Table_Example.png["Active IQ 风险表"]
+
+登录页面的 " 摘要 " 小工具还会显示报告的风险计数，并提供指向相应 Active IQ 页面的链接。在 _storage_ 登录页面上，计数是所有底层存储节点的风险之和。
+
+image:AIQ_Summary_Example.png["存储页面摘要"]
+
+
+
+=== 打开 Active IQ 页面
+
+单击指向 Active IQ 页面的链接时，如果您当前未登录到 Active IQ 帐户，则必须执行以下步骤才能查看存储节点的 Active IQ 页面。
+
+. 在 Cloud Insights 摘要小工具或风险表中，单击 Active IQ 链接。
+. 登录到您的 NetApp 支持帐户。您将直接转到 Active IQ 中的存储节点页面。
+
+
+
+
+=== 正在查询风险
+
+在 Cloud Insights 中，您可以将 * 对象风险 * 列添加到存储或存储节点查询中。如果返回的结果包括 Active IQ 监控的存储系统，则对象风险列将显示存储系统或节点的风险数。
+
+
+
+=== 信息板
+
+您可以构建小工具（例如饼图，表小工具，条形，列，散点图， 和单值小工具），以可视化 Active IQ 监控的 NetApp 集群模式 Data ONTAP 系统中存储和存储节点的对象风险。可以在这些小工具中选择 " 对象风险 " 作为列或指标，其中存储或存储节点是关注对象。
+
+image:ObjectRiskWidgets.png["小工具中的对象风险"]

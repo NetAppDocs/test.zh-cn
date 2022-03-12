@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: task_getting_started_with_cloud_insights.html 
+summary: Cloud Insights 入门。 
+keywords: invite, roles, data collector, acquisition unit, AU 
+---
+= 开始收集数据
+
+
+注册 Cloud Insights 并首次登录到您的环境后，系统将引导您完成以下步骤，以便开始收集和管理数据。
+
+数据收集器可从存储设备，网络交换机和虚拟机等数据源发现信息。收集的信息用于分析，验证，监控和故障排除。
+
+Cloud Insights 利用三种类型的数据收集器：
+
+* 操作系统
+* 服务
+* 基础架构
+
+
+从支持的供应商和型号中选择您的第一个数据收集器。您可以稍后轻松添加其他数据收集器。
+
+
+
+== 安装采集单元
+
+如果选择了 _Infrastructure_ 数据收集器，则需要使用采集单元将数据注入 Cloud Insights 。您需要在服务器或虚拟机上下载并安装采集单元软件，以便为 Cloud Insights 收集数据。一个采集单元可用于多个数据收集器。
+
+image:NewLinuxAUInstall.png["《 Linux AU 说明》"]
+
+* 按照 link:task_configure_acquisition_unit.html["说明"] 显示以安装采集单元。安装采集单元软件后，将显示 Continue 按钮，您可以继续执行下一步。
+
+
+image:NewAUDetected.png["检测到新 AU"]
+
+如果需要，您可以稍后设置其他采集单元。例如，您可能希望不同的采集单元从不同区域的数据中心收集信息。
+
+
+
+== 配置 Data Collector - 基础架构
+
+对于 _Infrastructure_ 数据收集器，系统将要求您填写显示的数据收集器字段：
+
+* 为数据收集器指定一个唯一且有意义的名称。
+* 根据需要输入用于连接到设备的用户名和密码。
+* 填写 _Configuration_ 和 _Advanced Configuration_ 部分中的任何其他必填字段。
+* 单击 * 测试连接 * 以测试与设备的连接。
+* 单击 * 添加收集器 * 以保存数据收集器。
+
+
+您可以稍后配置其他数据收集器。
+
+
+
+== 配置 Data Collector —操作系统和服务
+
+
+
+=== 操作系统
+
+对于 _Operating System_ 数据收集器，请选择一个平台（ MacOS ， Linux ， Windows ）来安装 Cloud Insights 代理。您必须至少有一个代理才能从服务收集数据。代理还会从主机本身收集数据，以便在 Cloud Insights 中使用。此数据在小工具等中归类为 " 节点 " 数据
+
+* 在代理主机或 VM 上打开一个终端或命令窗口，然后粘贴显示的命令以安装代理。
+* 安装完成后，单击 * 完成设置 * 。
+
+
+
+
+=== 服务
+
+对于 _Service_ 数据收集器，单击某个图块以打开该服务的说明页面。
+
+* 选择平台和代理访问密钥。
+* 如果您没有在该平台上安装代理，请按照说明安装代理。
+* 单击 * 继续 * 以打开数据收集器指令页面。
+* 按照说明配置数据收集器。
+* 配置完成后，单击 * 完成设置 * 。
+
+
+
+
+== 添加信息板
+
+根据您选择配置的初始数据收集器类型（存储，交换机等），将导入一个或多个相关信息板。例如，如果您配置了存储数据收集器，则会导入一组与存储相关的信息板，其中一个信息板将设置为您的 Cloud Insights 主页。您可以从 * 信息板 > 显示所有信息板 * 列表更改主页。
+
+您可以稍后导入其他信息板，或 link:concept_dashboards_overview.html["创建您自己的"]。
+
+
+
+== 这就是它的全部内容
+
+完成初始设置过程后，您的环境将开始收集数据。
+
+如果初始设置过程中断（例如，关闭浏览器窗口），则需要手动执行以下步骤：
+
+* 选择一个 Data Collector
+* 如果出现提示，请安装代理或采集单元
+* 配置 Data Collector
+

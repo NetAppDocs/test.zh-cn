@@ -1,0 +1,17 @@
+---
+sidebar: sidebar 
+permalink: reference_data_collector_support_matrix.html 
+summary: Data Collector 支持列表包含有关支持的数据收集器的详细信息。 
+keywords: support matrix, vendor, NetApp, IBM, EMC, dell, HP, Hitachi, VMware, Huawei, OpenStack, 
+---
+= Cloud Insights 数据收集器支持列表
+
+
+[role="lead"]
+《数据收集器支持列表》为 Cloud Insights 支持的数据收集器提供了参考，其中包括供应商和型号信息。
+
+此列表以 .PDF 格式提供。
+
+单击链接以打开。右键单击并选择 _Save as..._ 以下载副本。
+
+link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["* 数据收集器支持列表 *"]

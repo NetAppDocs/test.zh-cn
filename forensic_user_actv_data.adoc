@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: forensic_user_actv_data.html 
+keywords: Forensic, user activity, user activity data, 
+summary: 取证用户活动数据 
+---
+= 取证用户活动数据
+
+
+" 用户活动 " 页面可帮助您了解用户对实体执行的操作。
+
+此页面中提供的数据介绍：
+
+* 实体访问时间，包括月份，日期，年份和时间。
+* 通过指向的链接访问此实体的用户 link:<forensic_user_detail>.html["用户详细信息数据"]。
+* 用户执行的活动：
++
+** 写入
+** 读取
+** 访问元数据
+
+
+* 包含指向的链接的实体的路径 link:<forensic_entity_detail>.html["实体详细信息数据"]
+* 实体类型：
++
+** 文件
+** 路径
+
+
+* 执行操作所用的 IP 地址。
+

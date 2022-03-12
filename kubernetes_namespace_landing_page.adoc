@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: kubernetes_namespace_landing_page.html 
+keywords: telegraf, installation, install, kubernetes, pods, clusters, filters, filtering, k8s, namespace 
+summary: 介绍了 Kubernetes 命名空间登录页面 
+---
+= Kubernetes 命名空间详细信息页面
+
+
+[role="lead"]
+Kubernetes 命名空间详细信息页面汇总了命名空间使用的所有资产，包括所有后端存储资源及其容量利用率。
+
+单击任何 Kubernetes Explorer 页面上的命名空间链接将打开该命名空间的详细信息页面。
+
+image:Kubernetes_Namespace_Detail_Example_2.png["命名空间详细信息页面"]
+
+与其他 Kubernetes Excplorer 页面一样，您可以设置一个筛选器以关注特定节点或其他对象，并可查看 Pod 运行状况和命名空间状态概述，以及显示 CPU 和内存需求以及永久性卷容量（如果适用）的图表。
+
+最后，此页面将显示一个与命名空间关联的工作负载表。
+
+单击页面上的任何链接，进一步探索 Kubernetes 环境或对其进行故障排除。

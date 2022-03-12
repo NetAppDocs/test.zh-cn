@@ -1,0 +1,139 @@
+---
+sidebar: sidebar 
+permalink: task_dc_na_astra_data_store.html 
+summary: 配置 NetApp Astra 数据存储库 
+keywords: data collector, queries, create, astra, data, store, 
+---
+= NetApp Astra 数据存储库数据收集器
+
+
+[role="lead"]
+此数据收集器可采集单个 Astra Data Store 集群的清单和性能数据。除了数据收集器之外，监控操作员还会配置 _Telegraf_ 来收集高级指标，并配置 _fluent bit_ 来收集日志。
+
+
+TIP: 此外，您还可以在 Astra 数据存储库文档中找到这些安装说明和追加信息：link:https://docs.netapp.com/us-en/astra-data-store/use/monitor-with-cloud-insights.html["使用 Cloud Insights 监控指标"]
+
+
+
+
+== 术语
+
+Cloud Insights 从此数据收集器采集清单和性能数据。对于所采集的每种资产类型，都会显示该资产最常用的术语。查看此数据收集器或对其进行故障排除时，请记住以下术语：
+
+[cols="2*"]
+|===
+| 供应商 / 型号术语 | Cloud Insights 术语 
+
+
+| AstraDSVolume | 内部卷 
+
+
+| AstraNodeInfo.status.drives | Disk 
+
+
+| AstraNodeInfo | 存储节点 
+
+
+| AstraDSExportPolicy | 共享 / 共享启动程序 
+
+
+| AstraDSCluster | 存储 
+|===
+
+
+== 要求
+
+* 必须在具有 Astra 数据存储的 Kubernetes 集群中安装 NetApp 监控操作员。如果在安装 Astra Data Store 期间未安装此操作系统，请按照 Astra Data Store 安装说明安装监控操作员。
+* 必须安装 _kubectl-astrads_kubectl 插件。如果未安装，请按照 Astra Data Store 安装说明安装 _kubectl-astrads_binary 。
+* 必须提供以下命令： _jk ， cURL ， grep 和 JQ_ 。
+
+
+
+
+== 安装
+
+安装脚本将指导您完成 Astra Data Store 数据收集器的安装。按照屏幕上的说明进行操作。完成安装需要几分钟时间。完成后，可能需要几分钟才能在 Cloud Insights 中显示数据。
+
+此脚本将指导您完成以下步骤：
+
+. 选择 API 访问令牌。
+. 从安装对话框中复制安装程序脚本，并将其另存为名为 _cloudinsets-ads-monitoring.sh_ 的文件。您可以单击剪贴板图标将脚本快速复制到剪贴板。
+. 打开 Bash 窗口，将目录更改为 _cloudinsors-ads-monitoring.sh_ 脚本的位置。
+. 从安装对话框复制权限命令块。您可以单击剪贴板图标将命令快速复制到剪贴板。
+. 将权限命令粘贴到 Bash 窗口中，然后按 Enter 键。
+. 从安装对话框中复制 install 命令。您可以单击剪贴板图标将命令快速复制到剪贴板。
+. 将 install 命令粘贴到 Bash 窗口中。
+. 将 <Kubernetes API 服务器的 IP 地址替换为 <Kubernetes IP> 。
+. 将 <Kubernetes 令牌 > 替换为您的 Kubernetes API 令牌。
+. 按 Enter 键。
++
+安装程序脚本将： * 验证是否已安装和配置监控操作员。* 配置流畅位。* 配置 Telegraf 。* 安装采集单元。* 在采集单元运行后安装 Astra 数据存储收集器。
+
+. 单击 _complete Setup_ 。
+
+
+如果安装程序脚本因错误而退出，则可以在解决错误后重新运行它。如果您的环境不使用默认设置，则安装程序脚本支持其他参数，例如监控操作员命名空间和 Kubernetes API 服务器端口。下面列出了可用选项的完整列表。
+
+
+
+=== 安装程序脚本选项：
+
+请注意， Cloud Insights 域名和选定 API 访问密钥将在下载时嵌入到安装程序脚本中。
+
+....
+$ ./cloudinsights-ads-monitoring.sh -h
+USAGE: cloudinsights-ads-monitoring.sh [OPTIONS]
+Configure monitoring of Astra Data Store by Cloud Insights.
+OPTIONS:
+ -h                      Display this help message.
+ -d ci_domain_name       Cloud Insights tenant domain name.
+ -i kubernetes_ip        Kubernetes API server IP address.
+ -k ci_api_key           Cloud Insights API Access Key.
+ -n namespace            Namespace for monitoring components. (default: netapp-monitoring)
+ -p kubernetes_port      Kubernetes API server port. (default: 6443)
+ -r root_pv_dir          Create 3 Persistent Volumes in this directory for the Acquisition Unit.
+                         Only specify this option if there is no Storage Provisioner installed and the PVs do not already exist.
+ -s storage_class        Storage Class name for provisioning Acquisition Unit PVs. If not specified, the default storage class will be used.
+ -t kubernetes_token     Kubernetes API server token.
+....
+
+
+== 故障排除
+
+如果此数据收集器出现问题，请尝试执行以下操作：
+
+
+
+==== Astra 数据存储数据收集器
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 您会看到一条 " 未授权 " 消息 | 检查 Kubernetes API 令牌是否有权调用 _astrads.netapp.io_ apiGroup 中的 API 
+
+
+| " 未知主机： astrads-metrics-service.astrads-system.svc.cluster.local ：名称或服务未知 " | 验证收集器是否安装在 ADS Kubernetes 集群内运行的采集单元 POD 中。验证 astrads-metrics-service 是否正在运行 astrads-system 命名空间。 
+|===
+
+
+==== 安装脚本
+
+[cols="2*"]
+|===
+| 问题： | 请尝试以下操作： 
+
+
+| 监控运算符未在 < 命名空间 > 命名空间中运行。 | 按照 Astra Data Store 安装说明进行安装 
+
+
+| 采集单元 POD <pod > 在 300 秒后未成功启动。 | 获取采集单元 POD 的名称： kubectl get pod -namespace netapp-monitoring | grep "au-po" Check the pod events for errors ： kubectl describe pod -namespace netapp-monitoring <pod_name> 
+
+
+| 采集单元安装未在 900 秒后完成 | 获取采集单元 POD 的名称： kubectl get pods -namespace netapp-monitoring | grep "au-po" Check the pod logs for errors ： kubectl logs - 命名空间 netapp-monitoring <pod_name> 如果没有错误，并且日志以消息 "Main - Acquisition is up and running ！ " 结尾，则安装成功，但安装时间超出预期。重新运行安装脚本。 
+
+
+| 无法从 Cloud Insights 检索采集单元 ID | 验证采集单元是否显示在 Cloud Insights 中。转到 "Admin">"Data Collectors" ，然后单击 "Acquisition Units" 选项卡。验证 Cloud Insights API 密钥是否具有采集单元的权限。 
+|===
+可从中找到此数据收集器上的追加信息 link:concept_requesting_support.html["支持"] 页面或中的 link:https://docs.netapp.com/us-en/cloudinsights/CloudInsightsDataCollectorSupportMatrix.pdf["数据收集器支持列表"]。

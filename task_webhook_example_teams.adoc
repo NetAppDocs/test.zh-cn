@@ -1,0 +1,54 @@
+---
+sidebar: sidebar 
+permalink: task_webhook_example_teams.html 
+keywords: webhook, notification, Microsoft, Teams, integration 
+summary: 创建一个网络挂钩，以便针对 Microsoft 团队的性能或清单阈值发出警报 
+---
+= 适用于 Microsoft 团队的 webhook 示例
+
+
+[role="lead lead"]
+网络挂机允许用户使用自定义的网络挂机通道向各种应用程序发送警报通知。此页面提供了为团队设置 webhooks 的示例。
+
+
+NOTE: 此页面引用第三方说明，可能会有所更改。请参见 link:https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook["团队文档"] 以获取最新信息。
+
+
+
+=== 团队设置：
+
+. 在 " 团队 " 中，选择 " 串 " 并搜索传入的 Webhook 。
++
+image:Webhooks_Teams_Create_Webhook.png["团队中的传入 Webhook"]
+
+. 选择 * 添加到组 > 选择一个组 > 设置连接器 * 。
+. 复制 Webhook URL 。您需要将此文件粘贴到 Cloud Insights webhook 配置中。
+
+
+
+
+=== 创建 Cloud Insights Webhook ：
+
+. 在 Cloud Insights 中，导航到 * 管理员 > 通知 * ，然后选择 * Webhook* 选项卡。单击 * + Webhook* 以创建新的 webhook 。
+. 为 webhook 指定一个有意义的名称，例如 "Teams Webhook" 。
+. 在 _Template Type_ 下拉列表中，选择 * 团队 * 。
+
+
+image:Webhooks-Teams_example.png["团队 webhook 模板"]
+
+. 将上述 URL 粘贴到 _url_ 字段中。
+
+
+
+
+=== 通过 Webhook 发送通知
+
+要通过 webhook 通知事件，请在 Cloud Insights 中导航到 * 警报 > 监控 * ，然后单击 * + 监控 * 以创建新的 link:task_create_monitor.html["监控"]。
+
+* 选择一个指标并定义监控器的条件。
+* 在 _set up team notification （ s ）下，选择 * Webhook* 传送方法。
+* 为所需事件（严重，警告，已解决）选择 " 团队 " 网络锁
++
+image:Webhooks_Teams_Notifications.png["网络挂机通知"]
+
+

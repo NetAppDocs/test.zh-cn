@@ -1,0 +1,13 @@
+---
+sidebar: sidebar 
+permalink: reference_object_icons.html 
+summary: Cloud Insights 对象图标参考。 
+keywords: icons, assets, objects, reference 
+---
+= 对象图标参考
+
+
+[role="lead"]
+Cloud Insights 中使用的对象图标的快速参考。
+
+image:Icon_Glossary.png["图标参考"]
