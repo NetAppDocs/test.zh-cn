@@ -5,6 +5,7 @@ keywords: collectors, data collectors, configure, introduction, browsers
 summary: 只需几个简单的步骤，即可开始使用 Cloud Secure 
 ---
 = Cloud Secure 入门
+:allow-uri-read: 
 
 
 在开始使用 Cloud Secure 监控用户活动之前，需要完成一些配置任务。

@@ -5,6 +5,7 @@ summary: 为 Cloud Secure 警报通知添加电子邮件地址。
 keywords: email, notifications, alerts, warnings, attacks 
 ---
 = 配置警报电子邮件通知
+:allow-uri-read: 
 
 
 [role="lead"]

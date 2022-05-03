@@ -5,6 +5,7 @@ summary: 查看由监控器触发的警报
 keywords: monitor, alert, viewing 
 ---
 = 从监控器查看和管理警报
+:allow-uri-read: 
 
 
 [role="lead"]

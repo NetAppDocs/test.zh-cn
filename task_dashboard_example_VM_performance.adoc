@@ -5,6 +5,7 @@ summary: 突出显示虚拟机性能的信息板示例。
 keywords: dashboard, widget, custom, example, virtual machine, vm, performance 
 ---
 = 信息板示例：虚拟机性能
+:allow-uri-read: 
 
 
 [role="lead"]

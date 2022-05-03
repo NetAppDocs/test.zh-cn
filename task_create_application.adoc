@@ -5,6 +5,7 @@ summary: 您可以创建标注规则，以便根据定义的条件自动将标�
 keywords: application, create application, 
 ---
 = 创建应用程序
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ summary: 在安装 ONTAP SVM DSC 之前，可以运行此脚本来检查 SVM 中
 keywords: event, checker, rate, sizing 
 ---
 = SVM 事件速率检查器
+:allow-uri-read: 
 
 
 [role="lead"]

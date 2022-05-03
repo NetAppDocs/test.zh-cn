@@ -5,6 +5,7 @@ keywords: alert, snapshot, ransomware, attack
 summary: 您可以为潜在攻击（例如勒索软件）和 / 或活动警告设置自动响应策略 
 ---
 = 自动响应策略
+:allow-uri-read: 
 
 
 [role="lead"]

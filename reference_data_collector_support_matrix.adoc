@@ -5,6 +5,7 @@ summary: Data Collector 支持列表包含有关支持的数据收集器的详�
 keywords: support matrix, vendor, NetApp, IBM, EMC, dell, HP, Hitachi, VMware, Huawei, OpenStack, 
 ---
 = Cloud Insights 数据收集器支持列表
+:allow-uri-read: 
 
 
 [role="lead"]

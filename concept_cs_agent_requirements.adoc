@@ -5,6 +5,7 @@ summary: 用作代理的服务器或 VM 必须满足最低要求
 keywords: agent, Linux, requirements, docker, browsers, permissions, Network 
 ---
 = 代理要求
+:allow-uri-read: 
 
 
 [role="lead"]

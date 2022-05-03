@@ -5,6 +5,7 @@ summary: 用作采集单元的服务器或 VM 必须满足最低要求
 keywords: AU, acquisition unit, RAU, requirements, sizing 
 ---
 = 采集单元要求
+:allow-uri-read: 
 
 
 [role="lead"]

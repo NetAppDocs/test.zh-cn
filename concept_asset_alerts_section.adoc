@@ -5,6 +5,7 @@ summary: Cloud Insights 中的资产页面相关警报部分概述。
 keywords: asset, landing page, violations, Alerts, 
 ---
 = 资产页面相关警报部分
+:allow-uri-read: 
 
 
 [role="lead"]

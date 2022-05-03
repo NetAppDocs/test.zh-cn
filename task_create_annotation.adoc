@@ -5,6 +5,7 @@ keywords: annotations, annotation rules, manual annotations,
 summary: 如何创建标注。 
 ---
 = 使用标注
+:allow-uri-read: 
 
 
 [role="lead"]

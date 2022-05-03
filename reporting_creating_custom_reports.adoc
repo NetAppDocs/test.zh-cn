@@ -5,6 +5,7 @@ summary: '使用报告创作工具创建自定义（ "ad-hoc " ）报告'
 keywords: reporting, cognos, data warehouse, dwh, ad-hoc, custom 
 ---
 = 创建自定义报告
+:allow-uri-read: 
 
 
 [role="lead"]

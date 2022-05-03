@@ -5,6 +5,7 @@ summary: 使用此操作步骤可使用预定义的 Cloud Insights 报告创建�
 keywords: reporting, cognos, data warehouse, dwh, create, report 
 ---
 = 创建报告（示例）
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ summary: 供应商专用的数据收集器参考信息。
 keywords: data collector, vendor, AWS, BROADCOM, Cisco, Dell, EMC, Hitachi, IBM, NetApp, OceanStor, OpenStack, Oracle, Pure Storage, Red Hat, redhat, VMWare 
 ---
 = 供应商专用参考
+:allow-uri-read: 
 
 
 [role="lead"]

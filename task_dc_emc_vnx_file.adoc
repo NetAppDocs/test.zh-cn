@@ -5,6 +5,7 @@ keywords: data collector, Celerra, EMC, DELL, VNX File
 summary: 配置 Dell EMC Celerra 数据收集器。 
 ---
 = Dell EMC VNX 文件（以前称为 Celerra 统一存储系统）数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, apache
 summary: Apache 数据收集器配置 
 ---
 = Apache Data Collector
+:allow-uri-read: 
 
 
 [role="lead"]

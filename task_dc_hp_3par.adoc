@@ -5,6 +5,7 @@ keywords: data collector, 3PAR, HP, HP 3PAR, HPE,
 summary: 配置 HP Enterprise Alletra 9000/Primera （以前称为 3PAR ）数据收集器。 
 ---
 = HP Enterprise Alletra 9000/Primera 存储数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ keywords: 'data collector, stout, fsx, fsx-netapp, Amazon, AWS, cluster, volume,
 summary: 适用于 NetApp ONTAP 数据收集器的 Amazon FSX 
 ---
 = 适用于 NetApp ONTAP 数据收集器的 Amazon FSX
+:allow-uri-read: 
 
 
 [role="lead"]

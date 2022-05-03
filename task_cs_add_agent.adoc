@@ -5,6 +5,7 @@ keywords: agent, Cloud Secure, installation
 summary: 正在添加 Cloud Secure 代理 
 ---
 = Cloud Secure 代理安装
+:allow-uri-read: 
 
 
 [role="lead"]

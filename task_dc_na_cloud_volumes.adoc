@@ -5,6 +5,7 @@ summary: 为 AWS 数据收集器配置 NetApp Cloud Volumes Services
 keywords: data collector, NetApp, Cloud, AWS 
 ---
 = 适用于 AWS 数据收集器的 NetApp Cloud Volumes Services
+:allow-uri-read: 
 
 
 [role="lead"]

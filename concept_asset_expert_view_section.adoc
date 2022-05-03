@@ -5,6 +5,7 @@ summary: '资产页面的 "Expert View" 部分是一个功能强大的故障排�
 keywords: asset page, expert view, metrics, greedy, degraded, correlated, contributors, chart, 
 ---
 = 专家视图
+:allow-uri-read: 
 
 
 [role="lead"]

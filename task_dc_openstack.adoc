@@ -5,6 +5,7 @@ keywords: data collector, openstack, OpenStack
 summary: OpenStack 数据收集器。 
 ---
 = OpenStack 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

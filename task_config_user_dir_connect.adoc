@@ -5,6 +5,7 @@ keywords: collector, configure, LDAP, Active Directory
 summary: 配置 Cloud Secure Active Directory 用户目录收集器 
 ---
 = 配置 Active Directory （ AD ）用户目录收集器
+:allow-uri-read: 
 
 
 [role="lead"]

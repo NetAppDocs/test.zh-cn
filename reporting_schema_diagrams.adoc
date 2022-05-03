@@ -5,6 +5,7 @@ keywords: Schema, DB Schema, premium, dwh, data warehouse
 summary: 报告架构图 
 ---
 = Cloud Insights 报告架构图
+:allow-uri-read: 
 
 
 [role="lead"]

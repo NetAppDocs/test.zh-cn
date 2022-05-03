@@ -5,6 +5,7 @@ summary: 您可以使用 Cloud Insights 报告执行哪些操作取决于您的�
 keywords: reporting, cognos, data warehouse, dwh, users, roles, user roles 
 ---
 = Cloud Insights 报告用户角色
+:allow-uri-read: 
 
 
 [role="lead"]

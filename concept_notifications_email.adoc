@@ -5,6 +5,7 @@ summary: 为通知添加电子邮件地址。
 keywords: email, notifications, signature, recipient, list, subscription 
 ---
 = 配置电子邮件通知
+:allow-uri-read: 
 
 
 [role="lead"]

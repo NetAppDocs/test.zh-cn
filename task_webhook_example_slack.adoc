@@ -5,6 +5,7 @@ keywords: webhook, notification, Slack, integration
 summary: 创建一个网络挂钩，以便针对可宽延性的性能或清单阈值发出警报 
 ---
 = Slack 的 webhook 示例
+:allow-uri-read: 
 
 
 [role="lead"]

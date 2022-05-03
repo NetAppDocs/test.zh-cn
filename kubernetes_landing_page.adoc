@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, kubernetes, pods, clusters, filters, 
 summary: 介绍了 Kubernetes 登录页面 
 ---
 = Kubernetes 集群概述
+:allow-uri-read: 
 
 
 [role="lead"]

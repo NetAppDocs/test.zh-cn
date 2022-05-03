@@ -5,12 +5,13 @@ summary: 常规 Cloud Insights 故障排除提示。
 keywords: troubleshooting, problems, browser, login, log in, accessing, access to 
 ---
 = 对常规 Cloud Insights 问题进行故障排除
+:allow-uri-read: 
 
 
 [role="lead"]
 您可以在此处找到有关 Cloud Insights 故障排除的建议。
 
-另请参见 link:task_troubleshooting_linux_acquisition_unit_problems.html["排除 Linux 采集单元问题"] 和 。
+另请参见 link:task_troubleshooting_linux_acquisition_unit_problems.html["排除 Linux 采集单元问题"] 和 link:task_troubleshooting_windows_acquisition_unit_problems.html["对 Windows 采集单元问题进行故障排除"]。
 
 
 
@@ -45,6 +46,6 @@ keywords: troubleshooting, problems, browser, login, log in, accessing, access t
 如果您拥有有效的 Cloud Insights 订阅，则可以使用以下支持选项：
 
 link:https://www.netapp.com/us/contact-us/support.aspx["电话"]
-
+link:https://mysupport.netapp.com/site/cases/mine/create?serialNumber=95001014387268156333["支持服务单"]
 
 有关详细信息，请参见 https://docs.netapp.com/us-en/cloudinsights/concept_requesting_support.html["Cloud Insights 支持文档"]。

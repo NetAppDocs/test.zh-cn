@@ -5,6 +5,7 @@ summary: 在本节中，您将找到一些提示和技巧，可帮助您解决 C
 keywords: troubleshootin 
 ---
 = 对 Cloud Insights 问题进行故障排除
+:allow-uri-read: 
 
 
 [role="lead"]

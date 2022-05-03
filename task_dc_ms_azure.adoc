@@ -5,6 +5,7 @@ keywords: data collector, azure,
 summary: 配置 Azure 计算数据收集器。 
 ---
 = 配置 Azure 计算数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

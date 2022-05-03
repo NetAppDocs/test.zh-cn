@@ -5,6 +5,7 @@ keywords: Forensic, entity, entity overview, entity behavior, detail
 summary: 取证实体详细信息 
 ---
 = 取证实体详细信息
+:allow-uri-read: 
 
 
 目录：宏： hardbress ：：切换： 1 ：页脚：：：图标：字体： linkattrs ：：： imagesdir ： ./media/
@@ -17,7 +18,7 @@ summary: 取证实体详细信息
 
 您可以访问
 
-实体配置文件::
+实体配置文件:: 介绍详细信息，包括：
 +
 --
 * Name

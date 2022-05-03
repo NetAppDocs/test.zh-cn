@@ -5,6 +5,7 @@ keywords: data collector, Dell, EMC, xc
 summary: 配置 Dell EMC XC 系列数据收集器。 
 ---
 = Dell EMC XC 系列数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

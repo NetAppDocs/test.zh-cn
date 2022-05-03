@@ -5,6 +5,7 @@ keywords: data collector, Fujitsu, Eternus
 summary: 配置 Fujitsu Eternus 数据收集器。 
 ---
 = Fujitsu Eternus 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

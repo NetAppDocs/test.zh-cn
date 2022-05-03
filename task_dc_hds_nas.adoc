@@ -5,6 +5,7 @@ keywords: data collector, HDS HNAS, HDS NAS
 summary: 配置 HDS NAS （ HNAS ）数据收集器。 
 ---
 = 配置 Hitachi Vantara NAS 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

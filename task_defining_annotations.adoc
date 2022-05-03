@@ -5,6 +5,7 @@ keywords: annotations, monitor, notes, tags
 summary: 使用标注跟踪数据。 
 ---
 = 定义标注
+:allow-uri-read: 
 
 
 [role="lead"]
@@ -100,7 +101,7 @@ NOTE: 别名，数据中心，热，服务级别， Sunset ， 交换机级别�
 .标注类型
 布尔值:: 创建一个下拉列表，其中包含 yes 和 no 选项例如， " 直连 " 标注为布尔标注。
 Date:: 此操作将创建一个包含日期的字段。例如，如果标注将是日期，请选择此项。
-列表::
+列表:: 创建以下任一项：
 +
 --
 * 固定下拉列表

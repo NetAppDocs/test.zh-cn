@@ -5,6 +5,7 @@ keywords: data collector, changes, failures
 summary: 数据收集器错误 
 ---
 = 研究发生故障的数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

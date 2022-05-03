@@ -5,6 +5,7 @@ summary: 用于报告的数据仓库架构图和表
 keywords: dwh, data warehouse, schema, reporting 
 ---
 = 用于报告的 Cloud Insights 架构
+:allow-uri-read: 
 
 
 [role="lead"]

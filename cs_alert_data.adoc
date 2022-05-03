@@ -5,6 +5,7 @@ keywords: alert, attack, ransomware, activity, security, abnormal
 summary: '如果用户活动异常或可能受到攻击， Cloud Secure 会创建警报。" 警报 " 页面列出了这些活动，便于快速轻松地进行调查。' 
 ---
 = 警报
+:allow-uri-read: 
 
 
 [role="lead"]

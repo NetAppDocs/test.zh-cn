@@ -5,6 +5,7 @@ keywords: Automatic, AR, AHR, Host, automatic device resolution, FC, Identify
 summary:  
 ---
 = IP 设备解析
+:allow-uri-read: 
 
 
 [role="lead"]
@@ -85,5 +86,5 @@ NOTE: 作为最佳实践，建议先将 IP Address Identify 信息导出到 .CSV
 
 
 相关：link:task_device_resolution_fibre_channel.html["光纤通道设备解析"]
-
-
+link:task_device_resolution_rules.html["正在创建设备解析规则"]
+link:task_device_resolution_preferences.html["设置设备解析首选项"]

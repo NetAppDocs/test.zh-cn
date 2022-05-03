@@ -5,6 +5,7 @@ keywords: ransomware, simulation, simulator, restrict, attack
 summary: 您可以使用脚本模拟勒索软件攻击，以测试或演示 Cloud Secure 
 ---
 = Cloud Secure ：模拟攻击
+:allow-uri-read: 
 
 
 [role="lead"]

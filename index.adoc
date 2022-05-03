@@ -4,6 +4,7 @@ permalink: index.html
 summary: 欢迎使用 Cloud Insights 文档门户。 
 ---
 = Cloud Insights 文档
+:allow-uri-read: 
 
 
 [role="lead"]
@@ -31,10 +32,10 @@ Cloud Insights 可帮助您：
 
 * 我是新客户： link:task_cloud_insights_onboarding_1.html["入职"]
 * 我已注册：现在该怎么办？link:task_getting_started_with_cloud_insights.html["正在获取数据"]
-
+link:concept_user_roles.html["设置用户"]
 * 如何充分利用 Cloud Insights ？link:task_defining_annotations.html["准备资产：添加标注"]
-
-
-
+link:concept_querying_assets.html["查找所需资产： Querying"]
+link:concept_dashboards_overview.html["查看所需数据：信息板"]
+link:https:task_create_monitor.html["监控和警报"]
 * 我已经试用了 Cloud Insights ，现在我准备好了 link:concept_subscribing_to_cloud_insights.html["* 订阅 *"]。
 

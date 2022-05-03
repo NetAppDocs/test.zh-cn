@@ -5,6 +5,7 @@ keywords: data collector, VMware, hci
 summary: 配置 NetApp HCI 管理服务器数据收集器。 
 ---
 = 配置 NetApp HCI 管理服务器数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

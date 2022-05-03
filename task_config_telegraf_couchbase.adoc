@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, couchbase
 summary: Couchbase 数据收集器配置 
 ---
 = Couchbase 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

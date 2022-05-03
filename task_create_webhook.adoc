@@ -5,6 +5,7 @@ keywords: webhook, notification, slack, integration
 summary: 创建监控器，以便针对性能或清单阈值发出警报 
 ---
 = 使用 Webhooks 发送通知
+:allow-uri-read: 
 
 
 [role="lead"]
@@ -77,4 +78,4 @@ image:Webhook_Monitor_Notify.png["Webhook 监控通知"]
 
 == webhook 示例：
 
-网络挂钩 link:task_webhook_example_slack.html["Slack"]网络挂钩 网络挂钩 网络挂钩 
+网络挂钩 link:task_webhook_example_slack.html["Slack"]网络挂钩 link:task_webhook_example_pagerduty.html["PagerDty"]网络挂钩 link:task_webhook_example_teams.html["团队"]网络挂钩 link:task_webhook_example_discord.html["不和"]

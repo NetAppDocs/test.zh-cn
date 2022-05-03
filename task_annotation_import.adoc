@@ -5,6 +5,7 @@ keywords: annotations, import, api
 summary: 您可以使用 Cloud Insights API 导入烦恼和应用程序。 
 ---
 = 导入标注
+:allow-uri-read: 
 
 
 [role="lead"]

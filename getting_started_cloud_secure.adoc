@@ -5,6 +5,7 @@ summary: Cloud Secure 入门。
 keywords: invite, roles, data collector, agent 
 ---
 = Cloud Secure 入门
+:allow-uri-read: 
 
 
 注册 Cloud Secure 并首次登录到环境后，需要先完成一些配置步骤，然后才能开始收集和分析数据访问信息。
@@ -15,7 +16,7 @@ keywords: invite, roles, data collector, agent
 
 代理需要收集数据以供 Cloud Secure 分析。您可以在环境中的服务器或虚拟机上安装 Agent 软件。一个代理可用于多个数据收集器。
 
-* 请参见 link:concept_cs_agent_requirements.html["代理要求"] 和  以安装代理。
+* 请参见 link:concept_cs_agent_requirements.html["代理要求"] 和 link:task_cs_add_agent.html["代理安装"] 以安装代理。
 
 
 

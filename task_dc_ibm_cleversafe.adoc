@@ -5,6 +5,7 @@ keywords: data collector, IBM Cleversafe
 summary: 配置 IBM Cleversafe 数据收集器。 
 ---
 = IBM Cleverssafe 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

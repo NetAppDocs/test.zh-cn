@@ -5,6 +5,7 @@ keywords: acquisition, AU, data collector, collector, bulk edit, postpone pollin
 summary: 摘要。 
 ---
 = 管理已配置的数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

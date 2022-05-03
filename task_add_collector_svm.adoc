@@ -5,6 +5,7 @@ keywords: data collector, ONTAP, NetApp, SVM, cloud ontap, firewall
 summary: 正在添加数据收集器 
 ---
 = 配置 ONTAP SVM 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

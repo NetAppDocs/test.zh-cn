@@ -5,6 +5,7 @@ keywords: data collector, Brocade, FC switch,
 summary: 配置 Brocade FC 交换机数据收集器。 
 ---
 = Brocade FC 交换机数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

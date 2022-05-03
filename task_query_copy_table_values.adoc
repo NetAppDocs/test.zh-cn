@@ -5,6 +5,7 @@ summary: 您可以将表中的值复制到剪贴板，以便在其他应用程�
 keywords: query, queries, copy, values, clipboard 
 ---
 = 正在复制表值
+:allow-uri-read: 
 
 
 [role="lead"]

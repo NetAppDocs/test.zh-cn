@@ -5,6 +5,7 @@ keywords: FAQ, Frequently asked questions, questions, configuration,
 summary:  
 ---
 = 配置和支持的设备
+:allow-uri-read: 
 
 
 [role="lead"]

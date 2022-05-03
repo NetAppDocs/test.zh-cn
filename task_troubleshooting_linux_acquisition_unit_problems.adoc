@@ -5,6 +5,7 @@ summary: 有关采集单元问题的故障排除提示。
 keywords: AU, acquisition unit, trioubleshooting 
 ---
 = 排除 Linux 上的采集单元问题
+:allow-uri-read: 
 
 
 [role="lead"]

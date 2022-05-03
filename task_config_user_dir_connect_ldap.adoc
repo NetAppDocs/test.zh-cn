@@ -5,6 +5,7 @@ keywords: collector, configure, LDAP, Active Directory
 summary: 配置 Cloud Secure LDAP 用户目录收集器 
 ---
 = 配置 LDAP 目录服务器收集器
+:allow-uri-read: 
 
 
 [role="lead"]
@@ -124,7 +125,7 @@ summary: 配置 Cloud Secure LDAP 用户目录收集器
  ldapsearch -D "uid=john ,cn=users,cn=accounts,dc=dorp,dc=company,dc=com" -W -x -LLL -o ldif-wrap=no -b "cn=accounts,dc=dorp,dc=company,dc=com" -H ldap://vmwipaapp08.dorp.company.com
 * 使用 LDAP 资源管理器导航 LDAP 数据库，查看对象属性和属性，查看权限，查看对象架构，执行复杂的搜索，您可以保存这些搜索并重新执行这些搜索。
 +
-** 安装 LDAP 资源管理器 (http://ldaptool.sourceforge.net/)[] 或 Java LDAP 资源管理器  可连接到 LDAP 服务器的任何 Windows 计算机上。
+** 安装 LDAP 资源管理器 (http://ldaptool.sourceforge.net/)[] 或 Java LDAP 资源管理器 (http://jxplorer.org/)[] 可连接到 LDAP 服务器的任何 Windows 计算机上。
 ** 使用 LDAP 目录服务器的用户名 / 密码连接到 LDAP 服务器。
 
 

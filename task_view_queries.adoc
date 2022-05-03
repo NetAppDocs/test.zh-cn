@@ -5,6 +5,7 @@ summary: 查看已创建的查询
 keywords: query, queries, viewing 
 ---
 = 查看查询
+:allow-uri-read: 
 
 
 [role="lead"]

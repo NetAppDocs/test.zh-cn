@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, redis
 summary: Redis 数据收集器配置 
 ---
 = RethinkDB 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

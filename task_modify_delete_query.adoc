@@ -5,6 +5,7 @@ summary: 修改或删除查询
 keywords: query, queries, modify, edit, delete, remove 
 ---
 = 修改或删除查询
+:allow-uri-read: 
 
 
 

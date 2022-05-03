@@ -4,6 +4,7 @@ permalink: task_cloud_insights_onboarding_1.html
 summary: 注册 Cloud Insights 并创建环境。 
 ---
 = Cloud Insights 入职
+:allow-uri-read: 
 
 
 [role="lead"]

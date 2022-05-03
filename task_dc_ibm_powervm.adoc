@@ -5,6 +5,7 @@ keywords: IBM, powerVM,
 summary: 配置 IBM PowerVM 数据收集器。 
 ---
 = 配置 IBM PowerVM 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ keywords: data collector, Microsoft, Hyper-V
 summary: 配置 Microsoft Hyper-V 数据收集器。 
 ---
 = Microsoft Hyper-V 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

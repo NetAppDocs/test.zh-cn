@@ -5,6 +5,7 @@ keywords: agent, Cloud Secure, delete agent
 summary: 删除 Cloud Secure 代理 
 ---
 = 删除 Cloud Secure 代理
+:allow-uri-read: 
 
 
 [role="lead"]

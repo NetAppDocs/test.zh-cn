@@ -5,6 +5,7 @@ keywords: monitors, alerts, log, metric, system-defined, system, metric,
 summary: 创建监控器，以便针对性能或清单阈值以及指标或日志条件发出警报。 
 ---
 = 向监控器发出警报
+:allow-uri-read: 
 
 
 [role="lead"]

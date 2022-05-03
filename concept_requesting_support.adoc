@@ -5,6 +5,7 @@ summary: 您可以查看知识库文章，与 NetApp 社区联系，查看视频
 keywords: support, knowledgebase, documentation, community, chat, videos, help, contact 
 ---
 = 请求支持
+:allow-uri-read: 
 
 
 
@@ -77,7 +78,7 @@ NetApp 通过多种方式为 Cloud Insights 提供支持。全天候提供广泛
 
 * *link:https://kb.netapp.com["知识库"]*
 +
-单击本节中的链接将转到 NetApp 知识库，您可以在其中搜索文章， link:https://kb.netapp.com/app/browse/a_status/published/channelRecordID/HOW_TO/currentSelectedID/RN_PRODUCT_473/isProductSelected/true/isRecommendationAllowed/true/pageSize/10/productRecordID/RN_PRODUCT_473/sortColumn/publishDate/sortDirection/DESC/truncate/200/type/browse["操作说明"]， 或  与 Cloud Insights 相关的信息。
+单击本节中的链接将转到 NetApp 知识库，您可以在其中搜索文章， link:https://kb.netapp.com/app/browse/a_status/published/channelRecordID/HOW_TO/currentSelectedID/RN_PRODUCT_473/isProductSelected/true/isRecommendationAllowed/true/pageSize/10/productRecordID/RN_PRODUCT_473/sortColumn/publishDate/sortDirection/DESC/truncate/200/type/browse["操作说明"]， link:https://kb.netapp.com/app/browse/a_status/published/channelRecordID/FAQ/currentSelectedID/RN_PRODUCT_473/isProductSelected/true/isRecommendationAllowed/true/pageSize/10/productRecordID/RN_PRODUCT_473/sortColumn/publishDate/sortDirection/DESC/truncate/200/type/browse["常见问题解答"]或 link:https://kb.netapp.com/app/browse/a_status/published/channelRecordID/BREAK_FIX/currentSelectedID/RN_PRODUCT_473/isProductSelected/true/isRecommendationAllowed/true/pageSize/10/productRecordID/RN_PRODUCT_473/sortColumn/publishDate/sortDirection/DESC/truncate/200/type/browse["中断修复"] 与 Cloud Insights 相关的信息。
 
 * *link:https://docs.netapp.com/us-en/cloudinsights/["文档。"]*
 +

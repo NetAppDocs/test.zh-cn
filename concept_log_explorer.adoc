@@ -5,6 +5,7 @@ keywords: logs, monitors, alerts,
 summary: 日志资源管理器是一个功能强大的工具，可用于调查问题。 
 ---
 = 日志资源管理器
+:allow-uri-read: 
 
 
 [role="lead"]

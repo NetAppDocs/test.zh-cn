@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, nginx
 summary: nginx 数据收集器配置 
 ---
 = nginx 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

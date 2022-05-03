@@ -5,6 +5,7 @@ keywords: data collector,Lenovo, HX Series
 summary: 配置联想数据收集器。 
 ---
 = 联想数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

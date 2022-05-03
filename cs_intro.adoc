@@ -5,6 +5,7 @@ keywords: CloudSecure
 summary: 概述 
 ---
 = 关于 Cloud Secure
+:allow-uri-read: 
 
 
 [role="lead"]

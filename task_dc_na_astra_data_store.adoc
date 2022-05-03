@@ -5,6 +5,7 @@ summary: 配置 NetApp Astra 数据存储库
 keywords: data collector, queries, create, astra, data, store, 
 ---
 = NetApp Astra 数据存储库数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]
@@ -12,7 +13,7 @@ keywords: data collector, queries, create, astra, data, store,
 
 
 TIP: 此外，您还可以在 Astra 数据存储库文档中找到这些安装说明和追加信息：link:https://docs.netapp.com/us-en/astra-data-store/use/monitor-with-cloud-insights.html["使用 Cloud Insights 监控指标"]
-
+link:https://docs.netapp.com/us-en/astra-data-store/get-started/quick-start.html["Astra 数据存储快速入门"]
 
 
 

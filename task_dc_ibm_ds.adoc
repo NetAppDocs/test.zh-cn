@@ -5,6 +5,7 @@ keywords: data collector, IBM DS6xxx, IBM DS6xxx, IBM, IBM DS
 summary: 配置系统存储 DS8000 系列数据收集器。 
 ---
 = IBM System Storage DS8000 系列数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

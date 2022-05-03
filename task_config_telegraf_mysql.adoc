@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, mysql
 summary: MySQL 数据收集器配置 
 ---
 = MySQL Data Collector
+:allow-uri-read: 
 
 
 [role="lead"]

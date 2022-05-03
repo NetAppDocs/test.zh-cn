@@ -5,6 +5,7 @@ summary: 使用 Cloud Insights API 直接查询报告数据库。
 keywords: reporting, cognos, data warehouse, dwh, API 
 ---
 = 通过 API 访问报告数据库
+:allow-uri-read: 
 
 
 [role="lead"]
@@ -17,7 +18,7 @@ NOTE: 本文档涉及中提供的 Cloud Insights 报告功能 link:/concept_subs
 
 == OData
 
-Cloud Insights 报告 API 遵循 link:https://www.odata.org/["OData v4"] （开放式数据协议）用于查询报告数据库的标准。要了解更多信息或了解更多信息，请查看  在 OData 上。
+Cloud Insights 报告 API 遵循 link:https://www.odata.org/["OData v4"] （开放式数据协议）用于查询报告数据库的标准。要了解更多信息或了解更多信息，请查看 link:https://www.odata.org/getting-started/basic-tutorial/["本教程"] 在 OData 上。
 
 所有请求均以 URL ： _\https://<Cloud Insights URL>/rest/v1/dwh-management/OData_ 开头
 

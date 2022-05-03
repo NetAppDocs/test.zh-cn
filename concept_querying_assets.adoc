@@ -5,6 +5,7 @@ summary: 查询概述
 keywords: query, queries, Application, Datastore, Disk, Fabric, Generic Device, Host, Internal Volume, iSCSI, Network, Portal, Path, Port, Qtree, Quota, Share, Storage, Node, Pool, SVM, Switch, Tape, VMDK, Virtual Machine, VM, Volume, Zone, Member 
 ---
 = 查询中使用的资产
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ summary: 配置 Google Compute 数据收集器
 keywords: data collector, queries, create 
 ---
 = NetApp Google 计算数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

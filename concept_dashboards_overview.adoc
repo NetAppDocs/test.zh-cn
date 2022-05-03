@@ -5,6 +5,7 @@ summary: Cloud Insights 中的信息板概述。
 keywords: dashboard, widget, custom, view, data 
 ---
 = 信息板概述
+:allow-uri-read: 
 
 
 [role="lead"]

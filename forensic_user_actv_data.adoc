@@ -5,6 +5,7 @@ keywords: Forensic, user activity, user activity data,
 summary: 取证用户活动数据 
 ---
 = 取证用户活动数据
+:allow-uri-read: 
 
 
 " 用户活动 " 页面可帮助您了解用户对实体执行的操作。

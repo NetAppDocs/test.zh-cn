@@ -5,10 +5,11 @@ keywords: roles, guest, user, administrator, SSO, Federate, federation, identity
 summary: Cloud Insights 提供了多个具有不同权限级别的用户帐户。 
 ---
 = 用户帐户和角色
+:allow-uri-read: 
 
 
 [role="lead"]
-Cloud Insights 最多可提供四个用户帐户角色：帐户所有者，管理员，用户和来宾。为每个帐户分配特定的权限级别，如下表所示。（请注意， _User_ 和 _Guest_ 角色在 Cloud Secure 功能中不可用。）用户可以是其中之一 link:#creating-accounts-by-inviting-users["已邀请"] Cloud Insights 并分配了特定角色，或者可以通过登录  具有默认角色。Cloud Insights 高级版提供了 SSO 授权功能。
+Cloud Insights 最多可提供四个用户帐户角色：帐户所有者，管理员，用户和来宾。为每个帐户分配特定的权限级别，如下表所示。（请注意， _User_ 和 _Guest_ 角色在 Cloud Secure 功能中不可用。）用户可以是其中之一 link:#creating-accounts-by-inviting-users["已邀请"] Cloud Insights 并分配了特定角色，或者可以通过登录 link:#single-sign-on-sso-accounts["单点登录（ SSO ）授权"] 具有默认角色。Cloud Insights 高级版提供了 SSO 授权功能。
 
 
 

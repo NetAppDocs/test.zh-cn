@@ -5,6 +5,7 @@ summary: 可以为大多数对象类型显示资产页面。
 keywords: asset page, objects, landing page, Virtual machine, VM, Storage Virtual Machine, SVM, Volume, Internal volume, Host, Hypervisor, pool, Storage, Datastore, Application, node, Qtree, Disk, VMDK, Port, Switch, Fabric 
 ---
 = 资产页面概述
+:allow-uri-read: 
 
 
 [role="lead"]

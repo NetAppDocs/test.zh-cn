@@ -5,6 +5,7 @@ keywords: data collector, cisco, FC, cisco FC
 summary: 配置 Cisco MDS 光纤交换机数据收集器。 
 ---
 = Cisco MDS Fabric Switches 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

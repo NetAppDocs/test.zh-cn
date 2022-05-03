@@ -5,6 +5,7 @@ summary: 使用 NetApp ONTAP 流遥测功能配置 Cloud Insights
 keywords: ONTAP, Telemetry, streaming, 
 ---
 = NetApp ONTAP 流遥测
+:allow-uri-read: 
 
 
 [role="lead"]

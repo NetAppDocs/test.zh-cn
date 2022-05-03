@@ -5,6 +5,7 @@ summary: Cloud Insights 入门。
 keywords: invite, roles, data collector, acquisition unit, AU 
 ---
 = 开始收集数据
+:allow-uri-read: 
 
 
 注册 Cloud Insights 并首次登录到您的环境后，系统将引导您完成以下步骤，以便开始收集和管理数据。

@@ -8,6 +8,7 @@ summary: 创建监控器，以便针对性能或清单阈值以及指标或日�
 :toc: macro
 :hardbreaks:
 :toclevels: 2
+:allow-uri-read: 
 :toc: 
 :toclevels: 2
 :nofooter: 

@@ -5,6 +5,7 @@ summary: 充分利用信息板的最佳实践
 keywords: dashboard, hints, tips, best practice, widgets, metrics, 
 ---
 = 信息板和小工具的最佳实践
+:allow-uri-read: 
 
 
 [role="lead"]

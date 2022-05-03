@@ -5,6 +5,7 @@ summary: 通过资产页面的 User Data 部分，您可以为当前资产分配
 keywords: asset page, user data, applications, annotations 
 ---
 = 用户数据部分
+:allow-uri-read: 
 
 
 [role="lead"]

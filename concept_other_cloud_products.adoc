@@ -5,6 +5,7 @@ keywords: cloud central, cloud products, switching between
 summary: 您可以从 Cloud Insights 轻松切换到其他 NetApp Cloud Central 产品。 
 ---
 = 正在切换到其他 Cloud Central 产品
+:allow-uri-read: 
 
 
 [role="lead"]

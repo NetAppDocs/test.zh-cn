@@ -5,6 +5,7 @@ keywords: api, access, token, swagger
 summary: Cloud Secure 包含一个功能强大的 API ，可与 CMDB 等其他应用程序集成。 
 ---
 = Cloud Secure API
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ keywords: IBM, XIV, SAN, A9000
 summary: 配置 IBM X4/A9000 数据收集器。 
 ---
 = 配置 IBM X4/A9000 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ summary: Cloud Insights 中的资产页面摘要部分概述。
 keywords: asset, summary, landing page, topology 
 ---
 = 资产页面摘要部分
+:allow-uri-read: 
 
 
 [role="lead"]

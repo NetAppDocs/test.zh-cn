@@ -5,6 +5,7 @@ keywords: IBM, SVC,SAN
 summary: 配置 IBM SAN Volume Controller 数据收集器。 
 ---
 = 配置 IBM SAN Volume Controller 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -8,6 +8,7 @@ keywords: dashboard, widget, custom, concepts, queries, variables, rollup, roll 
 :toc: macro
 :hardbreaks:
 :toclevels: 1
+:allow-uri-read: 
 :toc: 
 :nofooter: 
 :toclevels: 1

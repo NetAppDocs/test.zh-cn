@@ -5,6 +5,7 @@ summary: 此主题尚未准备就绪。
 keywords: coming soon 
 ---
 = 此主题正在构建中
+:allow-uri-read: 
 
 
 [role="lead"]

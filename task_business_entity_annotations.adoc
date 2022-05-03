@@ -5,6 +5,7 @@ keywords: annotations, business entity
 summary: 业务实体标注可用于监控和报告业务层次结构中的资产 
 ---
 = 业务实体标注
+:allow-uri-read: 
 
 
 [role="lead"]

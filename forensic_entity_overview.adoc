@@ -6,6 +6,7 @@ summary: 取证实体页面
 ---
 = 取证实体页面
 :hardbreaks:
+:allow-uri-read: 
 :nofooter: 
 :icons: font
 :linkattrs: 

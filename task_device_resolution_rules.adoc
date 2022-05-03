@@ -5,6 +5,7 @@ keywords: Automatic, AR, AHR, Host, automatic device resolution
 summary: 设备解析有助于您准确跟踪环境中的性能和清单。 
 ---
 = 设备解析规则
+:allow-uri-read: 
 
 
 [role="lead"]
@@ -149,5 +150,5 @@ Cloud Insights 按照方法的显示顺序执行主机解析过程，从顶部�
 遇到应用的规则时，规则名称将显示在规则列中，并标识为手动。
 
 相关：link:task_device_resolution_fibre_channel.html["光纤通道设备解析"]
-
-
+link:task_device_resolution_ip.html["IP 设备解析"]
+link:task_device_resolution_preferences.html["设置设备解析首选项"]

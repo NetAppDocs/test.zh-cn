@@ -5,6 +5,7 @@ keywords: API, customer API, premium, JSON, Swagger, Access Token, token
 summary: Cloud Insights API 支持与监控和报告系统等其他应用程序集成。 
 ---
 = Cloud Insights API
+:allow-uri-read: 
 
 
 [role="lead"]

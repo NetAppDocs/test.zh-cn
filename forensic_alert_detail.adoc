@@ -5,6 +5,7 @@ keywords: alert, Critical, Warning, Low, alert detail Synopsis, Time range, Star
 summary: 警报详细信息 
 ---
 = 警报详细信息
+:allow-uri-read: 
 
 
 [role="lead"]

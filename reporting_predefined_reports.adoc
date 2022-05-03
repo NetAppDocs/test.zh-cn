@@ -5,6 +5,7 @@ summary: 预定义报告概述
 keywords: reporting, cognos, data warehouse, dwh, pre-defined 
 ---
 = 预定义报告变得轻松
+:allow-uri-read: 
 
 
 [role="lead"]

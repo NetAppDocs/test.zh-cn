@@ -5,6 +5,7 @@ keywords: data collector, EC2,
 summary: 配置 Amazon EC2 数据收集器。 
 ---
 = 配置 Amazon EC2 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

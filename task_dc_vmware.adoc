@@ -5,6 +5,7 @@ keywords: data collector, VMware,
 summary: 配置 VMware 数据收集器。 
 ---
 = 配置 VMware vSphere 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

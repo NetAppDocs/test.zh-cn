@@ -5,6 +5,7 @@ keywords: Forensic, activity history, activity data, history
 summary: 取证活动历史记录数据 
 ---
 = 取证—所有活动
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ keywords: Automatic, AR, AHR, Host, automatic device resolution, FC, Identify
 summary:  
 ---
 = 设置首选项选项卡中的选项
+:allow-uri-read: 
 
 
 [role="lead"]

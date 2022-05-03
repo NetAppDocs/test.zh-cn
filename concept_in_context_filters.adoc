@@ -5,6 +5,7 @@ summary: 您可以筛选与当前资产直接相关的对象。
 keywords: Assets, landing page, filtering, context, related 
 ---
 = 筛选上下文中的对象
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ keywords: Forensic, user, user, activity
 summary: 取证用户详细信息 
 ---
 = 取证用户概述
+:allow-uri-read: 
 
 
 用户概述中提供了每个用户的信息。使用这些视图可以了解用户特征，关联实体和近期活动。

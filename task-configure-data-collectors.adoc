@@ -5,6 +5,7 @@ keywords: acquisition, AU, data collector, collector, notification, notify,
 summary: 一般数据收集器说明 
 ---
 = 配置数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

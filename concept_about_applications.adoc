@@ -5,6 +5,7 @@ keywords: applications, asset, cost
 summary: 了解公司环境中使用的应用程序有助于您跟踪资产使用情况和成本。 
 ---
 = 按应用程序跟踪资产使用情况
+:allow-uri-read: 
 
 
 [role="lead"]

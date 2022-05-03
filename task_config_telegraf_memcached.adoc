@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, memcached
 summary: memcached 数据收集器配置 
 ---
 = 内存缓存的 Data Collector
+:allow-uri-read: 
 
 
 [role="lead"]

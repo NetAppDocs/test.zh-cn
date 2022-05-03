@@ -5,6 +5,7 @@ keywords: webhook, notification, Microsoft, Teams, integration
 summary: 创建一个网络挂钩，以便针对 Microsoft 团队的性能或清单阈值发出警报 
 ---
 = 适用于 Microsoft 团队的 webhook 示例
+:allow-uri-read: 
 
 
 [role="lead lead"]

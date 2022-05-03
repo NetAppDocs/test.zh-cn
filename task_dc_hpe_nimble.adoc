@@ -5,6 +5,7 @@ keywords: data collector, HP Nimble, HP, HPE, Alletra 6000
 summary: 配置 HP Enterprise Allettra 6000 （以前称为 Nimble ）数据收集器。 
 ---
 = HPE Alletra 6000 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

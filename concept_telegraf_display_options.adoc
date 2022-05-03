@@ -5,6 +5,7 @@ keywords: telegraf, data, display,
 summary: Telegraf 数据显示选项 
 ---
 = 转变指标
+:allow-uri-read: 
 
 
 [role="lead"]

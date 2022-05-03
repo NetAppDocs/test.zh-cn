@@ -5,6 +5,7 @@ keywords: Acquisition Unit, AU, install, configure, Linux, add, remove, uninstal
 summary:  
 ---
 = 配置采集单元
+:allow-uri-read: 
 
 
 [role="lead"]

@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, ElasticSearch
 summary: Elasticsearch 数据收集器配置 
 ---
 = Elasticsearch Data Collector
+:allow-uri-read: 
 
 
 [role="lead"]

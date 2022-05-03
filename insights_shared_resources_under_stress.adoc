@@ -5,6 +5,7 @@ keywords: insight, greedy, degraded, impacted, impacting, impactful, impact, res
 summary: 通过洞察，您可以了解资源如何影响环境中的其他资源。 
 ---
 = 洞察力：共享资源面临压力
+:allow-uri-read: 
 
 
 [role="lead"]

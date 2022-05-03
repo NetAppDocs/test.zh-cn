@@ -5,6 +5,7 @@ keywords: Automatic, AR, AHR, Host, automatic device resolution
 summary: 自动设备解析有助于您准确跟踪环境中的性能和清单。 
 ---
 = 自动设备解析概述
+:allow-uri-read: 
 
 
 [role="lead"]
@@ -80,6 +81,6 @@ image:Device_Resolution_Venn.png["设备概述图"]
 NOTE: 如果您的环境中存在未标识的设备（也称为未知或通用设备），并且随后配置了一个数据源，用于在轮询时标识这些设备，则这些设备将不再显示或计为通用设备。
 
 相关：link:task_device_resolution_rules.html["正在创建设备解析规则"]
-
-
-
+link:task_device_resolution_fibre_channel.html["光纤通道设备解析"]
+link:task_device_resolution_ip.html["IP 设备解析"]
+link:task_device_resolution_preferences.html["设置设备解析首选项"]

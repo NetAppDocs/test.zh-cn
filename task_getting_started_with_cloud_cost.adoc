@@ -5,6 +5,7 @@ summary: 开始使用云成本。
 keywords: analysis, cost, analyzer 
 ---
 = 开始使用云成本
+:allow-uri-read: 
 
 
 [role="lead"]

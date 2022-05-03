@@ -5,6 +5,7 @@ keywords: Cloud Secure, User, Login, account
 summary: Cloud Secure 用户帐户通过 Cloud Insights 用户管理进行管理 
 ---
 = 用户管理
+:allow-uri-read: 
 
 
 [role="lead"]

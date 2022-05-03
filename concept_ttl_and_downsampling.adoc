@@ -5,6 +5,7 @@ summary: 说明了生存时间（ TTL ）和缩减采样
 keywords: time-to-live, TTL, downsampling, downsample, 
 ---
 = 生存时间（ TTL ）和缩减采样数据
+:allow-uri-read: 
 
 
 [role="lead"]

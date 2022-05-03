@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, couchdb
 summary: CouchDB 数据收集器配置 
 ---
 = CouchDB Data Collector
+:allow-uri-read: 
 
 
 [role="lead"]

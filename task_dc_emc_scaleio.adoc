@@ -5,6 +5,7 @@ keywords: data collector, scaleIO, EMC, DELL
 summary: 配置 Dell EMC ScaleIO 数据收集器。 
 ---
 = Dell EMC ScaleIO 数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

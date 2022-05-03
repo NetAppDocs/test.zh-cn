@@ -5,6 +5,7 @@ summary: Cloud Insights 提供了一些教程，用于向您展示如何执行�
 keywords: onboarding, getting started, video, tutorial, resolution, dashboard, query, troubleshooting 
 ---
 = 功能教程
+:allow-uri-read: 
 
 
 [role="lead"]

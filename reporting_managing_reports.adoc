@@ -5,6 +5,7 @@ summary: 自定义报告输出和交付，将报告复制到剪贴板，打开�
 keywords: reporting, cognos, data warehouse, dwh, managing, customizing, copying 
 ---
 = 管理报告
+:allow-uri-read: 
 
 
 [role="lead"]

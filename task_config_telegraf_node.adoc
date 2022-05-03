@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, node, host
 summary: Flink 数据收集器配置 
 ---
 = 节点数据收集
+:allow-uri-read: 
 
 
 [role="lead"]

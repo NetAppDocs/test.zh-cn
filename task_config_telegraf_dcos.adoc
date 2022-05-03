@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, dcos
 summary: Dcos 配置 
 ---
 = 数据中心 / 操作系统数据收集器
+:allow-uri-read: 
 
 
 [role="lead"]

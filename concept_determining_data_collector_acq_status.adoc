@@ -5,6 +5,7 @@ summary: Data Collector 采集状态
 keywords: collector, acquisition, status 
 ---
 = 确定数据收集器采集状态
+:allow-uri-read: 
 
 
 [role="lead"]

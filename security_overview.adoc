@@ -5,6 +5,7 @@ summary: Cloud Insights 会在整个发布生命周期遵循安全最佳实践�
 keywords: security, risk, protection 
 ---
 = Cloud Insights 安全性
+:allow-uri-read: 
 
 
 [role="lead"]

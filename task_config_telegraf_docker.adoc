@@ -5,6 +5,7 @@ keywords: telegraf, installation, install, docker
 summary: Docker 数据收集器配置 
 ---
 = Docker Data Collector
+:allow-uri-read: 
 
 
 [role="lead"]

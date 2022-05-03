@@ -4,6 +4,7 @@ permalink: task_create_annotation_rules.html
 summary: 您可以创建标注规则以自动将标注应用于多个资产。 
 ---
 = 正在创建标注规则
+:allow-uri-read: 
 
 
 [role="lead"]

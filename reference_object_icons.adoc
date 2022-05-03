@@ -5,6 +5,7 @@ summary: Cloud Insights 对象图标参考。
 keywords: icons, assets, objects, reference 
 ---
 = 对象图标参考
+:allow-uri-read: 
 
 
 [role="lead"]
