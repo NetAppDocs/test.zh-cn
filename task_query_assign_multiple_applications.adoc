@@ -14,6 +14,7 @@ keywords: query, queries, application, annotation, multiple
 
 NOTE: 您可以使用这些步骤以相同方式添加或删除标注。
 
+.开始之前
 您必须已创建一个查询，用于查找要编辑的所有资产。
 
 .步骤

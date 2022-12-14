@@ -11,6 +11,7 @@ keywords: query, queries, copy, values, clipboard
 [role="lead"]
 您可以将表中的值复制到剪贴板，以便在搜索框或其他应用程序中使用。
 
+.关于此任务
 您可以使用两种方法将表中的值或查询结果复制到剪贴板。
 
 .步骤

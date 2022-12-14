@@ -72,7 +72,7 @@ Cloud Secure 使用数据收集器从设备收集文件和用户访问数据。
 
 
 
-==== 通过集群管理 IP 添加时的权限：
+==== 通过*集群管理IP*添加时的权限：
 
 如果您无法使用集群管理管理员用户允许 Cloud Secure 访问 ONTAP SVM 数据收集器，则可以创建一个名为 "CSUser" 的新用户，其角色如下命令所示。将 Cloud Secure 数据收集器配置为使用集群管理 IP 时，请使用 "CSUser" 的用户名和密码。
 
@@ -97,7 +97,7 @@ security login role create -role csrole -cmddirname "vserver export-policy rule"
 ....
 
 
-==== 通过 Vserver 管理 IP 添加时的权限：
+==== 通过* Vserver Management IP*添加时的权限：
 
 如果您无法使用集群管理管理员用户允许 Cloud Secure 访问 ONTAP SVM 数据收集器，则可以创建一个名为 "CSUser" 的新用户，其角色如下命令所示。将 Cloud Secure 数据收集器配置为使用 Vserver 管理 IP 时，请使用 "CSUser" 的用户名和 "CSUser" 的密码。
 

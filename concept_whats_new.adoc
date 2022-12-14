@@ -853,7 +853,7 @@ image:define_monitor_conditions_2.png["监控条件"]
 
 
 
-==== Cloud Secure 执行 Snapshot 操作
+==== Cloud Secure 执行Snapshot_操作
 
 Cloud Secure 可在检测到恶意活动时自动创建快照以保护您的数据，并确保安全地备份您的数据。
 

@@ -17,7 +17,7 @@ Cloud Insights 的当前 Telegraf 版本为 * 。 1.19.3 * 。
 NOTE: 为了准确地进行审核和报告数据，强烈建议使用 * 网络时间协议（ NTP ） * 或 * 简单网络时间协议（ SNTP ） * 同步 Agent 计算机上的时间。
 
 
-NOTE: 如果要在安装代理之前验证安装文件，请参见以下章节 <<Verifying Checksums>>。
+NOTE: 如果要在安装代理之前验证安装文件，请参见以下章节 <<验证校验和>>。
 
 
 
@@ -26,8 +26,8 @@ NOTE: 如果要在安装代理之前验证安装文件，请参见以下章节 <
 如果您要安装服务数据收集器，但尚未配置代理，则系统会提示您先为相应的操作系统安装代理。本主题介绍如何在以下操作系统上安装 Telegraf 代理：
 
 * <<Windows>>
-* <<RHEL and CentOS>>
-* <<Ubuntu and Debian>>
+* <<RHEL 和 CentOS>>
+* <<Ubuntu 和 Debian>>
 * <<macOS>>
 * <<Kubernetes>>
 

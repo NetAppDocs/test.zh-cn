@@ -11,10 +11,13 @@ keywords: application, create application,
 [role="lead"]
 要跟踪与环境中运行的特定应用程序相关的数据，您可以在 Cloud Insights 中定义这些应用程序。
 
+.开始之前
 如果要将应用程序与业务实体关联，必须在定义该应用程序之前创建业务实体。
 
+.关于此任务
 通过 Cloud Insights ，您可以跟踪与应用程序关联的资产中的数据，例如使用情况或成本报告。
 
+.步骤
 。在 Cloud Insights 菜单中，单击 * 管理 > 应用程序 * 。
 
 + 此时将显示添加应用程序对话框。
@@ -24,6 +27,7 @@ keywords: application, create application,
 . 单击 * 保存 * 。
 
 
+.完成后
 定义应用程序后，可以将其分配给资产。
 
 
@@ -40,4 +44,5 @@ keywords: application, create application,
 . 选择要将资产分配到的应用程序。
 
 
+.完成后
 将主机分配给应用程序后，您可以将其余资产分配给应用程序。要访问应用程序的登录页面，请单击 * 管理 > 应用程序 * 并选择您创建的应用程序。

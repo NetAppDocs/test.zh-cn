@@ -254,10 +254,8 @@
   <block id="d47350de0cb738713602fc081af217e9" category="paragraph">请参见 <block ref="66b24601b32ea1e28a736b303c9dda16" category="inline-link-macro-rx"></block> 有关配置信息，请参见。此适用场景内部部署代理和代理安装在云中。</block>
   <block id="0deb145e97d2a45a78872c8c8eb51e12" category="list-text">在 AWS EC2 实例中安装代理以监控 Cloud ONTAP SVM 时，代理和存储必须位于同一个 VPC 中。如果它们位于不同的 VPC 中，则 VPC 之间必须有有效的路由。</block>
   <block id="0cd400e3d93cd7ed179f95d57d744891" category="section-title">有关权限的注释</block>
-  <block id="d6dbed5bc250d74498fd43915882d37c" category="section-title">通过集群管理 IP 添加时的权限：</block>
   <block id="bf3bb5d17ba89dbbd6cbc400e1c6e125" category="paragraph">如果您无法使用集群管理管理员用户允许 Cloud Secure 访问 ONTAP SVM 数据收集器，则可以创建一个名为 "CSUser" 的新用户，其角色如下命令所示。将 Cloud Secure 数据收集器配置为使用集群管理 IP 时，请使用 "CSUser" 的用户名和密码。</block>
   <block id="10414897d078dba7d0d6c5111c2af072" category="paragraph">要创建新用户，请使用集群管理管理员用户名 / 密码登录到 ONTAP ，然后在 ONTAP 服务器上执行以下命令：</block>
-  <block id="8891dc1e6e4e5ac8add48653bb6e58e7" category="section-title">通过 Vserver 管理 IP 添加时的权限：</block>
   <block id="cb5fee403d15816a05d17c1eb2ba3cb4" category="paragraph">如果您无法使用集群管理管理员用户允许 Cloud Secure 访问 ONTAP SVM 数据收集器，则可以创建一个名为 "CSUser" 的新用户，其角色如下命令所示。将 Cloud Secure 数据收集器配置为使用 Vserver 管理 IP 时，请使用 "CSUser" 的用户名和 "CSUser" 的密码。</block>
   <block id="a2eff2103f669c457b93354a8c3f5dce" category="paragraph">要创建新用户，请使用集群管理管理员用户名 / 密码登录到 ONTAP ，然后在 ONTAP 服务器上执行以下命令。为了方便，请将这些命令复制到文本编辑器中，并将 &lt;vservername&gt; 替换为您的 Vserver 名称，然后在 ONTAP 上执行这些命令：</block>
   <block id="e96ded369b9e59a3e1b17c09ebacf307" category="section-title">配置数据收集器</block>
@@ -473,7 +471,6 @@
   <block id="e767946157d182cf237f259a3b6478c4" category="paragraph">在 Kubernetes 资源管理器中，您可以单击节点图标以打开该节点的详细信息页面。在此页面上，您可以查看有关节点的信息，并浏览 VM ， Pod 和容器信息。</block>
   <block id="4f29fd9657915b51e00ee112dd495873" category="inline-image-macro">显示筛选的 Kubernetes Node 详细信息页面</block>
   <block id="ff9dcb7868c4ad1ee30492b12c57b9d3" category="paragraph"><block ref="ff9dcb7868c4ad1ee30492b12c57b9d3" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="088972153fa4b405527a2376c07113eb" category="section-title">了解节点的 Pod 和永久性卷</block>
   <block id="3e38ab0c0d78abbf789ae718cc2c8707" category="paragraph">通过 Cloud Insights ，您可以查看 Kubernetes 环境的后端存储，从而深入了解 Kubernetes Pod 和永久性卷（ Persistent Volume ， PV ）。您可以跟踪从单个 Pod 的使用情况到 PV 以及一直到后端存储设备的 PV 计数器，例如 IOPS ，延迟和吞吐量。</block>
   <block id="4f199152407556f59fa94af499f084e0" category="paragraph">在 PV 级别， Cloud Insights 会收集后端（内部卷或卷，具体取决于 PV 类型）容量信息（总容量，已用容量，已用容量百分比）以及内部卷快照计数。在 Pod 到存储级别，它会收集后端容量和内部卷快照计数。</block>
   <block id="aae3edef1483f0838d4754d553d09e68" category="paragraph">在卷或内部卷登录页面上，将显示两个表：</block>
@@ -2346,7 +2343,6 @@
   <block id="a33e4b0669b0dcd6c6727f25e8e1c46b" category="list-text">* 日期 * ：日期值。根据小工具的配置，使用作为 " 从 " 或 " 到 " 值。</block>
   <block id="53cc3f1a4b0d0e434a93a7372b931ac6" category="inline-image-macro">变量类型</block>
   <block id="916ee1d24159df2a85679ef0774f9828" category="paragraph"><block ref="916ee1d24159df2a85679ef0774f9828" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="75514bc8f4a0fcfa4d6e233cf6293d4f" category="section-title">属性变量</block>
   <block id="cdd0539c5f9ee15c61a20d8600fe7ca5" category="paragraph">通过选择属性类型变量，您可以筛选包含指定属性值或值的小工具数据。以下示例显示了一个折线小工具，其中显示了代理节点的可用内存趋势。我们为代理节点 IP 创建了一个变量，当前设置为显示所有 IP ：</block>
   <block id="e3f9b576b0f66601c43decf70ddc3a40" category="inline-image-macro">可变筛选器之前的代理节点</block>
   <block id="8e1962312d6932465c5534f5b70114c0" category="paragraph"><block ref="8e1962312d6932465c5534f5b70114c0" category="inline-image-macro-rx" type="image"></block></block>
@@ -2620,7 +2616,6 @@
   <block id="96cfad9bf45103ee0ef58fa25c0cfa6b" category="summary">自定义报告输出和交付，将报告复制到剪贴板，打开报告（ XML ）。</block>
   <block id="e1039935b082dfd38ef43eb7fef4b452" category="doc">管理报告</block>
   <block id="ce2ce538c48e429c8dc98553649f3bbd" category="paragraph">您可以自定义报告的输出格式和传送，设置报告属性或计划以及通过电子邮件发送报告。</block>
-  <block id="5df8ec67e66b1b70f4dd477eeabe20c2" category="section-title">自定义报告的输出格式和交付</block>
   <block id="8bee38bef7beb0158135e68890b6cc17" category="paragraph">您可以自定义报告的格式和交付方法。</block>
   <block id="c64e7d8f225e7e8875d2446a3b30bd34" category="list-text">在 Cloud Insights 报告门户中，将鼠标悬停在要自定义的报告上，然后单击 * 。</block>
   <block id="58cae8bb2701afa19011bf0042646c9d" category="inline-image-macro">报告自定义菜单</block>
@@ -3559,7 +3554,6 @@
   <block id="ef484ddf1fa70f0f7e6e12c5ec398fd0" category="paragraph">根据您选择配置的初始数据收集器类型（存储，交换机等），将导入一个或多个相关信息板。例如，如果您配置了存储数据收集器，则会导入一组与存储相关的信息板，其中一个信息板将设置为您的 Cloud Insights 主页。您可以从 * 信息板 &gt; 显示所有信息板 * 列表更改主页。</block>
   <block id="884c68aa76be99399251cf49057f5089" category="inline-link-macro">创建您自己的</block>
   <block id="30ac9f66beb1edda1ef095e871e96e65" category="paragraph">您可以稍后导入其他信息板，或 <block ref="d9f1bed19a893c2599f38f8ee38e7f25" category="inline-link-macro-rx"></block>。</block>
-  <block id="d26ece7a14868ffcc86bc3dfce18345c" category="section-title">这就是它的全部内容</block>
   <block id="dced233464479bab905d4f3c73af377e" category="paragraph">完成初始设置过程后，您的环境将开始收集数据。</block>
   <block id="53bc5b0eaf13535f4b602a5830ef8ad6" category="paragraph">如果初始设置过程中断（例如，关闭浏览器窗口），则需要手动执行以下步骤：</block>
   <block id="3109cfeae79b76c71475be9bfd3c2938" category="list-text">选择一个 Data Collector</block>
@@ -5140,7 +5134,6 @@
   <block id="b74af5a9ece7cdf67ec6e4e272d7c116" category="paragraph">在大多数情况下，如果设备支持只读访问，则只需进行只读访问即可。某些解决方案不允许只读访问，因此需要适当的提升权限。</block>
   <block id="b6e4757a4fed24ae14490ad102cfc2d8" category="section-title">Cloud Insights 收集信息的频率如何？</block>
   <block id="ff6f4b330e92d1228f84fcb98d25274c" category="paragraph">Cloud Insights 通常每 5 分钟收集一次性能数据，每 ½ 小时发现一次逻辑和物理构造。Cloud Insights 会根据建议的最佳实践和可扩展性设置默认轮询间隔，但允许用户完全控制这些间隔。</block>
-  <block id="33b5ea3829d10119391340b99e723dca" category="section-title">Cloud Insights 对我的环境有何影响？</block>
   <block id="c21b8a2a80e57ca923413b1aa8daa2d0" category="paragraph">Cloud Insights 的无代理，带外和被动 IP 通信有助于最大限度地减少设置，维护以及对数据中心生态系统的影响。Cloud Insights 的性能开发团队采取了一些重要措施，可以最大限度地减少对数据中心性能监控活动本身的任何影响。在正常操作环境中，影响可忽略不计，在高利用率或性能低下的技术平台中，影响可以宽松或收紧。有关详细信息，请参见《 Cloud Insights 安装指南》。</block>
   <block id="cf1e9c3fd6c6dda4ce691bf7e1cfbaef" category="section-title">如何列出 Cloud Insights 中的所有主机 /VM ？</block>
   <block id="c63925f7ddebcf8bf216776c93dc34ab" category="paragraph">Cloud Insights 对小工具和查询列表功能的补充，可用于为数据中心资产提供清单模式列表。虚拟机列表直至磁盘轴，以及之间的大量构造均可用于查询，小工具，信息板和数据仓库报告，并可通过 RESTful API 进行访问。</block>
@@ -6517,7 +6510,6 @@
   <block id="7cbf4ba3df1c84539924c37da16db19b" category="paragraph">警报页面（此示例显示了潜在的勒索软件攻击）：<block ref="5ff4dcf9689ef64057d8e82508557b5f" category="inline-image-macro-rx" type="image"></block></block>
   <block id="cf7a8875f9ed11e1707cd50fdfc361f6" category="inline-image-macro">勒索软件详细信息页面示例</block>
   <block id="6c9d686a827f50aa2feb7087b665c481" category="paragraph">详细信息页面（此示例显示了潜在的勒索软件攻击）：<block ref="9d19bd7639e249113839e28d2fea9963" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="3187f3dcb05b639d87ff0ef7bcdc3e02" category="section-title">执行 Snapshot 操作</block>
   <block id="19b247a947fc686391faebd949689a52" category="paragraph">Cloud Secure 可在检测到恶意活动时自动创建快照以保护您的数据，并确保安全地备份您的数据。</block>
   <block id="7683f342a6f18a36645f19f6332de56e" category="inline-link-macro">自动响应策略</block>
   <block id="d27b2fb629cc2c24086da7257eb32814" category="paragraph">您可以定义 <block ref="5def0187ac3a4d928905bc1e2b8dece3" category="inline-link-macro-rx"></block> 在检测到勒索软件攻击或其他异常用户活动时创建快照。您也可以从警报页面手动创建快照。</block>
@@ -7086,7 +7078,6 @@
   <block id="dd97078b1fded41ab7f0a8081708a7b4" category="inline-image-macro">监控条件</block>
   <block id="927629cba26acb892b3c2398129ca22e" category="paragraph"><block ref="927629cba26acb892b3c2398129ca22e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ca82c7bf0a12e1bd7623c916688916ff" category="section-title">2020 年 7 月</block>
-  <block id="6891d5aadc78ac62ff88e77318810010" category="section-title">Cloud Secure 执行 Snapshot 操作</block>
   <block id="a4749fac6233635e6370a9c15d3b1bf4" category="paragraph">您可以定义自动响应策略，以便在检测到勒索软件攻击或其他异常用户活动时创建快照。您也可以从警报页面手动创建快照。</block>
   <block id="951c353976f888d39a5d73b6b9bfe6a5" category="section-title">指标 / 计数器更新</block>
   <block id="bd7d085d6bd1c45996212198e43ff93d" category="paragraph">以下容量计数器可在 Cloud Insights UI 和 REST API 中使用。以前，这些计数器仅可用于数据仓库 / 报告。</block>
@@ -8543,4 +8534,18 @@
   <block id="399bd1ee587245ecac6f39beaa99886f" category="sidebar">PostgreSQL</block>
   <block id="14590850b4107a6f92feb1af739b82eb" category="sidebar">Puppet</block>
   <block id="15ec8934d96530d4c5f4a3b0f701f745" category="sidebar">RethinkDB</block>
+  <block id="c4902856573b47497259fa66ba244535" category="section-title">属性变量</block>
+  <block id="0990561b323eccdee60c16a1ced0a306" category="section-title">Cloud Secure 执行Snapshot_操作</block>
+  <block id="bbe48fb854ea022537208eeeff822f91" category="paragraph-title">关于此任务</block>
+  <block id="e80e3d8646e24f6d7661808de9274648" category="paragraph-title">滚动列表：</block>
+  <block id="b39c055166e1e8cfc2de8f74b7b76640" category="paragraph-title">类型搜索：</block>
+  <block id="6baf1e00d599761ac0cdbee221c4569c" category="section-title">执行Snapshot_操作</block>
+  <block id="7f3fae8bcffd39410a8caca4210f5f21" category="section-title">Cloud Insights对我的环境有何影响？</block>
+  <block id="2c8315992b66ae0480f26fe69cea1579" category="section-title">这就是它的全部内容</block>
+  <block id="e9a8035e121122e74ece696f921ab7d6" category="section-title">了解节点的Pod和永久性卷</block>
+  <block id="b4c2efa32144f8c7f6fa5513ac1c7e55" category="section-title">自定义报告的输出格式和交付</block>
+  <block id="04f239d51d6f6978df84a2372f6abdb2" category="section-title">通过*集群管理IP*添加时的权限：</block>
+  <block id="79b84e26b610d3ce15109f8d174cdf3a" category="section-title">通过* Vserver Management IP*添加时的权限：</block>
+  <block id="d07512f0951eb5634f4d7bb87f599aef" category="inline-image-macro">全局监控通知收件人</block>
+  <block id="090e0b56444a54949e76721ee76bd40d" category="paragraph-title"><block ref="090e0b56444a54949e76721ee76bd40d" category="inline-image-macro-rx" type="image"></block></block>
 </blocks>

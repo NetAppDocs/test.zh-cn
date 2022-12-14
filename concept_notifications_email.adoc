@@ -54,6 +54,7 @@ image:SubscriptionNotificationSection.png["订阅电子邮件通知"]
 
 要配置全局警报收件人，请单击 * 管理员 > 通知 * ，然后在 * 全局监控通知收件人 * 部分中选择所需的收件人。
 
+.image:GlobalMonitorRecipients.png["全局监控通知收件人"]
 [role="thumb"]
 创建或修改监控器时，您始终可以覆盖单个监控器的全局收件人列表。
 
