@@ -1,0 +1,46 @@
+---
+sidebar: sidebar 
+permalink: task-managing-svms.html 
+keywords: storage virtual machine, vserver, svm, storage vm, supported number, number supported 
+summary: Storage VM 是在 ONTAP 中运行的虚拟机，可为客户端提供存储和数据服务。您可能会将其视为 SVM 或 SVM 。默认情况下， Cloud Volumes ONTAP 配置有一个 Storage VM ，但某些配置支持额外的 Storage VM 。 
+---
+= 在BlueXP中管理Storage VM
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+Storage VM 是在 ONTAP 中运行的虚拟机，可为客户端提供存储和数据服务。您可能会将其识别为 _svm_ 或 _vserver_ 。默认情况下， Cloud Volumes ONTAP 配置有一个 Storage VM ，但某些配置支持额外的 Storage VM 。
+
+
+
+== 支持的 Storage VM 数量
+
+某些配置支持多个Storage VM。转至 https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/index.html["《 Cloud Volumes ONTAP 发行说明》"^] 验证您的 Cloud Volumes ONTAP 版本支持的 Storage VM 数量。
+
+
+
+== 使用多个 Storage VM
+
+BlueXP支持您通过System Manager或CLI创建的任何其他Storage VM。
+
+例如，下图显示了在创建卷时如何选择 Storage VM 。
+
+image:screenshot_create_volume_svm.gif["屏幕截图显示了选择要在其中创建卷的 Storage VM 的功能。"]
+
+下图显示了在将卷复制到其他系统时如何选择 Storage VM 。
+
+image:screenshot_replicate_volume_svm.gif["屏幕截图显示了选择要复制卷的 Storage VM 的功能。"]
+
+
+
+== 修改默认 Storage VM 的名称
+
+BlueXP会自动为其为Cloud Volumes ONTAP 创建的单个Storage VM命名。如果您有严格的命名标准、则可以在System Manager、命令行界面或API中修改Storage VM的名称。例如，您可能希望此名称与您为 ONTAP 集群命名 Storage VM 的方式一致。

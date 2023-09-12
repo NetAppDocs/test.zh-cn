@@ -1,0 +1,106 @@
+---
+sidebar: sidebar 
+permalink: task-administer-advanced-view.html 
+keywords: system manager, advanced view, access system manager, load system manager, use system manager, cloud tiering 
+summary: 如果您需要对Cloud Volumes ONTAP 执行高级管理、可以使用ONTAP 系统管理器来执行此操作、该管理器是随ONTAP 系统提供的一个管理界面。我们直接在BlueXP中提供了System Manager界面、因此您无需离开BlueXP即可进行高级管理。 
+---
+= 使用高级视图管理Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+如果您需要对Cloud Volumes ONTAP 执行高级管理、可以使用ONTAP 系统管理器来执行此操作、该管理器是随ONTAP 系统提供的一个管理界面。我们直接在BlueXP中提供了System Manager界面、因此您无需离开BlueXP即可进行高级管理。
+
+此高级视图可作为预览版使用。我们计划改进此体验、并在即将发布的版本中添加增强功能。请通过产品内聊天向我们发送反馈。
+
+
+
+== 功能
+
+通过BlueXP中的高级视图、您可以访问其他管理功能：
+
+* 高级存储管理
++
+管理一致性组、共享、qtree、配额和Storage VM。
+
+* 网络管理
++
+管理IP空间、网络接口、端口集和以太网端口。
+
+* 事件和作业
++
+查看事件日志、系统警报、作业和审核日志。
+
+* 高级数据保护
++
+保护Storage VM、LUN和一致性组。
+
+* 主机管理
++
+设置SAN启动程序组和NFS客户端。
+
+
+
+
+
+== 支持的配置
+
+在标准云区域、Cloud Volumes ONTAP 9.10.0及更高版本支持通过System Manager进行高级管理。
+
+在GovCloud地区或无法访问出站Internet的地区不支持System Manager集成。
+
+
+
+== 限制
+
+Cloud Volumes ONTAP 不支持System Manager界面中显示的一些功能：
+
+* BlueXP层
++
+Cloud Volumes ONTAP 不支持BlueXP层服务。创建卷时、必须直接从BlueXP的标准视图设置将数据分层到对象存储。
+
+* 层
++
+System Manager不支持聚合管理(包括本地层和云层)。您必须直接从BlueXP的标准视图管理聚合。
+
+* 固件升级
++
+Cloud Volumes ONTAP 不支持从*集群>设置*页面自动更新固件。
+
+
+
+此外、不支持从System Manager进行基于角色的访问控制。
+
+
+
+== 如何开始使用
+
+打开Cloud Volumes ONTAP 工作环境、然后单击高级视图选项。
+
+.步骤
+. 从左侧导航菜单中、选择*存储>画布*。
+. 在"画布"页面上、双击Cloud Volumes ONTAP 系统的名称。
+. 在右上角、单击*切换到高级视图*。
++
+image:screenshot_advanced_view.png["Cloud Volumes ONTAP 工作环境的屏幕截图、其中显示了切换到高级视图选项。"]
+
+. 如果显示确认消息、请通读该消息并单击*关闭*。
+. 使用System Manager管理Cloud Volumes ONTAP。
+. 如果需要、请单击*切换到标准视图*以通过BlueXP返回到标准管理。
+
+
+
+
+== 有关使用System Manager的帮助
+
+如果在Cloud Volumes ONTAP 中使用System Manager需要帮助、请参见 https://docs.netapp.com/us-en/ontap/index.html["ONTAP 文档"^] 了解分步说明。以下链接可能会有所帮助：
+
+* https://docs.netapp.com/us-en/ontap/volume-admin-overview-concept.html["卷和LUN管理"^]
+* https://docs.netapp.com/us-en/ontap/network-manage-overview-concept.html["网络管理"^]
+* https://docs.netapp.com/us-en/ontap/concept_dp_overview.html["数据保护"^]
+

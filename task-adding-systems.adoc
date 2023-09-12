@@ -1,0 +1,42 @@
+---
+sidebar: sidebar 
+permalink: task-adding-systems.html 
+keywords: discover, discovering, add, adding, existing 
+summary: 您可以发现现有Cloud Volumes ONTAP 系统并将其添加到BlueXP中。如果您部署了新的BlueXP系统、则可以执行此操作。 
+---
+= 将现有Cloud Volumes ONTAP 系统添加到BlueXP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以发现现有Cloud Volumes ONTAP 系统并将其添加到BlueXP中。如果您部署了新的BlueXP系统、则可以执行此操作。
+
+.开始之前
+您必须知道 Cloud Volumes ONTAP 管理员用户帐户的密码。
+
+.步骤
+. 从左侧导航菜单中、选择*存储>画布*。
+. 在 " 画布 " 页面上，单击 * 添加工作环境 * 。
+. 选择系统所在的云提供商。
+. 选择 Cloud Volumes ONTAP 系统的类型。
+. 单击此链接可发现现有系统。
+
+
+ifdef::aws[]
+
++
+image:screenshot_discover_redesign.png["屏幕截图显示了用于发现现有 Cloud Volumes ONTAP 系统的链接。"]
+
+endif::aws[]
+
+. 在区域页面上、选择实例运行所在的区域、然后选择实例。
+. 在凭据页面上，输入 Cloud Volumes ONTAP 管理员用户的密码，然后单击 * 执行 * 。
+
+
+.结果
+BlueXP会将Cloud Volumes ONTAP 实例添加到工作空间中。

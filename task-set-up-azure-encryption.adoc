@@ -1,0 +1,257 @@
+---
+sidebar: sidebar 
+permalink: task-set-up-azure-encryption.html 
+keywords: customer-managed key, customer key, azure storage service encryption, azure encryption, encryption key, azure encryption key 
+summary: 在 Azure 中的 Cloud Volumes ONTAP 上使用 Azure 存储服务加密和 Microsoft 管理的密钥自动对数据进行加密。但是，您可以按照此页面上的步骤使用自己的加密密钥。 
+---
+= 设置 Cloud Volumes ONTAP 以在 Azure 中使用客户管理的密钥
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+数据会使用在 Azure 中的 Cloud Volumes ONTAP 上自动加密 https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/["Azure 存储服务加密"] 使用 Microsoft 管理的密钥。但是，您可以按照此页面上的步骤使用自己的加密密钥。
+
+
+
+== 数据加密概述
+
+Cloud Volumes ONTAP 数据在 Azure 中使用自动加密 https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/["Azure 存储服务加密"^]。默认实施使用 Microsoft 管理的密钥。无需设置。
+
+如果要在 Cloud Volumes ONTAP 中使用客户管理的密钥，则需要完成以下步骤：
+
+. 从 Azure 创建密钥存储，然后在该存储中生成密钥
+. 在BlueXP中、使用API创建使用密钥的Cloud Volumes ONTAP 工作环境
+
+
+
+
+=== 密钥轮换
+
+如果创建新版本的密钥， Cloud Volumes ONTAP 将自动使用最新版本的密钥。
+
+
+
+=== 如何对数据进行加密
+
+创建配置为使用客户管理的密钥的 Cloud Volumes ONTAP 工作环境后， Cloud Volumes ONTAP 数据将按如下所示进行加密。
+
+Azure HA多可用性区域::
++
+--
+* Cloud Volumes ONTAP 的所有Azure存储帐户均使用客户管理的密钥进行加密。^1^
+* 对于根磁盘、启动磁盘、NVRAM磁盘、核心磁盘和数据磁盘、BlueXP使用磁盘加密集、通过该加密集可以管理具有受管磁盘的加密密钥。
+* 任何新数据磁盘也会使用相同的磁盘加密集。
+
+
+--
+Azure HA单一可用性区域::
++
+--
+* Cloud Volumes ONTAP 的所有Azure存储帐户均使用客户管理的密钥进行加密。^1^
+* 任何新存储帐户(例如、添加磁盘或聚合时)也会使用相同的密钥。^1^
+* 从ONTAP 9.10.1P3开始、对于NVRAM和核心磁盘、BlueXP使用 https://docs.microsoft.com/en-us/azure/virtual-machines/disk-encryption["磁盘加密集"^]，用于管理具有受管磁盘的加密密钥。较低版本将使用Microsoft管理的密钥、而不是客户管理的密钥。
+
+
+--
+单个节点::
++
+--
+* 适用于 Cloud Volumes ONTAP 的所有 Azure 存储帐户均使用客户管理的密钥进行加密。^1^
+* 对于根磁盘、启动磁盘和数据磁盘、BlueXP使用 https://docs.microsoft.com/en-us/azure/virtual-machines/disk-encryption["磁盘加密集"^]，用于管理具有受管磁盘的加密密钥。
+* 任何新数据磁盘也会使用相同的磁盘加密集。
+* 从ONTAP 9.9.91P7开始、对于NVRAM和核心磁盘、BlueXP使用磁盘加密集、通过该加密集可以管理具有受管磁盘的加密密钥。较低版本将使用Microsoft管理的密钥、而不是客户管理的密钥。
+
+
+--
+
+
+.脚注
+. 如果要在创建存储帐户期间对其进行加密、则必须在CVO创建请求中创建并提供资源的ID。这适用于所有类型的部署。如果您不提供此密钥、则存储帐户仍将加密、但BlueXP将首先使用Microsoft管理的密钥加密创建存储帐户、然后更新存储帐户以使用客户管理的密钥。
+
+
+
+
+== 创建用户分配的受管身份
+
+您可以选择创建一个称为用户分配的托管标识的资源。这样、您可以在创建Cloud Volumes ONTAP工作环境时对存储帐户进行加密。建议在创建密钥存储和生成密钥之前先创建此资源。
+
+此资源的ID如下： `userassignedidentity`。
+
+.步骤
+. 在Azure中、转到Azure服务并选择*托管身份*。
+. 单击 * 创建 * 。
+. 请提供以下详细信息：
++
+** *订阅*：选择订阅。我们建议选择与Connector订阅相同的订阅。
+** *资源组*：使用现有资源组或创建新资源组。
+** *区域*：(可选)选择与连接器相同的区域。
+** *名称*：输入资源的名称。
+
+
+. (可选)添加标记。
+. 单击 * 创建 * 。
+
+
+
+
+== 创建密钥存储并生成密钥
+
+密钥存储必须位于您计划创建 Cloud Volumes ONTAP 系统的同一 Azure 订阅和区域中。
+
+如果您 <<创建用户分配的受管身份,已创建用户分配的受管身份>>，创建密钥存储时，还应为密钥存储创建访问策略。
+
+.步骤
+. https://docs.microsoft.com/en-us/azure/key-vault/general/quick-create-portal["在 Azure 订阅中创建密钥存储"^]。
++
+请注意密钥存储的以下要求：
+
++
+** 密钥存储必须与 Cloud Volumes ONTAP 系统位于同一区域。
+** 应启用以下选项：
++
+*** * 软删除 * （默认情况下，此选项处于启用状态，但必须禁用 _not_ ）
+*** * 清除保护 *
+*** *用于卷加密的Azure磁盘加密*(适用于多个分区中的单节点系统或HA对)
+
+
+** 如果创建了用户分配的受管身份、则应启用以下选项：
++
+*** *存储访问策略*
+
+
+
+
+. 如果选择了存储访问策略、请单击创建为密钥存储创建访问策略。如果没有、请跳至步骤3。
++
+.. 选择以下权限：
++
+*** 获取
+*** 列表
+*** 解密
+*** 加密
+*** 取消换行键
+*** 换行键
+*** 验证
+*** 签名
+
+
+.. 选择用户分配的受管标识(资源)作为主体。
+.. 查看并创建访问策略。
+
+
+. https://docs.microsoft.com/en-us/azure/key-vault/keys/quick-create-portal#add-a-key-to-key-vault["在密钥存储中生成密钥"^]。
++
+请注意此密钥的以下要求：
+
++
+** 密钥类型必须为 * RSA * 。
+** 建议的 RSA 密钥大小为 * 2048 * ，但支持其他大小。
+
+
+
+
+
+
+== 创建一个使用加密密钥的工作环境
+
+创建密钥存储并生成加密密钥后，您可以创建一个配置为使用此密钥的新 Cloud Volumes ONTAP 系统。使用BlueXP API可支持这些步骤。
+
+.所需权限
+如果要在单节点Cloud Volumes ONTAP 系统中使用客户管理的密钥、请确保BlueXP Connector具有以下权限：
+
+[source, json]
+----
+"Microsoft.Compute/diskEncryptionSets/read",
+"Microsoft.Compute/diskEncryptionSets/write",
+"Microsoft.Compute/diskEncryptionSets/delete"
+"Microsoft.KeyVault/vaults/deploy/action",
+"Microsoft.KeyVault/vaults/read",
+"Microsoft.KeyVault/vaults/accessPolicies/write",
+"Microsoft.ManagedIdentity/userAssignedIdentities/assign/action"
+----
+https://docs.netapp.com/us-en/bluexp-setup-admin/reference-permissions-azure.html["查看最新的权限列表"^]
+
+.步骤
+. 使用以下BlueXP API调用获取Azure订阅中的密钥存储列表。
++
+对于 HA 对： `GET /azure/ha/metadata/vaults`
+
++
+对于单个节点： `GET /azure/vsa/metadata/vaults`
+
++
+记下 * 名称 * 和 * 资源组 * 。您需要在下一步中指定这些值。
+
++
+https://docs.netapp.com/us-en/bluexp-automation/cm/api_ref_resources.html#azure-hametadata["了解有关此 API 调用的更多信息"^]。
+
+. 使用以下BlueXP API调用获取存储中的密钥列表。
++
+对于 HA 对： `GET /azure/ha/metadata/keys-vault`
+
++
+对于单个节点： `GET /azure/vsa/metadata/keys-vault`
+
++
+记下 * 密钥名称 * 。您需要在下一步中指定该值（以及存储名称）。
+
++
+https://docs.netapp.com/us-en/bluexp-automation/cm/api_ref_resources.html#azure-hametadata["了解有关此 API 调用的更多信息"^]。
+
+. 使用以下BlueXP API调用创建Cloud Volumes ONTAP 系统。
++
+.. 对于 HA 对：
++
+`POST /azure/ha/working-environments`
+
++
+请求正文必须包含以下字段：
+
++
+[source, json]
+----
+"azureEncryptionParameters": {
+              "key": "keyName",
+              "vaultName": "vaultName"
+}
+----
++
+
+NOTE: 包括 `"userAssignedIdentity": " userAssignedIdentityId"` 字段。
+
++
+https://docs.netapp.com/us-en/bluexp-automation/cm/api_ref_resources.html#azure-haworking-environments["了解有关此 API 调用的更多信息"^]。
+
+.. 对于单节点系统：
++
+`POST /azure/vsa/working-environments`
+
++
+请求正文必须包含以下字段：
+
++
+[source, json]
+----
+"azureEncryptionParameters": {
+              "key": "keyName",
+              "vaultName": "vaultName"
+}
+----
++
+
+NOTE: 包括 `"userAssignedIdentity": " userAssignedIdentityId"` 字段。
+
++
+https://docs.netapp.com/us-en/bluexp-automation/cm/api_ref_resources.html#azure-vsaworking-environments["了解有关此 API 调用的更多信息"^]。
+
+
+
+
+
+.结果
+您有一个新的 Cloud Volumes ONTAP 系统，该系统配置为使用客户管理的密钥进行数据加密。

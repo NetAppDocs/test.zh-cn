@@ -1,0 +1,662 @@
+---
+sidebar: sidebar 
+permalink: task-getting-started-aws-c2s.html 
+keywords: commercial cloud services, c2s, secret region, aws secret region, cloud manager, BlueXP 
+summary: '与标准AWS区域类似、您可以在AWS商用云服务(C2S)环境中使用BlueXP来部署Cloud Volumes ONTAP 、它可为您的云存储提供企业级功能。AWS C2S 是一个特定于美国的封闭区域智能社区；此页面上的说明仅适用于 AWS C2S 区域用户。' 
+---
+= 开始在 AWS C2S 环境中使用 Cloud Volumes ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+与标准 AWS 区域类似，您可以在中使用 Cloud Manager link:https://aws.amazon.com/federal/us-intelligence-community/["AWS 商用云服务（ C2S ）"^] 部署 Cloud Volumes ONTAP 的环境，为您的云存储提供企业级功能。AWS C2S 是一个特定于美国的封闭区域智能社区；此页面上的说明仅适用于 AWS C2S 区域用户。
+
+
+
+== C2S中支持的版本
+
+* 支持Cloud Volumes ONTAP 9.8
+* 支持连接器3.9.4版
++
+Connector是在AWS中部署和管理Cloud Volumes ONTAP 所需的软件。您将从安装在 Connector 实例上的软件登录到 Cloud Manager 。C2S环境不支持适用于Cloud Manager的SaaS网站。
+
+
+
+
+NOTE: Cloud Manager最近已重命名为BlueXP、但我们仍在C2S中将其称为Cloud Manager、因为Connector 3.9.4版附带的用户界面仍称为Cloud Manager。
+
+
+
+== C2S 中支持的功能
+
+在 C2S 环境中， Cloud Manager 提供了以下功能：
+
+* Cloud Volumes ONTAP
+* 数据复制
+* 审核时间表
+
+
+对于 Cloud Volumes ONTAP ，您可以创建单节点系统或 HA 对。这两种许可选项均可用：按需购买和自带许可证（ BYOL ）。
+
+C2S 中的 Cloud Volumes ONTAP 也支持将数据分层到 S3 。
+
+
+
+== 限制
+
+* Cloud Manager 不提供任何 NetApp 云服务。
+* 由于 C2S 环境中无法访问 Internet ，因此以下功能也不可用：
++
+** 从 Cloud Manager 自动升级软件
+** NetApp AutoSupport
+** Cloud Volumes ONTAP 资源的 AWS 成本信息
+
+
+* C2S环境不支持免费许可证。
+
+
+
+
+== 部署概述
+
+在 C2S 中开始使用 Cloud Volumes ONTAP 包括几个步骤。
+
+. <<准备AWS环境>>
++
+其中包括设置网络，订阅 Cloud Volumes ONTAP ，设置权限以及选择设置 AWS KMS 。
+
+. <<安装Connector并设置Cloud Manager>>
++
+在开始使用 Cloud Manager 部署 Cloud Volumes ONTAP 之前，您需要先创建 _Connector_ 。借助此连接器， Cloud Manager 可以管理公有云环境（包括 Cloud Volumes ONTAP ）中的资源和流程。
+
++
+您将从安装在 Connector 实例上的软件登录到 Cloud Manager 。
+
+. <<从Cloud Manager启动Cloud Volumes ONTAP>>
+
+
+下面介绍了其中的每个步骤。
+
+
+
+== 准备AWS环境
+
+您的 AWS 环境必须满足一些要求。
+
+
+
+=== 设置网络
+
+设置 AWS 网络，以便 Cloud Volumes ONTAP 可以正常运行。
+
+.步骤
+. 选择要启动连接器实例和 Cloud Volumes ONTAP 实例的 VPC 和子网。
+. 确保您的 VPC 和子网支持连接器和 Cloud Volumes ONTAP 之间的连接。
+. 将 VPC 端点设置为 S3 服务。
++
+如果要将冷数据从 Cloud Volumes ONTAP 分层到低成本对象存储，则需要 VPC 端点。
+
+
+
+
+
+=== 订阅 Cloud Volumes ONTAP
+
+要从 Cloud Manager 部署 Cloud Volumes ONTAP ，需要订阅 Marketplace 。
+
+.步骤
+. 转到 AWS 智能社区市场并搜索 Cloud Volumes ONTAP 。
+. 选择您计划部署的产品。
+. 查看条款并单击 * 接受 * 。
+. 如果您计划部署其他产品，请对其重复上述步骤。
++
+您必须使用 Cloud Manager 启动 Cloud Volumes ONTAP 实例。不得从 EC2 控制台启动 Cloud Volumes ONTAP 实例。
+
+
+
+
+
+=== 设置权限
+
+设置IAM策略和角色、为Connector和Cloud Volumes ONTAP 提供在AWS商用云服务环境中执行操作所需的权限。
+
+您需要为以下每项设置一个 IAM 策略和 IAM 角色：
+
+* Connector 实例
+* Cloud Volumes ONTAP 实例
+* Cloud Volumes ONTAP HA 调解器实例（如果要部署 HA 对）
+
+
+.步骤
+. 转到 AWS IAM 控制台，然后单击 * 策略 * 。
+. 为 Connector 实例创建策略。
++
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceStatus",
+                "ec2:RunInstances",
+                "ec2:ModifyInstanceAttribute",
+                "ec2:DescribeRouteTables",
+                "ec2:DescribeImages",
+                "ec2:CreateTags",
+                "ec2:CreateVolume",
+                "ec2:DescribeVolumes",
+                "ec2:ModifyVolumeAttribute",
+                "ec2:DeleteVolume",
+                "ec2:CreateSecurityGroup",
+                "ec2:DeleteSecurityGroup",
+                "ec2:DescribeSecurityGroups",
+                "ec2:RevokeSecurityGroupEgress",
+                "ec2:RevokeSecurityGroupIngress",
+                "ec2:AuthorizeSecurityGroupEgress",
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:CreateNetworkInterface",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DeleteNetworkInterface",
+                "ec2:ModifyNetworkInterfaceAttribute",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeDhcpOptions",
+                "ec2:CreateSnapshot",
+                "ec2:DeleteSnapshot",
+                "ec2:DescribeSnapshots",
+                "ec2:GetConsoleOutput",
+                "ec2:DescribeKeyPairs",
+                "ec2:DescribeRegions",
+                "ec2:DeleteTags",
+                "ec2:DescribeTags",
+                "cloudformation:CreateStack",
+                "cloudformation:DeleteStack",
+                "cloudformation:DescribeStacks",
+                "cloudformation:DescribeStackEvents",
+                "cloudformation:ValidateTemplate",
+                "iam:PassRole",
+                "iam:CreateRole",
+                "iam:DeleteRole",
+                "iam:PutRolePolicy",
+                "iam:ListInstanceProfiles",
+                "iam:CreateInstanceProfile",
+                "iam:DeleteRolePolicy",
+                "iam:AddRoleToInstanceProfile",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:DeleteInstanceProfile",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:GetBucketTagging",
+                "s3:GetBucketLocation",
+                "s3:ListAllMyBuckets",
+                "kms:List*",
+                "kms:Describe*",
+                "ec2:AssociateIamInstanceProfile",
+                "ec2:DescribeIamInstanceProfileAssociations",
+                "ec2:DisassociateIamInstanceProfile",
+                "ec2:DescribeInstanceAttribute",
+                "ec2:CreatePlacementGroup",
+                "ec2:DeletePlacementGroup"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "fabricPoolPolicy",
+            "Effect": "Allow",
+            "Action": [
+                "s3:DeleteBucket",
+                "s3:GetLifecycleConfiguration",
+                "s3:PutLifecycleConfiguration",
+                "s3:PutBucketTagging",
+                "s3:ListBucketVersions"
+            ],
+            "Resource": [
+                "arn:aws-iso:s3:::fabric-pool*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:StartInstances",
+                "ec2:StopInstances",
+                "ec2:TerminateInstances",
+                "ec2:AttachVolume",
+                "ec2:DetachVolume"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/WorkingEnvironment": "*"
+                }
+            },
+            "Resource": [
+                "arn:aws-iso:ec2:*:*:instance/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AttachVolume",
+                "ec2:DetachVolume"
+            ],
+            "Resource": [
+                "arn:aws-iso:ec2:*:*:volume/*"
+            ]
+        }
+    ]
+}
+----
+. 为 Cloud Volumes ONTAP 创建策略。
++
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Action": "s3:ListAllMyBuckets",
+        "Resource": "arn:aws-iso:s3:::*",
+        "Effect": "Allow"
+    }, {
+        "Action": [
+            "s3:ListBucket",
+            "s3:GetBucketLocation"
+        ],
+        "Resource": "arn:aws-iso:s3:::fabric-pool-*",
+        "Effect": "Allow"
+    }, {
+        "Action": [
+            "s3:GetObject",
+            "s3:PutObject",
+            "s3:DeleteObject"
+        ],
+        "Resource": "arn:aws-iso:s3:::fabric-pool-*",
+        "Effect": "Allow"
+    }]
+}
+----
+. 如果您计划部署 Cloud Volumes ONTAP HA 对，请为 HA 调解器创建一个策略。
++
+[source, json]
+----
+{
+	"Version": "2012-10-17",
+	"Statement": [{
+			"Effect": "Allow",
+			"Action": [
+				"ec2:AssignPrivateIpAddresses",
+				"ec2:CreateRoute",
+				"ec2:DeleteRoute",
+				"ec2:DescribeNetworkInterfaces",
+				"ec2:DescribeRouteTables",
+				"ec2:DescribeVpcs",
+				"ec2:ReplaceRoute",
+				"ec2:UnassignPrivateIpAddresses"
+			],
+			"Resource": "*"
+		}
+	]
+}
+----
+. 创建角色类型为 Amazon EC2 的 IAM 角色，并附加您在上述步骤中创建的策略。
++
+与策略类似，您应该为 Connector 设置一个 IAM 角色，为 Cloud Volumes ONTAP 节点设置一个 IAM 角色，并为 HA 调解器设置一个 IAM 角色（如果要部署 HA 对）。
+
++
+启动 Connector 实例时，必须选择 Connector IAM 角色。
+
++
+在从 Cloud Manager 创建 Cloud Volumes ONTAP 工作环境时，您可以为 Cloud Volumes ONTAP 和 HA 调解器选择 IAM 角色。
+
+
+
+
+
+=== 设置 AWS KMS
+
+如果要将 Amazon 加密与 Cloud Volumes ONTAP 结合使用，请确保满足 AWS 密钥管理服务的要求。
+
+.步骤
+. 确保您的帐户或其他 AWS 帐户中存在有效的客户主密钥（ CMK ）。
++
+CMK 可以是 AWS 管理的 CMK 或客户管理的 CMK 。
+
+. 如果 CMK 位于与您计划部署 Cloud Volumes ONTAP 的帐户不同的 AWS 帐户中，则需要获取该密钥的 ARN 。
++
+创建 Cloud Volumes ONTAP 系统时，您需要为 Cloud Manager 提供 ARN 。
+
+. 将Connector实例的IAM角色添加到CMK的关键用户列表中。
++
+这为 Cloud Manager 提供了将 CMK 与 Cloud Volumes ONTAP 配合使用的权限。
+
+
+
+
+
+== 安装Connector并设置Cloud Manager
+
+在 AWS 中启动 Cloud Volumes ONTAP 系统之前，您必须先从 AWS Marketplace 启动 Connector 实例，然后登录并设置 Cloud Manager 。
+
+.步骤
+. 获取由证书颁发机构（ CA ）以隐私增强邮件（ PEM ） Base-64 编码 X.509 格式签名的根证书。有关获取证书的信息，请参见贵组织的策略和流程。
++
+您需要在设置过程中上传证书。Cloud Manager 在通过 HTTPS 向 AWS 发送请求时使用可信证书。
+
+. 启动 Connector 实例：
++
+.. 转到 Cloud Manager 的 AWS 智能社区市场页面。
+.. 在自定义启动选项卡上，选择用于从 EC2 控制台启动实例的选项。
+.. 按照提示配置实例。
++
+配置实例时，请注意以下事项：
+
++
+*** 我们建议使用 T3.xlarge 。
+*** 您必须选择在准备 AWS 环境时创建的 IAM 角色。
+*** 您应保留默认存储选项。
+*** 连接器所需的连接方法如下： SSH ， HTTP 和 HTTPS 。
+
+
+
+
+. 从连接到 Connector 实例的主机设置 Cloud Manager ：
++
+.. 打开 Web 浏览器并输入 https://_ipaddress_[] 其中_ipaddress_是安装了连接器的Linux主机的IP地址。
+.. 指定用于连接到 AWS 服务的代理服务器。
+.. 上传您在步骤 1 中获得的证书。
+.. 完成设置向导中的步骤以设置 Cloud Manager 。
++
+*** * 系统详细信息 * ：输入此 Cloud Manager 实例的名称并提供您的公司名称。
+*** * 创建用户 * ：创建用于管理 Cloud Manager 的管理员用户。
+*** * 审核 * ：查看详细信息并批准最终用户许可协议。
+
+
+.. 要完成 CA 签名证书的安装，请从 EC2 控制台重新启动 Connector 实例。
+
+
+. Connector 重新启动后，使用您在设置向导中创建的管理员用户帐户登录。
+
+
+
+
+== 从Cloud Manager启动Cloud Volumes ONTAP
+
+您可以通过在 Cloud Manager 中创建新的工作环境在 AWS 商用云服务环境中启动 Cloud Volumes ONTAP 实例。
+
+.您需要的内容
+* 如果您购买了许可证，则必须具有从 NetApp 收到的许可证文件。此许可证文件是一个 .NLF 文件，采用 JSON 格式。
+* 要为 HA 调解器启用基于密钥的 SSH 身份验证，需要使用密钥对。
+
+
+.步骤
+. 在工作环境页面上，单击 * 添加工作环境 * 。
+. 在创建下，选择 Cloud Volumes ONTAP 或 Cloud Volumes ONTAP HA 。
+. 完成向导中的步骤以启动 Cloud Volumes ONTAP 系统。
++
+完成向导后，请注意以下事项：
+
++
+** 如果要在多个可用性区域中部署 Cloud Volumes ONTAP HA ，请按如下所示部署此配置，因为发布时 AWS 商用云服务环境中只有两个可用的 AZS ：
++
+*** 节点 1 ：可用性区域 A
+*** 节点 2 ：可用性区域 B
+*** 调解器：可用性区域 A 或 B
+
+
+** 您应保留默认选项以使用生成的安全组。
++
+预定义的安全组包含 Cloud Volumes ONTAP 成功运行所需的规则。如果您需要使用自己的，请参阅下面的安全组部分。
+
+** 您必须选择在准备 AWS 环境时创建的 IAM 角色。
+** 底层 AWS 磁盘类型适用于初始 Cloud Volumes ONTAP 卷。
++
+您可以为后续卷选择不同的磁盘类型。
+
+** AWS磁盘的性能与磁盘大小相关。
++
+您应选择可提供所需持续性能的磁盘大小。有关 EBS 性能的更多详细信息，请参见 AWS 文档。
+
+** 磁盘大小是系统上所有磁盘的默认大小。
++
+
+NOTE: 如果您稍后需要其他大小的磁盘，则可以使用高级分配选项创建使用特定大小磁盘的聚合。
+
+** 存储效率功能可以提高存储利用率并减少所需的总存储量。
+
+
+
+
+.结果
+Cloud Manager 将启动 Cloud Volumes ONTAP 实例。您可以跟踪时间链中的进度。
+
+
+
+== 安全组规则
+
+Cloud Manager 创建的安全组包含 Cloud Manager 和 Cloud Volumes ONTAP 在云中成功运行所需的入站和出站规则。您可能需要参考端口进行测试，或者如果您希望使用自己的安全组。
+
+
+
+=== Connector 的安全组
+
+Connector 的安全组需要入站和出站规则。
+
+
+
+==== 入站规则
+
+[cols="10,10,80"]
+|===
+| 协议 | Port | 目的 
+
+
+| SSH | 22. | 提供对 Connector 主机的 SSH 访问 
+
+
+| HTTP | 80 | 提供从客户端 Web 浏览器到本地用户界面的 HTTP 访问 
+
+
+| HTTPS | 443. | 提供从客户端Web浏览器到本地用户界面的HTTPS访问 
+|===
+
+
+==== 出站规则
+
+Connector 的预定义安全组包括以下出站规则。
+
+[cols="20,20,60"]
+|===
+| 协议 | Port | 目的 
+
+
+| 所有 TCP | 全部 | 所有出站流量 
+
+
+| 所有UDP | 全部 | 所有出站流量 
+|===
+
+
+=== Cloud Volumes ONTAP 的安全组
+
+Cloud Volumes ONTAP 节点的安全组需要入站和出站规则。
+
+
+
+==== 入站规则
+
+在创建工作环境并选择预定义的安全组时、您可以选择允许以下其中一个范围内的流量：
+
+* *仅选定VPC*：入站流量的源是Cloud Volumes ONTAP 系统的VPC子网范围以及连接器所在VPC的子网范围。这是建议的选项。
+* 所有vPC：入站流量的源IP范围为0.0.0.0/0。
+
+
+[cols="10,10,80"]
+|===
+| 协议 | Port | 目的 
+
+
+| 所有 ICMP | 全部 | Ping 实例 
+
+
+| HTTP | 80 | 使用集群管理 LIF 的 IP 地址对系统管理器 Web 控制台进行 HTTP 访问 
+
+
+| HTTPS | 443. | 使用集群管理 LIF 的 IP 地址对 System Manager Web 控制台进行 HTTPS 访问 
+
+
+| SSH | 22. | SSH 访问集群管理 LIF 或节点管理 LIF 的 IP 地址 
+
+
+| TCP | 111. | 远程过程调用 NFS 
+
+
+| TCP | 139. | 用于 CIFS 的 NetBIOS 服务会话 
+
+
+| TCP | 161-162. | 简单网络管理协议 
+
+
+| TCP | 445 | Microsoft SMB/CIFS over TCP （通过 TCP ）和 NetBIOS 成帧 
+
+
+| TCP | 635 | NFS 挂载 
+
+
+| TCP | 749-74 | Kerberos 
+
+
+| TCP | 2049年 | NFS 服务器守护进程 
+
+
+| TCP | 3260 | 通过 iSCSI 数据 LIF 进行 iSCSI 访问 
+
+
+| TCP | 4045 | NFS 锁定守护进程 
+
+
+| TCP | 4046 | NFS 的网络状态监视器 
+
+
+| TCP | 10000 | 使用 NDMP 备份 
+
+
+| TCP | 11104. | 管理 SnapMirror 的集群间通信会话 
+
+
+| TCP | 11105. | 使用集群间 LIF 进行 SnapMirror 数据传输 
+
+
+| UDP | 111. | 远程过程调用 NFS 
+
+
+| UDP | 161-162. | 简单网络管理协议 
+
+
+| UDP | 635 | NFS 挂载 
+
+
+| UDP | 2049年 | NFS 服务器守护进程 
+
+
+| UDP | 4045 | NFS 锁定守护进程 
+
+
+| UDP | 4046 | NFS 的网络状态监视器 
+
+
+| UDP | 4049-51 | NFS Rquotad 协议 
+|===
+
+
+==== 出站规则
+
+为 Cloud Volumes ONTAP 预定义的安全组包括以下出站规则。
+
+[cols="20,20,60"]
+|===
+| 协议 | Port | 目的 
+
+
+| 所有 ICMP | 全部 | 所有出站流量 
+
+
+| 所有 TCP | 全部 | 所有出站流量 
+
+
+| 所有UDP | 全部 | 所有出站流量 
+|===
+
+
+=== HA 调解器的外部安全组
+
+Cloud Volumes ONTAP HA 调解器的预定义外部安全组包括以下入站和出站规则。
+
+
+
+==== 入站规则
+
+入站规则的源是来自连接器所在 VPC 的流量。
+
+[cols="20,20,60"]
+|===
+| 协议 | Port | 目的 
+
+
+| SSH | 22. | SSH 与 HA 调解器的连接 
+
+
+| TCP | 3000 | 从 Connector 进行 RESTful API 访问 
+|===
+
+
+==== 出站规则
+
+HA 调解器的预定义安全组包括以下出站规则。
+
+[cols="20,20,60"]
+|===
+| 协议 | Port | 目的 
+
+
+| 所有 TCP | 全部 | 所有出站流量 
+
+
+| 所有UDP | 全部 | 所有出站流量 
+|===
+
+
+=== HA 调解器的内部安全组
+
+为 Cloud Volumes ONTAP HA 调解器预定义的内部安全组包括以下规则。Cloud Manager 始终会创建此安全组。您无法选择使用自己的。
+
+
+
+==== 入站规则
+
+预定义的安全组包括以下入站规则。
+
+[cols="20,20,60"]
+|===
+| 协议 | Port | 目的 
+
+
+| 所有流量 | 全部 | HA 调解器和 HA 节点之间的通信 
+|===
+
+
+==== 出站规则
+
+预定义的安全组包括以下出站规则。
+
+[cols="20,20,60"]
+|===
+| 协议 | Port | 目的 
+
+
+| 所有流量 | 全部 | HA 调解器和 HA 节点之间的通信 
+|===

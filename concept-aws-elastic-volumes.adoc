@@ -1,0 +1,191 @@
+---
+sidebar: sidebar 
+permalink: concept-aws-elastic-volumes.html 
+keywords: elastic volumes, ev, ebs elastic volumes, ebs, amazon ebs, disk growth 
+summary: 通过Cloud Volumes ONTAP 聚合支持Amazon EBS弹性卷功能、可提高性能并增加容量、同时支持BlueXP根据需要自动增加底层磁盘容量。 
+---
+= AWS中的弹性卷
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+通过Cloud Volumes ONTAP 聚合支持Amazon EBS弹性卷功能、可提高性能并增加容量、同时支持BlueXP根据需要自动增加底层磁盘容量。
+
+
+
+== 优势
+
+* 磁盘动态增长
++
+在Cloud Volumes ONTAP 运行期间以及磁盘仍处于连接状态时、BlueXP可以动态增加磁盘大小。
+
+* 性能更好
++
+启用了弹性卷的聚合最多可以包含八个磁盘、这些磁盘在两个RAID组中的利用率相等。此配置可提供更多吞吐量和稳定一致的性能。
+
+* 更大的聚合
++
+支持八个磁盘可提供最大聚合容量128 TiB。对于未通过弹性卷功能启用的聚合、这些限制高于六个磁盘限制和96 TiB限制。
+
++
+请注意、系统总容量限制保持不变。
+
+
+
+https://aws.amazon.com/ebs/features/["详细了解AWS中的弹性卷"^]
+
+
+
+== 支持的配置
+
+特定Cloud Volumes ONTAP 版本和特定EBS磁盘类型支持Amazon EBS弹性卷功能。
+
+
+
+=== Cloud Volumes ONTAP 版本
+
+从9.11.0或更高版本创建的_new_ Cloud Volumes ONTAP 系统支持弹性卷功能。9.11.0之前部署的现有Cloud Volumes ONTAP 系统支持此功能_not_。
+
+例如、如果您创建了Cloud Volumes ONTAP 9.9.0系统、然后将该系统升级到9.11.0版、则不支持弹性卷功能。它必须是使用9.11.0或更高版本部署的新系统。
+
+
+
+=== EBS磁盘类型
+
+使用通用SSD (GP3)或配置的IOPS SSD (IO1)时、弹性卷功能会在聚合级别自动启用。使用任何其他磁盘类型的聚合不支持弹性卷功能。
+
+
+
+== 所需的AWS权限
+
+从3.9.19版开始、连接器需要以下权限才能在Cloud Volumes ONTAP 聚合上启用和管理弹性卷功能：
+
+* EC2：Describe卷修改
+* EC2：ModifyVolume
+
+
+中包括这些权限 https://docs.netapp.com/us-en/bluexp-setup-admin/reference-permissions-aws.html["NetApp 提供的策略"^]
+
+
+
+== 对弹性卷的支持的工作原理
+
+启用了弹性卷功能的聚合由一个或两个RAID组组成。每个RAID组都有四个容量相同的相同磁盘。下面是一个10 TiB聚合的示例、该聚合包含四个磁盘、每个磁盘为2.5 TiB：
+
+image:diagram-aws-elastic-volumes-one-raid-group.png["一个概念映像、显示由四个大小相等的磁盘组成的聚合和RAID组。"]
+
+当BlueXP创建聚合时、它会从一个RAID组开始。如果需要更多容量、则BlueXP会通过将RAID组中所有磁盘的容量增加一定量来增加聚合。容量增加至少为256 GiB或聚合大小的10%。
+
+例如、如果您有一个1 TiB聚合、则每个磁盘都是250 GiB。聚合容量的10%为100 GiB。该值低于256 GiB、因此聚合的大小会增加到最小256 GiB (或每个磁盘64 GiB)。
+
+在Cloud Volumes ONTAP 系统运行期间以及磁盘仍处于连接状态时、BlueXP会增加磁盘的大小。此更改不会造成系统中断。
+
+如果聚合达到64 TiB (或每个磁盘上16 TiB)、则BlueXP将创建另一个RAID组以增加容量。第二个RAID组的工作原理与第一个RAID组相同：它具有四个磁盘、其容量完全相同、并且最多可增长到64 TiB。这意味着聚合的最大容量可为128 TiB。
+
+下面是一个包含两个RAID组的聚合示例。已达到第一个RAID组的容量限制、而第二个RAID组中的磁盘具有足够的可用空间。
+
+image:diagram-aws-elastic-volumes-two-raid-groups.png["一个概念映像、显示了一个聚合和两个RAID组、这两个RAID组都由四个大小相等的磁盘组成。"]
+
+
+
+=== 创建卷时会发生什么情况
+
+如果您创建的卷使用GP3或IO1磁盘、则BlueXP会按如下所示在聚合上创建此卷：
+
+* 如果现有GP3或IO1聚合已启用弹性卷、则BlueXP将在该聚合上创建卷。
+* 如果多个GP3或IO1聚合已启用弹性卷、则BlueXP会在所需资源最少的聚合上创建卷。
+* 如果系统只有未为弹性卷启用的GP3或IO1聚合、则会在该聚合上创建卷。
++
+[NOTE]
+====
+虽然不太可能出现这种情况、但在以下两种情况下可能会出现这种情况：
+
+** 在使用API创建聚合时、您明确禁用了弹性卷功能。
+** 您通过用户界面创建了一个新的Cloud Volumes ONTAP 系统、在这种情况下、初始聚合会禁用弹性卷功能。请查看 <<限制>> 了解更多信息。
+
+
+====
+* 如果现有聚合没有足够的容量、则BlueXP将创建启用了弹性卷的聚合、然后在该新聚合上创建卷。
++
+聚合大小取决于请求的卷大小加上额外的10%容量。
+
+
+
+
+
+=== 容量管理模式
+
+Connector的容量管理模式与弹性卷的工作方式类似、与其他类型的聚合的工作方式类似：
+
+* 如果启用了自动模式(这是默认设置)、则在需要额外容量时、BlueXP会自动增加聚合的大小。
+* 如果将容量管理模式更改为手动、则BlueXP会要求您批准购买更多容量。
+
+
+link:concept-storage-management.html#capacity-management["了解有关容量管理模式的更多信息"]。
+
+
+
+== 限制
+
+增加聚合的大小最多可能需要6小时。在此期间、BlueXP无法为该聚合请求任何额外容量。
+
+
+
+== 如何使用弹性卷
+
+您可以按如下所示在BlueXP中使用弹性卷：
+
+* 使用GP3或IO1磁盘时、创建在初始聚合上启用了弹性卷的新系统
++
+link:task-deploying-otc-aws.html["了解如何创建Cloud Volumes ONTAP 系统"]
+
+* 在已启用弹性卷的聚合上创建新卷
++
+如果您创建的卷使用GP3或IO1磁盘、则BlueXP会自动在启用了弹性卷的聚合上创建此卷。有关详细信息，请参见 <<创建卷时会发生什么情况>>。
+
++
+link:task-create-volumes.html["了解如何创建卷"]。
+
+* 创建启用了弹性卷的新聚合
++
+只要Cloud Volumes ONTAP 系统是从9.11.0或更高版本创建的、使用GP3或IO1磁盘的新聚合就会自动启用弹性卷。
+
++
+创建聚合时、BlueXP将提示您输入聚合的容量大小。这与其他配置不同、在这些配置中、您可以选择磁盘大小和磁盘数量。
+
++
+以下屏幕截图显示了一个由GP3磁盘组成的新聚合示例。
+
++
+image:screenshot-aggregate-size-ev.png["GP3磁盘的\"聚合磁盘\"屏幕的屏幕截图、您可以在其中以TiB输入聚合大小。"]
+
++
+link:task-create-aggregates.html["了解如何创建聚合"]。
+
+* 确定已启用弹性卷的聚合
++
+转到"高级分配"页面时、您可以确定是否已在聚合上启用弹性卷功能。在以下示例中、aggr1已启用弹性卷。
+
++
+image:screenshot_elastic_volume_enabled.png["屏幕截图显示了两个聚合、其中一个聚合的字段显示文本Elastic Volumes Enabled。"]
+
+* 向聚合添加容量
++
+虽然BlueXP会根据需要自动向聚合添加容量、但您可以手动增加容量。
+
++
+link:task-manage-aggregates.html["了解如何增加聚合容量"]。
+
+* 将数据复制到启用了弹性卷的聚合
++
+如果目标Cloud Volumes ONTAP 系统支持弹性卷、则目标卷将放置在启用了弹性卷的聚合上(只要选择GP3或IO1磁盘)。
+
++
+https://docs.netapp.com/us-en/bluexp-replication/task-replicating-data.html["了解如何设置数据复制"^]
+
+

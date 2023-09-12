@@ -1,0 +1,78 @@
+---
+sidebar: sidebar 
+permalink: task-google-key-manager.html 
+keywords: google cloud, encryption, NVE, NetApp volume encryption, KMIP, GCP, GCP KMS, key manager service, encryption 
+summary: 利用Google的密钥管理服务提供第三方密钥管理服务。 
+---
+= 使用Google的云密钥管理服务管理密钥
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用 link:https://cloud.google.com/kms/docs["Google Cloud Platform 的密钥管理服务（ Cloud KMS ）"^] 在部署了Google Cloud Platform的应用程序中保护ONTAP 加密密钥。
+
+可以使用命令行界面或ONTAP REST API启用Cloud KMS的密钥管理。
+
+使用Cloud KMS时、请注意、默认情况下、数据SVM的LIF用于与云密钥管理端点进行通信。节点管理网络用于与云提供商的身份验证服务(oauth2.googleapis.com)进行通信。如果集群网络配置不正确，集群将无法正确利用密钥管理服务。
+
+.开始之前
+* Cloud Volumes ONTAP 必须运行9.10.1或更高版本
+* 已安装卷加密（ VE ）许可证
+* 安装了多租户加密密钥管理(MTEKM)许可证、从Cloud Volumes ONTAP 9.12.1 GA开始。
+* 您必须是集群管理员或SVM管理员
+* 有效的Google Cloud Platform订阅
+
+
+.限制
+* 只能在数据SVM上配置Cloud KMS
+
+
+
+
+== Configuration
+
+.Google Cloud
+. 在Google Cloud环境中、 link:https://cloud.google.com/kms/docs/creating-keys["创建对称GCP密钥环和密钥"^]。
+. 为Cloud Volumes ONTAP 服务帐户创建自定义角色。
++
+[listing]
+----
+gcloud iam roles create kmsCustomRole
+    --project=<project_id>
+    --title=<kms_custom_role_name>
+    --description=<custom_role_description>
+    --permissions=cloudkms.cryptoKeyVersions.get,cloudkms.cryptoKeyVersions.list,cloudkms.cryptoKeyVersions.useToDecrypt,cloudkms.cryptoKeyVersions.useToEncrypt,cloudkms.cryptoKeys.get,cloudkms.keyRings.get,cloudkms.locations.get,cloudkms.locations.list,resourcemanager.projects.get
+    --stage=GA
+----
+. 将自定义角色分配给云KMS密钥和Cloud Volumes ONTAP服务帐户：
+`gcloud kms keys add-iam-policy-binding _key_name_ --keyring _key_ring_name_ --location _key_location_ --member serviceAccount:_service_account_Name_ --role projects/_customer_project_id_/roles/kmsCustomRole`
+. 下载服务帐户JSON密钥：
+`gcloud iam service-accounts keys create key-file --iam-account=_sa-name_@_project-id_.iam.gserviceaccount.com`
+
+
+.Cloud Volumes ONTAP
+. 使用首选SSH客户端连接到集群管理LIF。
+. 切换到高级权限级别：
+`set -privilege advanced`
+. 为数据SVM创建DNS。
+`dns create -domains c._<project>_.internal -name-servers _server_address_ -vserver _SVM_name_`
+. 创建CMDK条目：
+`security key-manager external gcp enable -vserver _SVM_name_ -project-id _project_ -key-ring-name _key_ring_name_ -key-ring-location _key_ring_location_ -key-name _key_name_`
+. 出现提示时、输入GCP帐户中的服务帐户JSON密钥。
+. 确认已启用的进程成功：
+`security key-manager external gcp check -vserver _svm_name_`
+. 可选：创建卷以测试加密 `vol create _volume_name_ -aggregate _aggregate_ -vserver _vserver_name_ -size 10G`
+
+
+
+
+== 故障排除
+
+如果您需要进行故障排除、可以在上述最后两个步骤中结束原始REST API日志：
+
+. `set d`
+. `systemshell -node _node_ -command tail -f /mroot/etc/log/mlog/kmip2_client.log`
+

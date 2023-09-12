@@ -1,0 +1,19 @@
+---
+sidebar: sidebar 
+permalink: whats-new-ontap.html 
+keywords: 'what"s new, features, new, release notes, bugs, limitations, known issues, enhancements, fixes, cloud volumes ontap' 
+summary: 《 Cloud Volumes ONTAP 发行说明》提供了特定于版本的信息。此版本中的新增功能，支持的配置，存储限制以及可能影响产品功能的任何已知限制或问题。 
+---
+= 《 Cloud Volumes ONTAP 发行说明》
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+《 Cloud Volumes ONTAP 发行说明》提供了特定于版本的信息。此版本中的新增功能，支持的配置，存储限制以及可能影响产品功能的任何已知限制或问题。
+
+https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/index.html["转至《 Cloud Volumes ONTAP 发行说明》"^]

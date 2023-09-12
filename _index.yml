@@ -1,0 +1,77 @@
+---
+indexpage:
+  lead: 借助 Cloud Volumes ONTAP ，您可以优化云存储成本和性能，同时增强数据保护，安全性和合规性。
+  tiles:
+  - title: 入门
+    links:
+    - title: 了解 Cloud Volumes ONTAP
+      url: concept-overview-cvo.html
+    - title: AWS 快速入门
+      url: task-getting-started-aws.html
+      flavor: aws
+    - title: Azure 快速入门
+      url: task-getting-started-azure.html
+      flavor: azure
+    - title: Google Cloud 快速入门
+      url: task-getting-started-gcp.html
+      flavor: gcp
+  - title: 许可
+    links:
+    - title: 许可概述
+      url: concept-licensing.html
+    - title: 管理基于容量的许可证
+      url: task-manage-capacity-licenses.html
+    - title: Exchange 未分配的基于节点的许可证
+      url: task-manage-node-licenses.html#exchange-unassigned-node-based-licenses
+    - title: 管理Keystone订阅
+      url: task-manage-keystone.html
+  - title: 存储管理
+    links:
+    - title: 创建卷
+      url: task-create-volumes.html
+    - title: 将非活动数据分层到对象存储
+      url: task-tiering.html
+    - title: 借助 FlexCache 加快数据访问速度
+      url: task-accelerate-data-access.html
+    - title: ONTAP SAN 主机配置
+      url: https://docs.netapp.com/us-en/ontap-sanhost
+  - title: 系统管理
+    links:
+    - title: 升级 Cloud Volumes ONTAP
+      url: task-updating-ontap-cloud.html
+    - title: 停止并启动 Cloud Volumes ONTAP
+      url: task-managing-state.html
+  - title: 安全性
+    links:
+    - title: 使用 NetApp 加密对卷进行加密
+      url: task-encrypting-volumes.html
+    - title: 改进勒索软件保护
+      url: task-protecting-ransomware.html
+  - title: API
+    links:
+    - title: Cloud Volumes ONTAP API 概述
+      url: https://docs.netapp.com/us-en/bluexp-automation/cm/overview.html
+    - title: 准备使用 API
+      url: https://docs.netapp.com/us-en/bluexp-automation/cm/prepare.html
+    - title: API 参考
+      url: https://docs.netapp.com/us-en/bluexp-automation/cm/api_ref_resources.html
+  - title: 故障排除
+    links:
+    - title: NetApp 知识库
+      url: https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Cloud_Volumes_ONTAP_(CVO)
+  - title: 参考
+    links:
+    - title: 支持的配置
+      url: https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/index.html
+    - title: 支持的云区域
+      url: https://cloud.netapp.com/cloud-volumes-global-regions
+    - title: 计算器
+      url: https://cloud.netapp.com/calculator-hub
+  - title: 博客和社区
+    links:
+    - title: NetApp 社区
+      url: https://community.netapp.com/t5/Cloud-Volumes-ONTAP/bd-p/CloudVolumes
+    - title: BlueXP网站博客
+      url: https://cloud.netapp.com/blog/topic/cloud-volumes-ontap
+    - title: 云网络研讨会
+      url: https://cloud.netapp.com/events

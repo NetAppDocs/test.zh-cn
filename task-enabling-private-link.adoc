@@ -1,0 +1,152 @@
+---
+sidebar: sidebar 
+permalink: task-enabling-private-link.html 
+keywords: azure private link, private link connection, private link to storage, service endpoints, enable service endpoint, disable private link 
+summary: Cloud Volumes ONTAP 使用Azure专用链路连接到其关联的存储帐户。如果需要、您可以禁用Azure专用链路、而改用服务端点。 
+---
+= 使用Azure专用链路或服务端点
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Volumes ONTAP 使用Azure专用链路连接到其关联的存储帐户。如果需要、您可以禁用Azure专用链路、而改用服务端点。
+
+
+
+== 概述
+
+默认情况下、BlueXP会为Cloud Volumes ONTAP 与其关联存储帐户之间的连接启用Azure专用链路。Azure Private Link可确保Azure中端点之间的连接安全、并可提供性能优势。
+
+如果需要、您可以将Cloud Volumes ONTAP 配置为使用服务端点、而不是Azure专用链路。
+
+无论采用哪种配置、BlueXP都会始终限制Cloud Volumes ONTAP 与存储帐户之间的连接的网络访问。网络访问仅限于部署了Cloud Volumes ONTAP 的vNet和部署了连接器的vNet。
+
+
+
+== 请禁用Azure专用链路并改用服务端点
+
+如果您的企业需要、您可以更改BlueXP中的设置、以便将Cloud Volumes ONTAP 配置为使用服务端点、而不是Azure专用链路。更改此设置将适用场景 添加您创建的新Cloud Volumes ONTAP 系统。仅支持服务端点 link:https://docs.microsoft.com/en-us/azure/availability-zones/cross-region-replication-azure#azure-cross-region-replication-pairings-for-all-geographies["Azure区域对"^] 在连接器和Cloud Volumes ONTAP VNets之间。
+
+此连接器应部署在与其管理的 Cloud Volumes ONTAP 系统所在的同一 Azure 区域或中 https://docs.microsoft.com/en-us/azure/availability-zones/cross-region-replication-azure#azure-cross-region-replication-pairings-for-all-geographies["Azure 区域对"^] 对于 Cloud Volumes ONTAP 系统。
+
+.步骤
+. 在BlueXP控制台的右上角、单击设置图标、然后选择*连接器设置*。
++
+image:screenshot_settings_icon.png["一个屏幕截图、显示了BlueXP控制台右上角的设置图标。"]
+
+. 在 * Azure * 下，单击 * 使用 Azure 专用链接 * 。
+. 取消选择 * Cloud Volumes ONTAP 与存储帐户之间的专用链路连接 * 。
+. 单击 * 保存 * 。
+
+
+.完成后
+如果禁用了Azure专用链路、并且Connector使用代理服务器、则必须启用直接API流量。
+
+https://docs.netapp.com/us-en/bluexp-setup-admin/task-configuring-proxy.html#enable-a-proxy-on-a-connector["了解如何在Connector上启用直接API流量"^]
+
+
+
+== 使用Azure专用链路
+
+在大多数情况下、您无需执行任何操作即可使用Cloud Volumes ONTAP 设置Azure专用链路。BlueXP为您管理Azure专用链路。但是、如果您使用现有Azure私有DNS区域、则需要编辑配置文件。
+
+
+
+=== 自定义DNS的要求
+
+或者、如果您使用自定义DNS、则需要从自定义DNS服务器创建一个条件转发器来访问Azure专用DNS区域。要了解更多信息、请参见 link:https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns#on-premises-workloads-using-a-dns-forwarder["Azure有关使用DNS转发器的文档"^]。
+
+
+
+=== 专用链路连接的工作原理
+
+当BlueXP在Azure中部署Cloud Volumes ONTAP 时、它会在资源组中创建一个私有端点。专用端点与Cloud Volumes ONTAP 的存储帐户关联。因此，对 Cloud Volumes ONTAP 存储的访问会通过 Microsoft 主干网络进行。
+
+如果客户端与 Cloud Volumes ONTAP 位于同一个 vNet 中，位于对等 VNets 中，或者使用专用 VPN 或 ExpressRoute 连接到 VNet ，则客户端访问将通过专用链路进行。
+
+以下示例显示了客户端通过同一个 vNet 中的专用链路以及具有专用 VPN 或 ExpressRoute 连接的内部网络进行访问的情况。
+
+image:diagram_azure_private_link.png["一个概念映像，用于显示通过专用端点和专用链路访问 Cloud Volumes ONTAP 以及存储帐户的数据。"]
+
+
+NOTE: 如果连接器和Cloud Volumes ONTAP 系统部署在不同的VN中、则必须在部署连接器的vNet与部署Cloud Volumes ONTAP 系统的vNet之间设置vNet对等关系。
+
+
+
+=== 向BlueXP提供有关Azure私有DNS的详细信息
+
+如果您使用 https://docs.microsoft.com/en-us/azure/dns/private-dns-overview["Azure 专用 DNS"^]，然后您需要修改每个 Connector 上的配置文件。否则、BlueXP无法在Cloud Volumes ONTAP 与其关联存储帐户之间启用Azure专用链路连接。
+
+请注意， DNS 名称必须与 Azure DNS 命名要求匹配 https://docs.microsoft.com/en-us/azure/storage/common/storage-private-endpoints#dns-changes-for-private-endpoints["如 Azure 文档中所示"^]。
+
+.步骤
+. 通过 SSH 连接到 Connector 主机并登录。
+. 导航到以下目录： /opt/application/netapp/cloudmanager/docker_occm/data
+. 通过使用以下关键字值对添加"user-private-dns-zone-settings"参数来编辑app.conf：
++
+....
+"user-private-dns-zone-settings" : {
+   "resource-group" : "<resource group name of the DNS zone>",
+   "subscription" : "<subscription ID>",
+   "use-existing" : true,
+   "create-private-dns-zone-link" : true
+}
+....
++
+应在与"system-id"相同的级别输入参数、如下所示：
+
++
+....
+"system-id" : "<system ID>",
+"user-private-dns-zone-settings" : {
+....
++
+请注意、只有当专用DNS区域与Connector订阅不同时、才需要使用subscription关键字。
+
+. 保存文件并注销 Connector 。
++
+不需要重新启动。
+
+
+
+
+
+=== 启用故障回滚
+
+如果在特定操作中、BlueXP无法创建Azure专用链路、则它将在没有Azure专用链路连接的情况下完成此操作。在创建新的工作环境（单节点或 HA 对）或对 HA 对执行以下操作时，可能会发生这种情况：创建新聚合，向现有聚合添加磁盘或在超过 32 TiB 时创建新存储帐户。
+
+如果BlueXP无法创建Azure专用链路、您可以通过启用回滚来更改此默认行为。这有助于确保您完全符合公司的安全法规。
+
+如果启用回滚、则BlueXP将停止此操作并回滚此操作中创建的所有资源。
+
+您可以通过API或更新app.conf文件启用回滚。
+
+*通过APi*启用回滚
+
+.步骤
+. 使用 `PUT /occm/config` 具有以下请求正文的API调用：
++
+[source, json]
+----
+{ "rollbackOnAzurePrivateLinkFailure": true }
+----
+
+
+*通过更新app.conf启用回滚
+
+.步骤
+. 通过 SSH 连接到 Connector 主机并登录。
+. 导航到以下目录： /opt/application/netapp/cloudmanager/docker_occm/data
+. 通过添加以下参数和值来编辑app.conf：
++
+ "rollback-on-private-link-failure": true
+. 保存文件并注销 Connector 。
++
+不需要重新启动。
+
+

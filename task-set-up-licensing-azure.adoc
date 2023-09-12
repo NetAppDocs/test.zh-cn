@@ -1,0 +1,174 @@
+---
+sidebar: sidebar 
+permalink: task-set-up-licensing-azure.html 
+keywords: freemium, professional, essentials, licensing, licenses, cloud volumes ontap charging, cloud volumes ontap licenses, cloud volumes ontap licensing, cvo licenses, cvo licensing, byol, bring your own license, paygo, pay as you go, keystone flex, keystone, digital wallet 
+summary: 在确定要对Cloud Volumes ONTAP 使用的许可选项后、需要执行一些步骤、然后才能在部署新系统时选择该许可选项。 
+---
+= 在Azure中为Cloud Volumes ONTAP 设置许可
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+在确定要在Cloud Volumes ONTAP 中使用的许可选项后、需要执行一些步骤、然后才能在创建新的工作环境时选择该许可选项。
+
+
+
+== 免费
+
+选择免费提供的Cloud Volumes ONTAP 、可在配置容量高达500 GiB的情况下免费使用。 link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-licensing.html#packages["了解有关免费提供的更多信息"^]。
+
+.步骤
+. 从左侧导航菜单中、选择*存储>画布*。
+. 在"画布"页面上、单击*添加工作环境*、然后按照BlueXP中的步骤进行操作。
++
+.. 在*详细信息和凭据*页面上、单击*编辑凭据>添加订阅*、然后按照提示订阅Azure Marketplace中的按需购买服务。
++
+除非您超过500 GiB的已配置容量、否则不会通过Marketplace订阅向您收取费用、此时系统将自动转换为 link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/concept-licensing.html#capacity-based-licensing["Essentials 软件包"^]。
+
++
+image:screenshot-azure-paygo-subscription.png["创建Cloud Volumes ONTAP 工作环境时的PAYGO订阅选项的屏幕截图。"]
+
+.. 返回到BlueXP后、访问充电方法页面时选择*免费*。
++
+image:screenshot-freemium.png["创建Cloud Volumes ONTAP 工作环境时的Freemium选项的屏幕截图。"]
+
+
+
+
+
+link:task-deploying-otc-azure.html["查看在Azure中启动Cloud Volumes ONTAP 的分步说明"]。
+
+
+
+== 基于容量的许可证
+
+通过基于容量的许可，您可以按每 TiB 容量为 Cloud Volumes ONTAP 付费。基于容量的许可以_package_的形式提供：Essentials包或Professional包。
+
+Essentials 和 Professional 软件包可用于以下消费模式：
+
+* 从 NetApp 购买的许可证（ BYOL ）
+* 从Azure Marketplace订阅每小时按需购买(PAYGO)
+* 年度合同
+
+
+link:concept-licensing.html["了解有关基于容量的许可的更多信息"]。
+
+以下各节介绍了如何开始使用上述每种消费模式。
+
+
+
+=== BYOL
+
+通过从NetApp购买许可证(BYOL)预付费用、以便在任何云提供商中部署Cloud Volumes ONTAP 系统。
+
+.步骤
+. https://cloud.netapp.com/contact-cds["要获取许可证，请联系 NetApp 销售人员"^]
+. https://docs.netapp.com/us-en/bluexp-setup-admin/task-adding-nss-accounts.html#add-an-nss-account["将您的NetApp 支持站点 帐户添加到BlueXP"^]
++
+BlueXP会自动查询NetApp的许可服务、以获取与您的NetApp 支持站点 帐户关联的许可证的详细信息。如果没有错误、BlueXP会自动将许可证添加到电子钱包中。
+
++
+您必须先从BlueXP电子钱包中获取许可证、然后才能在Cloud Volumes ONTAP 中使用它。如果需要，您可以 link:task-manage-capacity-licenses.html#add-purchased-licenses-to-your-account["手动将许可证添加到BlueXP电子钱包"]。
+
+. 在"画布"页面上、单击*添加工作环境*、然后按照BlueXP中的步骤进行操作。
++
+.. 在*详细信息和凭据*页面上、单击*编辑凭据>添加订阅*、然后按照提示订阅Azure Marketplace中的按需购买服务。
++
+您从NetApp购买的许可证始终会先收取费用、但如果超出许可容量或许可证期限到期、您将从市场上的每小时费率中扣除费用。
+
++
+image:screenshot-azure-paygo-subscription.png["创建Cloud Volumes ONTAP 工作环境时的PAYGO订阅选项的屏幕截图。"]
+
+.. 返回到BlueXP后、在访问充电方法页面时选择一个基于容量的软件包。
++
+image:screenshot-professional.png["创建Cloud Volumes ONTAP 工作环境时的\"Professional \"选项的屏幕截图。"]
+
+
+
+
+
+link:task-deploying-otc-azure.html["查看在Azure中启动Cloud Volumes ONTAP 的分步说明"]。
+
+
+
+=== PAYGO订阅
+
+通过从云提供商的市场订阅优惠按小时付费。
+
+创建Cloud Volumes ONTAP 工作环境时、BlueXP会提示您订阅Azure Marketplace中提供的协议。然后、该订阅将与工作环境关联以进行收费。您可以对其他工作环境使用相同的订阅。
+
+.步骤
+. 从左侧导航菜单中、选择*存储>画布*。
+. 在"画布"页面上、单击*添加工作环境*、然后按照BlueXP中的步骤进行操作。
++
+.. 在*详细信息和凭据*页面上、单击*编辑凭据>添加订阅*、然后按照提示订阅Azure Marketplace中的按需购买服务。
++
+image:screenshot-azure-paygo-subscription.png["创建Cloud Volumes ONTAP 工作环境时的PAYGO订阅选项的屏幕截图。"]
+
+.. 返回到BlueXP后、在访问充电方法页面时选择一个基于容量的软件包。
++
+image:screenshot-professional.png["创建Cloud Volumes ONTAP 工作环境时的\"Professional \"选项的屏幕截图。"]
+
+
+
+
+
+link:task-deploying-otc-azure.html["查看在Azure中启动Cloud Volumes ONTAP 的分步说明"]。
+
+
+TIP: 您可以从"设置">"凭据"页面管理与Azure帐户关联的Azure Marketplace订阅。 https://docs.netapp.com/us-en/bluexp-setup-admin/task-adding-azure-accounts.html["了解如何管理Azure帐户和订阅"^]
+
+
+
+=== 年度合同
+
+通过购买年度合同为Cloud Volumes ONTAP 支付年度费用。
+
+.步骤
+. 请联系您的NetApp销售代表以购买年度合同。
++
+此合同在Azure Marketplace中以_private_优惠的形式提供。
+
++
+在NetApp与您共享私人优惠后、您可以在创建工作环境期间从Azure Marketplace订阅年度计划。
+
+. 在"画布"页面上、单击*添加工作环境*、然后按照BlueXP中的步骤进行操作。
++
+.. 在*详细信息和凭据*页面上、单击*编辑凭据>添加订阅>继续*。
+.. 在Azure门户中、选择与您的Azure帐户共享的年度计划、然后单击*订阅*。
+.. 返回到BlueXP后、在访问充电方法页面时选择一个基于容量的软件包。
++
+image:screenshot-professional.png["创建Cloud Volumes ONTAP 工作环境时的\"Professional \"选项的屏幕截图。"]
+
+
+
+
+
+link:task-deploying-otc-azure.html["查看在Azure中启动Cloud Volumes ONTAP 的分步说明"]。
+
+
+
+== Keystone订阅
+
+Keystone订阅是一种基于订阅的按需购买服务。 link:concept-licensing.html#keystone-subscription["了解有关NetApp Keystone 订阅的更多信息"]。
+
+.步骤
+. 如果您还没有订阅， https://www.netapp.com/forms/keystone-sales-contact/["请联系 NetApp"^]
+. mailto：ng-keystone-success@netapp.com [联系NetApp]以授权您的BlueXP用户帐户进行一项或多项Keystone订阅。
+. 在 NetApp 授权您的帐户后， link:task-manage-keystone.html#link-a-subscription["链接您的订阅以用于 Cloud Volumes ONTAP"]。
+. 在"画布"页面上、单击*添加工作环境*、然后按照BlueXP中的步骤进行操作。
++
+.. 当系统提示您选择充电方式时、选择Keystone订阅充电方式。
++
+image:screenshot-keystone.png["创建Cloud Volumes ONTAP 工作环境时\"Keystone订阅\"选项的屏幕截图。"]
+
+
+
+
+
+link:task-deploying-otc-azure.html["查看在Azure中启动Cloud Volumes ONTAP 的分步说明"]。

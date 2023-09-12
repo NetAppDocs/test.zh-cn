@@ -1,0 +1,54 @@
+---
+sidebar: sidebar 
+permalink: task-manage-capacity-settings.html 
+keywords: aggregates, delete aggregates, add disks, view aggregates 
+summary: 您可以通过添加磁盘，查看聚合相关信息以及删除聚合来自行管理聚合。 
+---
+= 管理Connector上的容量设置
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+每个连接器都有设置、用于确定其如何管理Cloud Volumes ONTAP 的聚合容量。
+
+这些设置会影响由连接器管理的所有Cloud Volumes ONTAP 系统。如果您有另一个连接器、则可以对其进行不同的配置。
+
+.所需权限
+要修改Connector设置、需要帐户管理员权限。
+
+.步骤
+. 在BlueXP控制台的右上角、单击设置图标、然后选择*连接器设置*。
++
+image::screenshot_settings_connector_button.png[屏幕截图设置连接器按钮]
+
+. 在*容量*下、修改以下任何设置：
++
+容量管理模式:: 选择BlueXP是否通知您存储容量决策、或者BlueXP是否自动管理您的容量需求。
++
+--
+link:concept-storage-management.html#capacity-management["了解容量管理模式的工作原理"]。
+
+--
+聚合容量阈值—可用空间比率:: 当聚合上的可用空间比率降至指定阈值以下时触发通知。
++
+--
+可用空间比率的计算方法如下：
+
+(聚合容量-聚合上的总已用容量)/聚合容量
+
+--
+聚合容量阈值—数据分层的可用空间比率:: 定义将数据分层到容量层(对象存储)时、性能层(磁盘)需要多少可用空间。
++
+--
+此比率对于灾难恢复情形非常重要。从容量层读取数据时、Cloud Volumes ONTAP 会将数据移至性能层以提高性能。如果空间不足，则 Cloud Volumes ONTAP 无法移动数据。
+
+--
+
+
+. 单击 * 保存 * 。
+

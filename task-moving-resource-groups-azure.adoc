@@ -1,0 +1,35 @@
+---
+sidebar: sidebar 
+permalink: task-moving-resource-groups-azure.html 
+keywords: move resource groups, azure, remove working environment, resource groups, azure console, Azure subscriptions 
+summary: Cloud Volumes ONTAP 支持Azure资源组移动、但工作流仅在Azure控制台中执行。 
+---
+= 移动资源组
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Cloud Volumes ONTAP 支持Azure资源组移动、但工作流仅在Azure控制台中执行。
+
+您可以在同一Azure订阅中将工作环境从一个资源组移动到Azure中的其他资源组。不支持在不同Azure订阅之间移动资源组。
+
+.步骤
+. 从*画布*中删除工作环境。
++
+要了解如何删除工作环境、请参见 link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-removing.html["删除 Cloud Volumes ONTAP 工作环境"]。
+
+. 在Azure控制台中执行资源组移动。
++
+要完成移动、请参见 link:https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/move-resource-group-and-subscription["将资源移动到Microsoft Azure文档中的新资源组或订阅"^]。
+
+. 在*画布*中、了解工作环境。
+. 在工作环境信息中查找新资源组。
+
+
+.结果
+工作环境及其资源(VM、磁盘、存储帐户、网络接口、快照)位于新资源组中。

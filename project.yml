@@ -1,440 +1,342 @@
 ---
 settings:
-  name: Cloud Insights
-  rss_page: concept_whats_new.html
-  noindex: true
+  name: Cloud Volumes ONTAP
+  harmony_integration: maestro
+  platform: cloud
   internal:
     pdf_enabled: true
   prod:
-    pdf_enabled: false
+    pdf_enabled: true
     harmony_enabled: false
-    hide_language_selector: true
-  langs: zh-cn,us-en,ja-jp,ko-kr,zh-tw,de-de,es-es,fr-fr
+  versions:
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-relnotes"
+    version-number: 9.13.1
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9130-relnotes"
+    version-number: 9.13.0
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9121-relnotes"
+    version-number: 9.12.1
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9120-relnotes"
+    version-number: 9.12.0
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9111-relnotes"
+    version-number: 9.11.1
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9110-relnotes"
+    version-number: 9.11.0
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9101-relnotes"
+    version-number: 9.10.1
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-9100-relnotes"
+    version-number: 9.10.0
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-991-relnotes"
+    version-number: 9.9.1
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-990-relnotes"
+    version-number: 9.9.0
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-98-relnotes"
+    version-number: '9.8'
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-97-relnotes"
+    version-number: '9.7'
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-96-relnotes"
+    version-number: '9.6'
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-95-relnotes"
+    version-number: '9.5'
+  - name: Cloud Volumes ONTAP
+    url: "/cloud-volumes-ontap-94-relnotes"
+    version-number: '9.4'
+  - name: ONTAP 云
+    url: "/cloud-volumes-ontap-93-relnotes"
+    version-number: '9.3'
+  rss_page: whats-new.html
+  filter:
+    label: 云提供商
+    default: 所有云提供商
+    options:
+    - name: Amazon Web Services
+      alias: AWS
+      id: aws
+    - name: Google Cloud
+      alias: Google Cloud
+      id: gcp
+    - name: Microsoft Azure
+      alias: Azure 酒店
+      id: azure
+  langs: zh-cn,us-en,ja-jp,ko-kr,zh-tw,de-de,es-es,fr-fr,it-it
 sidebar:
   entries:
-  - title: Cloud Insights 文档
+  - title: Cloud Volumes ONTAP 文档
     url: "/index.html"
-  - title: 新增功能
-    url: "/concept_whats_new.html"
-  - title: 注册 Cloud Insights
-    url: "/task_cloud_insights_onboarding_1.html"
-  - title: 安全性
+  - title: 发行说明
     entries:
-    - title: 安全实践
-      url: "/security_overview.html"
-    - title: 我们的存储内容以及存储位置
-      url: "/security_information_and_region.html"
+    - title: 新增功能
+      url: "/whats-new.html"
+    - title: 已知限制
+      url: "/reference-limitations.html"
+    - title: "《 Cloud Volumes ONTAP 发行说明》"
+      url: "/whats-new-ontap.html"
   - title: 入门
     entries:
-    - title: 功能教程
-      url: "/concept_feature_tutorials.html"
-    - title: 正在收集数据
+    - title: 了解 Cloud Volumes ONTAP
+      url: "/concept-overview-cvo.html"
+    - title: 新部署支持的版本
+      url: "/reference-versions.html"
+    - title: 开始使用 Amazon Web Services
+      flavor: aws
       entries:
-      - title: 概述
-        url: "/task_getting_started_with_cloud_insights.html"
-      - title: 采集单元要求
-        url: "/concept_acquisition_unit_requirements.html"
-      - title: 配置采集单元
-        url: "/task_configure_acquisition_unit.html"
-      - title: 配置代理
-        url: "/task_config_telegraf_agent.html"
-      - title: 配置数据收集器
-        url: "/task_configure_data_collectors.html"
-      - title: 确定 Data Collector 采集状态
-        url: "/concept_determining_data_collector_acq_status.html"
-      - title: 管理已配置的数据收集器
-        url: "/task_view_configured_data_collectors.html"
-      - title: 研究数据收集器错误
-        url: "/task_research_failed_collector.html"
-    - title: 导入建议的信息板
-      url: "/concept_import_from_dashboard_gallery.html"
-    - title: 用户帐户和角色
-      url: "/concept_user_roles.html"
-    - title: 正在切换到其他 Cloud Central 产品
-      url: "/concept_other_cloud_products.html"
-  - title: 数据收集器列表
-    url: "/data_collector_list.html"
-  - title: 订阅 Cloud Insights
-    url: "/concept_subscribing_to_cloud_insights.html"
-  - title: 自动设备解析
-    entries:
-    - title: 设备解析概述
-      url: "/concept_device_resolution_overview.html"
-    - title: 设备解析规则
-      url: "/task_device_resolution_rules.html"
-    - title: 光纤通道设备解析
-      url: "/task_device_resolution_fibre_channel.html"
-    - title: IP 设备解析
-      url: "/task_device_resolution_ip.html"
-    - title: 设置设备解析首选项
-      url: "/task_device_resolution_preferences.html"
-    - title: 正则表达式示例
-      url: "/concept_device_resolution_regex_examples.html"
-  - title: 创建信息板
-    entries:
-    - title: 信息板概述
-      url: "/concept_dashboards_overview.html"
-    - title: 信息板的功能
-      url: "/concept_dashboard_features.html"
-    - title: 示例信息板
+      - title: 快速入门
+        url: "/task-getting-started-aws.html"
+      - title: 规划您的配置
+        url: "/task-planning-your-config.html"
+      - title: 设置网络
+        entries:
+        - title: 网络要求
+          url: "/reference-networking-aws.html"
+        - title: 设置 AWS 传输网关
+          url: "/task-setting-up-transit-gateway.html"
+        - title: 在共享子网中部署HA对
+          url: "/task-deploy-aws-shared-vpc.html"
+        - title: AWS 的安全组规则
+          url: "/reference-security-groups.html"
+      - title: 设置 AWS KMS
+        url: "/task-setting-up-kms.html"
+      - title: 设置IAM角色
+        url: "/task-set-up-iam-roles.html"
+      - title: 设置许可
+        url: "/task-set-up-licensing-aws.html"
+      - title: 在 AWS 中监控 Cloud Volumes ONTAP
+        url: "/task-deploying-otc-aws.html"
+      - title: AWS C2S 入门
+        url: "/task-getting-started-aws-c2s.html"
+    - title: 开始使用 Microsoft Azure
+      flavor: azure
       entries:
-      - title: 虚拟机性能
-        url: "/task_dashboard_example_VM_performance.html"
-    - title: 信息板最佳实践
-      url: "/concept_dashboard_best_practices.html"
-  - title: Kubernetes 资源管理器
-    entries:
-    - title: Kubernetes 概述页面
-      url: "/kubernetes_landing_page.html"
-    - title: Kubernetes 集群页面
-      url: "/kubernetes_cluster_detail.html"
-  - title: 使用查询
-    entries:
-    - title: 正在查询资产
-      url: "/concept_querying_assets.html"
-    - title: 创建查询
-      url: "/task_create_query.html"
-    - title: 查看可用查询
-      url: "/task_view_queries.html"
-    - title: 将查询结果导出到 .CSV
-      url: "/task_export_query_results.html"
-    - title: 修改或删除查询
-      url: "/task_modify_delete_query.html"
-    - title: 为对象分配多个应用程序 / 标注
-      url: "/task_query_assign_multiple_applicationss.html"
-    - title: 将表值复制到剪贴板
-      url: "/task_query_copy_table_values.html"
-    - title: 正在查询日志
-      url: "/concept_log_explorer.html"
-  - title: 使用标注
-    entries:
-    - title: 定义标注
-      url: "/task_defining_annotations.html"
-    - title: 使用标注
-      url: "/task_create_annotation.html"
-    - title: 使用标注规则
-      url: "/task_create_annotation_rules.html"
-    - title: 使用 API 导入标注
-      url: "/task_annotation_import.html"
-  - title: 使用应用程序
-    entries:
-    - title: 应用程序概念
-      url: "/concept_about_applications.html"
-    - title: 配置应用程序
-      url: "/task_create_application.html"
-  - title: 监控和警报
-    entries:
-    - title: 创建监控器
-      url: "/task_create_monitor.html"
-    - title: 查看和管理警报
-      url: "/task_view_and_manage_alerts.html"
-    - title: 配置通知收件人
-      url: "/concept_notifications_email.html"
-    - title: 系统定义的监控器
-      url: "/task_system_monitors.html"
-  - title: 使用 API
-    url: "/API_Overview.html"
-  - title: 网络挂机通知
-    url: "/task_create_webhook.html"
-  - title: 监控环境
-    entries:
-    - title: 审核事件
-      url: "/concept_audit.html"
-    - title: TTL 和下抽样
-      url: concept_ttl_and_downsampling.html
-  - title: 资产页面信息
-    entries:
-    - title: 资产页面概述
-      url: "/concept_asset_page_overview.html"
-    - title: 对象的上下文内筛选
-      url: "/concept_in_context_filters.html"
-    - title: 摘要拓扑部分
-      url: "/concept_asset_summary_section.html"
-    - title: 专家视图部分
-      url: "/concept_asset_expert_view_section.html"
-    - title: 用户数据部分
-      url: "/concept_asset_user_data_section.html"
-    - title: 相关警报部分
-      url: "/concept_asset_alerts_section.html"
-    - title: 搜索资产的提示和提示
-      url: "/concept_searching_assets.html"
-  - title: 报告
-    entries:
-    - title: 报告概述
-      url: "/reporting_overview.html"
-    - title: 报告用户角色
-      url: "/reporting_user_roles.html"
-    - title: 使用预定义报告
-      url: "/reporting_predefined_reports.html"
-    - title: Storage Manager 信息板
-      url: "/reporting_storage_manager_dashboard.html"
-    - title: 创建示例报告
-      url: "/reporting_create_example.html"
-    - title: 管理报告
-      url: "/reporting_managing_reports.html"
-    - title: 自定义报告
-      url: "/reporting_creating_custom_reports.html"
-    - title: 数据模型
-      url: "/reporting_creating_custom_reports.html#reporting-data-models"
-    - title: 报告数据库 API
-      url: "/reporting_querying_database.html"
-    - title: 数据保留
-      url: "/reporting_data_retention.html"
-    - title: 架构图
-      url: "/reporting_schema_diagrams.html"
-    - title: 模式表
-      url: "/reference_schemas.html"
-  - title: Cloud Secure
-    entries:
-    - title: 关于 Cloud Secure
-      url: "/cs_intro.html"
-    - title: 入门
+      - title: 快速入门
+        url: "/task-getting-started-azure.html"
+      - title: 规划您的配置
+        url: "/task-planning-your-config-azure.html"
+      - title: 设置网络
+        url: "/reference-networking-azure.html"
+      - title: 使用密钥设置加密
+        url: "/task-set-up-azure-encryption.html"
+      - title: 设置许可
+        url: "/task-set-up-licensing-azure.html"
+      - title: 启用高可用性模式
+        url: "/task-azure-high-availability-mode.html"
+      - title: 在 Azure 中启动 Cloud Volumes ONTAP
+        url: "/task-deploying-otc-azure.html"
+    - title: 开始使用 Google Cloud
+      flavor: gcp
       entries:
-      - title: Cloud Secure 入门
-        url: "/task_cs_getting_started.html"
-      - title: Cloud Secure 代理要求
-        url: "/concept_cs_agent_requirements.html"
-      - title: 配置 Cloud Secure 代理
-        url: "/task_cs_add_agent.html"
-      - title: 删除 Cloud Secure 代理
-        url: "/task_cs_delete_agent.html"
-      - title: 配置 AD 目录收集器
-        url: "/task_config_user_dir_connect.html"
-      - title: 配置 LDAP 目录收集器
-        url: "/task_config_user_dir_connect_ldap.html"
-      - title: 配置适用于 NetApp ONTAP 收集器的 Amazon FSX
-        url: "/task_config_cs_amazon_fsx.html"
-      - title: 配置 ONTAP SVM 数据收集器
-        url: "/task_add_collector_svm.html"
-      - title: 配置 Cloud ONTAP 数据收集器
-        url: "/task_config_cs_incloud.html"
-      - title: Cloud Secure 用户管理
-        url: "/task_cs_user_management.html"
-      - title: 事件速率检查器
-        url: "/concept_cs_event_rate_checker.html"
-    - title: 警报
-      url: "/cs_alert_data.html"
-    - title: 取证
-      entries:
-      - title: 活动取证—所有活动
-        url: "/forensic_activity_history.html"
-      - title: 活动取证—实体
-        url: "/forensic_entity_detail.html"
-      - title: 用户
-        url: "/forensic_user_overview.html"
-    - title: 自动响应策略
-      url: "/cs_automated_response_policies.html"
-    - title: 限制用户访问
-      url: "/cs_restrict_user_access.html"
-    - title: 模拟勒索软件攻击
-      url: "/concept_cs_attack_simulator.html"
-    - title: 通知
-      url: "/cs_notifications_email.html"
-    - title: Cloud Secure API
-      url: "/concept_cs_api.html"
-  - title: Active IQ
-    url: "/concept_activeiq.html"
-  - title: 故障排除
+      - title: 快速入门
+        url: "/task-getting-started-gcp.html"
+      - title: 规划您的配置
+        url: "/task-planning-your-config-gcp.html"
+      - title: 设置网络
+        url: "/reference-networking-gcp.html"
+      - title: 规划 VPC 服务控制
+        url: "/reference-vpc-service-controls-gcp.html"
+      - title: 创建服务帐户
+        url: "/task-creating-gcp-service-account.html"
+      - title: 使用客户管理的加密密钥
+        url: "/task-setting-up-gcp-encryption.html"
+      - title: 设置许可
+        url: "/task-set-up-licensing-google.html"
+      - title: 在Google Cloud中启动Cloud Volumes ONTAP
+        url: "/task-deploying-gcp.html"
+      - title: Google Cloud Platform映像验证
+        entries:
+        - title: 概述
+          url: "/concept-gcp-image-verification.html"
+        - title: 在GCP上将映像转换为原始格式
+          url: "/task-gcp-convert-image-raw.html"
+        - title: 映像签名验证
+          entries:
+          - title: 验证GCP签名的映像
+            url: "/concept-gcp-verify-signed-image.html"
+          - title: 使用OpenSSL验证内容
+            url: "/task-verify-openssl-gcp.html"
+  - title: 使用 Cloud Volumes ONTAP
     entries:
-    - title: 常规故障排除
-      url: "/task_troubleshooting_general_problems.html"
-    - title: 排除 Linux 采集单元问题
-      url: "/task_troubleshooting_linux_acquisition_unit_problems.html"
-    - title: 对 Windows 采集单元问题进行故障排除
-      url: "/task_troubleshooting_windows_acquisition_unit_problems.html"
-    - title: 调查数据收集器错误
-      url: "/task_research_failed_collector.html"
-  - title: 参考支持
+    - title: 许可证管理
+      entries:
+      - title: 管理基于容量的许可证
+        url: "/task-manage-capacity-licenses.html"
+      - title: 管理Keystone订阅
+        url: "/task-manage-keystone.html"
+      - title: 管理基于节点的许可证
+        url: "/task-manage-node-licenses.html"
+    - title: 卷和 LUN 管理
+      entries:
+      - title: 创建卷
+        url: "/task-create-volumes.html"
+      - title: 管理现有卷
+        url: "/task-manage-volumes.html"
+      - title: 将非活动数据分层到对象存储
+        url: "/task-tiering.html"
+      - title: 将 LUN 连接到主机
+        url: "/task-connect-lun.html"
+      - title: 借助 FlexCache 加快数据访问速度
+        url: "/task-accelerate-data-access.html"
+    - title: 聚合管理
+      entries:
+      - title: 创建聚合
+        url: "/task-create-aggregates.html"
+      - title: 管理现有聚合
+        url: "/task-manage-aggregates.html"
+      - title: 管理容量设置
+        url: "/task-manage-capacity-settings.html"
+    - title: Storage VM 管理
+      entries:
+      - title: 在BlueXP中使用Storage VM
+        url: "/task-managing-svms.html"
+      - title: 在 AWS 中创建 Storage VM
+        flavor: aws
+        url: "/task-managing-svms-aws.html"
+      - title: 在 Azure 中创建 Storage VM
+        flavor: azure
+        url: "/task-managing-svms-azure.html"
+      - title: 在Google Cloud中创建Storage VM
+        flavor: gcp
+        url: "/task-managing-svms-gcp.html"
+      - title: 设置SVM灾难恢复
+        url: "/task-manage-svm-dr.html"
+    - title: 安全性和数据加密
+      entries:
+      - title: 使用 NetApp 加密对卷进行加密
+        url: "/task-encrypting-volumes.html"
+      - title: 使用AWS密钥管理服务管理密钥
+        flavor: aws
+        url: "/task-aws-key-management.html"
+      - title: 使用Azure密钥存储管理密钥
+        flavor: azure
+        url: "/task-azure-key-vault.html"
+      - title: 使用Google Cloud KMS管理密钥
+        flavor: gcp
+        url: "/task-google-key-manager.html"
+      - title: 改进勒索软件保护
+        url: "/task-protecting-ransomware.html"
+    - title: 系统管理
+      entries:
+      - title: 升级 Cloud Volumes ONTAP
+        url: "/task-updating-ontap-cloud.html"
+      - title: 注册按需购买系统
+        url: "/task-registering.html"
+      - title: 停止并启动系统
+        url: "/task-managing-state.html"
+      - title: 同步系统时间
+        url: "/task-sync-time.html"
+      - title: 修改系统写入速度
+        url: "/task-modify-write-speed.html"
+      - title: 更改系统密码
+        url: "/task-change-password.html"
+      - title: 添加，删除或删除系统
+        entries:
+        - title: 添加现有系统
+          url: "/task-adding-systems.html"
+        - title: 删除工作环境
+          url: "/task-removing.html"
+        - title: 删除系统
+          url: "/task-deleting-working-env.html"
+      - title: AWS管理
+        flavor: aws
+        entries:
+        - title: 更改 EC2 实例类型
+          url: "/task-change-ec2-instance.html"
+        - title: 更改 HA 对的路由表
+          url: "/task-change-route-tables.html"
+        - title: 配置放置组创建
+          url: task-configure-placement-group-failure-aws.html
+      - title: Azure管理
+        flavor: azure
+        entries:
+        - title: 更改 Azure 虚拟机类型
+          url: "/task-change-azure-vm.html"
+        - title: 覆盖 CIFS 锁定
+          url: "/task-overriding-cifs-locks.html"
+        - title: 使用Azure专用链路或服务端点
+          url: "/task-enabling-private-link.html"
+        - title: 移动资源组
+          url: "/task-moving-resource-groups-azure.html"
+      - title: Google Cloud管理
+        flavor: gcp
+        entries:
+        - title: 更改计算机类型
+          url: "/task-change-gcp-machine.html"
+      - title: 通过System Manager进行管理
+        url: "/task-administer-advanced-view.html"
+      - title: 通过CLI进行管理
+        url: "/task-connecting-to-otc.html"
+    - title: 系统运行状况和事件
+      entries:
+      - title: 验证 AutoSupport 设置
+        url: "/task-verify-autosupport.html"
+      - title: 配置EMS
+        url: "/task-configure-ems.html"
+  - title: 概念
     entries:
-    - title: 请求支持
-      url: "/concept_requesting_support.html"
-    - title: 数据收集器支持列表
-      url: "/reference_data_collector_support_matrix.html"
-    - title: "《数据收集器参考—基础架构》"
+    - title: 许可
+      url: "/concept-licensing.html"
+    - title: 存储
       entries:
-      - title: 供应商参考概述
-        url: "/concept_data_collector_reference.html"
-      - title: AWS
-        url: "/task_dc_amazon_ec2.html"
-      - title: Azure 酒店
-        url: "/task_dc_ms_azure.html"
-      - title: Broadcom
-        entries:
-        - title: Brocade Network Advisor
-          url: "/task_dc_brocade_bna.html"
-        - title: 光纤通道交换机
-          url: "/task_dc_brocade_fc_switch.html"
-      - title: Cisco
-        url: "/task_dc_cisco_fc_switch.html"
-      - title: Dell
-        entries:
-        - title: xC 系列
-          url: "/task_dc_dell_xc_series.html"
-      - title: Dell EMC
-        entries:
-        - title: 数据域
-          url: "/task_dc_emc_datadomain.html"
-        - title: ECS
-          url: "/task_dc_emc_ecs.html"
-        - title: PowerScale
-          url: "/task_dc_emc_isilon.html"
-        - title: PowerStore
-          url: "/task_dc_emc_powerstore.html"
-        - title: RecoverPoint
-          url: "/task_dc_emc_recoverpoint.html"
-        - title: ScaleIO
-          url: "/task_dc_emc_scaleio.html"
-        - title: Unity （ VNXe ）
-          url: "/task_dc_emc_unity.html"
-        - title: VMAX/PowerMax
-          url: "/task_dc_emc_vmax_powermax.html"
-        - title: VNX 块（ Clariion ）
-          url: "/task_dc_emc_vnx_block.html"
-        - title: VNX 文件（ Celerra ）
-          url: "/task_dc_emc_vnx_file.html"
-        - title: VNX 统一
-          url: "/task_dc_emc_vnx_unified.html"
-        - title: VPLEX
-          url: "/task_dc_emc_vplex.html"
-        - title: XtremIO
-          url: "/task_dc_emc_xio.html"
-      - title: Fujitsu
-        url: "/task_dc_fujitsu_eternus.html"
-      - title: Google
-        url: "/task_dc_google_cloud.html"
-      - title: HP 企业
-        entries:
-        - title: HP Alletra 9000 和 Primera
-          url: "/task_dc_hp_3par.html"
-        - title: HP Command View AE
-          url: "/task_dc_hpe_commandview.html"
-        - title: HPE Alletra 6000
-          url: "/task_dc_hpe_nimble.html"
-      - title: Hitachi Data Systems
-        entries:
-        - title: HDS 命令套件
-          url: "/task_dc_hds_commandsuite.html"
-        - title: HDS HNAS
-          url: "/task_dc_hds_nas.html"
-        - title: HDS 运营中心
-          url: "/task_dc_hds_ops_center.html"
-      - title: 无限
-        url: "/task_dc_infinidat_infinibox.html"
-      - title: 华为
-        url: "/task_dc_huawei_oceanstor.html"
-      - title: IBM
-        entries:
-        - title: Cleverssafe
-          url: "/task_dc_ibm_cleversafe.html"
-        - title: CS 系列
-          url: "/task_dc_ibm_cs.html"
-        - title: 系统存储 DS8000 系列
-          url: "/task_dc_ibm_ds.html"
-        - title: PowerVM
-          url: "/task_dc_ibm_powervm.html"
-        - title: SAN 卷控制器（ SVC ）
-          url: "/task_dc_ibm_svc.html"
-        - title: XIV/A9000
-          url: "/task_dc_ibm_xiv.html"
-      - title: 联想
-        url: "/task_dc_lenovo.html"
-      - title: Microsoft
-        entries:
-        - title: Azure NetApp Files
-          url: "/task_dc_ms_anf.html"
-        - title: Hyper-V
-          url: "/task_dc_ms_hyperv.html"
-      - title: NetApp
-        entries:
-        - title: Astra 数据存储
-          url: "/task_dc_na_astra_data_store.html"
-        - title: 适用于 ONTAP 9.9+ 的云连接
-          url: "/task_dc_na_cloud_connection.html"
-        - title: Cloud Volumes ONTAP
-          url: "/task_dc_na_cloud_volumes_ontap.html"
-        - title: 适用于 AWS 的 Cloud Volumes Services
-          url: "/task_dc_na_cloud_volumes.html"
-        - title: ONTAP 数据管理软件
-          url: "/task_dc_na_cdot.html"
-        - title: Data ONTAP 7- 模式
-          url: "/task_dc_na_7mode.html"
-        - title: E 系列
-          url: "/task_dc_na_eseries.html"
-        - title: NetApp HCI 管理服务器
-          url: "/task_dc_na_hci.html"
-        - title: SolidFire
-          url: "/task_dc_na_solidfire.html"
-        - title: StorageGRID
-          url: "/task_dc_na_storagegrid.html"
-      - title: Nutanix
-        url: "/task_dc_nutanix.html"
-      - title: OpenStack
-        url: "/task_dc_openstack.html"
-      - title: Oracle
-        url: "/task_dc_oracle_zfs.html"
-      - title: 纯净
-        url: "/task_dc_pure_flasharray.html"
-      - title: Red Hat
-        url: "/task_dc_redhat_virtualization.html"
-      - title: VMware
-        url: "/task_dc_vmware.html"
-    - title: "《数据收集器参考—服务》"
+      - title: 客户端协议
+        url: "/concept-client-protocols.html"
+      - title: 磁盘和聚合
+        url: "/concept-storage.html"
+      - title: AWS中的弹性卷
+        flavor: aws
+        url: "/concept-aws-elastic-volumes.html"
+      - title: 数据分层
+        url: "/concept-data-tiering.html"
+      - title: 存储管理
+        url: "/concept-storage-management.html"
+      - title: 写入速度
+        url: "/concept-write-speed.html"
+      - title: Flash Cache
+        url: "/concept-flash-cache.html"
+      - title: WORM 存储
+        url: "/concept-worm.html"
+    - title: 高可用性对
       entries:
-      - title: 主机 / 节点
-        url: "/task_config_telegraf_node.html"
-      - title: ActiveMQ
-        url: "/task_config_telegraf_activemq.html"
-      - title: Apache
-        url: "/task_config_telegraf_apache.html"
-      - title: Consu
-        url: "/task_config_telegraf_consul.html"
-      - title: Couchbase
-        url: "/task_config_telegraf_couchbase.html"
-      - title: CouchDB
-        url: "/task_config_telegraf_couchdb.html"
-      - title: Docker
-        url: "/task_config_telegraf_docker.html"
-      - title: Elasticsearch
-        url: "/task_config_telegraf_elasticsearch.html"
-      - title: Flink
-        url: "/task_config_telegraf_flink.html"
-      - title: Hadoop
-        url: "/task_config_telegraf_hadoop.html"
-      - title: HA 代理
-        url: "/task_config_telegraf_haproxy.html"
-      - title: Java
-        url: "/task_config_telegraf_jvm.html"
-      - title: Kafka
-        url: "/task_config_telegraf_kafka.html"
-      - title: Kapacitor
-        url: task_config_telegraf_kapacitor.html
-      - title: Kibana
-        url: "/task_config_telegraf_kibana.html"
-      - title: Kubernetes
-        url: "/task_config_telegraf_agent.html#kubernetes"
-      - title: 已缓存内存
-        url: "/task_config_telegraf_memcached.html"
-      - title: MongoDB
-        url: "/task_config_telegraf_mongodb.html"
-      - title: MySQL
-        url: "/task_config_telegraf_mysql.html"
-      - title: netstat
-        url: "/task_config_telegraf_netstat.html"
-      - title: nginx
-        url: "/task_config_telegraf_nginx.html"
-      - title: OpenZFS
-        url: task_config_telegraf_openzfs.html
-      - title: PostgreSQL
-        url: "/task_config_telegraf_postgresql.html"
-      - title: Puppet
-        url: "/task_config_telegraf_puppetagent.html"
-      - title: Redis
-        url: "/task_config_telegraf_redis.html"
-      - title: RethinkDB
-        url: task_config_telegraf_rethinkdb.html
-      - title: Zookeeper
-        url: task_config_telegraf_zookeeper.html
-    - title: 对象图标参考
-      url: "/reference_object_icons.html"
+      - title: AWS 中的 HA 对
+        flavor: aws
+        url: "/concept-ha.html"
+      - title: Azure 中的 HA 对
+        flavor: azure
+        url: "/concept-ha-azure.html"
+      - title: GCP中的HA对
+        flavor: gcp
+        url: "/concept-ha-google-cloud.html"
+      - title: 存储接管期间的操作
+        url: "/concept-degraded-ha-pair.html"
+    - title: 安全性
+      url: "/concept-security.html"
+    - title: 性能
+      url: "/concept-performance.html"
+    - title: 管理基于节点的 BYOL
+      url: "/concept-license-management.html"
+    - title: AutoSupport 和 Active IQ Digital Advisor
+      url: "/concept-active-iq.html"
+    - title: 默认配置
+      url: "/reference-default-configs.html"
+  - title: 知识和支持
+    entries:
+    - title: 注册以获得支持
+      url: "/task-support-registration.html"
+    - title: 获取帮助
+      url: "/task-get-help.html"
   - title: 法律声明
-    url: "/reference_legal_notices.html"
+    url: "/legal-notices.html"
+product-family:
+  name: BlueXP
+  repo: bluexp-family
+  sidebar_label: 所有BlueXP文档

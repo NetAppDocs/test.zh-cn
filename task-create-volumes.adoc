@@ -1,0 +1,314 @@
+---
+sidebar: sidebar 
+permalink: task-create-volumes.html 
+keywords: storage, provisioning, iscsi, nfs, cifs, volumes, create a volume, add a volume, create volumes, add volumes, creating a volume, adding a volume, provision volume, provision a volume, provisioning volumes, add volume to second node, add volume to node 2, templates, cloud backup 
+summary: 如果在启动初始Cloud Volumes ONTAP 系统后需要更多存储、则可以从BlueXP为NFS、CIFS或iSCSI创建新的FlexVol 卷。 
+---
+= 创建 FlexVol 卷
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+如果在启动初始Cloud Volumes ONTAP 系统后需要更多存储、则可以从BlueXP为NFS、CIFS或iSCSI创建新的FlexVol 卷。
+
+BlueXP提供了多种创建新卷的方法：
+
+* 指定新卷的详细信息、并让BlueXP为您处理底层数据聚合。 <<create-a-volume,了解更多信息。>>
+* 在您选择的数据聚合上创建卷。 <<create-a-volume,了解更多信息。>>
+* 使用模板创建卷，以根据特定应用程序（例如数据库或流式服务）的工作负载要求优化卷。 <<create-a-volume-from-a-template,了解更多信息。>>
+* 在 HA 配置中的第二个节点上创建卷。 <<create-volume-second-node,了解更多信息。>>
+
+
+
+
+== 开始之前
+
+有关卷配置的一些注意事项：
+
+* 创建iSCSI卷时、BlueXP会自动为您创建LUN。我们通过为每个卷仅创建一个 LUN 来简化此过程，因此无需进行管理。创建卷后， link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-connect-lun.html["使用 IQN 从主机连接到 LUN"^]。
+* 您可以从 System Manager 或 CLI 创建其他 LUN 。
+
+
+ifdef::aws[]
+
+* 如果要在 AWS 中使用 CIFS 、则必须设置 DNS 和 Active Directory 。有关详细信息，请参见 link:reference-networking-aws.html["Cloud Volumes ONTAP for AWS 的网络要求"]。
+* 如果您的Cloud Volumes ONTAP 配置支持Amazon EBS弹性卷功能、则可能需要 link:concept-aws-elastic-volumes.html["详细了解创建卷时会发生什么情况"]。
+
+
+endif::aws[]
+
+
+
+== 创建卷
+
+创建卷的最常见方法是指定所需的卷类型、然后由BlueXP为您处理磁盘分配。但是，您也可以选择要在其中创建卷的特定聚合。
+
+.步骤
+. 从左侧导航菜单中、选择*存储>画布*。
+. 在 " 画布 " 页面上，双击要配置 FlexVol 卷的 Cloud Volumes ONTAP 系统的名称。
+. 通过让BlueXP为您处理磁盘分配来创建新卷、或者为此卷选择特定聚合。
++
+只有在您很好地了解 Cloud Volumes ONTAP 系统上的数据聚合时，才建议选择特定聚合。
+
++
+[role="tabbed-block"]
+====
+.任何聚合
+--
+在概述选项卡上、导航到卷磁贴、然后单击*添加卷*。
+image:screenshot_add_volume_button.png["概述选项卡下的添加卷按钮的屏幕截图。"]
+
+--
+.特定聚合
+--
+在聚合选项卡上、导航到所需的聚合图块。单击菜单图标、然后单击*添加卷*。
+image:screenshot_add_volume_button_agg.png["聚合选项卡下的添加卷按钮的屏幕截图。"]
+
+--
+====
+. 按照向导中的步骤创建卷。
++
+.. *卷、详细信息、保护和标记*：输入有关卷的基本详细信息并选择Snapshot策略。
++
+此页面上的某些字段不言自明。以下列表介绍了可能需要指导的字段：
+
++
+[cols="2,6"]
+|===
+| 字段 | Description 
+
+
+| 卷名称 | 可以为新卷输入的可标识名称。 
+
+
+| 卷大小 | 您可以输入的最大大小在很大程度上取决于您是否启用精简配置、这样您就可以创建一个大于当前可用物理存储的卷。 
+
+
+| Tags | 添加到卷的标记将与关联 https://docs.netapp.com/us-en/bluexp-remediation/task-using-tags.html["应用程序模板服务"^]可帮助您组织和简化资源管理。 
+
+
+| Storage VM (SVM) | Storage VM 是在 ONTAP 中运行的虚拟机，可为客户端提供存储和数据服务。您可能会将其视为 SVM 或 SVM 。默认情况下， Cloud Volumes ONTAP 配置有一个 Storage VM ，但某些配置支持额外的 Storage VM 。您可以为新卷指定Storage VM。 
+
+
+| 快照策略 | Snapshot 副本策略指定自动创建的 NetApp Snapshot 副本的频率和数量。NetApp Snapshot 副本是一个时间点文件系统映像、对性能没有影响、并且只需要极少的存储。您可以选择默认策略或无。您可以为瞬态数据选择无：例如， Microsoft SQL Server 的 tempdb 。 
+|===
+.. * 协议 * ：选择卷的协议（ NFS ， CIFS 或 iSCSI ），然后提供所需信息。
++
+如果您选择CIFS并且服务器未设置、则在单击*下一步*后、BlueXP将提示您设置CIFS连接。
+
++
+link:concept-client-protocols.html["了解支持的客户端协议和版本"]。
+
++
+以下各节介绍了可能需要指导的字段。这些说明按协议进行组织。
+
++
+[role="tabbed-block"]
+====
+.NFS
+--
+访问控制:: 选择一个自定义导出策略以使此卷可供客户端使用。
+导出策略:: 定义子网中可访问卷的客户端。默认情况下、BlueXP输入一个值、用于访问子网中的所有实例。
+
+
+--
+.CIFS
+--
+权限和用户 / 组:: 用于控制用户和组（也称为访问控制列表或 ACL ）对 SMB 共享的访问级别。您可以指定本地或域 Windows 用户或组、 UNIX 用户或组。如果指定域 Windows 用户名、则必须使用域 \ 用户名格式包括用户的域。
+DNS 主 IP 地址和次 IP 地址:: 为 CIFS 服务器提供名称解析的 DNS 服务器的 IP 地址。列出的 DNS 服务器必须包含为 CIFS 服务器将加入的域定位 Active Directory LDAP 服务器和域控制器所需的服务位置记录（服务位置记录）。
++
+--
+ifdef::gcp[]
+
+--
+
+
+如果要配置 Google Managed Active Directory ，则默认情况下可以使用 169.254.169.254 IP 地址访问 AD 。
+
+endif::gcp[]
+
+要加入的 Active Directory 域:: 您希望 CIFS 服务器加入的 Active Directory （ AD ）域的 FQDN 。
+授权加入域的凭据:: 具有足够权限将计算机添加到 AD 域中指定组织单位 (OU) 的 Windows 帐户的名称和密码。
+CIFS server NetBIOS name:: 在 AD 域中唯一的 CIFS 服务器名称。
+组织单位:: AD 域中要与 CIFS 服务器关联的组织单元。默认值为 cn = computers 。
+
+
+ifdef::aws[]
+
+*** 要将 AWS 托管 Microsoft AD 配置为 Cloud Volumes ONTAP 的 AD 服务器，请在此字段中输入 * OU=Computers ， OU=corp* 。
+
+
+endif::aws[]
+
+ifdef::azure[]
+
+*** 要将 Azure AD 域服务配置为 Cloud Volumes ONTAP 的 AD 服务器，请在此字段中输入 * OU=AADDC Computers * 或 * OU=AADDC Users* 。
+https://docs.microsoft.com/en-us/azure/active-directory-domain-services/create-ou["Azure 文档：在 Azure AD 域服务托管域中创建组织单位（ OU ）"^]
+
+
+endif::azure[]
+
+ifdef::gcp[]
+
+*** 要将 Google Managed Microsoft AD 配置为 Cloud Volumes ONTAP 的 AD 服务器，请在此字段中输入 * OU=Computers ， OU=Cloud* 。
+https://cloud.google.com/managed-microsoft-ad/docs/manage-active-directory-objects#organizational_units["Google Cloud 文档： Google Managed Microsoft AD 中的组织单位"^]
+
+
+endif::gcp[]
+
+DNS 域:: Cloud Volumes ONTAP Storage Virtual Machine （ SVM ）的 DNS 域。在大多数情况下，域与 AD 域相同。
+NTP服务器:: 选择 * 使用 Active Directory 域 * 以使用 Active Directory DNS 配置 NTP 服务器。如果需要使用其他地址配置 NTP 服务器，则应使用 API 。请参见 https://docs.netapp.com/us-en/bluexp-automation/index.html["BlueXP自动化文档"^] 了解详细信息。
++
+--
+请注意，只有在创建 CIFS 服务器时才能配置 NTP 服务器。在创建 CIFS 服务器后，它不可配置。
+
+--
+
+
+--
+.iSCSI
+--
+LUN:: iSCSI 存储目标称为 LUN （逻辑单元），并作为标准块设备提供给主机。创建iSCSI卷时、BlueXP会自动为您创建LUN。我们通过为每个卷仅创建一个 LUN 来简化此过程，因此无需进行管理。创建卷后， link:task-connect-lun.html["使用 IQN 从主机连接到 LUN"]。
+启动程序组:: 启动程序组（ igroup ）指定哪些主机可以访问存储系统上的指定 LUN
+主机启动程序（ IQN ）:: iSCSI 目标通过标准以太网网络适配器（ NIC ），带软件启动程序的 TCP 卸载引擎（ TOE ）卡，融合网络适配器（ CNA ）或专用主机总线适配器（ HBA ）连接到网络，并通过 iSCSI 限定名称（ IQN ）进行标识。
+
+
+--
+====
+.. * 磁盘类型 * ：根据性能需求和成本要求为卷选择底层磁盘类型。
++
+ifdef::aws[]
+
++
+*** link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-planning-your-config.html#size-your-system-in-aws["在 AWS 中估算系统规模"^]
+
+
+
+
+
+
+endif::aws[]
+
+ifdef::azure[]
+
+* link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-planning-your-config-azure.html#size-your-system-in-azure["在 Azure 中估算系统规模"^]
+
+
+endif::azure[]
+
+ifdef::gcp[]
+
+* link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-planning-your-config-gcp.html#size-your-system-in-gcp["在Google Cloud中调整系统规模"^]
+
+
+endif::gcp[]
+
+. * 使用情况配置文件和分层策略 * ：选择是在卷上启用还是禁用存储效率功能，然后选择 link:concept-data-tiering.html["卷分层策略"]。
++
+ONTAP 包含多种存储效率功能、可以减少您所需的存储总量。NetApp 存储效率功能具有以下优势：
+
++
+精简配置:: 为主机或用户提供的逻辑存储比实际在物理存储池中提供的存储多。在写入数据时，存储空间将动态分配给每个卷而不是预先分配存储空间。
+重复数据删除:: 通过定位相同的数据块并将其替换为单个共享块的引用来提高效率。此技术通过消除驻留在同一卷中的冗余数据块来降低存储容量需求。
+压缩:: 通过在主存储、二级存储和归档存储上的卷中压缩数据来减少存储数据所需的物理容量。
+
+
+. * 审阅 * ：查看有关卷的详细信息，然后单击 * 添加 * 。
+
+
+.结果
+BlueXP会在Cloud Volumes ONTAP 系统上创建卷。
+
+
+
+== 使用模板创建卷
+
+如果您的组织已创建 Cloud Volumes ONTAP 卷模板，以便您可以部署针对特定应用程序的工作负载要求进行优化的卷，请按照本节中的步骤进行操作。
+
+此模板应使您的工作更轻松，因为模板中已定义某些卷参数，例如磁盘类型，大小，协议，快照策略，云提供程序， 等等。如果已预定义某个参数，则只需跳到下一个 volume 参数即可。
+
+
+NOTE: 使用模板时，您只能创建 NFS 或 CIFS 卷。
+
+.步骤
+. 从左侧导航菜单中、选择*存储>画布*。
+. 在 " 画布 " 页面上，单击要配置卷的 Cloud Volumes ONTAP 系统的名称。
+. 导航到卷选项卡、然后单击*添加卷*>*从模板新建卷*。
++
+image:screenshot_add_volume_template.png["显示如何从模板添加新卷的屏幕截图。"]
+
+. 在 _Select Template_ 页面中，选择要用于创建卷的模板，然后单击 * 下一步 * 。
++
+image:screenshot_select_template_cvo.png["可用应用程序模板的屏幕截图。"]
+
++
+此时将显示_Editor_页面。
+
++
+image:screenshot_define_cvo_vol_from_template.png["显示创建卷所需填写的空白模板的屏幕截图。"]
+
+. 在_Action_面板上方、输入模板的名称。
+. 在_context_下、工作环境将填入您启动的工作环境的名称。选择要创建卷的* Storage VM*。
+. 为模板中未硬编码的所有参数添加值。请参见 <<create-a-volume,创建卷>> 有关完成Cloud Volumes ONTAP 卷部署所需的所有参数的详细信息。
+. 单击*应用*将配置的参数保存到选定操作。
+. 如果没有需要定义的其他操作(例如，配置BlueXP备份和恢复)，请单击*保存模板*。
++
+如果还有其他操作，请单击左窗格中的操作以显示需要完成的参数。
+
++
+image:screenshot_template_select_next_action.png["显示如何选择需要完成的其他操作的屏幕截图。"]
+
++
+例如、如果"启用卷上的云备份"操作要求您选择备份策略、您现在可以执行此操作。
+
+. 完成模板操作的配置后、单击*保存模板*。
+
+
+.结果
+Cloud Volumes ONTAP 会配置卷并显示一个页面，以便您可以查看进度。
+
+image:screenshot_template_creating_resource_cvo.png["显示通过模板创建新卷的进度的屏幕截图。"]
+
+此外、如果在模板中实施了任何二级操作、例如在卷上启用BlueXP备份和恢复、则也会执行该操作。
+
+
+
+== 在 HA 配置中的第二个节点上创建卷
+
+默认情况下、BlueXP会在HA配置中的第一个节点上创建卷。如果需要双活动配置（两个节点都将数据提供给客户端）、则必须在第二个节点上创建聚合和卷。
+
+.步骤
+. 从左侧导航菜单中、选择*存储>画布*。
+. 在 " 画布 " 页面上，双击要管理聚合的 Cloud Volumes ONTAP 工作环境的名称。
+. 在聚合选项卡上、单击*添加聚合*。
+. 在_Add aggregate_屏幕中、创建聚合。
++
+image:screenshot_add_aggregate_cvo.png["显示添加聚合进度的屏幕截图。"]
+
+. 对于主节点，请在 HA 对中选择第二个节点。
+. 在BlueXP创建聚合后、选择该聚合、然后单击*创建卷*。
+. 输入新卷的详细信息，然后单击 * 创建 * 。
+
+
+.结果
+BlueXP会在HA对中的第二个节点上创建卷。
+
+ifdef::aws[]
+
+
+TIP: 对于部署在多个 AWS 可用性区域中的 HA 对，您必须使用卷所在节点的浮动 IP 地址将卷挂载到客户端。
+
+endif::aws[]
+
+
+
+== 创建卷后
+
+如果配置了 CIFS 共享、请授予用户或组对文件和文件夹的权限、并验证这些用户是否可以访问该共享并创建文件。
+
+如果要对卷应用配额、则必须使用系统管理器或 CLI 。配额允许您限制或跟踪用户、组或 qtree 使用的磁盘空间和文件数量。
