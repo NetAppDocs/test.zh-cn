@@ -1,0 +1,275 @@
+---
+sidebar: sidebar 
+permalink: reference-default-configs.html 
+keywords: svm, LIF, LIFs, configuration backups, attributes, autosize, security style, space guarantee, unix permissions, NTFS, UNIX, boot, root, disks, aggr0, aggr1, svm, svms, storage virtual machine, LIF failover, failover, attributes, volume attributes, boot disk, root disk, licenses, feature licenses, default licenses, ontap licenses, ontap features 
+summary: 了解默认情况下如何配置 Cloud Volumes ONTAP 可以帮助您设置和管理系统、尤其是在您熟悉 ONTAP 的情况下、因为 Cloud Volumes ONTAP 的默认设置不同于 ONTAP 。 
+---
+= Cloud Volumes ONTAP 的默认配置
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+了解默认情况下如何配置 Cloud Volumes ONTAP 可以帮助您设置和管理系统、尤其是在您熟悉 ONTAP 的情况下、因为 Cloud Volumes ONTAP 的默认设置不同于 ONTAP 。
+
+
+
+== 默认设置
+
+* 在部署Cloud Volumes ONTAP 时、BlueXP会创建一个提供数据的Storage VM。某些配置支持额外的 Storage VM 。 link:task-managing-svms.html["了解有关管理 Storage VM 的更多信息"]。
++
+从BlueXP 3.9.5版开始、将在初始Storage VM上启用逻辑空间报告。如果以逻辑方式报告空间，则 ONTAP 会报告卷空间，以便存储效率功能节省的所有物理空间也会报告为已用空间。
+
+* BlueXP会自动在Cloud Volumes ONTAP 上安装以下ONTAP 功能许可证：
++
+** CIFS
+** FlexCache
+** FlexClone
+** iSCSI
+** 多租户加密密钥管理(MTEKM)、从Cloud Volumes ONTAP 9.12.1 GA开始
+** NetApp 卷加密（仅适用于 BYOL 或已注册的 PAYGO 系统）
+** NFS
+
+
+
+
+ifdef::aws[]
+
+endif::aws[]
+
+ifdef::azure[]
+
+endif::azure[]
+
+* SnapMirror
+* SnapRestore
+* SnapVault
++
+** 默认情况下会创建多个网络接口：
+
+
+* 集群管理 LIF
+* 集群间 LIF
+
+
+ifdef::azure[]
+
+* Azure中HA系统上的SVM管理LIF
+
+
+endif::azure[]
+
+ifdef::gcp[]
+
+* Google Cloud中HA系统上的SVM管理LIF
+
+
+endif::gcp[]
+
+ifdef::aws[]
+
+* AWS中单节点系统上的SVM管理LIF
+
+
+endif::aws[]
+
+* 节点管理 LIF
+
+
+ifdef::gcp[]
+
++
+在Google Cloud中、此LIF与集群间LIF结合使用。
+
+endif::gcp[]
+
+* iSCSI 数据 LIF
+* CIFS 和 NFS 数据 LIF
++
+
+NOTE: 由于云提供商的要求、Cloud Volumes ONTAP 默认禁用LIF故障转移。将 LIF 迁移到另一个端口会中断实例上 IP 地址和网络接口之间的外部映射、从而使 LIF 无法访问。
+
++
+** Cloud Volumes ONTAP 使用HTTP将配置备份发送到连接器。
++
+可从\http://ipaddress/occm/offboxconfig/访问这些备份、其中_ipaddress_是连接器主机的IP地址。
+
+** 与其他管理工具(例如System Manager或CLI)不同、BlueXP设置了一些卷属性。
++
+下表列出了BlueXP与默认设置不同的卷属性：
+
++
+[cols="15,85"]
+|===
+| 属性 | 由BlueXP设置的值 
+
+
+| 自动调整模式 | 增长 
+
+
+| 最大自动大小  a| 
+1,000 ％
+
+
+NOTE: 帐户管理员可以从 " 设置 " 页面修改此值。
+
+
+
+| 安全风格 | CIFS卷的NTFS
+对于NFS卷为UNIX 
+
+
+| 空间保证风格 | 无 
+
+
+| UNIX 权限（仅限 NFS ） | 777 
+|===
++
+请参见 link:https://docs.netapp.com/us-en/ontap-cli-9121/volume-create.html["ONTAP _volume cre_手册页"] 有关这些属性的信息。
+
+
+
+
+
+
+
+== 用于系统数据的内部磁盘
+
+除了用户数据存储之外、BlueXP还为系统数据购买云存储。
+
+ifdef::aws[]
+
+
+
+=== AWS
+
+* 每个节点有三个磁盘用于启动，根和核心数据：
++
+** 45 GiB IO1 磁盘，用于存储启动数据
+** 140 GiB GP3 磁盘，用于存储根数据
+** 540 GiB GP2 磁盘，用于存储核心数据
+
+
+* 每个引导磁盘和根磁盘一个 EBS 快照
++
+
+NOTE: 系统会在重新启动时自动创建快照。
+
+* 对于 HA 对，为调解器实例配置一个 EBS 卷，大约为 8 GiB
+* 如果您在 AWS 中使用密钥管理服务（ KMS ）启用数据加密，则 Cloud Volumes ONTAP 的启动磁盘和根磁盘也会进行加密。这包括 HA 对中调解器实例的启动磁盘。磁盘将使用您在创建工作环境时选择的 CMK 进行加密。
+
+
+
+TIP: 在 AWS 中， NVRAM 位于启动磁盘上。
+
+endif::aws[]
+
+ifdef::azure[]
+
+
+
+=== Azure （单节点）
+
+* 三个高级 SSD 磁盘：
++
+** 一个 10 GiB 磁盘，用于存储启动数据
+** 一个 140 GiB 的根数据磁盘
+** 一个用于NVRAM的512 GiB磁盘
++
+如果您为 Cloud Volumes ONTAP 选择的虚拟机支持超 SSD ，则系统将使用 32 GiB 超 SSD 进行 NVRAM ，而不是高级 SSD 。
+
+
+
+* 一个 1024 GiB 标准 HDD 磁盘，用于节省核心
+* 每个引导磁盘和根磁盘一个 Azure 快照
+* 默认情况下、Azure中的每个磁盘都会进行空闲加密。
+
+
+
+
+=== Azure （ HA 对）
+
+.带有页面blob的HA对
+* 两个用于启动卷的 10 GiB 高级 SSD 磁盘（每个节点一个）
+* 根卷的两个 140 GiB 高级存储页面 Blobs （每个节点一个）
+* 两个 1024 GiB 标准 HDD 磁盘，用于节省核心（每个节点一个）
+* 两个用于NVRAM的512 GiB高级SSD磁盘(每个节点一个)
+* 每个引导磁盘和根磁盘一个 Azure 快照
++
+
+NOTE: 系统会在重新启动时自动创建快照。
+
+* 默认情况下、Azure中的每个磁盘都会进行空闲加密。
+
+
+.多个可用性区域中的HA对
+* 两个用于启动卷的 10 GiB 高级 SSD 磁盘（每个节点一个）
+* 两个用于根卷的512 GiB高级存储页面Blobs (每个节点一个)
+* 两个 1024 GiB 标准 HDD 磁盘，用于节省核心（每个节点一个）
+* 两个用于NVRAM的512 GiB高级SSD磁盘(每个节点一个)
+* 每个引导磁盘和根磁盘一个 Azure 快照
++
+
+NOTE: 系统会在重新启动时自动创建快照。
+
+* 默认情况下、Azure中的每个磁盘都会进行空闲加密。
+
+
+endif::azure[]
+
+ifdef::gcp[]
+
+
+
+=== Google Cloud （单节点）
+
+* 一个 10 GiB SSD 永久性磁盘，用于存储启动数据
+* 一个 64 GiB SSD 永久性磁盘，用于存储根数据
+* 一个用于 NVRAM 的 500 GiB SSD 永久性磁盘
+* 一个 315 GiB 标准永久性磁盘，用于节省核心
+* 用于启动和根数据的快照
++
+
+NOTE: 系统会在重新启动时自动创建快照。
+
+* 默认情况下、启动磁盘和根磁盘会进行加密。
+
+
+
+
+=== Google Cloud （ HA 对）
+
+* 两个 10 GiB SSD 永久性磁盘，用于存储启动数据
+* 四个 64 GiB SSD 永久性磁盘，用于存储根数据
+* 两个用于 NVRAM 的 500 GiB SSD 永久性磁盘
+* 两个用于节省核心的 315GiB 标准永久性磁盘
+* 一个用于调解器数据的 10 GiB 标准永久性磁盘
+* 一个用于调解器启动数据的10 GiB标准永久性磁盘
+* 用于启动和根数据的快照
++
+
+NOTE: 系统会在重新启动时自动创建快照。
+
+* 默认情况下、启动磁盘和根磁盘会进行加密。
+
+
+endif::gcp[]
+
+
+
+=== 磁盘驻留的位置
+
+BlueXP将存储布局如下：
+
+* 启动数据驻留在与实例或虚拟机连接的磁盘上。
++
+此磁盘包含引导映像、但不能用于 Cloud Volumes ONTAP 。
+
+* 包含系统配置和日志的根数据驻留在 aggr0 中。
+* 存储虚拟机（ SVM ）根卷驻留在 aggr1 中。
+* 数据卷也驻留在 aggr1 中。
+

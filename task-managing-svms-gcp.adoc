@@ -1,0 +1,167 @@
+---
+sidebar: sidebar 
+permalink: task-managing-svms-gcp.html 
+keywords: storage virtual machine, vserver, svm, storage vm, supported number, number supported, create svm, create storage vm, create vserver 
+summary: Storage VM 是在 ONTAP 中运行的虚拟机，可为客户端提供存储和数据服务。您可能会将其视为 SVM 或 SVM 。默认情况下， Cloud Volumes ONTAP 配置有一个 Storage VM ，但某些配置支持额外的 Storage VM 。 
+---
+= 在Google Cloud中为Cloud Volumes ONTAP 创建数据服务Storage VM
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+Storage VM 是在 ONTAP 中运行的虚拟机，可为客户端提供存储和数据服务。您可能会将其识别为 _svm_ 或 _vserver_ 。默认情况下， Cloud Volumes ONTAP 配置有一个 Storage VM ，但某些配置支持额外的 Storage VM 。
+
+
+
+== 支持的 Storage VM 数量
+
+从9.11.1版开始、Google Cloud中的特定Cloud Volumes ONTAP 配置支持多个Storage VM。转至 https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/index.html["《 Cloud Volumes ONTAP 发行说明》"^] 验证您的 Cloud Volumes ONTAP 版本支持的 Storage VM 数量。
+
+所有其他 Cloud Volumes ONTAP 配置均支持一个提供数据的 Storage VM 和一个用于灾难恢复的目标 Storage VM 。如果源 Storage VM 发生中断，您可以激活目标 Storage VM 以进行数据访问。
+
+
+
+== 创建Storage VM
+
+如果许可证支持、您可以在单节点系统或HA对上创建多个Storage VM。请注意、您必须使用BlueXP API在HA对上创建Storage VM、而可以使用CLI或System Manager在单节点系统上创建Storage VM。
+
+
+
+=== 单节点系统
+
+以下步骤将使用命令行界面在单节点系统上创建新的Storage VM。创建数据LIF需要一个专用IP地址、如果要创建管理LIF、则需要另一个可选专用IP地址。
+
+.步骤
+. 在Google Cloud中、转至Cloud Volumes ONTAP 实例并为每个LIF添加一个IP地址到nic0。
++
+image:screenshot-gcp-add-ip-range.png["Google云控制台的屏幕截图、您可以在其中通过添加IP范围来编辑Cloud Volumes ONTAP 的网络接口。"]
+
++
+如果要在Storage VM上创建管理LIF、则需要一个数据LIF的IP地址和另一个可选IP地址。
+
++
+https://cloud.google.com/vpc/docs/configure-alias-ip-ranges#adding_alias_ip_ranges_to_an_existing_instance["Google Cloud文档：向现有实例添加别名IP范围"^]
+
+. 创建 Storage VM 和指向 Storage VM 的路由。
++
+[source, cli]
+----
+vserver create -vserver <svm-name> -subtype default -rootvolume <root-volume-name> -rootvolume-security-style unix
+----
++
+[source, cli]
+----
+network route create -destination 0.0.0.0/0 -vserver <svm-name> -gateway <ip-of-gateway-server>
+----
+. 通过指定在Google Cloud中添加的IP地址来创建数据LIF。
++
+[role="tabbed-block"]
+====
+.iSCSI
+--
+[source, cli]
+----
+network interface create -vserver <svm-name> -home-port e0a -address <iscsi-ip-address> -lif <lif-name> -home-node <name-of-node1> -data-protocol iscsi
+----
+--
+.NFS 或 SMB
+--
+[source, cli]
+----
+network interface create -vserver <svm-name> -lif <lif-name> -role data -data-protocol cifs,nfs -address <nfs-ip-address> -netmask-length <length> -home-node <name-of-node1> -status-admin up -failover-policy disabled -firewall-policy data -home-port e0a -auto-revert true -failover-group Default
+----
+--
+====
+. 可选：通过指定在Google Cloud中添加的IP地址来创建Storage VM管理LIF。
++
+[source, cli]
+----
+network interface create -vserver <svm-name> -lif <lif-name> -role data -data-protocol none -address <svm-mgmt-ip-address> -netmask-length <length> -home-node <name-of-node1> -status-admin up -failover-policy system-defined -firewall-policy mgmt -home-port e0a -auto-revert false -failover-group Default
+----
+. 将一个或多个聚合分配给 Storage VM 。
++
+[source, cli]
+----
+vserver add-aggregates -vserver <svm-name> -aggregates <aggr1,aggr2>
+----
++
+之所以需要执行此步骤，是因为新的 Storage VM 需要至少访问一个聚合，然后才能在 Storage VM 上创建卷。
+
+
+
+
+
+=== HA对
+
+您必须使用BlueXP API在Google Cloud中的Cloud Volumes ONTAP 系统上创建Storage VM。需要使用API (而不是System Manager或CLI)、因为BlueXP会为Storage VM配置所需的LIF服务以及出站SMB/CIFS通信所需的iSCSI LIF。
+
+请注意、BlueXP会在Google Cloud中分配所需的IP地址、并创建具有用于SMB/NFS访问的数据LIF和用于出站SMB通信的iSCSI LIF的Storage VM。
+
+.所需的Google Cloud权限
+连接器需要特定的权限来创建和管理Cloud Volumes ONTAP HA对的Storage VM。所需权限包括在中 https://docs.netapp.com/us-en/bluexp-setup-admin/reference-permissions-gcp.html["NetApp 提供的策略"]。
+
+.步骤
+. 使用以下API调用创建Storage VM：
++
+`POST /occm/api/gcp/ha/working-environments/{WE_ID}/svm/`
+
++
+请求正文应包括以下内容：
+
++
+[source, json]
+----
+{ "svmName": "myNewSvm1" }
+----
+
+
+
+
+== 管理HA对上的Storage VM
+
+此外、BlueXP API还支持重命名和删除HA对上的Storage VM。
+
+
+
+=== 重命名Storage VM
+
+如果需要、您可以随时更改Storage VM的名称。
+
+.步骤
+. 使用以下API调用重命名Storage VM：
++
+`PUT /occm/api/gcp/ha/working-environments/{WE_ID}/svm`
+
++
+请求正文应包括以下内容：
+
++
+[source, json]
+----
+{
+"svmNewName": "newSvmName",
+"svmName": "oldSvmName"
+}
+----
+
+
+
+
+=== 删除Storage VM
+
+如果您不再需要Storage VM、可以将其从Cloud Volumes ONTAP 中删除。
+
+.步骤
+. 使用以下API调用删除Storage VM：
++
+`DELETE /occm/api/gcp/ha/working-environments/{WE_ID}/svm/{SVM_NAME}`
+
+

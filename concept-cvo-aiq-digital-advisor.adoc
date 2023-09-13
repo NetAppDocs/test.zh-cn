@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: concept-cvo-aiq-digital-advisor.html 
+keywords: concepts, active iq digital advisor, cloud volumes ontap, cloud manager, BlueXP 
+summary: Active IQ 数字顾问集成在BlueXP用户界面中、因此您可以在一个管理平台中优化ONTAP 集群的操作、安全性和性能。 
+---
+= 使用 Active IQ Digital Advisor 优化 Cloud Volumes ONTAP 系统
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+https://www.netapp.com/services/support/active-iq/["Active IQ Digital Advisor"] 集成到BlueXP UI中、因此您可以通过单一管理平台优化Cloud Volumes ONTAP 系统的操作、安全性和性能。
+
+
+
+== 功能
+
+您可以使用 Active IQ Digital Advisor 在监视列表级别查看存储系统的整体状态，有关系统运行状况的详细信息，清单，规划以及有价值的见解。
+
+* 分析并优化存储系统的运行状况
+* 深入了解存储系统面临的所有风险以及降低风险的措施
+* 通过查看分析存储设备的性能 性能数据的图形格式
+* 获取有关容量超过 90% 或的系统的详细信息 容量接近 90%
+
+
+
+
+== 支持的 ONTAP 系统
+
+Active IQ Digital Advisor 可提供有关您的 NSS 帐户中所有内部 ONTAP 系统和 Cloud Volumes ONTAP 系统的信息。
+
+
+
+== 成本
+
+通过BlueXP免费使用此服务。
+
+
+
+== Active IQ 数字顾问如何与BlueXP配合使用
+
+Active IQ 数字顾问用户界面完全集成在BlueXP中。
+
+在BlueXP中、单击* Active IQ *服务。
+
+* 如果您已在BlueXP中注册了现有的NSS帐户、则Active IQ 数字顾问用户界面就像您在中的独立实施中看到的一样 https://activeiq.netapp.com/[]。
++
+image:screenshot_aiq_digital_advisor.png["BlueXP中Active IQ 数字顾问用户界面的屏幕截图。"]
+
+* 如果您尚未在BlueXP中注册NSS帐户、 https://docs.netapp.com/us-en/bluexp-setup-admin/task-adding-nss-accounts.html["立即注册 NSS 帐户"^] 然后，将显示 Active IQ Digital Advisor 用户界面。
+
+
+
+NOTE: 截至 2021 年 12 月 3 日， NetApp 已采用一种新方法为 NSS 帐户注册凭据。 https://kb.netapp.com/Advice_and_Troubleshooting/Miscellaneous/FAQs_for_NetApp_adoption_of_MS_Azure_AD_B2C_for_login["有关详细信息，请参见此常见问题解答"]。如果您的 NSS 帐户使用旧的凭据集，则需要将此帐户更新为新凭据。
+
+
+
+== 下一步行动
+
+请参见 https://docs.netapp.com/us-en/active-iq/index.html["Active IQ Digital Advisor 文档"] 了解详细信息。

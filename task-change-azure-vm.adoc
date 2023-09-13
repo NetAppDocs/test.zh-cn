@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: task-change-azure-vm.html 
+keywords: machine type, virtual machine type, vm instance, change vm type, azure vm type 
+summary: 在 Microsoft Azure 中启动 Cloud Volumes ONTAP 时，您可以从多种 VM 类型中进行选择。如果您确定虚拟机类型的大小不足或过大，则可以随时根据您的需要更改此虚拟机类型。 
+---
+= 更改 Cloud Volumes ONTAP 的 Azure VM 类型
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+在 Microsoft Azure 中启动 Cloud Volumes ONTAP 时，您可以从多种 VM 类型中进行选择。如果您确定虚拟机类型的大小不足或过大，则可以随时根据您的需要更改此虚拟机类型。
+
+.关于此任务
+* 必须在 Cloud Volumes ONTAP HA 对上启用自动交还（这是默认设置）。否则，操作将失败。
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-hacg/GUID-3F50DE15-0D01-49A5-BEFD-D529713EC1FA.html["ONTAP 9 文档：用于配置自动交还的命令"^]
+
+* 更改虚拟机类型可能会影响 Microsoft Azure 服务费用。
+* 该操作将重新启动 Cloud Volumes ONTAP 。
++
+对于单节点系统， I/O 中断。
+
++
+对于 HA 对、更改不会中断。HA 对继续为数据提供服务。
+
++
+
+TIP: BlueXP通过启动接管并等待交还来一次妥善更改一个节点。在此过程中， NetApp 的 QA 团队对文件的写入和读取进行了测试，但在客户端上看不到任何问题。随着连接的更改，我们确实看到 I/O 级别重试，但应用程序层克服了 NFS/CIFS 连接的这些短 " 重新连接 " 。
+
+
+
+.步骤
+. 在"画布"页面上、选择工作环境。
+. 在概述选项卡上、单击功能面板、然后单击*虚拟机类型*旁边的铅笔图标。
++
+image:screenshot_features_vm_type.png["查看工作环境时、可通过概述页面右上角的功能面板查看虚拟机类型设置的屏幕截图。"]
+
++
+.. 如果您使用的是基于节点的PAYGO许可证、则可以选择通过单击*许可证类型*旁边的铅笔图标来选择其他许可证和VM类型。
+
+
+. 选择VM类型、选中复选框以确认您了解更改的含义、然后单击*更改*。
+
+
+.结果
+Cloud Volumes ONTAP 会使用新配置重新启动。

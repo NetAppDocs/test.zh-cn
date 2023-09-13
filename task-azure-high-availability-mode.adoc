@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: task-azure-high-availability-mode.html 
+keywords: high availability mode, EnableHighAvailabilityMode, action required, nfsv4 
+summary: 应启用Microsoft Azure的高可用性模式、以缩短计划外故障转移时间并为Cloud Volumes ONTAP 启用NFSv4支持。 
+---
+= 在Azure中启用高可用性模式
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+应启用Microsoft Azure的高可用性模式、以缩短计划外故障转移时间并为Cloud Volumes ONTAP 启用NFSv4支持。
+
+从Cloud Volumes ONTAP 9.10.1版开始、我们缩短了在Microsoft Azure中运行的Cloud Volumes ONTAP HA对的计划外故障转移时间、并增加了对NFSv4的支持。要使这些增强功能可供Cloud Volumes ONTAP 使用、您需要在Azure订阅上启用高可用性功能。
+
+如果需要在Azure订阅上启用此功能、BlueXP将在"需要操作"消息中提示您提供这些详细信息。
+
+请注意以下事项：
+
+* Cloud Volumes ONTAP HA 对的高可用性没有问题。此 Azure 功能可与 ONTAP 配合使用，以减少客户端观察到的 NFS 协议因计划外故障转移事件而发生的应用程序中断时间。
+* 启用此功能不会对 Cloud Volumes ONTAP HA 对造成中断。
+* 在 Azure 订阅上启用此功能不会将问题发生原因给其他 VM 。
+
+
+拥有"所有者"权限的Azure用户可以从Azure命令行界面启用此功能。
+
+.步骤
+. https://docs.microsoft.com/en-us/azure/cloud-shell/quickstart["从Azure门户访问Azure Cloud Shell"^]
+. 注册高可用性模式功能：
++
+[source, azurecli]
+----
+az account set -s AZURE_SUBSCRIPTION_NAME_OR_ID
+az feature register --name EnableHighAvailabilityMode --namespace Microsoft.Network
+az provider register -n Microsoft.Network
+----
+. (可选)验证此功能现在是否已注册：
++
+[source, azurecli]
+----
+az feature show --name EnableHighAvailabilityMode --namespace Microsoft.Network
+----
++
+Azure命令行界面应返回类似于以下内容的结果：
+
++
+[listing]
+----
+{
+  "id": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/providers/Microsoft.Features/providers/Microsoft.Network/features/EnableHighAvailabilityMode",
+  "name": "Microsoft.Network/EnableHighAvailabilityMode",
+  "properties": {
+    "state": "Registered"
+  },
+  "type": "Microsoft.Features/providers/features"
+}
+----
+

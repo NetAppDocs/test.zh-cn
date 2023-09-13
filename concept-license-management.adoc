@@ -1,0 +1,82 @@
+---
+sidebar: sidebar 
+permalink: concept-license-management.html 
+keywords: byol, bring your own license, expiration, warning, node-based byol, node license, capacity 
+summary: 具有基于节点的 BYOL 的每个 Cloud Volumes ONTAP 系统都必须安装一个系统许可证，并具有有效的订阅。BlueXP通过管理许可证并在许可证到期前显示警告来简化此过程。 
+---
+= 基于节点的 BYOL 许可证管理
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+具有基于节点的 BYOL 的每个 Cloud Volumes ONTAP 系统都必须安装一个系统许可证，并具有有效的订阅。BlueXP通过管理许可证并在许可证到期前显示警告来简化此过程。
+
+
+TIP: 基于节点的许可证是上一代 BYOL for Cloud Volumes ONTAP 。基于节点的许可证仅可用于许可证续订。
+
+link:concept-licensing.html["了解有关 Cloud Volumes ONTAP 许可选项的更多信息"]。
+
+link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-manage-node-licenses.html["详细了解如何管理基于节点的许可证"^]。
+
+
+
+== BYOL 系统许可证
+
+基于节点的许可证可为单个节点或 HA 对提供高达 368 TiB 的容量。
+
+您可以为 Cloud Volumes ONTAP BYOL 系统购买多个许可证，以分配超过 368 TiB 的容量。例如，您可以购买两个许可证，以便为 Cloud Volumes ONTAP 分配高达 736 TiB 的容量。或者，您也可以购买四个许可证，以获得高达 1.4 PiB 的容量。
+
+您可以为单节点系统或 HA 对购买的许可证数量不受限制。
+
+请注意，磁盘限制可能会阻止您单独使用磁盘来达到容量限制。您可以通过超出磁盘限制 link:concept-data-tiering.html["将非活动数据分层到对象存储"]。有关磁盘限制的信息，请参见 https://docs.netapp.com/us-en/cloud-volumes-ontap-relnotes/["《 Cloud Volumes ONTAP 发行说明》中的存储限制"^]。
+
+
+
+== 新系统的许可证管理
+
+创建基于节点的BYOL系统时、BlueXP会提示您输入许可证的序列号和NetApp 支持站点 帐户。BlueXP使用帐户从NetApp下载许可证文件并将其安装在Cloud Volumes ONTAP 系统上。
+
+https://docs.netapp.com/us-en/bluexp-setup-admin/task-adding-nss-accounts.html["了解如何将NetApp 支持站点 帐户添加到BlueXP"^]。
+
+如果BlueXP无法通过安全Internet连接访问许可证文件、您可以 link:task-manage-node-licenses.html["自行获取文件、然后手动将文件上传到BlueXP"]。
+
+
+
+== 许可证到期
+
+BlueXP会在基于节点的许可证到期前30天显示警告、并在许可证到期后再次显示警告。下图显示了用户界面中显示的 30 天到期警告：
+
+image:screenshot_warning.gif["屏幕截图：显示了包含警告图标的 Cloud Volumes ONTAP 工作环境。图标表示需要执行操作。"]
+
+您可以选择工作环境来查看消息。
+
+如果您是帐户管理员且已启用此选项、则BlueXP会在通过电子邮件发送给您的Cloud Volumes ONTAP 报告中显示许可证到期警告：
+
+image:screenshot_cvo_report.gif["用户配置文件面板的屏幕截图，其中显示了通过电子邮件启用 Cloud Volumes ONTAP 报告的复选框。"]
+
+通过电子邮件发送的报告会每 2 周显示一次许可证到期警告。
+
+如果您不及时续订许可证， Cloud Volumes ONTAP 系统将自行关闭。如果重新启动它、它会再次自动关闭。
+
+
+
+== 许可证续订
+
+在联系NetApp代表续订基于节点的BYOL订阅时、BlueXP会自动从NetApp获取新许可证并将其安装在Cloud Volumes ONTAP 系统上。
+
+如果BlueXP无法通过安全Internet连接访问许可证文件、您可以 link:task-manage-node-licenses.html["自行获取文件、然后手动将文件上传到BlueXP"]。
+
+
+
+== 将许可证传输到新系统
+
+如果删除现有系统，然后使用同一许可证创建新系统，则基于节点的 BYOL 许可证将在 Cloud Volumes ONTAP 系统之间进行转让。
+
+例如，您可能希望删除现有的许可系统，然后在其他 VPC-vNet 或云提供商中将此许可证与新的 BYOL 系统结合使用。请注意，任何云提供商都只能使用 _cloud 不受限制的序列号。与云无关的序列号以 _908xxxx_ 前缀开头。
+
+请务必注意，您的 BYOL 许可证与您的公司以及一组特定的 NetApp 支持站点凭据相关联。

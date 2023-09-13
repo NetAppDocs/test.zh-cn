@@ -1,0 +1,46 @@
+---
+sidebar: sidebar 
+permalink: concept-active-iq.html 
+keywords: autosupport, active iq, digital advisor, active iq digital advisor, telemetry 
+summary: ONTAP 的 AutoSupport 组件会收集遥测数据并将其发送以供分析。Active IQ Digital Advisor 可分析 AutoSupport 中的数据，并提供主动式维护和优化。利用人工智能， Active IQ 可以识别潜在问题并帮助您在问题影响业务之前解决这些问题。 
+---
+= AutoSupport 和 Active IQ Digital Advisor
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP 的 AutoSupport 组件会收集遥测数据并将其发送以供分析。Active IQ Digital Advisor 可分析 AutoSupport 中的数据，并提供主动式维护和优化。利用人工智能， Active IQ 可以识别潜在问题并帮助您在问题影响业务之前解决这些问题。
+
+Active IQ 通过基于云的门户和移动应用程序提供可操作的预测性分析和主动式支持，帮助您优化全球混合云中的数据基础架构。Active IQ 提供的数据驱动型洞察力和建议可供具有有效 SupportEdge 合同的所有 NetApp 客户使用（功能因产品和支持层而异）。
+
+以下是您可以使用 Active IQ 执行的一些操作：
+
+* 计划升级。
++
+Active IQ 可确定环境中可通过升级到较新版本的 ONTAP 来解决的问题， Upgrade Advisor 组件可帮助您规划成功升级。
+
+* 查看系统运行状况。
++
+您的 Active IQ 信息板可报告任何健康问题，并帮助您更正这些问题。监控系统容量，确保存储空间不会用尽。查看您的系统的支持案例。
+
+* 管理性能。
++
+Active IQ 显示系统性能的时间比您在 ONTAP System Manager 中看到的时间长。确定影响性能的配置和系统问题。
+最大限度地提高效率。查看存储效率指标并确定如何在更少的空间中存储更多数据。
+
+* 查看清单和配置。
++
+Active IQ 将显示完整的清单以及软件和硬件配置信息。查看服务合同何时到期并续订，以确保您始终获得支持。
+
+
+
+.相关信息
+* https://docs.netapp.com/us-en/active-iq/["NetApp 文档： Active IQ Digital Advisor"^]
+* https://aiq.netapp.com/custom-dashboard/search["启动 Active IQ"^]
+* https://www.netapp.com/us/services/support-edge.aspx["SupportEdge 服务"^]
+
