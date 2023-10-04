@@ -11,7 +11,14 @@ summary: 在向NetApp技术支持部门创建支持案例之前、您需要向Bl
 
 
 [role="lead"]
-您的BlueXP帐户和各个Cloud Volumes ONTAP系统都需要注册支持。
+要获得BlueXP及其存储解决方案和服务的特定技术支持、需要注册支持。要为Cloud Volumes ONTAP系统启用关键工作流、还需要注册支持服务。
+
+注册获取支持不会为云提供商文件服务启用NetApp支持。有关与云提供商文件服务、其基础架构或使用该服务的任何解决方案相关的技术支持、请参阅该产品的BlueXP文档中的"获得帮助"。
+
+* link:https://docs.netapp.com/us-en/bluexp-fsx-ontap/start/concept-fsx-aws.html#getting-help["适用于 ONTAP 的 Amazon FSX"^]
+* link:https://docs.netapp.com/us-en/bluexp-azure-netapp-files/concept-azure-netapp-files.html#getting-help["Azure NetApp Files"^]
+* link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-service-gcp/concept-cvs-gcp.html#getting-help["适用于 Google Cloud 的 Cloud Volumes Service"^]
+
 
 
 
@@ -30,17 +37,6 @@ summary: 在向NetApp技术支持部门创建支持案例之前、您需要向Bl
 
 
 注册这两种类型的序列号可实现打开支持服务单和自动生成案例等功能。要完成注册、请按如下所述将NetApp 支持站点(NSS)帐户添加到BlueXP中。
-
-
-
-== 支持云提供商解决方案
-
-有关以下云提供商解决方案的技术支持、请参阅该产品的BlueXP文档中的"获得帮助"。
-
-* link:https://docs.netapp.com/us-en/bluexp-fsx-ontap/start/concept-fsx-aws.html#getting-help["适用于 ONTAP 的 Amazon FSX"^]
-* link:https://docs.netapp.com/us-en/bluexp-azure-netapp-files/concept-azure-netapp-files.html#getting-help["Azure NetApp Files"^]
-* link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-service-gcp/concept-cvs-gcp.html#getting-help["适用于 Google Cloud 的 Cloud Volumes Service"^]
-
 
 
 

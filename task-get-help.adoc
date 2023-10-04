@@ -15,6 +15,19 @@ NetApp通过多种方式为BlueXP及其云服务提供支持。全天候提供�
 
 
 
+== 获得云提供商文件服务支持
+
+有关与云提供商文件服务、其基础架构或使用该服务的任何解决方案相关的技术支持、请参阅该产品的BlueXP文档中的"获得帮助"。
+
+* link:https://docs.netapp.com/us-en/bluexp-fsx-ontap/start/concept-fsx-aws.html#getting-help["适用于 ONTAP 的 Amazon FSX"^]
+* link:https://docs.netapp.com/us-en/bluexp-azure-netapp-files/concept-azure-netapp-files.html#getting-help["Azure NetApp Files"^]
+* link:https://docs.netapp.com/us-en/bluexp-cloud-volumes-service-gcp/concept-cvs-gcp.html#getting-help["适用于 Google Cloud 的 Cloud Volumes Service"^]
+
+
+要获得针对BlueXP及其存储解决方案和服务的技术支持、请使用下面所述的支持选项。
+
+
+
 == 使用自助支持选项
 
 这些选项每周 7 天，每天 24 小时免费提供：
