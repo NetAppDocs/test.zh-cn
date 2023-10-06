@@ -14,7 +14,7 @@ summary: 某些Cloud Volumes ONTAP 配置包括本地NVMe存储、Cloud Volumes 
 
 
 [role="lead"]
-某些Cloud Volumes ONTAP 配置包括本地NVMe存储、Cloud Volumes ONTAP 使用此存储作为_Flash Cache_来提高性能。
+某些Cloud Volumes ONTAP 配置包括本地NVMe存储、Cloud Volumes ONTAP 使用此存储作为_Flash Cache_来提高性能。正在为令牌更新测试添加行。
 
 
 

@@ -643,7 +643,6 @@
   <block id="5e167ef814cd8fe02fd01be002ffa235" category="list-text"><block ref="5e167ef814cd8fe02fd01be002ffa235" category="inline-link-macro-rx"></block></block>
   <block id="2f2289dc4d144dd69a1fd73eaab183e0" category="summary">某些Cloud Volumes ONTAP 配置包括本地NVMe存储、Cloud Volumes ONTAP 将其用作Flash Cache以提高性能。</block>
   <block id="5fbc523d8d2ad241522a15100f23bef2" category="doc">Flash Cache</block>
-  <block id="712cc6bb6749aa390ea026f9c60a15ec" category="paragraph">某些Cloud Volumes ONTAP 配置包括本地NVMe存储、Cloud Volumes ONTAP 使用此存储作为_Flash Cache_来提高性能。</block>
   <block id="675d38d552c49bbf67606b2c5f1d5bed" category="section-title">什么是Flash Cache？</block>
   <block id="3a36e6b466e0265c25d241c486f64e02" category="paragraph">Flash Cache 通过实时智能缓存最近读取的用户数据和 NetApp 元数据来加快数据访问速度。它适用于随机读取密集型工作负载，包括数据库，电子邮件和文件服务。</block>
   <block id="1f0b82560627b660c6c6958a1df834b8" category="section-title">支持的配置</block>
@@ -5155,4 +5154,5 @@ BlueXP为HA对分配12-13个IP地址：</block>
   <block id="522cbb900314aeb84eb5a961c5f94672" category="section-title">获得云提供商文件服务支持</block>
   <block id="f6185bb12f5e53c800be8cda7fbca65b" category="paragraph">有关与云提供商文件服务、其基础架构或使用该服务的任何解决方案相关的技术支持、请参阅该产品的BlueXP文档中的"获得帮助"。</block>
   <block id="3880ae5df9fdc4d0fc4a6d00a2239530" category="paragraph">要获得针对BlueXP及其存储解决方案和服务的技术支持、请使用下面所述的支持选项。</block>
+  <block id="85a772bebde3e95966723beb7a641685" category="paragraph">某些Cloud Volumes ONTAP 配置包括本地NVMe存储、Cloud Volumes ONTAP 使用此存储作为_Flash Cache_来提高性能。正在为令牌更新测试添加行。</block>
 </blocks>
