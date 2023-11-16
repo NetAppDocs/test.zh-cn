@@ -5154,5 +5154,5 @@ BlueXP为HA对分配12-13个IP地址：</block>
   <block id="f6185bb12f5e53c800be8cda7fbca65b" category="paragraph">有关与云提供商文件服务、其基础架构或使用该服务的任何解决方案相关的技术支持、请参阅该产品的BlueXP文档中的"获得帮助"。</block>
   <block id="3880ae5df9fdc4d0fc4a6d00a2239530" category="paragraph">要获得针对BlueXP及其存储解决方案和服务的技术支持、请使用下面所述的支持选项。</block>
   <block id="85a772bebde3e95966723beb7a641685" category="paragraph">某些Cloud Volumes ONTAP 配置包括本地NVMe存储、Cloud Volumes ONTAP 使用此存储作为_Flash Cache_来提高性能。正在为令牌更新测试添加行。</block>
-  <block id="831f5238637d5e95172a19700b3d60d2" category="paragraph">Cloud Volumes ONTAP 是一款纯软件存储设备，可在云中运行 ONTAP 数据管理软件。它提供具有以下主要功能的企业级存储：</block>
+  <block id="f1186c9ba34a61c2fa682874b26fd08d" category="paragraph">Cloud Volumes ONTAP 是一款纯软件存储设备，可在云中运行 ONTAP 数据管理软件。它提供具有以下主要功能的企业级存储、供下次测试时使用：</block>
 </blocks>

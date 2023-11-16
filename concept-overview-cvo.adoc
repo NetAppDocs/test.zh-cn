@@ -16,7 +16,7 @@ summary: 借助 Cloud Volumes ONTAP ，您可以优化云存储成本和性能�
 [role="lead"]
 借助 Cloud Volumes ONTAP ，您可以优化云存储成本和性能，同时增强数据保护，安全性和合规性。
 
-Cloud Volumes ONTAP 是一款纯软件存储设备，可在云中运行 ONTAP 数据管理软件。它提供具有以下主要功能的企业级存储：
+Cloud Volumes ONTAP 是一款纯软件存储设备，可在云中运行 ONTAP 数据管理软件。它提供具有以下主要功能的企业级存储、供下次测试时使用：
 
 * 存储效率
 +
