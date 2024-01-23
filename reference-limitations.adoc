@@ -42,3 +42,45 @@ link:concept-client-protocols.html["详细了解Cloud Volumes ONTAP 对S3和其�
 BlueXP不为Storage VM (SVM)灾难恢复提供任何设置或流程编排支持。您必须使用 System Manager 或 CLI 。
 
 link:task-manage-svm-dr.html["详细了解SVM灾难恢复"]。
+
+
+
+== 测试AsciDoc字符替换和内在属性
+
+通过所有语言的本地化和发布进行端到端测试。
+
+.星号
+｛Asterisk｝
+文本｛Asterisk｝
+文本｛Asterisk｝
+文本｛Asterisk｝文本
+
+.双冒号
+｛two-colons｝
+文本｛two-colons｝
+文本｛two-colons｝
+文本｛two-colons｝文本
+
+.垂直条
+｛vbar｝
+文本｛vbar｝
+文本｛vbar｝
+文本｛vbar｝文本
+
+.以及
+｛plus｝
+文本｛plus｝
+文本｛plus｝
+文本｛plus｝文本
+
+.方括号
+｛Startsb｝和｛endsb｝
+文本｛Startsb｝和文本｛endsb｝
+文本｛Startsb｝和文本｛endsb｝
+文本｛Startsb｝和文本｛endsb｝文本
+
+.不间断空格
+在｛｛｝之后
+
+.零宽度空间
+在｛zwsp｝之前
