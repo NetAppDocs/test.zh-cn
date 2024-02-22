@@ -1,0 +1,2913 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head class="at-element-marker">
+  <title>使用Azure密钥存储管理密钥 | NetApp Documentation</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="使用Azure密钥存储管理密钥 | NetApp Documentation" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-cn/test/task-azure-key-vault.html" />
+	<meta property="og:description" content="将Azure密钥存储用于第三方密钥管理服务。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-cn/test/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="将Azure密钥存储用于第三方密钥管理服务。">
+  <meta name="keywords" content=" azure, encryption, NVE, NetApp volume encryption, KMIP, azure key vault"><!-- Icons -->
+  <link rel="icon" href="/zh-cn/test/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="NetApp Documentation" href="/zh-cn/test/feed.xml"><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/zh-cn/test/css/ie-netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/zh-cn/test/css/ie-landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-cn/test/css/ie-tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel="canonical" href="https://docs.netapp.com/zh-cn/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.netapp.com/us-en/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://docs.netapp.com/zh-cn/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="en" href="https://docs.netapp.com/us-en/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="ja" href="https://docs.netapp.com/ja-jp/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="ko" href="https://docs.netapp.com/ko-kr/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://docs.netapp.com/zh-tw/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="de" href="https://docs.netapp.com/de-de/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="es" href="https://docs.netapp.com/es-es/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="fr" href="https://docs.netapp.com/fr-fr/test/task-azure-key-vault.html" />
+  <link rel="alternate" hreflang="it" href="https://docs.netapp.com/it-it/test/task-azure-key-vault.html" />
+  <!-- Top level site integrations -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js"></script>
+    <script type="text/javascript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" charset="UTF-8" data-document-language="true" data-domain-script="72570c5c-fe30-465f-b0e0-b77f7fb4ae34"></script>
+    <script type="text/javascript">function OptanonWrapper() { }</script>
+    <script type="text/plain" class="optanon-category-C0002" src="https://assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js"></script>
+    <script class="optanon-category-C0001">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.setAttributeNode(d.createAttribute('data-ot-ignore'));j.setAttribute('class','optanon-category-C0001');j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MD73T9M');</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      const MASTHEAD_OFFSET = 65;
+      const SECTIONS = $("main h2, main h3");
+      // PAGE NAV - Init
+      if (SECTIONS.length == 0) {
+        // remove if there is no elements
+        /*
+        $("#ie-right-navbar").remove();
+        $("#ie-right-navbar-collapse").remove();
+        */
+      } else {
+        $(".page-nav-title").css('display', 'block');
+        for (var i = 0; i < SECTIONS.length; i++) {
+          var sectionId = $(SECTIONS[i]).attr('id');
+          var sectionName = $(SECTIONS[i]).text();
+          var subClass = $(SECTIONS[i]).is("h3") ? ' page-nav__sublink' : '';
+          $("#page-menu").append('<li class="page-nav-item"><a href="#' + sectionId + '" class="page-nav__link' + subClass + '">' + sectionName + '</a></li>');
+        }
+      }
+    });
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-cn/test/js/na-search.js'></script><script src='/zh-cn/test/js/ie-clouddocs.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script>
+    /*
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+      */
+  </script>
+  <script src='/zh-cn/test/js/custom-dropdown.js'></script>
+  <script src='/zh-cn/test/js/FileSaver.min.js'></script>
+  <script src='/zh-cn/test/js/jszip-utils.min.js'></script>
+  <script src='/zh-cn/test/js/jszip.min.js'></script><script src='/zh-cn/test/js/ie-pdf-ux.js'></script></head>
+
+
+  <body class role="document" data-flavor="azure">
+    <div class="skip-to-main">
+      <a href="#main" >Skip to main content</a>
+    </div><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD73T9M"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div id="page" class="">
+      <div id="ie-phone-menu" class=""></div>
+      <div id="ie-content-wrap" class="">
+        <nav id="ie-new-header">
+    <ul>
+        <li id="ie-phone-menu-button">
+            <a href="#">
+                <image id="" src="/zh-cn/test/images/hamburger.svg" alt="menu" />
+            </a>
+        </li>
+
+        <li>
+            <a href="https://www.netapp.com/cn">
+                <image id="ie-header-logo" src="/zh-cn/test/images/netapp_logo.svg" alt="netapp" />
+            </a>
+        </li>
+        <li id="ie-header-docs">
+            <a href="https://www.netapp.com/support-and-training/documentation/">文档</a>
+        </li>
+
+        <!-- Empty container to push header left with or without lang selector -->
+        <li id="empty-container" style="margin-left: auto">
+        </li>
+        <!-- Start Language Selector --><li id="ie-language-dropdown">
+            <div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+                <div class="custom-dropdown-select custom-dropdown-select-lang">
+                    <img src="/zh-cn/test/images/language_white_24dp.svg" class="n-globe__icon" />
+                    <span class="lang-name">简体中文</span>
+                    <img src="/zh-cn/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/zh-cn/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu"><li>
+                        <a href="https://docs.netapp.com/zh-cn/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/us-en/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">English</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ja-jp/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">日本語</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ko-kr/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">한국어</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-tw/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/de-de/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/es-es/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">Español</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/fr-fr/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">Français</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/it-it/test/task-azure-key-vault.html"
+                            target="_self"><span translate="no" class="notranslate">Italiano</span></a>
+                    </li></ul>
+            </div>
+            </li>
+        <!-- End Language Selector -->
+
+
+        <li id="ie-allnetapp">
+            <div id="allnetapp-dropdown" class="custom-dropdown custom-dropdown-allnetapp">
+                <div class="custom-dropdown-select custom-dropdown-select-allnetapp">
+                    <img src="/zh-cn/test/images/apps_white_24dp.svg" alt="" class="allnetapp-icon" />
+                    <span class="allnetapp-name">全部来自 NetApp</span>
+                    <img src="/zh-cn/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/zh-cn/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu allnetapp-dropdown">
+                    <li>
+                        <a href="https://bluexp.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">BlueXP</span></a>
+                    </li>
+                    <li>
+                        <a href="https://mysupport.netapp.com/site/"
+                            target="_self"><span translate="no" class="notranslate">支持</span></a>
+                    </li>
+                    <li>
+                        <a href="https://kb.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">知识库</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.netapp.com/zh-hans/support-and-training/netapp-learning-services/"
+                            target="_self"><span translate="no" class="notranslate">训练</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+    </ul>
+</nav>
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+
+<div id="ie-new-sidebar-collapse" style="display: none">
+    <img id="sidebar-expand" class="ie-searchbox-icon" src="/zh-cn/test/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-new-sidebar">
+    <div id="ie-product-identity-lockup">
+        <div id="sidebar-collapse" class="">
+            <img src="/zh-cn/test/images/double_arrow.svg" alt="" />
+        </div>
+        <div id="ie-breadcrumb" class="">
+  <ul class="ie-breadcrumb">
+    <li class="">
+      <a href="https://docs.netapp.com">所有文档</a>
+    </li>
+    
+    
+    <li class="">
+      <a href="https://docs.netapp.com/us-en/cloud/">云文档</a>
+    </li>
+    
+
+    
+    <li class="">
+      <a href="https://docs.netapp.com/zh-cn/bluexp-family/">
+        BlueXP
+      </a>
+    </li>
+    
+  </ul>
+  
+  <div class="ie-product-name" >
+    <!--<a href="/zh-cn/test/">-->
+      Cloud Volumes ONTAP
+    <!--</a>-->
+  </div>
+</div>
+
+            
+<div id="ie-selectors"><div id="version-dropdown-new" class="custom-dropdown" >
+  <div class="custom-dropdown-select unselected" title=" 9.13.1">
+    <label>版本</label>
+    <span translate="no" class="notranslate">9.13.1</span>
+    <img src="/zh-cn/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown version invisible" />
+    <img src="/zh-cn/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup version" />
+  </div>
+
+  <ul class="custom-dropdown-menu"><li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.13.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-9130-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.13.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-9121-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.12.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-9120-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.12.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-9111-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.11.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-9110-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.11.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-9101-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.10.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-9100-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.10.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-991-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.9.1</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-990-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.9.0</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-98-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.8</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-97-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.7</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-96-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.6</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-95-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.5</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-94-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.4</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/zh-cn/cloud-volumes-ontap-93-relnotes/task-azure-key-vault.html" target="_self">
+        <span translate="no" class="notranslate"><span class="version"> 9.3</span></span>
+      </a>
+                     
+    </li>
+    
+  </ul>
+</div>
+<div id="flavor-dropdown" class="custom-dropdown" data-url="/zh-cn/test/task-azure-key-vault.html">
+  
+  
+  <div class="custom-dropdown-select selected" title="Azure 酒店">
+    <label>云提供商</label>
+    <div>Azure 酒店</div>  
+    <img src="/zh-cn/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown flavor invisible" />
+    <img src="/zh-cn/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup flavor" />
+    <!--<img src="/zh-cn/test/images/dismiss.svg" class="custom-icon selected" id="remove-flavor" alt="" />-->
+  </div>
+  
+
+  <ul class="custom-dropdown-menu">
+    
+    
+    <li data-value="aws" data-url="/zh-cn/test/aws">Amazon Web Services</li>
+    
+    
+    
+    <li data-value="gcp" data-url="/zh-cn/test/gcp">Google Cloud</li>
+    
+    
+    
+    <li data-value="azure" data-url="/zh-cn/test/azure/task-azure-key-vault.html">Microsoft Azure
+    </li>
+    
+    
+    <li data-url="/zh-cn/test/task-azure-key-vault.html">所有云提供商</li>
+  </ul>
+</div>
+</div>
+        
+        
+
+<div id="ie-searchbox" class="ie-searchbox-sidebar ">
+    <img class="ie-searchbox-icon" src="/zh-cn/test/images/loupe.svg" alt=""/>
+    <div id="react-search" 
+        data-search-html="/zh-cn/test/azure/search.html" 
+        data-type="widget"
+        data-placeholder="搜索文档"
+        data-no-results-found="未找到 {query} 的相关结果"
+        data-did-you-mean="搜索 {suggestion}。"
+        data-no-results-found-did-you-mean="未找到 {query} 的相关结果。您是指 {suggestion}？"
+        data-results-found="找到 {hitCount} 个结果"
+        data-error-message="发生错误。请重试。"
+        data-error-reset="重置搜索"
+        data-sk-es-pf-indexes="" 
+        data-flavor="azure">
+    </div>
+</div>
+        
+    </div>
+    <div id="ie-new-toc"><script>
+  let sidebarAccordion = true;
+
+  /* specific css rules for Mac */
+  if(navigator.platform.match('Mac') !== null) {
+    document.body.setAttribute('class', 'OSX');
+  }
+
+</script>
+
+<div id="ie-sidebar-container">
+  <ul id="ie-sidebar-list" ><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Volumes ONTAP 文档"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/index.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/zh-cn/test/azure/index.html">
+        Cloud Volumes ONTAP 文档
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="发行说明"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 发行说明</div>-->
+         发行说明
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="新增功能"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/whats-new.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/whats-new.html">
+        新增功能
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="已知限制"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-limitations.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/reference-limitations.html">
+        已知限制
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="《 Cloud Volumes ONTAP 发行说明》"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/whats-new-ontap.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/whats-new-ontap.html">
+        《 Cloud Volumes ONTAP 发行说明》
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="入门"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 入门</div>-->
+         入门
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="了解 Cloud Volumes ONTAP"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-overview-cvo.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/concept-overview-cvo.html">
+        了解 Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="新部署支持的版本"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-versions.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/reference-versions.html">
+        新部署支持的版本
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="开始使用 Microsoft Azure"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 开始使用 Microsoft Azure</div>-->
+         开始使用 Microsoft Azure
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="快速入门"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-getting-started-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-getting-started-azure.html">
+        快速入门
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="规划您的配置"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-planning-your-config-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-planning-your-config-azure.html">
+        规划您的配置
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="设置网络"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-networking-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/reference-networking-azure.html">
+        设置网络
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用密钥设置加密"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-set-up-azure-encryption.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-set-up-azure-encryption.html">
+        使用密钥设置加密
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="设置许可"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-set-up-licensing-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-set-up-licensing-azure.html">
+        设置许可
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="启用高可用性模式"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-azure-high-availability-mode.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-azure-high-availability-mode.html">
+        启用高可用性模式
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="在 Azure 中启动 Cloud Volumes ONTAP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-deploying-otc-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-deploying-otc-azure.html">
+        在 Azure 中启动 Cloud Volumes ONTAP
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用 Cloud Volumes ONTAP"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 使用 Cloud Volumes ONTAP</div>-->
+         使用 Cloud Volumes ONTAP
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="许可证管理"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 许可证管理</div>-->
+         许可证管理
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理基于容量的许可证"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-capacity-licenses.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-manage-capacity-licenses.html">
+        管理基于容量的许可证
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理Keystone订阅"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-keystone.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-manage-keystone.html">
+        管理Keystone订阅
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理基于节点的许可证"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-node-licenses.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-manage-node-licenses.html">
+        管理基于节点的许可证
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="卷和 LUN 管理"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 卷和 LUN 管理</div>-->
+         卷和 LUN 管理
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="创建卷"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-create-volumes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-create-volumes.html">
+        创建卷
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理现有卷"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-volumes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-manage-volumes.html">
+        管理现有卷
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="将非活动数据分层到对象存储"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-tiering.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-tiering.html">
+        将非活动数据分层到对象存储
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="将 LUN 连接到主机"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-connect-lun.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-connect-lun.html">
+        将 LUN 连接到主机
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="借助 FlexCache 加快数据访问速度"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-accelerate-data-access.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-accelerate-data-access.html">
+        借助 FlexCache 加快数据访问速度
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="聚合管理"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 聚合管理</div>-->
+         聚合管理
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="创建聚合"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-create-aggregates.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-create-aggregates.html">
+        创建聚合
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理现有聚合"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-aggregates.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-manage-aggregates.html">
+        管理现有聚合
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理容量设置"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-capacity-settings.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-manage-capacity-settings.html">
+        管理容量设置
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Storage VM 管理"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Storage VM 管理</div>-->
+         Storage VM 管理
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="在BlueXP中使用Storage VM"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-managing-svms.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-managing-svms.html">
+        在BlueXP中使用Storage VM
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="在 Azure 中创建 Storage VM"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-managing-svms-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-managing-svms-azure.html">
+        在 Azure 中创建 Storage VM
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="设置SVM灾难恢复"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-manage-svm-dr.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-manage-svm-dr.html">
+        设置SVM灾难恢复
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="安全性和数据加密"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 安全性和数据加密</div>-->
+         安全性和数据加密
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用 NetApp 加密对卷进行加密"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-encrypting-volumes.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-encrypting-volumes.html">
+        使用 NetApp 加密对卷进行加密
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用Azure密钥存储管理密钥"
+      data-li-level="3#" 
+      class="  ie-sidebar-selected    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-azure-key-vault.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-azure-key-vault.html">
+        使用Azure密钥存储管理密钥
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="改进勒索软件保护"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-protecting-ransomware.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-protecting-ransomware.html">
+        改进勒索软件保护
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="系统管理"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 系统管理</div>-->
+         系统管理
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="升级 Cloud Volumes ONTAP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-updating-ontap-cloud.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-updating-ontap-cloud.html">
+        升级 Cloud Volumes ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="注册按需购买系统"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-registering.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-registering.html">
+        注册按需购买系统
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="停止并启动系统"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-managing-state.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-managing-state.html">
+        停止并启动系统
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="同步系统时间"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-sync-time.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-sync-time.html">
+        同步系统时间
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="修改系统写入速度"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-modify-write-speed.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-modify-write-speed.html">
+        修改系统写入速度
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="更改系统密码"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-change-password.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-change-password.html">
+        更改系统密码
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="添加，删除或删除系统"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 添加，删除或删除系统</div>-->
+         添加，删除或删除系统
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="添加现有系统"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-adding-systems.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-cn/test/azure/task-adding-systems.html">
+        添加现有系统
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="删除工作环境"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-removing.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-cn/test/azure/task-removing.html">
+        删除工作环境
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="删除系统"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-deleting-working-env.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-cn/test/azure/task-deleting-working-env.html">
+        删除系统
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure管理"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Azure管理</div>-->
+         Azure管理
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="更改 Azure 虚拟机类型"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-change-azure-vm.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-cn/test/azure/task-change-azure-vm.html">
+        更改 Azure 虚拟机类型
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="覆盖 CIFS 锁定"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-overriding-cifs-locks.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-cn/test/azure/task-overriding-cifs-locks.html">
+        覆盖 CIFS 锁定
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="使用Azure专用链路或服务端点"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-enabling-private-link.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-cn/test/azure/task-enabling-private-link.html">
+        使用Azure专用链路或服务端点
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="移动资源组"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-moving-resource-groups-azure.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/zh-cn/test/azure/task-moving-resource-groups-azure.html">
+        移动资源组
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="通过System Manager进行管理"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-administer-advanced-view.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-administer-advanced-view.html">
+        通过System Manager进行管理
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="通过CLI进行管理"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-connecting-to-otc.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-connecting-to-otc.html">
+        通过CLI进行管理
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="系统运行状况和事件"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 系统运行状况和事件</div>-->
+         系统运行状况和事件
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="验证 AutoSupport 设置"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-verify-autosupport.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-verify-autosupport.html">
+        验证 AutoSupport 设置
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="配置EMS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-configure-ems.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/task-configure-ems.html">
+        配置EMS
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="概念"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 概念</div>-->
+         概念
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="许可"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-licensing.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/concept-licensing.html">
+        许可
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="存储"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 存储</div>-->
+         存储
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="客户端协议"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-client-protocols.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/concept-client-protocols.html">
+        客户端协议
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="磁盘和聚合"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-storage.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/concept-storage.html">
+        磁盘和聚合
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="数据分层"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-data-tiering.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/concept-data-tiering.html">
+        数据分层
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="存储管理"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-storage-management.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/concept-storage-management.html">
+        存储管理
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="写入速度"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-write-speed.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/concept-write-speed.html">
+        写入速度
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Flash Cache"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-flash-cache.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/concept-flash-cache.html">
+        Flash Cache
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="WORM 存储"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-worm.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/concept-worm.html">
+        WORM 存储
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="高可用性对"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 高可用性对</div>-->
+         高可用性对
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Azure 中的 HA 对"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-ha-azure.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/concept-ha-azure.html">
+        Azure 中的 HA 对
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="存储接管期间的操作"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-degraded-ha-pair.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/zh-cn/test/azure/concept-degraded-ha-pair.html">
+        存储接管期间的操作
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="安全性"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-security.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/concept-security.html">
+        安全性
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="性能"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-performance.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/concept-performance.html">
+        性能
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理基于节点的 BYOL"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-license-management.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/concept-license-management.html">
+        管理基于节点的 BYOL
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="AutoSupport 和 Active IQ Digital Advisor"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/concept-active-iq.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/concept-active-iq.html">
+        AutoSupport 和 Active IQ Digital Advisor
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="默认配置"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/reference-default-configs.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/reference-default-configs.html">
+        默认配置
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="知识和支持"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-cn/test/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-cn/test/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 知识和支持</div>-->
+         知识和支持
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="注册以获得支持"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-support-registration.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/task-support-registration.html">
+        注册以获得支持
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="获取帮助"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/task-get-help.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-cn/test/azure/task-get-help.html">
+        获取帮助
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="法律声明"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/task-azure-key-vault.html" 
+      dale-entry-url="/legal-notices.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/zh-cn/test/azure/legal-notices.html">
+        法律声明
+      </a></li></ul>
+</div>
+<script>
+
+  $(".ie-sidebar-button").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    expandedLI = $('li.ie-sidebar-expand')
+
+    const li = $(this).closest("li");
+
+    const parentsLI = $(li).parents('li');
+
+    expandedLI.map(element => {
+      if (sidebarAccordion && !li.hasClass('ie-sidebar-expand') && jQuery.inArray(expandedLI[element], parentsLI) == -1) {
+        $(expandedLI[element]).toggleClass('ie-sidebar-expand');
+        $(expandedLI[element]).children("ul").animate({ height: 'toggle' }, 400, function () {
+          $(li).children("ul").toggleClass('ie-sidebar-open');
+
+        })
+      }
+
+    })
+
+    $(li).toggleClass('ie-sidebar-expand');
+    $(li).children("ul").animate({ height: 'toggle' }, 400, function () {
+      $(li).children("ul").toggleClass('ie-sidebar-open');
+    })
+  });
+
+
+  
+    $("li.ie-sidebar-selected").parents('ul').toggleClass("ie-sidebar-open");
+    $("li.ie-sidebar-selected").toggleClass("ie-sidebar-expand")
+    $("ul.ie-sidebar-open").parent().toggleClass("ie-sidebar-expand");
+    $("li.ie-sidebar-selected").children('ul').toggleClass("ie-sidebar-open")
+  
+  
+</script>
+    </div>
+</div>
+<script>
+
+    
+    let sidebarScrollTopPosition = 0;
+    $("#ie-new-toc").on("scroll", function () {
+        if (sidebarScrollTopPosition == 0) {
+            $.cookie("sidebarScroll", $("#ie-new-toc").scrollTop(), {
+                path: "/zh-cn/test"
+            });
+        }
+
+        if ($("#ie-new-toc").scrollTop() > 0) {
+            $('#ie-product-identity-lockup').addClass('ie-addShadow');
+        } else {
+            $('#ie-product-identity-lockup').removeClass('ie-addShadow');
+        }
+    });
+
+    $(function () {
+        if ($.cookie("sidebarScroll")) {
+            $("#ie-new-toc").scrollTop($.cookie("sidebarScroll"));
+        }
+    });
+
+    function setSidebarBottom() {
+        const footerGap = PXinViewport($(".n-footer"));
+        document.getElementById("ie-new-sidebar").style.bottom = Math.max(0, footerGap) + "px";
+    }
+
+    window.onscroll = () => {
+        setSidebarBottom();
+    };
+
+    $("#sidebar-collapse").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        if ($.cookie("sidebarScroll")) {
+            sidebarScrollTopPosition = $.cookie("sidebarScroll");
+        }
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 350, function () {
+            $("#ie-new-sidebar-collapse").show();
+            $("#ie-new-sidebar").removeClass("open")
+            $("#ie-new-sidebar").addClass("close")
+            $("#ie-new-sidebar").removeAttr("style")
+        });
+        $(".ie-content-pane").animate({ width: (width + sidebarWidth), marginLeft: (marginLeft - sidebarWidth) }, 350, function () {
+            resizeContent()
+        })
+
+    });
+    $("#sidebar-expand").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 250, function () {
+            $('#ie-new-sidebar').css('display', 'flex');
+            $("#ie-new-sidebar-collapse").hide();
+            $("#ie-new-sidebar").removeClass("close")
+            $("#ie-new-sidebar").addClass("open")
+            setSidebarBottom();
+
+            if (sidebarScrollTopPosition != 0) {
+                $.cookie("sidebarScroll", sidebarScrollTopPosition, {
+                    path: "/zh-cn/test"
+                })
+                $("#ie-new-toc").scrollTop(sidebarScrollTopPosition);
+                sidebarScrollTopPosition = 0;
+            }
+        });
+        $(".ie-content-pane").animate({ width: (width - sidebarWidth), 'marginLeft': (marginLeft + sidebarWidth) }, 250, function () {
+            resizeContent()
+        })
+    });
+    function resizeContent() {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        const rightNavbarVisible =  $("#ie-right-navbar").css('display') && $("#ie-right-navbar").css('display') != 'none';
+        const sidebarVisible = $("#ie-new-sidebar").css('display') != 'none';
+        const rightNavbarWidth = $("#ie-right-navbar").width();
+        const rightNavbarCollapseWidth = $("#ie-right-navbar-collapse").width();
+        const rightNavbarCollapseVisible = $("#ie-right-navbar-collapse").css('display') && $("#ie-right-navbar-collapse").css('display') != 'none';
+        
+        if (rightNavbarVisible && sidebarVisible) {
+            $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarWidth}px)`)
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+        } else if (sidebarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarCollapseWidth}px)`)
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar").width()}px)`)
+            }
+
+        } else if (rightNavbarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            $(".ie-content-pane").width(`calc(100% - ${rightNavbarWidth}px)`)
+        } else {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${rightNavbarCollapseWidth}px)`);
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar-collapse").width()}px) `);
+            }
+            
+        }
+    }
+    $(window).on("resize load", function () {
+        setSidebarBottom();
+        resizeContent()
+    });
+
+
+</script>
+
+<div class="ie-content-pane ie-component-detail-content ie-component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <!-- include utility.html -->
+      <div class="ie-info-disclaimer">
+    <span>
+      <div class="ie-info-disclaimer-container">
+        <div class="ie-info-disclaimer-icon">
+          <img src="/zh-cn/test/images/notification-icons.svg" class="luci-icon" alt="" />
+        </div>
+        <div class="ie-info-disclaimer-content">
+          <span> 简体中文版经机器翻译而成，仅供参考。如与英语版出现任何冲突，应以英语版为准。 </span>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </span>
+  </div><div class="ie-component-detail-heading-wrap">
+  <h1 class="ie-component-detail-heading">使用Azure密钥存储管理密钥</h1>
+</div>
+
+<div id="ie-byline">
+  
+<div class="page-details">
+    
+        
+            <time datetime="2023-09-13 15:07:03 +0000">09/13/2023</time>
+        
+    
+    
+        <span>贡献者
+        </span>
+    
+    
+</div>
+<div class="page-controls">
+    <div id="contribute-dropdown" class="custom-dropdown custom-dropdown-contrib" >
+        <div class="custom-dropdown-select custom-dropdown-select-contrib">
+        <span class="contrib-name"><img src="/zh-cn/test/images/discuss-sm.svg" alt="" class="github-icon" />建议更改</span>
+        <img src="/zh-cn/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown invisible" />
+        <img src="/zh-cn/test/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup" />
+        </div>
+        <ul class="custom-dropdown-menu suggested-changes-dropdown"><li>
+                <a target="_blank" href="https://github.com/NetAppDocs/test.zh-cn/issues/new?template=new-from-page.yml&page-url=https://docs.netapp.com/zh-cn/test/task-azure-key-vault.html&page-title=使用Azure密钥存储管理密钥" class="page-nav-contribute-link" role="button">请求文档更改</a>
+            </li><li> 
+                <a target="_blank" href="https://github.com/NetAppDocs/test/blob/main/task-azure-key-vault.adoc" class="page-nav-contribute-link" role="button">编辑此页面</a>
+            </li><li><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  >了解如何贡献</a></li>
+        </ul>
+    </div>
+    <div id="pdf-control-container">
+        <div class="n-pdf-header">
+            <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+                <img class="adobe-icon" src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>PDF<img src="/zh-cn/test/images/dropdown-arrow.svg" class="custom-icon" alt="" />
+            </a>
+        </div>
+        <div class="n-pdf-body-container">
+            <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+                    
+                    
+                    
+                    <a target="_blank" class="pdf-download-link" href="/zh-cn/test/pdfs/azure/fullsite-sidebar/Cloud_Volumes_ONTAP_文档.pdf" >
+                    <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>本文档站点的 PDF</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/发行说明.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            发行说明
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/入门.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            入门
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/开始使用_Amazon_Web_Services.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            开始使用 Amazon Web Services
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/设置网络.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            设置网络
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/开始使用_Microsoft_Azure.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            开始使用 Microsoft Azure
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/开始使用_Google_Cloud.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            开始使用 Google Cloud
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/Google_Cloud_Platform映像验证.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Google Cloud Platform映像验证
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/映像签名验证.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            映像签名验证
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/使用_Cloud_Volumes_ONTAP.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            使用 Cloud Volumes ONTAP
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/许可证管理.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            许可证管理
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/卷和_LUN_管理.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            卷和 LUN 管理
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/聚合管理.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            聚合管理
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/Storage_VM_管理.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Storage VM 管理
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/安全性和数据加密.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            安全性和数据加密
+          </a>
+          
+
+
+
+
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/系统管理.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            系统管理
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/添加_删除或删除系统.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            添加，删除或删除系统
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/AWS管理.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            AWS管理
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/Azure管理.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Azure管理
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/Google_Cloud管理.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Google Cloud管理
+          </a>
+          
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/系统运行状况和事件.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            系统运行状况和事件
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/概念.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            概念
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/存储.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            存储
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/高可用性对.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            高可用性对
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-cn/test/pdfs/azure/sidebar/知识和支持.pdf" 
+            
+          >
+            <img src="/zh-cn/test/images/pdf-icon.png" alt="" width="16" height="16"/>
+            知识和支持
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+            <div class="zip-pdf-link-container" style="display: none;">   
+                <a href="#" id="zipPdf">
+                <img src="/zh-cn/test/images/pdf-zip.png" alt="" width="16" height="16"/>
+                <pre>单独 PDF 文档的收集<span class="zip-size"></span></pre>
+                </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+        </div>
+    </div>        
+<script>
+$("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+$("#toggleButtonPdf").on('click', function(e){ 
+    e.stopPropagation();
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+});
+
+//hide is by clicking outside pdfcontainer
+$(document).on('click', function (e) {
+    if ($('#toggleContainerPdf').is(':visible') && !$('.n-pdf-body-container').is(e.target) && !$('.n-pdf-body-container').has(e.target).length)  {
+        
+        $("#toggleContainerPdf").toggle('display');
+        $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+        $("#toggleButtonPdf").removeClass("active");
+    }
+});
+</script>
+<script>
+    function getPdfLocation() {
+        const pdfLocation = window.scrollX + document.querySelector('#pdf-control-container').getBoundingClientRect().left
+        if (pdfLocation < 450) {
+            $(".n-pdf-body-container").addClass("block")
+        } else {
+            $(".n-pdf-body-container").removeClass("block")
+        }
+    
+    }
+    $( window ).on( "resize", function() {
+        getPdfLocation()
+} );
+</script>
+<script>
+    const pdfButtonWidth =  $(".n-pdf-header").width();
+    const pdfMenuWidth = $(".n-pdf-body-container").width();
+    $(".n-pdf-body-container").css('margin-left', `calc(${pdfButtonWidth - pdfMenuWidth}px)`);
+</script>
+</div>
+
+    
+
+</div>
+
+
+
+
+<div class="content-to-index">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>您可以使用 <a href="https://docs.microsoft.com/en-us/azure/key-vault/general/basic-concepts" target="_blank" rel="noopener">"Azure 密钥存储（ AKV ）"</a> 保护Azure部署应用程序中的ONTAP 加密密钥。</p>
+</div>
+<div class="paragraph">
+<p>可使用AKV进行保护 <a href="https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html" target="_blank" rel="noopener">"NetApp 卷加密（ NVE ）密钥"</a> 仅适用于数据SVM。</p>
+</div>
+<div class="paragraph">
+<p>可以使用命令行界面或ONTAP REST API启用使用AKV的密钥管理。</p>
+</div>
+<div class="paragraph">
+<p>使用AKV时、请注意、默认情况下、数据SVM LIF用于与云密钥管理端点进行通信。节点管理网络用于与云提供商的身份验证服务(login.microsoftonline.com)进行通信。如果集群网络配置不正确，集群将无法正确利用密钥管理服务。</p>
+</div>
+<div class="ulist">
+<div class="title">开始之前</div>
+<ul>
+<li>
+<p>Cloud Volumes ONTAP 必须运行9.10.1或更高版本</p>
+</li>
+<li>
+<p>已安装卷加密(VE)许可证(已向NetApp支持部门注册的每个Cloud Volumes ONTAP 系统会自动安装NetApp卷加密许可证)</p>
+</li>
+<li>
+<p>您必须具有多租户加密密钥管理(MT_EK_Mgmt)许可证</p>
+</li>
+<li>
+<p>您必须是集群管理员或SVM管理员</p>
+</li>
+<li>
+<p>Active Azure订阅</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">限制</div>
+<ul>
+<li>
+<p>只能在数据SVM上配置AKV</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="配置过程">配置过程</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>概述的步骤将介绍如何向Azure注册Cloud Volumes ONTAP 配置以及如何创建Azure密钥存储和密钥。如果您已完成这些步骤、请确保配置设置正确、尤其是在中 <a href="#create-akv">创建Azure密钥存储</a>、然后继续 <a href="#ontap">Cloud Volumes ONTAP 配置</a>。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#azure-app">Azure应用程序注册</a></p>
+</li>
+<li>
+<p><a href="#secret">创建Azure客户端密钥</a></p>
+</li>
+<li>
+<p><a href="#create-akv">创建Azure密钥存储</a></p>
+</li>
+<li>
+<p><a href="#key">创建加密密钥</a></p>
+</li>
+<li>
+<p><a href="#AAD">创建Azure Active Directory端点(仅限HA)</a></p>
+</li>
+<li>
+<p><a href="#ontap">Cloud Volumes ONTAP 配置</a></p>
+</li>
+</ul>
+</div>
+<div id="azure-app" class="olist arabic">
+<div class="title">Azure应用程序注册</div>
+<ol class="arabic">
+<li>
+<p>您必须先在希望Cloud Volumes ONTAP 用于访问Azure密钥存储的Azure订阅中注册应用程序。在Azure门户中、选择"*应用注册"。</p>
+</li>
+<li>
+<p>选择"<strong>新建注册"</strong>。</p>
+</li>
+<li>
+<p>请为您的应用程序提供一个名称、然后选择支持的应用程序类型。默认的单个租户足以使用Azure密钥存储。选择"<strong>注册"</strong>。</p>
+</li>
+<li>
+<p>在Azure概述窗口中、选择已注册的应用程序。将**应用程序(客户端) ID*和*目录(租户) ID*复制到安全位置。注册过程稍后将需要这些许可证。</p>
+</li>
+</ol>
+</div>
+<div id="secret" class="olist arabic">
+<div class="title">创建Azure客户端密钥</div>
+<ol class="arabic">
+<li>
+<p>在Azure密钥存储应用注册的Azure门户中、选择"*证书和密钥"窗格。</p>
+</li>
+<li>
+<p>选择"<strong>新建客户端密钥"</strong>。为您的客户端密钥输入一个有意义的名称。NetApp建议使用24个月的到期期限；但是、您的特定云监管策略可能需要其他设置。</p>
+</li>
+<li>
+<p>单击"<strong>添加"以创建客户端密钥。复制"</strong>value"列中列出的机密字符串、并将其存储在安全位置、以供稍后在中使用 <a href="#ontap">Cloud Volumes ONTAP 配置</a>。离开页面后、不会再显示此机密值。</p>
+</li>
+</ol>
+</div>
+<div id="create-akv" class="olist arabic">
+<div class="title">创建Azure密钥存储</div>
+<ol class="arabic">
+<li>
+<p>如果您已有Azure密钥存储、则可以将其连接到Cloud Volumes ONTAP 配置；但是、您必须根据此过程中的设置调整访问策略。</p>
+</li>
+<li>
+<p>在Azure门户中、导航到"*密钥存储"部分。</p>
+</li>
+<li>
+<p>单击"<strong>*+Create"(创建)、然后输入所需信息、包括资源组、区域和定价层。此外、输入保留已删除存储的天数、然后在密钥存储上选择"*启用清除保护"</strong>。</p>
+</li>
+<li>
+<p>选择"*下一步"以选择访问策略。</p>
+</li>
+<li>
+<p>选择以下选项：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>在"*访问配置"下、选择"*存储访问策略"。</p>
+</li>
+<li>
+<p>在"*资源访问权限"下、选择"*用于卷加密的Azure磁盘加密"。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>选择"**+Create"以添加访问策略。</p>
+</li>
+<li>
+<p>在"*从模板配置"*下、单击下拉菜单、然后选择"*密钥"、"机密"和"证书管理"*模板。</p>
+</li>
+<li>
+<p>选择每个下拉权限菜单(密钥、密钥、证书)、然后选择菜单列表顶部的"**全选"*以选择所有可用权限。您应具备：</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>密钥权限</strong>：已选择20个</p>
+</li>
+<li>
+<p>"<strong>*机密权限"</strong>：已选择8个</p>
+</li>
+<li>
+<p>"<strong>*证书权限"</strong>：已选择16个</p>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot-azure-key-secret-cert-all-list.png" alt="创建访问策略的屏幕截图、其中显示了创建访问策略所需的所有权限选择"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>单击"<strong>下一步"以选择您在中创建的"*主体"*已注册Azure应用程序 <a href="#azure-app">Azure应用程序注册</a>。选择"*下一步"</strong>。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/test/images/note.svg" alt="备注">
+</td>
+<td class="content">
+每个策略只能分配一个主体。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot-azure-key-secret-cert-principal.png" alt="创建访问策略主体选项卡的屏幕截图"></span></p>
+</div>
+</li>
+<li>
+<p>单击两次"<strong>下一步"</strong>、直到到达"<strong>查看并创建"</strong>。然后、单击"**创建"。</p>
+</li>
+<li>
+<p>选择"*下一步"*以进入"*网络连接"*选项。</p>
+</li>
+<li>
+<p>选择适当的网络访问方法或选择"**所有网络"*和"*查看+创建"*以创建密钥存储。(网络访问方法可能由监管策略或您的企业云安全团队规定。)</p>
+</li>
+<li>
+<p>记录密钥存储URI：在您创建的密钥存储中、导航到概述菜单并从右侧列复制"*存储URI"。您需要在后续步骤中使用此功能。</p>
+</li>
+</ol>
+</div>
+<div id="key" class="olist arabic">
+<div class="title">创建加密密钥</div>
+<ol class="arabic">
+<li>
+<p>在为Cloud Volumes ONTAP 创建的密钥存储的菜单中、导航到"*密钥"选项。</p>
+</li>
+<li>
+<p>选择"*生成/导入"*以创建新密钥。</p>
+</li>
+<li>
+<p>将默认选项设置为"*生成"。</p>
+</li>
+<li>
+<p>请提供以下信息：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>加密密钥名称</p>
+</li>
+<li>
+<p>密钥类型：RSA</p>
+</li>
+<li>
+<p>RSA密钥大小：2048</p>
+</li>
+<li>
+<p>Enabled：是</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>选择"**创建"以创建加密密钥。</p>
+</li>
+<li>
+<p>返回到"**密钥"菜单、然后选择刚刚创建的密钥。</p>
+</li>
+<li>
+<p>在"*当前版本"下选择密钥ID以查看密钥属性。</p>
+</li>
+<li>
+<p>找到"*密钥标识符"*字段。将此URI复制到、但不包括十六进制字符串。</p>
+</li>
+</ol>
+</div>
+<div id="AAD" class="olist arabic">
+<div class="title">创建Azure Active Directory端点(仅限HA)</div>
+<ol class="arabic">
+<li>
+<p>只有在为HA Cloud Volumes ONTAP 工作环境配置Azure密钥存储时、才需要执行此过程。</p>
+</li>
+<li>
+<p>在Azure门户中、导航到"**虚拟网络"。</p>
+</li>
+<li>
+<p>选择部署Cloud Volumes ONTAP 工作环境的虚拟网络、然后选择页面左侧的"*子网"*菜单。</p>
+</li>
+<li>
+<p>从列表中选择Cloud Volumes ONTAP 部署的子网名称。</p>
+</li>
+<li>
+<p>导航到"**服务端点"*标题。在下拉菜单中、选择以下内容：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>"10.microsoft.AzureActiveDirectory"</p>
+</li>
+<li>
+<p><strong>*microsoft.KeyVaule</strong></p>
+</li>
+<li>
+<p>"10.microsoft.Storage"*(可选)</p>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot-azure-service-endpoints-services.png" alt="显示三个选定服务的服务端点的屏幕截图"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>选择"*保存"*以捕获设置。</p>
+</li>
+</ol>
+</div>
+<div id="ontap" class="olist arabic">
+<div class="title">Cloud Volumes ONTAP 配置</div>
+<ol class="arabic">
+<li>
+<p>使用首选SSH客户端连接到集群管理LIF。</p>
+</li>
+<li>
+<p>在ONTAP 中进入高级权限模式：<br>
+<code>set advanced -con off</code></p>
+</li>
+<li>
+<p>确定所需的数据SVM并验证其DNS配置：<br>
+<code>vserver services name-service dns show</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>如果所需数据SVM的DNS条目存在、并且其中包含Azure DNS的条目、则无需执行任何操作。如果不支持、请为指向Azure DNS、专用DNS或内部部署服务器的数据SVM添加DNS服务器条目。  此名称应与集群管理SVM的条目匹配：<br>
+<code>vserver services name-service dns create -vserver <em>SVM_name</em> -domains <em>domain</em> -name-servers <em>IP_address</em></code></p>
+</li>
+<li>
+<p>验证是否已为数据SVM创建DNS服务：<br>
+<code>vserver services name-service dns show</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>使用应用程序注册后保存的客户端ID和租户ID启用Azure密钥存储：<br>
+<code>security key-manager external azure enable -vserver <em>SVM_name</em> -client-id <em>Azure_client_ID</em> -tenant-id <em>Azure_tenant_ID</em> -name <em>Azure_key_vault_name</em> -key-id <em>Azure_key_ID</em></code></p>
+</li>
+<li>
+<p>检查密钥管理器的状态：<br>
+<code>security key-manager external azure check</code><br>
+输出如下所示：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>::*&gt; security key-manager external azure check
+
+Vserver: data_svm_name
+Node: akvlab01-01
+
+Category: service_reachability
+    Status: OK
+
+Category: ekmip_server
+    Status: OK
+
+Category: kms_wrapped_key_status
+    Status: UNKNOWN
+    Details: No volumes created yet for the vserver. Wrapped KEK status will be available after creating encrypted volumes.
+
+3 entries were displayed.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>如果 <code>service_reachability</code> 状态不是 <code>OK</code>、SVM无法使用所需的所有连接和权限访问Azure密钥存储服务。确保您的Azure网络策略和路由不会阻止您的专用vNet访问Azure KeyVault公共端点。如果有、请考虑使用Azure私有端点从vNet中访问密钥存储。您可能还需要在SVM上添加静态主机条目、以解析端点的专用IP地址。</p>
+</div>
+<div class="paragraph">
+<p>。 <code>kms_wrapped_key_status</code> 将报告 <code>UNKNOWN</code> 初始配置时。其状态将更改为 <code>OK</code> 对第一个卷进行加密后。</p>
+</div>
+</li>
+<li>
+<p>可选：创建测试卷以验证NVE的功能。</p>
+<div class="paragraph">
+<p><code>vol create -vserver <em>SVM_name</em> -volume <em>volume_name</em> -aggregate <em>aggr</em> -size <em>size</em> -state online -policy default</code></p>
+</div>
+<div class="paragraph">
+<p>如果配置正确、Cloud Volumes ONTAP 将自动创建卷并启用卷加密。</p>
+</div>
+</li>
+<li>
+<p>确认卷已正确创建和加密。如果是、则 <code>-is-encrypted</code> 参数将显示为 <code>true</code>。<br>
+<code>vol show -vserver <em>SVM_name</em> -fields is-encrypted</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  
+  <!-- Start Page Toolbar -->
+<div id="ie-right-navbar-collapse" class="close">
+  <img id="navbar-expand" class="ie-searchbox-icon" src="/zh-cn/test/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-right-navbar" class="open">
+  <div id="right-navbar-collapse">
+    <img src="/zh-cn/test/images/double_arrow.svg" alt="" />
+  </div>
+  <div class="page-nav-container">
+    <nav class="page-nav-fixed">
+      <div class="page-nav-title">在本页面中</div>
+      <div class="page-nav-links">
+        <ul class="page-nav-inner" id="page-menu"></ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<script>
+  resizeContent();
+  function setRightBarHeight() {
+    var h = 0;
+
+    // header 1
+    h += PXinViewport($('.n-footer'));
+    h += PXinViewport($('#ie-new-header'));
+
+    if ($('#ie-right-navbar').length) {
+      $('#ie-right-navbar').css({ height: `calc(100vh - ${h}px)` });
+    }
+    if ($('.page-nav-links').length) {
+      h += 98;
+      $('.page-nav-links').css({ height: `calc(100vh - ${h}px)` });
+    }
+  }
+
+  $(document).ready(function () {
+    // PAGE NAV - Click
+    const MASTHEAD_OFFSET = 65;
+    const SECTIONS = $("main h2, main h3");
+    let calculateActiveSection = false;
+    setTimeout(() => {
+      calculateActiveSection = true;
+    }, 100)
+
+    $(".page-nav__link").click(function (event) {
+      calculateActiveSection = false;
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      var target = $(event.target);
+      target.addClass('page-nav__link--active');
+      location.hash = event.target.hash;
+      setTimeout(() => {
+        calculateActiveSection = true;
+      }, 100)
+
+    });
+
+    // PAGE NAV - Scroll
+    $(window).on('resize scroll', function () {
+      if (calculateActiveSection) {
+        var activeSection = getActiveSection(SECTIONS, MASTHEAD_OFFSET);
+        if (activeSection) {
+          var activeHref = $(activeSection).attr('id');
+          $(".page-nav__link").removeClass('page-nav__link--active');
+          $("#page-menu a[href=#" + activeHref + "]").addClass('page-nav__link--active');
+          if (location.hash != "#" + activeHref) {
+            if (history.replaceState) {
+              history.replaceState(null, null, "#" + activeHref);
+            }
+          }
+        }
+      }
+    });
+
+    $(".n-pdf-button").click(function () {
+      $(this).toggleClass("active");
+    });
+
+    $.fn.isVisibleAndInViewport = function () {
+      var elementTop = $(this).offset().top;
+      var elementBottom = elementTop + $(this).outerHeight();
+
+      var viewportTop = $(window).scrollTop();
+      var viewportBottom = viewportTop + $(window).height();
+
+      return elementBottom > viewportTop && elementTop < viewportBottom && $(this).is(":visible");
+    };
+
+
+    $(window).on('resize scroll', function () {
+      setRightBarHeight();
+    });
+
+    $(window).trigger('resize');
+
+
+  });
+
+  $("#right-navbar-collapse").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 350, function () {
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+    });
+    $(".ie-content-pane").animate({ width: (width + rightNavbarWidth) }, 350, function () {
+      resizeContent()
+      setSidebarBottom();
+    })
+
+  });
+  $("#navbar-expand").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 250, function () {
+      $("#ie-right-navbar-collapse").removeClass("open")
+      $("#ie-right-navbar-collapse").addClass("close")
+      $("#ie-right-navbar").removeClass("close")
+      $("#ie-right-navbar").addClass("open")
+      setRightBarHeight();
+      setSidebarBottom();
+    });
+    $(".ie-content-pane").animate({ width: (width - rightNavbarWidth) }, 250, function () {
+      resizeContent()
+    })
+  });
+
+  function navbarResize() {
+    const rightNavbarResized = $("#ie-right-navbar-collapse").hasClass('resized');
+    if (window.innerWidth < 1024) {
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+      $("#ie-right-navbar").removeAttr("style")
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar-collapse").addClass("resized")
+    } else {
+      if (rightNavbarResized) {
+        $('#ie-right-navbar').removeClass('close');
+        $('#ie-right-navbar').addClass('open');
+        $("#ie-right-navbar-collapse").removeClass("resized")
+        $("#ie-right-navbar-collapse").removeClass("open")
+        $("#ie-right-navbar-collapse").addClass("close")
+      }
+    }
+    resizeContent()
+  }
+  navbarResize();
+  $(window).on('resize load', function () {
+    navbarResize()
+  });
+
+  function getActiveSection(sections, offset) {
+    var scrollPosition = $(window).scrollTop() + offset + 5;
+    var activeSection;
+    for (var i = 0; i < sections.length; i++) {
+      var el = $(sections[i]);
+      var activePosition = el.offset().top;
+      if (activePosition > scrollPosition) {
+        break;
+      }
+
+      activeSection = sections[i];
+    }
+
+    return activeSection;
+  }
+
+  $("a[href*=#]:not([href=#])").click(function () {
+    setTimeout(() => {
+      $(window).trigger('scroll');
+    }, 105)
+  })
+
+  const hashOnLoad = location.href.split("#")[1];
+  setTimeout(function () {
+    if (hashOnLoad) {
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      $("#page-menu a[href=#" + hashOnLoad + "]").addClass('page-nav__link--active');
+    }
+  }, 100)
+
+</script>
+
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+        <div class="n-footer__left">
+          <li class="n-footer__copyright-link">
+                    <a href="https://www.netapp.com/company/legal/copyright/">© 2024 NetApp, Inc.</a>
+          </li>
+        </div>
+        <div class="n-footer__center">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">使用条款</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">隐私策略</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie 政策</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Cookie 设置</a>
+            </li>
+          </ul>
+       </div>
+        <div class="n-footer__right">
+              <li class="n-footer__copyright-link">
+                <a target="_self" href="javascript:netapp_mailto()">请发送有关此页面的反馈</a>
+              </li>
+        </div>
+     </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-cn/test/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-cn/test/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-cn/test/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-cn/test/js/ie-tabbed-blocks.js'></script>
+    <script src='/zh-cn/test/js/ie-sidebar.js'></script>
+  </body>
+
+</html>

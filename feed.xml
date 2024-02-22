@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>test | NetApp Documentation</title>
+    <atom:link href="https://docs.netapp.com/zh-cn/test/feed.xml" rel="self" type="application/rss+xml"/>
+    <link>https://docs.netapp.com/zh-cn/test</link>
+    <description>The latest updates from NetApp Documentation</description>
+    <language>zh-cn</language>
+    <ttl>60</ttl>
+    <pubDate>Thu, 22 Feb 2024 20:05:39 +0000</pubDate>
+    <lastBuildDate>Thu, 22 Feb 2024 20:05:39 +0000</lastBuildDate>
+    
+    
+    
+    <item>
+      <title>新增功能 (13 Sep 2023)</title>
+      <pubDate>Wed, 13 Sep 2023 15:07:03 +0000</pubDate>
+      <link>https://docs.netapp.com/zh-cn/test/whats-new.html?time=1694617623</link>
+      <guid isPermaLink="false">Wed, 13 Sep 2023 15:07:03 +0000</guid>
+      <description><![CDATA[ 了解BlueXP中Cloud Volumes ONTAP 管理的新增功能。 ]]></description>
+    </item>
+    
+    
+  </channel>
+</rss>
