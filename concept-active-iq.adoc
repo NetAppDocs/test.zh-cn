@@ -14,7 +14,7 @@ summary: ONTAP 的 AutoSupport 组件会收集遥测数据并将其发送以供�
 
 
 [role="lead"]
-ONTAP 的 AutoSupport 组件会收集遥测数据并将其发送以供分析。Active IQ Digital Advisor 可分析 AutoSupport 中的数据，并提供主动式维护和优化。利用人工智能， Active IQ 可以识别潜在问题并帮助您在问题影响业务之前解决这些问题。
+ONTAP 的 AutoSupport 组件会收集遥测数据并将其发送以供分析。Active IQ Digital Advisor 可分析 AutoSupport 中的数据，并提供主动式维护和优化。利用人工智能， Active IQ 可以识别潜在问题并帮助您在问题影响业务之前解决这些问题。转换测试更改。
 
 更改本地化版本。
 
