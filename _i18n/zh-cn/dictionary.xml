@@ -5185,5 +5185,5 @@ BlueXP为HA对分配12-13个IP地址：</block>
   <block id="589a92e5ac7fd2654f5ce5d9594f5e7c" category="paragraph">在｛zwsp｝之前</block>
   <block id="d59e0b46782e48a01966e5c7ccc38d17" category="paragraph">NetApp使用Microsoft Entra ID作为特定于支持和许可的身份验证服务的身份提供程序。</block>
   <block id="62dfedabf822fc3986bc7eb04a7ea341" category="paragraph">ONTAP 的 AutoSupport 组件会收集遥测数据并将其发送以供分析。Active IQ Digital Advisor 可分析 AutoSupport 中的数据，并提供主动式维护和优化。利用人工智能， Active IQ 可以识别潜在问题并帮助您在问题影响业务之前解决这些问题。转换测试更改。</block>
-  <block id="b90e0d6074e28fb6137e5000f4d79629" category="paragraph">更改本地化版本。启用docbot和test loc display。</block>
+  <block id="dcde2fc42f8e1ac943cfbde4304d52db" category="paragraph">更改本地化版本。启用docbot和test loc display。正在测试docbot功能。</block>
 </blocks>

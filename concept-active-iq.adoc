@@ -16,7 +16,7 @@ summary: ONTAP 的 AutoSupport 组件会收集遥测数据并将其发送以供�
 [role="lead"]
 ONTAP 的 AutoSupport 组件会收集遥测数据并将其发送以供分析。Active IQ Digital Advisor 可分析 AutoSupport 中的数据，并提供主动式维护和优化。利用人工智能， Active IQ 可以识别潜在问题并帮助您在问题影响业务之前解决这些问题。转换测试更改。
 
-更改本地化版本。启用docbot和test loc display。
+更改本地化版本。启用docbot和test loc display。正在测试docbot功能。
 
 Active IQ 通过基于云的门户和移动应用程序提供可操作的预测性分析和主动式支持，帮助您优化全球混合云中的数据基础架构。Active IQ 提供的数据驱动型洞察力和建议可供具有有效 SupportEdge 合同的所有 NetApp 客户使用（功能因产品和支持层而异）。
 
